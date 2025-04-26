@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Interativo: Toque Sua 1ª Música em 3 Dias - Kit Violão Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --primary-dark: #6B3309;
+            --primary-light: #A76D41;
+            --secondary-color: #A0522D;
+            --accent-color: #CD853F;
+            --dark-color: #3E2723;
+            --light-color: #F5F5DC;
+            --success-color: #8B4513;
+            --warning-color: #F5A623;
+            --danger-color: #F44336;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(139, 69, 19, 0.15);
+            --transition: all 0.3s ease;
+            --background-color: #F5F5DC;
+            --card-background: #FFF8E1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--background-color);
+            padding-bottom: 50px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--light-color);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(45deg, var(--light-color) 25%, transparent 25%, transparent 75%, var(--light-color) 75%, var(--light-color)),
+                        linear-gradient(45deg, var(--light-color) 25%, transparent 25%, transparent 75%, var(--light-color) 75%, var(--light-color));
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            transform: rotate(180deg);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .intro-card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: -30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 2;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .intro-card h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .intro-card p {
+            margin-bottom: 1rem;
+        }
+        
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .day-card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .day-header {
+            padding: 1rem;
+            background: var(--primary-color);
+            color: var(--light-color);
+            position: relative;
+        }
+        
+        .day-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .day-icon {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .day-progress {
+            margin-top: 10px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .day-progress-bar {
+            height: 100%;
+            background-color: var(--light-color);
+            width: 0;
+            transition: width 0.5s ease;
+        }
+        
+        .day-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .day-description {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+        
+        .task-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-checkbox {
+            margin-right: 10px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .task-checkbox.completed {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+        
+        .task-content {
+            flex-grow: 1;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+        
+        .task-item.completed .task-title {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+        
+        .task-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .task-actions {
+            margin-top: 8px;
+        }
+        
+        .task-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .task-action:hover {
+            color: var(--primary-color);
+        }
+        
+        .task-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        .day-footer {
+            padding: 1rem 1.5rem;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .day-counter {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .day-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .day-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .day-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .overall-progress {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .progress-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-title {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .progress-percentage {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .progress-bar-container {
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            width: 0;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+        
+        .progress-days {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .progress-day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .day-marker {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ddd;
+            transition: var(--transition);
+        }
+        
+        .day-marker.active {
+            background-color: var(--success-color);
+            transform: scale(1.2);
+        }
+        
+        .day-marker.current {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.3);
+        }
+        
+        .day-label {
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 500;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e9dcbe;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            position: relative;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding-right: 30px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--light-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .video-container {
+            display: none;
+        }
+        
+        .summary-card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .summary-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .summary-points {
+            list-style: none;
+        }
+        
+        .summary-point {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .summary-point::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .resource-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .resource-card {
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            transition: var(--transition);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .resource-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .resource-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+        
+        .resource-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .celebration-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .celebration-item {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-color);
+            opacity: 0;
+        }
+        
+        footer {
+            background-color: var(--light-color);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        .note-box {
+            background-color: #fff3e0;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .note-box-title {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 1.5rem 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .days-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .day-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .day-button {
+                width: 100%;
+            }
+            
+            .progress-title {
+                font-size: 1.2rem;
+            }
+            
+            .progress-percentage {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Adicionando estilos para diagramas interativos */
+        .chord-diagram {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        
+        .chord-image {
+            width: 150px;
+            height: 180px;
+            background-color: var(--card-background);
+            border: 1px solid #e9dcbe;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+        
+        .chord-grid {
+            width: 100px;
+            height: 120px;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 0;
+        }
+        
+        .chord-string {
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+            position: absolute;
+        }
+        
+        .chord-string:nth-child(1) { top: 0; }
+        .chord-string:nth-child(2) { top: 24px; }
+        .chord-string:nth-child(3) { top: 48px; }
+        .chord-string:nth-child(4) { top: 72px; }
+        .chord-string:nth-child(5) { top: 96px; }
+        .chord-string:nth-child(6) { top: 120px; }
+        
+        .chord-fret {
+            height: 100%;
+            width: 2px;
+            background-color: #333;
+            position: absolute;
+        }
+        
+        .chord-fret:nth-child(7) { left: 0; }
+        .chord-fret:nth-child(8) { left: 20px; }
+        .chord-fret:nth-child(9) { left: 40px; }
+        .chord-fret:nth-child(10) { left: 60px; }
+        .chord-fret:nth-child(11) { left: 80px; }
+        .chord-fret:nth-child(12) { left: 100px; }
+        
+        .chord-finger {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+        
+        .chord-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .chord-steps {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+        
+        .chord-steps li {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .expand-button {
+            padding: 8px 12px;
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .expand-button:hover {
+            background-color: #205f91;
+        }
+        
+        .technique-content {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .technique-content.expanded {
+            display: block;
+        }
+        
+        .exercise-diagram {
+            position: relative;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .rhythm-pattern {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .rhythm-symbol {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .hand-position-diagram {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background: white;
+            margin: 15px auto;
+            text-align: center;
+        }
+        
+        .hand-position-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .hand-position-text {
+            font-size: 80px;
+            color: var(--primary-color);
+        }
+        
+        .hand-caption {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .interactive-checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .instruction-step {
+            position: relative;
+            padding: 10px;
+            background-color: #f0f7ff;
+            border-left: 3px solid var(--secondary-color);
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .practice-timer {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .timer-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            background: var(--card-background);
+            padding: 10px 20px;
+            border-radius: 8px;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .timer-button {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .timer-button:hover {
+            background-color: #205f91;
+        }
+        
+        .song-diagram {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .song-title {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .song-progression {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .song-chord {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .song-arrow {
+            display: flex;
+            align-items: center;
+            color: #999;
+            font-size: 1.2rem;
+        }
+        
+        .song-lyrics {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .chord-marker {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .tips-list {
+            background-color: #fff3e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .tips-list h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tips-list ul {
+            padding-left: 20px;
+        }
+        
+        .tips-list li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .practice-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+        }
+        
+        .practice-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--light-color);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+        
+        .back-to-home i {
+            margin-right: 8px;
+        }
+        
+        .back-to-home:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-step {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+        
+        .progress-step.active::before {
+            background-color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-to-home"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
+    <div class="header">
+        <div class="header-content">
+            <h1>🎯 Toque Sua Primeira Música em 3 Dias</h1>
+            <div class="subtitle">Checklist interativo passo a passo com instruções detalhadas e diagramas para dominar sua primeira música!</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>Como funciona o checklist interativo?</h2>
+            <p>Este guia foi projetado para levar você do zero até tocar sua primeira música completa em apenas 3 dias! Cada dia tem tarefas específicas com diagramas de acordes, instruções detalhadas e exercícios práticos.</p>
+            <p><strong>Como usar:</strong> Marque as tarefas que você completar, clique nos botões de "Ver instruções" para visualizar os diagramas e pratique seguindo o tempo recomendado. Ao final do terceiro dia, você será capaz de tocar uma música completa!</p>
+        </div>
+
+        <div class="overall-progress">
+            <div class="progress-heading">
+                <div class="progress-title">Progresso Geral</div>
+                <div class="progress-percentage">0%</div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="overall-progress-bar"></div>
+            </div>
+            <div class="progress-days">
+                <div class="progress-day">
+                    <div class="day-marker current" id="day-marker-1"></div>
+                    <div class="day-label">Dia 1</div>
+                </div>
+                <div class="progress-day">
+                    <div class="day-marker" id="day-marker-2"></div>
+                    <div class="day-label">Dia 2</div>
+                </div>
+                <div class="progress-day">
+                    <div class="day-marker" id="day-marker-3"></div>
+                    <div class="day-label">Dia 3</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="days-container">
+            <!-- Dia 1 -->
+            <div class="day-card" id="day-1">
+                <div class="day-header">
+                    <h3>
+                        <div class="day-icon">1</div>
+                        Dia 1: Bases e Primeiros Acordes
+                    </h3>
+                    <div class="day-progress">
+                        <div class="day-progress-bar" id="day-1-progress"></div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-description">
+                        Hoje vamos aprender a segurar o violão corretamente, conhecer as partes do instrumento e dominar seus primeiros acordes.
+                    </div>
+                    <ul class="task-list" id="day-1-tasks">
+                        <li class="task-item" data-id="1-1">
+                            <div class="task-checkbox" onclick="toggleTask('1-1')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Postura e Posição das Mãos</div>
+                                <div class="task-description">Aprenda como segurar o violão corretamente e posicionar as duas mãos.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Postura e Posição Correta', 'postura')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 5 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="1-2">
+                            <div class="task-checkbox" onclick="toggleTask('1-2')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Acorde C (Dó Maior)</div>
+                                <div class="task-description">Aprenda seu primeiro acorde: C maior, um dos mais fáceis para iniciantes.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Como fazer o acorde C (Dó maior)', 'acorde-c')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 10 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="1-3">
+                            <div class="task-checkbox" onclick="toggleTask('1-3')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Acorde G (Sol Maior)</div>
+                                <div class="task-description">Aprenda o acorde G maior, fundamental para diversas músicas.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Como fazer o acorde G (Sol maior)', 'acorde-g')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 10 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="1-4">
+                            <div class="task-checkbox" onclick="toggleTask('1-4')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Trocar entre C e G</div>
+                                <div class="task-description">Pratique a troca entre os acordes C e G lentamente, aumentando a velocidade gradualmente.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Como trocar entre acordes C e G', 'troca-c-g')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 15 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="day-footer">
+                    <div class="day-counter"><span id="day-1-counter">0</span>/4 Concluídas</div>
+                    <button class="day-button" id="day-1-button" onclick="completeDay(1)" disabled>Concluir Dia 1</button>
+                </div>
+            </div>
+
+            <!-- Dia 2 -->
+            <div class="day-card" id="day-2">
+                <div class="day-header">
+                    <h3>
+                        <div class="day-icon">2</div>
+                        Dia 2: Ritmos e Mais Acordes
+                    </h3>
+                    <div class="day-progress">
+                        <div class="day-progress-bar" id="day-2-progress"></div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-description">
+                        Hoje vamos aprender batidas rítmicas básicas e adicionar mais acordes ao seu repertório.
+                    </div>
+                    <ul class="task-list" id="day-2-tasks">
+                        <li class="task-item" data-id="2-1">
+                            <div class="task-checkbox" onclick="toggleTask('2-1')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Batida Básica para Iniciantes</div>
+                                <div class="task-description">Aprenda um padrão de batida simples que funciona com a maioria das músicas.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Batida Básica para Iniciantes', 'batida-basica')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 15 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="2-2">
+                            <div class="task-checkbox" onclick="toggleTask('2-2')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Acorde D (Ré Maior)</div>
+                                <div class="task-description">Aprenda o acorde D maior para expandir seu repertório.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Como fazer o acorde D (Ré maior)', 'acorde-d')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 10 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="2-3">
+                            <div class="task-checkbox" onclick="toggleTask('2-3')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Acorde Em (Mi menor)</div>
+                                <div class="task-description">Aprenda seu primeiro acorde menor: Mi menor.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Como fazer o acorde Em (Mi menor)', 'acorde-em')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 10 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="2-4">
+                            <div class="task-checkbox" onclick="toggleTask('2-4')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Praticar a sequência: G - D - Em - C</div>
+                                <div class="task-description">Pratique a transição entre estes quatro acordes, que são usados em centenas de músicas populares.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Praticando a sequência G-D-Em-C', 'sequencia-acordes')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 20 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="day-footer">
+                    <div class="day-counter"><span id="day-2-counter">0</span>/4 Concluídas</div>
+                    <button class="day-button" id="day-2-button" onclick="completeDay(2)" disabled>Concluir Dia 2</button>
+                </div>
+            </div>
+
+            <!-- Dia 3 -->
+            <div class="day-card" id="day-3">
+                <div class="day-header">
+                    <h3>
+                        <div class="day-icon">3</div>
+                        Dia 3: Sua Primeira Música!
+                    </h3>
+                    <div class="day-progress">
+                        <div class="day-progress-bar" id="day-3-progress"></div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-description">
+                        Hoje é o grande dia! Vamos juntar tudo o que aprendemos para tocar sua primeira música completa.
+                    </div>
+                    <ul class="task-list" id="day-3-tasks">
+                        <li class="task-item" data-id="3-1">
+                            <div class="task-checkbox" onclick="toggleTask('3-1')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Revisão de todos os acordes</div>
+                                <div class="task-description">Revise rapidamente todos os acordes que aprendemos: C, G, D e Em.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Revisando todos os acordes aprendidos', 'revisao-acordes')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 10 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="3-2">
+                            <div class="task-checkbox" onclick="toggleTask('3-2')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Aprendendo sua primeira música</div>
+                                <div class="task-description">Aprenda a tocar "Knockin' on Heaven's Door" (versão simplificada) usando os acordes G, D, C e Em.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Aprendendo sua primeira música completa', 'primeira-musica')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 20 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="3-3">
+                            <div class="task-checkbox" onclick="toggleTask('3-3')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Praticando a música sem cantar</div>
+                                <div class="task-description">Pratique a sequência de acordes e o ritmo da música, sem se preocupar com a letra ainda.</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Praticando a música sem cantar', 'pratica-acordes')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 15 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-item" data-id="3-4">
+                            <div class="task-checkbox" onclick="toggleTask('3-4')">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-title">Tocando e cantando a música completa</div>
+                                <div class="task-description">Agora é hora de juntar tudo: tocar e cantar sua primeira música completa!</div>
+                                <div class="task-actions">
+                                    <a href="#" class="task-action" onclick="openInstructionModal('Tocando e cantando sua primeira música', 'musica-completa')">
+                                        <i class="fas fa-book-open"></i> Ver instruções
+                                    </a>
+                                    <span class="task-time">
+                                        <i class="far fa-clock"></i> 20 minutos
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="day-footer">
+                    <div class="day-counter"><span id="day-3-counter">0</span>/4 Concluídas</div>
+                    <button class="day-button" id="day-3-button" onclick="completeDay(3)" disabled>Concluir Dia 3</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <h2>Próximos Passos</h2>
+            <p>Parabéns por começar sua jornada! Após completar este checklist de 3 dias, você já será capaz de:</p>
+            <ul class="summary-points">
+                <li class="summary-point">Tocar 4 acordes fundamentais: C, G, D e Em</li>
+                <li class="summary-point">Executar uma batida rítmica básica com a mão direita</li>
+                <li class="summary-point">Trocar entre acordes com mais fluidez</li>
+                <li class="summary-point">Tocar e cantar "Knockin' on Heaven's Door" do começo ao fim</li>
+            </ul>
+            
+            <div class="note-box">
+                <div class="note-box-title">
+                    <i class="fas fa-lightbulb"></i> Dica importante!
+                </div>
+                <p>A constância é mais importante que longas sessões de prática. É melhor praticar 15 minutos todos os dias do que 2 horas uma vez por semana. Continue praticando diariamente mesmo após completar este checklist!</p>
+            </div>
+            
+            <h3>Recursos adicionais para continuar seu aprendizado:</h3>
+            <div class="resource-list">
+                <div class="resource-card">
+                    <div class="resource-title">Mais músicas fáceis para iniciantes</div>
+                    <div class="resource-description">Coletânea com 10 músicas que usam apenas os acordes que você aprendeu.</div>
+                    <a href="#" class="resource-link">Acessar <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-title">Livro de acordes para impressão</div>
+                    <div class="resource-description">PDF com todos os acordes básicos para você consultar enquanto pratica.</div>
+                    <a href="#" class="resource-link">Baixar PDF <i class="fas fa-download"></i></a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-title">Roteiro para 30 dias</div>
+                    <div class="resource-description">Continue evoluindo com nosso plano de 30 dias para violonistas iniciantes.</div>
+                    <a href="#" class="resource-link">Acessar plano <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="video-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Título da Instrução</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="instruction-content" id="instruction-content">
+                    <!-- O conteúdo da instrução será inserido dinamicamente aqui -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="day-button" onclick="closeModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="celebration-container" id="celebration-container"></div>
+
+    <footer>
+        <p>Kit Violão Profissional - Checklist Interativo: Toque sua primeira música em 3 dias</p>
+        <p>Lembre-se: Todo grande músico começou do zero. Não desista! 🎵</p>
+    </footer>
+
+    <script>
+        // Estado das tarefas
+        let tasks = {
+            '1-1': false, '1-2': false, '1-3': false, '1-4': false,
+            '2-1': false, '2-2': false, '2-3': false, '2-4': false,
+            '3-1': false, '3-2': false, '3-3': false, '3-4': false
+        };
+        
+        // Estado dos dias
+        let days = {
+            1: false,
+            2: false,
+            3: false
+        };
+        
+        // Carrega o progresso salvo
+        function loadProgress() {
+            const savedTasks = localStorage.getItem('checklist-tasks');
+            const savedDays = localStorage.getItem('checklist-days');
+            
+            if (savedTasks) {
+                tasks = JSON.parse(savedTasks);
+                updateTasksUI();
+            }
+            
+            if (savedDays) {
+                days = JSON.parse(savedDays);
+                updateDaysUI();
+            }
+            
+            updateOverallProgress();
+        }
+        
+        // Salva o progresso
+        function saveProgress() {
+            localStorage.setItem('checklist-tasks', JSON.stringify(tasks));
+            localStorage.setItem('checklist-days', JSON.stringify(days));
+        }
+        
+        // Alternar estado da tarefa
+        function toggleTask(taskId) {
+            if (tasks.hasOwnProperty(taskId)) {
+                tasks[taskId] = !tasks[taskId];
+                updateTasksUI();
+                saveProgress();
+                updateDayButtons();
+                updateOverallProgress();
+            } else {
+                console.error('ID de tarefa inválido:', taskId);
+            }
+        }
+        
+        // Atualizar UI das tarefas
+        function updateTasksUI() {
+            for (const taskId in tasks) {
+                const taskItem = document.querySelector(`.task-item[data-id="${taskId}"]`);
+                const checkbox = taskItem.querySelector('.task-checkbox');
+                
+                if (tasks[taskId]) {
+                    taskItem.classList.add('completed');
+                    checkbox.classList.add('completed');
+                } else {
+                    taskItem.classList.remove('completed');
+                    checkbox.classList.remove('completed');
+                }
+            }
+            
+            // Atualizar contadores
+            for (let day = 1; day <= 3; day++) {
+                const taskIds = Object.keys(tasks).filter(id => id.startsWith(`${day}-`));
+                const completedTasks = taskIds.filter(id => tasks[id]).length;
+                document.getElementById(`day-${day}-counter`).textContent = completedTasks;
+                
+                // Atualizar barra de progresso do dia
+                const progress = (completedTasks / taskIds.length) * 100;
+                document.getElementById(`day-${day}-progress`).style.width = `${progress}%`;
+            }
+        }
+        
+        // Atualizar botões de conclusão do dia
+        function updateDayButtons() {
+            for (let day = 1; day <= 3; day++) {
+                const taskIds = Object.keys(tasks).filter(id => id.startsWith(`${day}-`));
+                const allCompleted = taskIds.every(id => tasks[id]);
+                document.getElementById(`day-${day}-button`).disabled = !allCompleted || days[day];
+            }
+        }
+        
+        // Marcar dia como concluído
+        function completeDay(day) {
+            days[day] = true;
+            document.getElementById(`day-${day}-button`).disabled = true;
+            document.getElementById(`day-${day}-button`).textContent = 'Dia Concluído! ✓';
+            
+            // Se não for o último dia, destaque o próximo dia
+            if (day < 3) {
+                document.getElementById(`day-marker-${day}`).classList.remove('current');
+                document.getElementById(`day-marker-${day}`).classList.add('active');
+                document.getElementById(`day-marker-${day+1}`).classList.add('current');
+            } else {
+                document.getElementById(`day-marker-${day}`).classList.remove('current');
+                document.getElementById(`day-marker-${day}`).classList.add('active');
+                showCelebration();
+            }
+            
+            saveProgress();
+            updateOverallProgress();
+        }
+        
+        // Atualizar UI dos dias
+        function updateDaysUI() {
+            for (let day = 1; day <= 3; day++) {
+                if (days[day]) {
+                    document.getElementById(`day-${day}-button`).disabled = true;
+                    document.getElementById(`day-${day}-button`).textContent = 'Dia Concluído! ✓';
+                    
+                    document.getElementById(`day-marker-${day}`).classList.add('active');
+                    document.getElementById(`day-marker-${day}`).classList.remove('current');
+                    
+                    // Se for o último dia completo, não há próximo dia
+                    if (day < 3) {
+                        const nextDay = document.getElementById(`day-marker-${day+1}`);
+                        if (!days[day+1]) {
+                            nextDay.classList.add('current');
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Atualizar progresso geral
+        function updateOverallProgress() {
+            const totalTasks = Object.keys(tasks).length;
+            const completedTasks = Object.values(tasks).filter(Boolean).length;
+            const progress = (completedTasks / totalTasks) * 100;
+            
+            document.getElementById('overall-progress-bar').style.width = `${progress}%`;
+            document.querySelector('.progress-percentage').textContent = `${Math.round(progress)}%`;
+        }
+        
+        // Abrir modal de instruções
+        function openInstructionModal(title, contentType) {
+            // Impedir que o link siga para #
+            event.preventDefault();
+            
+            document.getElementById('modal-title').textContent = title;
+            const contentContainer = document.getElementById('instruction-content');
+            contentContainer.innerHTML = '';
+            
+            // Conteúdo específico baseado no tipo
+            switch(contentType) {
+                case 'postura':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Postura correta do violão</h4>
+                            <div class="instruction-image">
+                                <i class="fas fa-user-alt" style="font-size: 80px; color: var(--primary-color);"></i>
+                            </div>
+                            <ul class="instruction-steps">
+                                <li><strong>Sente-se ereto</strong> na beira de uma cadeira firme, com os pés apoiados no chão</li>
+                                <li><strong>Segure o violão</strong> com o braço levemente inclinado para cima</li>
+                                <li><strong>Posicione o corpo do violão</strong> sobre a perna direita (se for destro)</li>
+                                <li><strong>Mantenha os ombros relaxados</strong> e a coluna reta</li>
+                                <li><strong>Posicione a mão esquerda</strong> de modo que o polegar fique atrás do braço do violão</li>
+                                <li><strong>Mão direita</strong> deve ficar relaxada sobre as cordas</li>
+                            </ul>
+                            <div class="instruction-tip">
+                                <i class="fas fa-lightbulb"></i> Lembre-se: uma postura correta previne dores e facilita a execução dos acordes!
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'acorde-c':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Acorde C (Dó Maior)</h4>
+                            <div class="chord-image">
+                                <div class="chord-grid">
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-finger" style="top: 24px; left: 20px;">1</div>
+                                    <div class="chord-finger" style="top: 48px; left: 40px;">2</div>
+                                    <div class="chord-finger" style="top: 72px; left: 60px;">3</div>
+                                </div>
+                            </div>
+                            <p class="chord-name">C (Dó Maior)</p>
+                            <ol class="chord-steps">
+                                <li>Posicione o dedo 1 (indicador) na primeira casa da segunda corda</li>
+                                <li>Posicione o dedo 2 (médio) na segunda casa da quarta corda</li>
+                                <li>Posicione o dedo 3 (anelar) na terceira casa da quinta corda</li>
+                                <li>Toque da quinta à primeira corda (não toque a sexta corda)</li>
+                                <li>Certifique-se de que todas as notas soam claramente</li>
+                            </ol>
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício de prática:</p>
+                                <p>Toque o acorde e verifique se todas as notas soam claramente. Solte os dedos e repita o processo 10 vezes, prestando atenção ao posicionamento dos dedos.</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'acorde-g':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Acorde G (Sol Maior)</h4>
+                            <div class="chord-image">
+                                <div class="chord-grid">
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-finger" style="top: 0px; left: 60px;">3</div>
+                                    <div class="chord-finger" style="top: 120px; left: 20px;">1</div>
+                                    <div class="chord-finger" style="top: 96px; left: 40px;">2</div>
+                                </div>
+                            </div>
+                            <p class="chord-name">G (Sol Maior)</p>
+                            <ol class="chord-steps">
+                                <li>Posicione o dedo 1 (indicador) na segunda casa da sexta corda</li>
+                                <li>Posicione o dedo 2 (médio) na terceira casa da quinta corda</li>
+                                <li>Posicione o dedo 3 (anelar) na terceira casa da primeira corda</li>
+                                <li>Toque todas as seis cordas em sequência</li>
+                                <li>Certifique-se de que todas as notas soam claramente</li>
+                            </ol>
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício de prática:</p>
+                                <p>Pratique a transição entre sua posição de descanso e a formação do acorde G. Repita 10 vezes, concentrando-se em posicionar todos os dedos de uma só vez.</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'troca-c-g':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Trocando entre C e G</h4>
+                            <div class="chord-progression">
+                                <div class="chord-box">
+                                    <div class="chord-image mini">
+                                        <div class="chord-grid">
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-finger" style="top: 24px; left: 20px;">1</div>
+                                            <div class="chord-finger" style="top: 48px; left: 40px;">2</div>
+                                            <div class="chord-finger" style="top: 72px; left: 60px;">3</div>
+                                        </div>
+                                    </div>
+                                    <p class="chord-name">C</p>
+                                </div>
+                                <div class="arrow-transition">
+                                    <i class="fas fa-arrows-alt-h"></i>
+                                </div>
+                                <div class="chord-box">
+                                    <div class="chord-image mini">
+                                        <div class="chord-grid">
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-finger" style="top: 0px; left: 60px;">3</div>
+                                            <div class="chord-finger" style="top: 120px; left: 20px;">1</div>
+                                            <div class="chord-finger" style="top: 96px; left: 40px;">2</div>
+                                        </div>
+                                    </div>
+                                    <p class="chord-name">G</p>
+                                </div>
+                            </div>
+
+                            <h4>Passos para uma transição suave:</h4>
+                            <ol class="chord-steps">
+                                <li>Comece lentamente, concentrando-se na precisão e não na velocidade</li>
+                                <li>Toque o acorde C por 4 tempos e então mude para G por 4 tempos</li>
+                                <li>Tente movimentar todos os dedos de uma vez durante a transição</li>
+                                <li>Repita este processo, gradualmente aumentando a velocidade</li>
+                                <li>Pratique até conseguir fazer a transição em um único movimento fluido</li>
+                            </ol>
+
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício cronometrado:</p>
+                                <p>Defina um metrônomo para 60 BPM. Toque o acorde C por 4 batidas, depois mude para G por 4 batidas. Repita este padrão por 3 minutos, focando na suavidade da transição.</p>
+                                <div class="practice-timer">
+                                    <button class="timer-button" onclick="startPracticeTimer(3)">
+                                        <i class="fas fa-stopwatch"></i> Iniciar temporizador de 3 minutos
+                                    </button>
+                                    <div class="timer-display">03:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'batida-basica':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Batida Básica para Iniciantes</h4>
+                            
+                            <div class="rhythm-pattern">
+                                <div class="rhythm-symbol">↓</div>
+                                <div class="rhythm-symbol">↓</div>
+                                <div class="rhythm-symbol">↑</div>
+                                <div class="rhythm-symbol">↓</div>
+                                <div class="rhythm-symbol">↑</div>
+                            </div>
+                            
+                            <div class="hand-position-diagram">
+                                <div class="hand-position-image">
+                                    <i class="fas fa-hand-paper" style="font-size: 80px; transform: rotate(90deg); color: var(--primary-color);"></i>
+                                </div>
+                                <div class="hand-caption">Forme uma "mão relaxada", como se estivesse segurando uma laranja pequena</div>
+                            </div>
+                            
+                            <h4>Como executar a batida básica:</h4>
+                            <ol class="chord-steps">
+                                <li>Posicione a mão sobre as cordas com os dedos levemente curvados</li>
+                                <li>Use seu polegar para as batidas para baixo (↓) tocando todas as cordas</li>
+                                <li>Use seu indicador (ou vários dedos juntos) para as batidas para cima (↑)</li>
+                                <li>Mantenha um movimento constante do pulso - para baixo, para baixo, para cima, para baixo, para cima</li>
+                                <li>Tente manter um ritmo constante e regular</li>
+                            </ol>
+                            
+                            <div class="interactive-checklist">
+                                <div class="instruction-step">1. Pratique apenas o movimento de mão sem tocar as cordas</div>
+                                <div class="instruction-step">2. Depois, adicione o som, praticando lentamente</div>
+                                <div class="instruction-step">3. Aumente gradualmente a velocidade conforme ganhar confiança</div>
+                            </div>
+                            
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício de prática:</p>
+                                <p>Pratique a batida básica por 5 minutos, primeiro sem um acorde (cordas soltas), depois com o acorde C.</p>
+                                <div class="practice-timer">
+                                    <button class="timer-button" onclick="startPracticeTimer(5)">
+                                        <i class="fas fa-stopwatch"></i> Iniciar temporizador de 5 minutos
+                                    </button>
+                                    <div class="timer-display">05:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'acorde-d':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Acorde D (Ré Maior)</h4>
+                            <div class="chord-image">
+                                <div class="chord-grid">
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-finger" style="top: 24px; left: 40px;">1</div>
+                                    <div class="chord-finger" style="top: 0px; left: 40px;">2</div>
+                                    <div class="chord-finger" style="top: 0px; left: 60px;">3</div>
+                                </div>
+                            </div>
+                            <p class="chord-name">D (Ré Maior)</p>
+                            <ol class="chord-steps">
+                                <li>Posicione o dedo 1 (indicador) na segunda casa da terceira corda</li>
+                                <li>Posicione o dedo 2 (médio) na segunda casa da primeira corda</li>
+                                <li>Posicione o dedo 3 (anelar) na terceira casa da segunda corda</li>
+                                <li>Toque apenas da quarta à primeira corda (não toque as cordas 5ª (Lá) e 6ª (Mi))</li>
+                            </ol>
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício de prática:</p>
+                                <p>Toque cada corda individualmente, verificando se todas soam claramente. Se alguma nota estiver abafada, ajuste a posição dos dedos até obter um som limpo.</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'acorde-em':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Acorde Em (Mi menor)</h4>
+                            <div class="chord-image">
+                                <div class="chord-grid">
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-string"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-fret"></div>
+                                    <div class="chord-finger" style="top: 48px; left: 40px;">2</div>
+                                    <div class="chord-finger" style="top: 72px; left: 40px;">3</div>
+                                </div>
+                            </div>
+                            <p class="chord-name">Em (Mi menor)</p>
+                            <ol class="chord-steps">
+                                <li>Posicione o dedo 2 (médio) na segunda casa da quinta corda</li>
+                                <li>Posicione o dedo 3 (anelar) na segunda casa da quarta corda</li>
+                                <li>Toque todas as seis cordas</li>
+                                <li>A primeira, segunda, terceira e sexta cordas tocam soltas</li>
+                            </ol>
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício de prática:</p>
+                                <p>Toque as cordas uma a uma para verificar se estão soando claramente. Este é seu primeiro acorde menor - observe como ele soa diferente dos acordes maiores anteriores.</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'sequencia-acordes':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Praticando a sequência: G - D - Em - C</h4>
+                            
+                            <div class="song-progression">
+                                <div class="song-chord">G</div>
+                                <div class="song-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="song-chord">D</div>
+                                <div class="song-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="song-chord">Em</div>
+                                <div class="song-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="song-chord">C</div>
+                            </div>
+
+                            <h4>Como praticar esta progressão:</h4>
+                            <ol class="chord-steps">
+                                <li>Comece tocando cada acorde por 4 tempos antes de mudar para o próximo</li>
+                                <li>Concentre-se na transição suave entre os acordes, antecipando a próxima posição</li>
+                                <li>Gradualmente diminua o tempo para 2 tempos por acorde</li>
+                                <li>Esta é uma das progressões mais comuns na música popular, usada em centenas de canções</li>
+                            </ol>
+
+                            <div .tips-list>
+                                <h4><i class="fas fa-lightbulb"></i> Dicas para transições mais suaves:</h4>
+                                <ul>
+                                    <li>Olhe para onde seus dedos precisarão ir ao fazer a próxima mudança</li>
+                                    <li>Identifique dedos que permanecem na mesma posição ou próximos ao mudar de acorde</li>
+                                    <li>Tente mover todos os dedos simultaneamente ao invés de um por vez</li>
+                                </ul>
+                            </div>
+
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício cronometrado:</p>
+                                <p>Pratique esta progressão por 10 minutos. A cada 2 minutos, tente aumentar ligeiramente a velocidade das transições.</p>
+                                <div class="practice-timer">
+                                    <button class="timer-button" onclick="startPracticeTimer(10)">
+                                        <i class="fas fa-stopwatch"></i> Iniciar temporizador de 10 minutos
+                                    </button>
+                                    <div class="timer-display">10:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'revisao-acordes':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Revisando todos os acordes aprendidos</h4>
+                            
+                            <div class="chord-review-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px 0;">
+                                <div class="chord-box">
+                                    <div class="chord-image mini">
+                                        <div class="chord-grid">
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-finger" style="top: 24px; left: 20px;">1</div>
+                                            <div class="chord-finger" style="top: 48px; left: 40px;">2</div>
+                                            <div class="chord-finger" style="top: 72px; left: 60px;">3</div>
+                                        </div>
+                                    </div>
+                                    <p class="chord-name">C</p>
+                                </div>
+                                
+                                <div class="chord-box">
+                                    <div class="chord-image mini">
+                                        <div class="chord-grid">
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-finger" style="top: 0px; left: 60px;">3</div>
+                                            <div class="chord-finger" style="top: 120px; left: 20px;">1</div>
+                                            <div class="chord-finger" style="top: 96px; left: 40px;">2</div>
+                                        </div>
+                                    </div>
+                                    <p class="chord-name">G</p>
+                                </div>
+                                
+                                <div class="chord-box">
+                                    <div class="chord-image mini">
+                                        <div class="chord-grid">
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-finger" style="top: 24px; left: 40px;">1</div>
+                                            <div class="chord-finger" style="top: 0px; left: 40px;">2</div>
+                                            <div class="chord-finger" style="top: 0px; left: 60px;">3</div>
+                                        </div>
+                                    </div>
+                                    <p class="chord-name">D</p>
+                                </div>
+                                
+                                <div class="chord-box">
+                                    <div class="chord-image mini">
+                                        <div class="chord-grid">
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-string"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-fret"></div>
+                                            <div class="chord-finger" style="top: 48px; left: 40px;">2</div>
+                                            <div class="chord-finger" style="top: 72px; left: 40px;">3</div>
+                                        </div>
+                                    </div>
+                                    <p class="chord-name">Em</p>
+                                </div>
+                            </div>
+                            
+                            <h4>Exercícios de revisão:</h4>
+                            <ol class="chord-steps">
+                                <li>Toque cada acorde por 4 tempos, certificando-se de que todas as notas soam claramente</li>
+                                <li>Pratique as transições entre todos os acordes: C→G, G→D, D→Em, Em→C</li>
+                                <li>Diga o nome de cada acorde em voz alta enquanto toca para fortalecer a memória</li>
+                            </ol>
+
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício de revisão:</p>
+                                <p>Reserve 10 minutos para revisar todos os acordes aprendidos. Use um cronômetro e dedique 2-3 minutos para cada acorde, verificando a posição dos dedos e a qualidade do som.</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'primeira-musica':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Knockin' on Heaven's Door - Versão Simplificada</h4>
+                            
+                            <div class="song-title">Knockin' on Heaven's Door</div>
+                            <div class="song-progression">
+                                <div class="song-chord">G</div>
+                                <div class="song-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="song-chord">D</div>
+                                <div class="song-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="song-chord">Em</div>
+                                <div class="song-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="song-chord">C</div>
+                            </div>
+                            
+                            <div class="song-lyrics">
+                                <p>
+                                    <span class="chord-marker">G</span> <span class="chord-marker">D</span> <span class="chord-marker">Em</span> <br>
+                                    Mama, take this badge off of me<br>
+                                    <span class="chord-marker">G</span> <span class="chord-marker">D</span> <span class="chord-marker">C</span> <br>
+                                    I can't use it anymore<br>
+                                    <span class="chord-marker">G</span> <span class="chord-marker">D</span> <span class="chord-marker">Em</span> <br>
+                                    It's gettin' dark, too dark to see<br>
+                                    <span class="chord-marker">G</span> <span class="chord-marker">D</span> <span class="chord-marker">C</span> <br>
+                                    I feel I'm knockin' on heaven's door<br><br>
+                                    
+                                    <span class="chord-marker">G</span> <span class="chord-marker">D</span> <span class="chord-marker">Em</span> <br>
+                                    Knock, knock, knockin' on heaven's door<br>
+                                    <span class="chord-marker">G</span> <span class="chord-marker">D</span> <span class="chord-marker">C</span> <br>
+                                    Knock, knock, knockin' on heaven's door<br>
+                                    <span class="chord-marker">G</span> <span class="chord-marker">D</span> <span class="chord-marker">Em</span> <br>
+                                    Knock, knock, knockin' on heaven's door<br>
+                                    <span class="chord-marker">G</span> <span class="chord-marker">D</span> <span class="chord-marker">C</span> <br>
+                                    Knock, knock, knockin' on heaven's door<br>
+                                </p>
+                            </div>
+                            
+                            <div class="tips-list">
+                                <h4><i class="fas fa-lightbulb"></i> Como juntar tudo:</h4>
+                                <ul>
+                                    <li>Use a batida básica (↓ ↓ ↑ ↓ ↑) ou apenas batidas para baixo se preferir</li>
+                                    <li>Cada acorde deve ser tocado por 4 batidas completas</li>
+                                    <li>Cante em um volume que você consiga ouvir o violão ao mesmo tempo</li>
+                                    <li>Mantenha um ritmo constante e não pause entre as transições</li>
+                                    <li>Se errar, continue tocando - não pare no meio da música</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="practice-section">
+                                <p class="practice-title">Exercício final:</p>
+                                <p>Parabéns por chegar até aqui! Toque a música completa do início ao fim por 20 minutos, cantando junto. Esta será sua primeira música completa no violão!</p>
+                                <div class="practice-timer">
+                                    <button class="timer-button" onclick="startPracticeTimer(20)">
+                                        <i class="fas fa-stopwatch"></i> Iniciar temporizador de 20 minutos
+                                    </button>
+                                    <div class="timer-display">20:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'pratica-acordes':
+                    contentContainer.innerHTML = `
+                        <div class="instruction-block">
+                            <h4>Praticando a música sem cantar</h4>
+                            
+                            <div class="song-diagram">
+                                <div style="text-align:center; font-weight:bold; margin-bottom:10px;">Estrutura da música</div>
+                                <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:20px;">
+                                    <div style="padding:8px 15px; background:#f0f7ff; border-radius:4px; font-size:0.9rem;">
+                                        G (4 batidas)
+                                    </div>
+                                    <div style="padding:8px 15px; background:#f0f7ff; border-radius:4px; font-size:0.9rem;">
+                                        D (4 batidas)
+                                    </div>
+                                    <div style="padding:8px 15px; background:#f0f7ff; border-radius:4px; font-size:0.9rem;">
+                                        Em (4 batidas)
+                                    </div>
+                                </div>
+                                <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+                                    <div style="padding:8px 15px; background:#f0f7ff; border-radius:4px; font-size:0.9rem;">
+                                        G (4 batidas)
+                                    </div>
+                                    <div style="padding:8px 15px; background:#f0f7ff; border-radius:4px; font-size:0.9rem;">
+                                        D (4 batidas)
+                                    </div>
+                                    <div style="padding:8px 15px; background:#f0f7ff; border-radius:4px; font-size:0.9rem;">
+                                        C (4 batidas)
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4>Passos para praticar:</h4>
+                            <ol class="chord-steps">
+                                <li>Use um metrônomo ou bata o pé para manter um ritmo constante</li>
+                                <li>Comece devagar, com cerca de 60 BPM</li>
+                                <li>Toque 4 batidas de cada acorde seguindo o padrão acima</li>
+                                <li>Repita a sequência várias vezes até sentir-se confortável</li>
+                                <li>Aumente gradualmente a velocidade conforme ganha confiança</li>
+                            </ol>
+                            
+                            <div class="progress-section">
+                                <h4>Progresso da prática:</h4>
+                                <div class="progress-steps">
+                                    <div class="progress-step">Toque a progressão em velocidade lenta (10x)</div>
+                                    <div class="progress-step">Toque a progressão em velocidade média (5x)</div>
+                                    <div class="progress-step">Toque a progressão em velocidade normal (3x)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="practice-section">
+                                <p class="practice-title">Temporizador de prática:</p>
+                                <p>Pratique esta sequência por 15 minutos, concentrando-se na precisão das transições entre acordes.</p>
+                                <div class="practice-timer">
+                                    <button class="timer-button" onclick="startPracticeTimer(15)">
+                                        <i class="fas fa-stopwatch"></i> Iniciar temporizador de 15 minutos
+                                    </button>
+                                    <div class="timer-display">15:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                default:
+                    contentContainer.innerHTML = '<p>Conteúdo da instrução não encontrado.</p>';
+            }
+            
+            // Exibir o modal corretamente
+            const modal = document.getElementById('video-modal');
+            modal.classList.add('show');
+        }
+        
+        // Fechar modal
+        function closeModal() {
+            const modal = document.getElementById('video-modal');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+        
+        // Temporizador de prática
+        function startPracticeTimer(minutes) {
+            // Identificar qual temporizador está sendo iniciado (o mais próximo ao botão clicado)
+            const button = event.target.closest('.timer-button');
+            const timerDisplay = button.parentElement.querySelector('.timer-display');
+            
+            // Limpar qualquer temporizador anterior
+            if (timerDisplay.timer) {
+                clearInterval(timerDisplay.timer);
+            }
+            
+            // Inicializar
+            let totalSeconds = minutes * 60;
+            timerDisplay.style.display = 'block';
+            timerDisplay.textContent = `${String(Math.floor(totalSeconds / 60)).padStart(2, '0')}:${String(totalSeconds % 60).padStart(2, '0')}`;
+            
+            // Desabilitar o botão durante o tempo de contagem
+            button.disabled = true;
+            button.innerHTML = `<i class="fas fa-stopwatch"></i> Temporizador em andamento...`;
+            
+            // Iniciar contagem
+            timerDisplay.timer = setInterval(function() {
+                totalSeconds--;
+                
+                const minutesLeft = Math.floor(totalSeconds / 60);
+                const secondsLeft = totalSeconds % 60;
+                
+                timerDisplay.textContent = `${String(minutesLeft).padStart(2, '0')}:${String(secondsLeft).padStart(2, '0')}`;
+                
+                if (totalSeconds <= 0) {
+                    clearInterval(timerDisplay.timer);
+                    timerDisplay.textContent = "Concluído!";
+                    timerDisplay.style.color = "var(--success-color)";
+                    button.disabled = false;
+                    button.innerHTML = `<i class="fas fa-check-circle"></i> Exercício concluído!`;
+                    
+                    // Tocar som de notificação quando disponível
+                    try {
+                        const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU');
+                        audio.play();
+                    } catch(e) {
+                        console.log("Som de notificação indisponível");
+                    }
+                }
+            }, 1000);
+        }
+        
+        // Animação de celebração
+        function showCelebration() {
+            const container = document.getElementById('celebration-container');
+            container.style.display = 'block';
+            
+            const colors = ['#4CAF50', '#2196F3', '#FF9800', '#F44336', '#9C27B0'];
+            
+            // Criar confetes
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'celebration-item';
+                
+                // Propriedades aleatórias
+                const size = Math.random() * 10 + 5;
+                const shape = Math.random() > 0.5 ? '50%' : '0%';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = color;
+                confetti.style.borderRadius = shape;
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = '-20px';
+                confetti.style.position = 'absolute';
+                
+                container.appendChild(confetti);
+                
+                // Animação
+                const duration = Math.random() * 3 + 2;
+                const delay = Math.random();
+                
+                confetti.animate(
+                    [
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                    ],
+                    {
+                        duration: duration * 1000,
+                        delay: delay * 1000,
+                        easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)',
+                        fill: 'forwards'
+                    }
+                );
+                
+                // Remover após animação
+                setTimeout(() => {
+                    confetti.remove();
+                }, (duration + delay) * 1000);
+            }
+            
+            // Esconder container após animação
+            setTimeout(() => {
+                container.style.display = 'none';
+                container.innerHTML = '';
+            }, 6000);
+        }
+        
+        // Inicializar quando DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            updateTasksUI();
+            updateDayButtons();
+        });
+    </script>
+
+    <!-- Adiciona o botão de navegação flutuante -->
+    <script>
+    (function() {
+        // Garantir que o script só seja executado uma vez
+        if (window.navegacaoIniciada) return;
+        window.navegacaoIniciada = true;
+
+        // Calcular caminho relativo para a raiz do site
+        const pathToRoot = window.location.pathname.split('/').filter(segment => segment.length > 0).length - 1;
+        let path = '';
+        for (let i = 0; i < pathToRoot; i++) path += '../';
+
+        // Criar e adicionar o script
+        const script = document.createElement('script');
+        script.src = path + 'violao-nav.js';
+        script.onerror = function() {
+            console.error('Erro ao carregar o script de navegação de: ' + script.src);
+        };
+        document.body.appendChild(script);
+    })();
+    </script>
+</body>
+</html>

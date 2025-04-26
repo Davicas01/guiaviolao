@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#e0e0e0" />
+  <path d="M95,50 L105,50 L105,80 L95,80 Z" fill="#757575" />
+  <circle cx="100" cy="100" r="25" stroke="#757575" stroke-width="10" fill="none" />
+  <path d="M60,170 L140,170 L130,140 L70,140 Z" fill="#757575" />
+  <text x="100" y="120" font-family="Arial" font-size="12" text-anchor="middle" fill="#757575">Kit Violão</text>
+  <text x="100" y="135" font-family="Arial" font-size="10" text-anchor="middle" fill="#757575">Imagem não disponível offline</text>
+</svg>

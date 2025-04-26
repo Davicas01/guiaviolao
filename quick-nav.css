@@ -1,0 +1,76 @@
+/* Botão de Navegação Flutuante */
+.quick-nav {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.quick-nav-toggle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color, #8B4513);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-nav-toggle:hover {
+    transform: scale(1.1);
+    background: var(--accent-color, #D2691E);
+}
+
+.quick-nav-menu {
+    position: absolute;
+    bottom: 75px;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    width: 200px;
+    padding: 10px 0;
+    display: none;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.quick-nav-menu.active {
+    display: flex;
+}
+
+.quick-nav-menu a {
+    padding: 12px 20px;
+    color: var(--text-color, #333);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quick-nav-menu a:hover {
+    background-color: rgba(139, 69, 19, 0.1);
+    color: var(--primary-color, #8B4513);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .quick-nav {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .quick-nav-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner Inteligente com IA - Kit Violão Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #A0522D;
+            --accent-color: #CD853F;
+            --dark-color: #3E2723;
+            --light-color: #FFF8E1;
+            --light-bg: #FDFAF1;
+            --shadow: 0 8px 24px rgba(139, 69, 19, 0.12);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-color);
+            background-color: var(--light-bg);
+            line-height: 1.7;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #614126);
+            color: #fff;
+            padding: 3rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(135deg, transparent 25%, var(--light-bg) 25%, var(--light-bg) 50%, transparent 50%, transparent 75%, var(--light-bg) 75%);
+            background-size: 20px 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .intro-card {
+            background-color: #fff;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-color);
+            transform: translateY(-20px);
+        }
+        
+        .card {
+            background-color: #fff;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            color: #5D4037;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: var(--primary-color);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(139, 69, 19, 0.2);
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: #FFFDF9;
+            transition: all 0.2s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+            background-color: white;
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 1.8rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 0.7rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(139, 69, 19, 0.25);
+        }
+        
+        .btn:hover {
+            background-color: #6B3610;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(139, 69, 19, 0.3);
+        }
+        
+        .btn.btn-secondary {
+            background-color: var(--accent-color);
+        }
+        
+        .btn.btn-secondary:hover {
+            background-color: #B76E2E;
+        }
+        
+        .btn-row {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+        
+        .checkbox-group {
+            margin: 1.5rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.8rem;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            background-color: #FFFDF9;
+        }
+        
+        .checkbox-item:hover {
+            background-color: rgba(205, 133, 63, 0.1);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.8rem;
+            accent-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        .time-block-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+        
+        .day-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .day-header {
+            text-align: center;
+            font-weight: 600;
+            padding: 0.7rem;
+            background-color: rgba(139, 69, 19, 0.08);
+            border-radius: var(--radius);
+            color: var(--primary-color);
+        }
+        
+        .time-block {
+            padding: 0.8rem;
+            background-color: #FFFDF9;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .time-block:hover {
+            background-color: rgba(205, 133, 63, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px rgba(139, 69, 19, 0.1);
+        }
+        
+        .time-block.selected {
+            background-color: rgba(139, 69, 19, 0.15);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.15);
+        }
+        
+        .progress-bar-container {
+            background-color: rgba(139, 69, 19, 0.1);
+            border-radius: 50px;
+            height: 10px;
+            margin: 2.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            height: 100%;
+            border-radius: 50px;
+            transition: width 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+        }
+        
+        .step-indicators {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .step-indicators::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background-color: rgba(139, 69, 19, 0.1);
+            z-index: 0;
+        }
+        
+        .step-indicator {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(139, 69, 19, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 4px #fff;
+        }
+        
+        .step-indicator.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+            box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(139, 69, 19, 0.2);
+        }
+        
+        .step-indicator.completed {
+            background-color: var(--secondary-color);
+        }
+        
+        .progress-container {
+            margin-bottom: 2.5rem;
+            padding: 1rem 0;
+        }
+        
+        .loading-animation {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .loading-animation i {
+            animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            opacity: 0.8;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .ai-result {
+            margin-top: 2.5rem;
+            padding: 2rem;
+            background-color: #FFFDF9;
+            border-radius: var(--radius);
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.08);
+        }
+        
+        .ai-avatar {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 8px 16px rgba(139, 69, 19, 0.25);
+        }
+        
+        .ai-message {
+            margin-bottom: 1.8rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: 0 3px 10px rgba(139, 69, 19, 0.08);
+            position: relative;
+        }
+        
+        .ai-message::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid white;
+        }
+        
+        .schedule {
+            margin-top: 2rem;
+        }
+        
+        .schedule-day {
+            margin-bottom: 2rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+        }
+        
+        .schedule-day-header {
+            background: linear-gradient(90deg, var(--primary-color), #6B3610);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .practice-session {
+            background-color: white;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            border-top: none;
+            padding: 1.5rem;
+        }
+        
+        .session-time {
+            font-weight: 600;
+            color: var(--primary-color);
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            background-color: rgba(139, 69, 19, 0.08);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .session-focus {
+            margin-top: 0.8rem;
+            padding-left: 1.2rem;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .difficulty-indicator {
+            display: inline-block;
+            margin-left: 0.7rem;
+            font-size: 0.9rem;
+            vertical-align: middle;
+            color: var(--accent-color);
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 2.5rem auto;
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+            letter-spacing: 0.5px;
+            font-size: 1.05rem;
+        }
+        
+        .download-btn:hover {
+            background: linear-gradient(90deg, #8E4011, var(--accent-color));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(139, 69, 19, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, var(--primary-color), #614126);
+            color: #fff;
+            margin-top: 3rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: linear-gradient(135deg, transparent 25%, var(--primary-color) 25%, var(--primary-color) 50%, transparent 50%, transparent 75%, var(--primary-color) 75%);
+            background-size: 30px 30px;
+        }
+        
+        footer p {
+            font-size: 1rem;
+            opacity: 0.95;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .time-block-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .step-indicators {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .step-indicators::after {
+                display: none;
+            }
+            
+            .btn-row {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-block-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            
+            .intro-card, .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📅 Planner Inteligente com IA</h1>
+            <div class="subtitle">Sua rotina de estudos personalizada para dominar o violão</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>Crie sua rotina de estudos personalizada</h2>
+            <p>Este planner inteligente vai criar um plano de estudos semanal adaptado às suas necessidades, metas e tempo disponível. Basta responder algumas perguntas e deixar nossa IA trabalhar para você!</p>
+            <p><strong>Como funciona:</strong> Informe suas metas de aprendizado, tempo disponível e nível atual. O sistema analisará essas informações e criará um plano de estudos personalizado com atividades específicas para cada dia da semana.</p>
+        </div>
+
+        <div class="card">
+            <div class="progress-container">
+                <div class="step-indicators">
+                    <div class="step-indicator active">1</div>
+                    <div class="step-indicator">2</div>
+                    <div class="step-indicator">3</div>
+                    <div class="step-indicator">4</div>
+                    <div class="step-indicator">5</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <div class="step active" id="step1">
+                <h3>1. Qual é o seu nível atual no violão?</h3>
+                <div class="form-group">
+                    <select id="level">
+                        <option value="iniciante">Iniciante (nunca toquei ou toco há menos de 3 meses)</option>
+                        <option value="iniciante-intermediario">Iniciante+ (sei alguns acordes básicos e toco há 3-6 meses)</option>
+                        <option value="intermediario">Intermediário (toco há 6-12 meses, sei vários acordes e algumas músicas)</option>
+                        <option value="intermediario-avancado">Intermediário+ (toco há mais de 1 ano, domino acordes com pestana)</option>
+                        <option value="avancado">Avançado (toco há anos e quero aprimorar técnicas específicas)</option>
+                    </select>
+                </div>
+                <div class="btn-row">
+                    <button class="btn" onclick="nextStep(1)">Próximo <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="step" id="step2">
+                <h3>2. Quais são suas principais metas de aprendizado?</h3>
+                <p>Selecione até 3 objetivos que gostaria de focar:</p>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal1" name="goals" value="acordes-basicos">
+                        <label for="goal1">Dominar acordes básicos</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal2" name="goals" value="acordes-pestana">
+                        <label for="goal2">Aprender acordes com pestana</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal3" name="goals" value="batidas-ritmos">
+                        <label for="goal3">Melhorar batidas e ritmos</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal4" name="goals" value="trocar-acordes">
+                        <label for="goal4">Trocar acordes com mais agilidade</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal5" name="goals" value="dedilhado">
+                        <label for="goal5">Aprender dedilhados</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal6" name="goals" value="cantar-tocar">
+                        <label for="goal6">Conseguir cantar e tocar ao mesmo tempo</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal7" name="goals" value="teoria-musical">
+                        <label for="goal7">Entender teoria musical aplicada ao violão</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal8" name="goals" value="repertorio">
+                        <label for="goal8">Expandir meu repertório de músicas</label>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn" onclick="nextStep(2)">Próximo <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="step" id="step3">
+                <h3>3. Quanto tempo você pode dedicar aos estudos por semana?</h3>
+                <div class="form-group">
+                    <select id="time-commitment">
+                        <option value="muito-pouco">Muito pouco (15-30 minutos, 2-3 dias por semana)</option>
+                        <option value="pouco">Pouco (30 minutos, 3-4 dias por semana)</option>
+                        <option value="medio" selected>Médio (30-60 minutos, 4-5 dias por semana)</option>
+                        <option value="alto">Alto (60 minutos, 5-6 dias por semana)</option>
+                        <option value="muito-alto">Muito alto (mais de 60 minutos, todos os dias)</option>
+                    </select>
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn" onclick="nextStep(3)">Próximo <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="step" id="step4">
+                <h3>4. Selecione seus horários disponíveis para prática</h3>
+                <p>Clique nos blocos de tempo em que você normalmente está disponível para praticar:</p>
+                
+                <div class="time-block-container">
+                    <div class="day-column">
+                        <div class="day-header">Segunda</div>
+                        <div class="time-block" data-day="segunda" data-time="manha">Manhã</div>
+                        <div class="time-block" data-day="segunda" data-time="tarde">Tarde</div>
+                        <div class="time-block" data-day="segunda" data-time="noite">Noite</div>
+                    </div>
+                    <div class="day-column">
+                        <div class="day-header">Terça</div>
+                        <div class="time-block" data-day="terca" data-time="manha">Manhã</div>
+                        <div class="time-block" data-day="terca" data-time="tarde">Tarde</div>
+                        <div class="time-block" data-day="terca" data-time="noite">Noite</div>
+                    </div>
+                    <div class="day-column">
+                        <div class="day-header">Quarta</div>
+                        <div class="time-block" data-day="quarta" data-time="manha">Manhã</div>
+                        <div class="time-block" data-day="quarta" data-time="tarde">Tarde</div>
+                        <div class="time-block" data-day="quarta" data-time="noite">Noite</div>
+                    </div>
+                    <div class="day-column">
+                        <div class="day-header">Quinta</div>
+                        <div class="time-block" data-day="quinta" data-time="manha">Manhã</div>
+                        <div class="time-block" data-day="quinta" data-time="tarde">Tarde</div>
+                        <div class="time-block" data-day="quinta" data-time="noite">Noite</div>
+                    </div>
+                    <div class="day-column">
+                        <div class="day-header">Sexta</div>
+                        <div class="time-block" data-day="sexta" data-time="manha">Manhã</div>
+                        <div class="time-block" data-day="sexta" data-time="tarde">Tarde</div>
+                        <div class="time-block" data-day="sexta" data-time="noite">Noite</div>
+                    </div>
+                    <div class="day-column">
+                        <div class="day-header">Sábado</div>
+                        <div class="time-block" data-day="sabado" data-time="manha">Manhã</div>
+                        <div class="time-block" data-day="sabado" data-time="tarde">Tarde</div>
+                        <div class="time-block" data-day="sabado" data-time="noite">Noite</div>
+                    </div>
+                    <div class="day-column">
+                        <div class="day-header">Domingo</div>
+                        <div class="time-block" data-day="domingo" data-time="manha">Manhã</div>
+                        <div class="time-block" data-day="domingo" data-time="tarde">Tarde</div>
+                        <div class="time-block" data-day="domingo" data-time="noite">Noite</div>
+                    </div>
+                </div>
+                
+                <div class="btn-row">
+                    <button class="btn btn-secondary" onclick="prevStep(4)"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn" onclick="nextStep(4)">Próximo <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="step" id="step5">
+                <h3>5. Alguma informação adicional que gostaria de compartilhar?</h3>
+                <div class="form-group">
+                    <textarea id="additional-info" rows="4" placeholder="Ex.: Tenho dificuldade em fazer pestanas, prefiro músicas de MPB, etc..."></textarea>
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-secondary" onclick="prevStep(5)"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn" onclick="generatePlan()">Gerar Meu Plano <i class="fas fa-magic"></i></button>
+                </div>
+            </div>
+
+            <div class="loading-animation" id="loading">
+                <i class="fas fa-cog"></i>
+                <p>Nossa IA está criando seu plano personalizado...</p>
+            </div>
+
+            <div class="step" id="result">
+                <div class="ai-result">
+                    <div class="ai-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="ai-message">
+                        <p>Olá! Analisei suas informações e criei um plano de estudos personalizado para ajudar você a alcançar seus objetivos. Este plano foi estruturado com base no seu nível atual, metas e disponibilidade de tempo.</p>
+                        <p>Lembre-se: consistência é mais importante que longas sessões de prática. Mesmo 15 minutos diários podem trazer grandes resultados ao longo do tempo!</p>
+                    </div>
+
+                    <div class="schedule">
+                        <div class="schedule-day">
+                            <div class="schedule-day-header">Segunda-feira</div>
+                            <div class="practice-session">
+                                <div class="session-time">Noite - 30 minutos</div>
+                                <div class="session-focus">
+                                    <h4>Fundamentos de acordes <span class="difficulty-indicator">⭐⭐</span></h4>
+                                    <p>Praticar transições entre os acordes G, C, D e Em. Começar devagar e aumentar gradualmente a velocidade.</p>
+                                    <p><strong>Material recomendado:</strong> Video tutorial "Transições fluidas entre acordes" (Módulo 2)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="schedule-day">
+                            <div class="schedule-day-header">Quarta-feira</div>
+                            <div class="practice-session">
+                                <div class="session-time">Tarde - 45 minutos</div>
+                                <div class="session-focus">
+                                    <h4>Prática de ritmos <span class="difficulty-indicator">⭐⭐⭐</span></h4>
+                                    <p>Treinar batida de pop/rock básico aplicando aos acordes já aprendidos. Foco na regularidade do movimento de pulso.</p>
+                                    <p><strong>Material recomendado:</strong> Exercício "Batida versátil para diversos gêneros" (Módulo 3)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="schedule-day">
+                            <div class="schedule-day-header">Sexta-feira</div>
+                            <div class="practice-session">
+                                <div class="session-time">Noite - 30 minutos</div>
+                                <div class="session-focus">
+                                    <h4>Técnica de mão direita <span class="difficulty-indicator">⭐⭐</span></h4>
+                                    <p>Exercícios de dedilhado simples para melhorar a independência dos dedos. Começar com padrões p-i-m-a em cordas soltas.</p>
+                                    <p><strong>Material recomendado:</strong> Exercícios de aquecimento do módulo "Destravando os Dedos"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="schedule-day">
+                            <div class="schedule-day-header">Sábado</div>
+                            <div class="practice-session">
+                                <div class="session-time">Tarde - 60 minutos</div>
+                                <div class="session-focus">
+                                    <h4>Repertório e prática <span class="difficulty-indicator">⭐⭐⭐</span></h4>
+                                    <p>Aplicar o conteúdo da semana em uma música completa. Sugestão: "Trem-Bala" (Ana Vilela) ou "Viva La Vida" (Coldplay).</p>
+                                    <p><strong>Material recomendado:</strong> Pack de cifras simplificadas para iniciantes (filtrar por dificuldade)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="schedule-day">
+                            <div class="schedule-day-header">Domingo</div>
+                            <div class="practice-session">
+                                <div class="session-time">Manhã - 20 minutos</div>
+                                <div class="session-focus">
+                                    <h4>Revisão e consolidação <span class="difficulty-indicator">⭐</span></h4>
+                                    <p>Revisar todo o conteúdo praticado durante a semana. Identificar pontos fortes e áreas que precisam de mais atenção.</p>
+                                    <p><strong>Dica:</strong> Grave um vídeo curto tocando o que aprendeu para acompanhar seu progresso ao longo do tempo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Baixar Plano em PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+            <p>Use este planner para acelerar seus resultados e manter a consistência nos estudos!</p>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let currentStep = 1;
+        const totalSteps = 5;
+        
+        // Time blocks selection
+        document.querySelectorAll('.time-block').forEach(block => {
+            block.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+        
+        // Navigation between steps
+        function nextStep(step) {
+            // Validation
+            if (step === 2) {
+                const checkedGoals = document.querySelectorAll('input[name="goals"]:checked');
+                if (checkedGoals.length === 0) {
+                    alert('Por favor, selecione pelo menos um objetivo!');
+                    return;
+                }
+                if (checkedGoals.length > 3) {
+                    alert('Por favor, selecione no máximo 3 objetivos!');
+                    return;
+                }
+            }
+            
+            if (step === 4) {
+                const selectedTimeBlocks = document.querySelectorAll('.time-block.selected');
+                if (selectedTimeBlocks.length === 0) {
+                    alert('Por favor, selecione pelo menos um horário disponível!');
+                    return;
+                }
+            }
+            
+            // Hide current step
+            document.getElementById(`step${step}`).classList.remove('active');
+            
+            // Update progress bar
+            currentStep = step + 1;
+            const progressPercentage = (currentStep / totalSteps) * 100;
+            document.querySelector('.progress-bar').style.width = `${progressPercentage}%`;
+            
+            // Update step indicators
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                if (index < currentStep) {
+                    indicator.classList.add('completed');
+                }
+                if (index === currentStep - 1) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            // Show next step
+            document.getElementById(`step${currentStep}`).classList.add('active');
+        }
+        
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById(`step${step}`).classList.remove('active');
+            
+            // Update progress bar
+            currentStep = step - 1;
+            const progressPercentage = (currentStep / totalSteps) * 100;
+            document.querySelector('.progress-bar').style.width = `${progressPercentage}%`;
+            
+            // Update step indicators
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                if (index === currentStep - 1) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            // Show previous step
+            document.getElementById(`step${currentStep}`).classList.add('active');
+        }
+        
+        function generatePlan() {
+            // Hide the current step
+            document.getElementById('step5').classList.remove('active');
+            
+            // Show loading animation
+            document.getElementById('loading').style.display = 'block';
+            
+            // Simulate AI processing time
+            setTimeout(() => {
+                // Hide loading animation
+                document.getElementById('loading').style.display = 'none';
+                
+                // Show results
+                document.getElementById('result').classList.add('active');
+                
+                // Collapse the progress bar container
+                document.querySelector('.progress-container').style.display = 'none';
+            }, 3000);
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // PDF download simulation
+            document.querySelector('.download-btn').addEventListener('click', function() {
+                alert('Plano de estudos baixado! Você pode acessá-lo offline a qualquer momento.');
+            });
+        });
+    </script>
+</body>
+</html>

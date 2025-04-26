@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campo Harmônico Maior - Apostila 01</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --accent-color: #66cfbd;
+            --text-color: #333;
+            --light-bg: #f5f9ff;
+            --border-color: #ddd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 100%;
+            padding: 0;
+            background-color: white;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+            margin: 20px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .intro {
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 20px 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        th {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .note-box {
+            background-color: #f0f7ff;
+            border-left: 3px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .exercise {
+            background-color: #f0fff5;
+            border: 1px solid var(--secondary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .exercise h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .notes-space {
+            background-color: #f9f9f9;
+            border: 1px dashed var(--border-color);
+            padding: 15px;
+            margin: 20px 0;
+            min-height: 150px;
+        }
+        
+        .notes-space p {
+            color: #999;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .summary-section {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+        .checklist {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        
+        .checklist label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .next-steps {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .icon {
+            margin-right: 5px;
+            font-size: 1.2em;
+            color: var(--primary-color);
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-color), transparent);
+            margin: 30px 0;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                font-size: 12pt;
+            }
+            
+            section, .exercise, .note-box {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 15px;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📘 Apostila 01 – Campo Harmônico Maior</h1>
+            <p class="subtitle">Fundamentos Musicais para Violão</p>
+        </header>
+
+        <section class="intro">
+            <h2>🎵 Introdução ao Campo Harmônico Maior</h2>
+            <p>Bem-vindo(a) à primeira apostila sobre Campo Harmônico! O campo harmônico é um conceito fundamental na teoria musical que nos ajuda a entender como os acordes se relacionam dentro de uma tonalidade específica.</p>
+            <p>Nesta apostila, vamos explorar o campo harmônico maior, aprender a formá-lo, entender sua estrutura e aplicá-lo na prática para criar progressões harmônicas interessantes para suas músicas.</p>
+            <p><strong>Ao final deste estudo, você será capaz de:</strong></p>
+            <ul>
+                <li>Compreender o que é um campo harmônico maior</li>
+                <li>Formar os acordes de qualquer tonalidade maior</li>
+                <li>Identificar os graus do campo harmônico</li>
+                <li>Criar progressões harmônicas básicas</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🔍 O que é um Campo Harmônico?</h2>
+            <p>O campo harmônico é o conjunto de acordes que podem ser formados a partir das notas de uma escala. No caso do campo harmônico maior, estes acordes são formados a partir das notas da escala maior.</p>
+            <p>Quando você domina o campo harmônico de uma tonalidade, é possível:</p>
+            <ul>
+                <li>Criar progressões harmônicas coerentes</li>
+                <li>Entender a estrutura das músicas que você toca</li>
+                <li>Transpor músicas para outras tonalidades</li>
+                <li>Improvisar com mais segurança</li>
+                <li>Compor suas próprias músicas</li>
+            </ul>
+            
+            <div class="note-box">
+                <p><strong>Nota:</strong> Ao longo desta apostila, usaremos a notação dos graus em algarismos romanos. Graus maiores são representados com algarismos maiúsculos (I, IV, V) e graus menores com algarismos minúsculos (ii, iii, vi). O grau diminuto é representado com "°" (vii°).</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎹 Formando Acordes a partir da Escala Maior</h2>
+            <p>Para formar os acordes do campo harmônico maior, precisamos primeiro entender como é formada uma escala maior. A escala maior segue o padrão de intervalos: tom - tom - semitom - tom - tom - tom - semitom.</p>
+            
+            <h3>Escala de Dó Maior (C)</h3>
+            <p>Vamos usar a escala de Dó Maior como exemplo, já que ela não possui acidentes (sustenidos ou bemóis):</p>
+            <p style="text-align: center; font-size: 1.2em; letter-spacing: 5px;">
+                <strong>C - D - E - F - G - A - B - C</strong>
+            </p>
+            
+            <p>Para formar um acorde, selecionamos a nota fundamental e empilhamos terças. Os acordes tríades são formados por três notas: a fundamental, a terça e a quinta.</p>
+            
+            <h3>Formando o Acorde de C (Dó Maior)</h3>
+            <p>Tomando C como fundamental, selecionamos:</p>
+            <ul>
+                <li>C (fundamental)</li>
+                <li>E (terça maior - 2 tons acima de C)</li>
+                <li>G (quinta justa - 3,5 tons acima de C)</li>
+            </ul>
+            <p>Essas três notas juntas formam o acorde de C (Dó Maior).</p>
+            
+            <h3>Formando Acordes para cada Grau</h3>
+            <p>Seguimos o mesmo processo para cada nota da escala:</p>
+            
+            <table>
+                <tr>
+                    <th>Grau</th>
+                    <th>Fundamental</th>
+                    <th>Terça</th>
+                    <th>Quinta</th>
+                    <th>Acorde</th>
+                    <th>Tipo</th>
+                </tr>
+                <tr>
+                    <td>I</td>
+                    <td>C</td>
+                    <td>E</td>
+                    <td>G</td>
+                    <td>C</td>
+                    <td>Maior</td>
+                </tr>
+                <tr>
+                    <td>ii</td>
+                    <td>D</td>
+                    <td>F</td>
+                    <td>A</td>
+                    <td>Dm</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>iii</td>
+                    <td>E</td>
+                    <td>G</td>
+                    <td>B</td>
+                    <td>Em</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>IV</td>
+                    <td>F</td>
+                    <td>A</td>
+                    <td>C</td>
+                    <td>F</td>
+                    <td>Maior</td>
+                </tr>
+                <tr>
+                    <td>V</td>
+                    <td>G</td>
+                    <td>B</td>
+                    <td>D</td>
+                    <td>G</td>
+                    <td>Maior</td>
+                </tr>
+                <tr>
+                    <td>vi</td>
+                    <td>A</td>
+                    <td>C</td>
+                    <td>E</td>
+                    <td>Am</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>vii°</td>
+                    <td>B</td>
+                    <td>D</td>
+                    <td>F</td>
+                    <td>B°</td>
+                    <td>diminuto</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>📊 A Fórmula do Campo Harmônico Maior</h2>
+            <p>Existe um padrão nos tipos de acordes que são formados em cada grau do campo harmônico maior. Esta "fórmula" é a mesma para qualquer tonalidade maior:</p>
+            
+            <div style="text-align: center; padding: 15px; background-color: var(--light-bg); border-radius: 8px; margin: 20px 0;">
+                <p style="font-size: 1.3em; font-weight: bold; letter-spacing: 2px;">
+                    I - ii - iii - IV - V - vi - vii°
+                </p>
+                <p style="font-size: 1.2em;">
+                    <strong>M - m - m - M - M - m - dim</strong>
+                </p>
+            </div>
+            
+            <p>Onde:</p>
+            <ul>
+                <li><strong>M</strong> = acorde Maior (I, IV, V)</li>
+                <li><strong>m</strong> = acorde menor (ii, iii, vi)</li>
+                <li><strong>dim</strong> = acorde diminuto (vii°)</li>
+            </ul>
+            
+            <p>Esta fórmula é extremamente importante pois ela se aplica a qualquer tonalidade maior. Ao memorizar este padrão, você poderá formar o campo harmônico de qualquer tonalidade maior sem dificuldades.</p>
+            
+            <div class="note-box">
+                <p>Dica: Uma maneira de memorizar este padrão é através da frase: <strong>"Músicos Menores Em Músicas Maiores Mostram Diminutas"</strong>, onde as primeiras letras representam M-m-m-M-M-m-dim.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎼 Tabela com Todos os Campos Harmônicos Maiores</h2>
+            <p>Abaixo está uma tabela com os campos harmônicos das 12 tonalidades maiores:</p>
+            
+            <div style="overflow-x: auto;">
+                <table>
+                    <tr>
+                        <th>Tonalidade</th>
+                        <th>I (M)</th>
+                        <th>ii (m)</th>
+                        <th>iii (m)</th>
+                        <th>IV (M)</th>
+                        <th>V (M)</th>
+                        <th>vi (m)</th>
+                        <th>vii° (dim)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>C</strong></td>
+                        <td>C</td>
+                        <td>Dm</td>
+                        <td>Em</td>
+                        <td>F</td>
+                        <td>G</td>
+                        <td>Am</td>
+                        <td>B°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>G</strong></td>
+                        <td>G</td>
+                        <td>Am</td>
+                        <td>Bm</td>
+                        <td>C</td>
+                        <td>D</td>
+                        <td>Em</td>
+                        <td>F#°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>D</strong></td>
+                        <td>D</td>
+                        <td>Em</td>
+                        <td>F#m</td>
+                        <td>G</td>
+                        <td>A</td>
+                        <td>Bm</td>
+                        <td>C#°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A</strong></td>
+                        <td>A</td>
+                        <td>Bm</td>
+                        <td>C#m</td>
+                        <td>D</td>
+                        <td>E</td>
+                        <td>F#m</td>
+                        <td>G#°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E</strong></td>
+                        <td>E</td>
+                        <td>F#m</td>
+                        <td>G#m</td>
+                        <td>A</td>
+                        <td>B</td>
+                        <td>C#m</td>
+                        <td>D#°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>B</strong></td>
+                        <td>B</td>
+                        <td>C#m</td>
+                        <td>D#m</td>
+                        <td>E</td>
+                        <td>F#</td>
+                        <td>G#m</td>
+                        <td>A#°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>F</strong></td>
+                        <td>F</td>
+                        <td>Gm</td>
+                        <td>Am</td>
+                        <td>Bb</td>
+                        <td>C</td>
+                        <td>Dm</td>
+                        <td>E°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bb</strong></td>
+                        <td>Bb</td>
+                        <td>Cm</td>
+                        <td>Dm</td>
+                        <td>Eb</td>
+                        <td>F</td>
+                        <td>Gm</td>
+                        <td>A°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Eb</strong></td>
+                        <td>Eb</td>
+                        <td>Fm</td>
+                        <td>Gm</td>
+                        <td>Ab</td>
+                        <td>Bb</td>
+                        <td>Cm</td>
+                        <td>D°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ab</strong></td>
+                        <td>Ab</td>
+                        <td>Bbm</td>
+                        <td>Cm</td>
+                        <td>Db</td>
+                        <td>Eb</td>
+                        <td>Fm</td>
+                        <td>G°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Db</strong></td>
+                        <td>Db</td>
+                        <td>Ebm</td>
+                        <td>Fm</td>
+                        <td>Gb</td>
+                        <td>Ab</td>
+                        <td>Bbm</td>
+                        <td>C°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>F#</strong></td>
+                        <td>F#</td>
+                        <td>G#m</td>
+                        <td>A#m</td>
+                        <td>B</td>
+                        <td>C#</td>
+                        <td>D#m</td>
+                        <td>E#°</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="note-box">
+                <p><strong>Observação:</strong> As tonalidades de Gb e F# (Sol bemol e Fá sustenido) são consideradas enarmônicas, ou seja, têm o mesmo som, mas são escritas de maneira diferente. Na prática, F# é mais comumente usada.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎯 Exercícios Práticos com Progressões</h2>
+            <p>Vamos praticar o uso do campo harmônico maior em progressões harmônicas comuns. Estas progressões são amplamente utilizadas na música popular e podem ser encontradas em várias canções.</p>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 1: Progressão I - IV - V - I</h4>
+                <p>Esta é uma das progressões mais básicas e comuns na música ocidental, frequentemente usada para finalizar frases musicais.</p>
+                <p>Toque esta progressão nas seguintes tonalidades:</p>
+                <ul>
+                    <li>Em Dó Maior: C - F - G - C</li>
+                    <li>Em Sol Maior: G - C - D - G</li>
+                    <li>Em Ré Maior: D - G - A - D</li>
+                </ul>
+                <p>Observe como a mesma progressão soa em diferentes tonalidades. Tente criar um ritmo simples para acompanhar essas progressões.</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 2: Progressão I - vi - IV - V</h4>
+                <p>Esta progressão é muito comum em músicas pop e baladas.</p>
+                <p>Toque esta progressão nas seguintes tonalidades:</p>
+                <ul>
+                    <li>Em Dó Maior: C - Am - F - G</li>
+                    <li>Em Sol Maior: G - Em - C - D</li>
+                    <li>Em Fá Maior: F - Dm - Bb - C</li>
+                </ul>
+                <p>Experimente tocar essa progressão em um ritmo mais lento, dando ênfase à transição entre os acordes.</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 3: Progressão I - V - vi - IV</h4>
+                <p>Esta é a famosa "progressão dos quatro acordes", utilizada em inúmeras músicas pop.</p>
+                <p>Toque esta progressão nas seguintes tonalidades:</p>
+                <ul>
+                    <li>Em Dó Maior: C - G - Am - F</li>
+                    <li>Em Sol Maior: G - D - Em - C</li>
+                    <li>Em Ré Maior: D - A - Bm - G</li>
+                </ul>
+                <p>Você consegue reconhecer alguma música que use esta progressão?</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 4: Criar sua Própria Progressão</h4>
+                <p>Use o campo harmônico de qualquer tonalidade maior para criar sua própria progressão de 4 acordes.</p>
+                <p>Experimente diferentes combinações e anote abaixo as que você mais gostar:</p>
+                <div class="notes-space">
+                    <p>Anote aqui suas progressões favoritas...</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>✏️ Espaço para Anotações</h2>
+            <p>Use este espaço para fazer suas próprias anotações, observações ou dúvidas que surgirem durante o estudo:</p>
+            
+            <div class="notes-space">
+                <p>Suas anotações aqui...</p>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+
+        <section class="summary-section">
+            <h2>💡 Resumo Rápido</h2>
+            <ul>
+                <li>O campo harmônico maior é formado pelos acordes construídos a partir das notas da escala maior.</li>
+                <li>A fórmula do campo harmônico maior é: I (M) - ii (m) - iii (m) - IV (M) - V (M) - vi (m) - vii° (dim).</li>
+                <li>Esta fórmula se aplica a qualquer tonalidade maior.</li>
+                <li>Cada acorde tem uma função harmônica específica dentro do campo harmônico.</li>
+                <li>As progressões mais comuns utilizam principalmente os graus I, IV, V e vi.</li>
+            </ul>
+            
+            <div class="checklist">
+                <h3>📝 Checklist de Fixação</h3>
+                <label><input type="checkbox"> Compreendi o conceito de campo harmônico maior</label>
+                <label><input type="checkbox"> Sei formar acordes a partir das notas da escala maior</label>
+                <label><input type="checkbox"> Memorizei a fórmula do campo harmônico maior (M-m-m-M-M-m-dim)</label>
+                <label><input type="checkbox"> Consigo identificar os acordes do campo harmônico nas principais tonalidades</label>
+                <label><input type="checkbox"> Pratiquei as progressões harmônicas sugeridas</label>
+                <label><input type="checkbox"> Criei minhas próprias progressões harmônicas</label>
+            </div>
+            
+            <div class="next-steps">
+                <h3>📍 Próximos Passos</h3>
+                <ul>
+                    <li>Pratique as progressões em diferentes ritmos e levadas</li>
+                    <li>Tente identificar as progressões em músicas que você conhece</li>
+                    <li>Experimente transpor músicas simples para outras tonalidades</li>
+                    <li>Avance para a Apostila 02 - Campo Harmônico Menor</li>
+                </ul>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Kit Violão Profissional - Apostila 01: Campo Harmônico Maior</p>
+            <p>© 2025 - Todos os direitos reservados</p>
+        </footer>
+    </div>
+</body>
+</html>

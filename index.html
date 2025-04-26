@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8B4513">
+    <meta name="description" content="Domine o Violão - Da Primeira Nota à Sua Primeira Música! Um aplicativo completo com método em PDF + bônus incríveis">
+    <title>Domine o Violão</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="img/icon-192.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="img/icon-192.svg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Domine o Violão">
+    
+    <!-- Fonts e FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1><span class="icon-guitar">🎸</span>Domine o Violão</h1>
+            </div>
+            <nav id="mainNav">
+                <button class="menu-toggle" id="menuToggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="#inicio" class="active">Início</a></li>
+                    <li><a href="#metodo">Método Completo</a></li>
+                    <li><a href="#bonus">Bônus</a></li>
+                    <li><a href="#favoritos">Favoritos</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Quick Nav Float Button -->
+        <div class="quick-nav">
+            <button id="quickNavToggle" class="quick-nav-toggle">
+                <i class="fas fa-guitar"></i>
+            </button>
+            <div class="quick-nav-menu">
+                <a href="#inicio"><i class="fas fa-home"></i> Início</a>
+                <a href="#metodo"><i class="fas fa-book-open"></i> Método</a>
+                <a href="#bonus"><i class="fas fa-gift"></i> Bônus</a>
+                <a href="#favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero-section">
+            <div class="hero-bg-elements">
+                <div class="hero-shape shape-1"></div>
+                <div class="hero-shape shape-2"></div>
+                <div class="hero-shape shape-3"></div>
+                <div class="hero-pattern"></div>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <div class="badge-container">
+                            <span class="badge-new">NOVA VERSÃO</span>
+                            <span class="badge-special">ACESSO IMEDIATO</span>
+                            <span class="badge-highlight pulse-animation">ATUALIZADO</span>
+                        </div>
+                        <h2 class="hero-title">
+                            <span class="title-highlight">Domine o Violão</span> 
+                            Da Primeira Nota à Primeira Música!
+                        </h2>
+                        <p class="hero-description">Um aplicativo completo com método estruturado em PDF + 10 bônus exclusivos para você aprender no seu ritmo e tocar suas músicas favoritas em poucos dias.</p>
+                        <div class="hero-buttons">
+                            <a href="#metodo" class="btn btn-primary">Começar Agora <i class="fas fa-arrow-right"></i></a>
+                            <a href="#bonus" class="btn btn-secondary">Explorar Bônus</a>
+                        </div>
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <span>Acesso imediato ao material</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <span>Progresso garantido em 7 dias</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <span>Suporte e materiais exclusivos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="mockup-container">
+                            <div class="mockup-highlight"></div>
+                            <img src="img/Mockup .png" alt="Domine o Violão App" class="floating-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">2.500+</div>
+                        <div class="stat-label">Alunos satisfeitos</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">Bônus exclusivos</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Dias para tocar</div>
+                    </div>
+                </div>
+            </div>
+            <div class="wave-divider">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                    <path fill="#ffffff" fill-opacity="1" d="M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,56C1248,48,1344,32,1392,24L1440,16L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z"></path>
+                </svg>
+            </div>
+        </section>
+
+        <section id="metodo" class="module-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h2 class="section-title">Método Completo em PDF</h2>
+                    <p class="section-subtitle">Material estruturado para aprender violão de forma progressiva</p>
+                </div>
+                
+                <div class="module-card main-module">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-guitar"></i>
+                        </div>
+                        <div>
+                            <h3>Domine o Violão - Guia Completo</h3>
+                            <p class="module-meta">Material completo para iniciantes a intermediários</p>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        <p>Guia estruturado do básico ao avançado para aprender violão de forma progressiva e completa, sem ficar perdido em vídeos aleatórios.</p>
+                        <div class="module-features">
+                            <div class="module-feature">
+                                <i class="fas fa-music"></i>
+                                <span>Acordes fundamentais</span>
+                            </div>
+                            <div class="module-feature">
+                                <i class="fas fa-hand-paper"></i>
+                                <span>Técnicas de dedilhado</span>
+                            </div>
+                            <div class="module-feature">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span>Transições fluidas</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module-footer">
+                        <a href="Guia_violao/index.html" class="module-link" data-favorite="Guia_Violao">
+                            Acessar Método
+                            <span class="arrow">→</span>
+                        </a>
+                        <button class="favorite-btn" data-path="Guia_violao/index.html">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="bonus" class="bonus-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h2 class="section-title">Bônus Exclusivos</h2>
+                    <p class="section-subtitle">Materiais complementares para acelerar seu aprendizado</p>
+                </div>
+                
+                <div class="bonus-categories">
+                    <button class="category-btn active" data-category="all">Todos</button>
+                    <button class="category-btn" data-category="iniciantes">Para Iniciantes</button>
+                    <button class="category-btn" data-category="tecnica">Técnica Avançada</button>
+                    <button class="category-btn" data-category="interativo">Ferramentas Interativas</button>
+                    <button class="category-btn" data-category="teoria">Teoria Musical</button>
+                </div>
+                
+                <div class="module-grid">
+                    <!-- Bônus 1 -->
+                    <div class="module-card" data-categories="iniciantes interativo">
+                        <div class="module-badge">POPULAR</div>
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div>
+                                <h3>Checklist Interativo</h3>
+                                <p class="module-meta">3 dias para sua primeira música</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Toque sua 1ª música em 3 dias com checkpoints e vídeos animados que garantem sua evolução rápida.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Progresso diário</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-video"></i>
+                                    <span>Vídeos demonstrativos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Checklist Interativo - 3 Dias/index.html" class="module-link" data-favorite="Checklist Interativo">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Checklist Interativo - 3 Dias/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 2 -->
+                    <div class="module-card" data-categories="tecnica">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-hand-rock"></i>
+                            </div>
+                            <div>
+                                <h3>Desafio Anti-Pestana</h3>
+                                <p class="module-meta">7 dias de exercícios</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Atividades diárias com vídeos animados para dominar pestanas sem dor e com progresso constante.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <span>Desafio de 7 dias</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-hand-paper"></i>
+                                    <span>Sem dor nas mãos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Desafio Anti-Pestana/index.html" class="module-link" data-favorite="Desafio Anti-Pestana">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Desafio Anti-Pestana/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 3 -->
+                    <div class="module-card" data-categories="interativo teoria">
+                        <div class="module-badge">INTERATIVO</div>
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-random"></i>
+                            </div>
+                            <div>
+                                <h3>Gerador de Acordes</h3>
+                                <p class="module-meta">Treinamento dinâmico</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Treine criatividade com combinações novas de acordes todos os dias para nunca ficar na mesmice.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-dice"></i>
+                                    <span>Sorteio aleatório</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <span>Criatividade musical</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Gerador de Acordes Aleatórios/index.html" class="module-link" data-favorite="Gerador de Acordes">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Gerador de Acordes Aleatórios/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 4 -->
+                    <div class="module-card" data-categories="teoria interativo">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div>
+                                <h3>Mapa Interativo dos Acordes</h3>
+                                <p class="module-meta">Visualize e entenda os acordes</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Visualize as relações entre acordes e aprenda a criar progressões harmônicas incríveis com facilidade.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-project-diagram"></i>
+                                    <span>Conexões harmônicas</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                    <span>Aprenda a teoria na prática</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Mapa Interativo dos Acordes/index.html" class="module-link" data-favorite="Mapa Interativo dos Acordes">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Mapa Interativo dos Acordes/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 5 -->
+                    <div class="module-card" data-categories="tecnica">
+                        <div class="module-badge">EXCLUSIVO</div>
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-hand-sparkles"></i>
+                            </div>
+                            <div>
+                                <h3>Mini-curso Destravando os Dedos</h3>
+                                <p class="module-meta">Agilidade e independência</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Exercícios específicos para ganhar agilidade e flexibilidade nos dedos e evoluir tecnicamente no violão.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Exercícios progressivos</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-dumbbell"></i>
+                                    <span>Fortalecimento muscular</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Mini-curso Destravando os Dedos/index.html" class="module-link" data-favorite="Mini-curso Destravando os Dedos">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Mini-curso Destravando os Dedos/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 6 -->
+                    <div class="module-card" data-categories="iniciantes interativo">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div>
+                                <h3>Modo Ritmo Guiado</h3>
+                                <p class="module-meta">Sinta o ritmo no corpo</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Aprenda a tocar no tempo com ajuda de áudio real e vibração, desenvolvendo seu senso rítmico naturalmente.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-drum"></i>
+                                    <span>Batidas sincronizadas</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Feedback por vibração</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Modo Ritmo Guiado/index.html" class="module-link" data-favorite="Modo Ritmo Guiado">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Modo Ritmo Guiado/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 7 -->
+                    <div class="module-card" data-categories="interativo">
+                        <div class="module-badge">COM IA</div>
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h3>Modo Toque Agora com IA</h3>
+                                <p class="module-meta">Desafios personalizados</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Desafios diários gerados por IA para praticar de forma divertida e personalizada ao seu nível atual.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-brain"></i>
+                                    <span>Sugestões inteligentes</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Acompanha seu progresso</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Modo Toque Agora com IA/index.html" class="module-link" data-favorite="Modo Toque Agora com IA">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Modo Toque Agora com IA/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 8 -->
+                    <div class="module-card" data-categories="interativo teoria">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div>
+                                <h3>Pack com 1.000 Cifras em PDF</h3>
+                                <p class="module-meta">Biblioteca completa</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Acesso imediato a 1.000 cifras em PDF organizadas por gênero musical para tocar suas músicas favoritas.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-search"></i>
+                                    <span>Pesquisa avançada</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-download"></i>
+                                    <span>Uso offline</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Pack com 1.000 Cifras em PDF Interativo/index.html" class="module-link" data-favorite="Pack com 1.000 Cifras em PDF">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Pack com 1.000 Cifras em PDF Interativo/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 9 -->
+                    <div class="module-card" data-categories="iniciantes interativo">
+                        <div class="module-badge">INTELIGENTE</div>
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div>
+                                <h3>Planner Inteligente com IA</h3>
+                                <p class="module-meta">Rotina personalizada</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Crie uma rotina de estudos personalizada para dominar o violão com ajuda da inteligência artificial.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Adapta-se à sua agenda</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-bullseye"></i>
+                                    <span>Foco em seus objetivos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Planner Inteligente com IA/index.html" class="module-link" data-favorite="Planner Inteligente com IA">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Planner Inteligente com IA/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bônus 10 -->
+                    <div class="module-card" data-categories="iniciantes teoria">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div>
+                                <h3>Jogo de Treino Musical</h3>
+                                <p class="module-meta">Aprenda se divertindo</p>
+                            </div>
+                        </div>
+                        <div class="module-content">
+                            <p>Desenvolva seu ouvido musical e conhecimento teórico com um jogo divertido que transforma o aprendizado em diversão.</p>
+                            <div class="module-features">
+                                <div class="module-feature">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>Sistema de pontuação</span>
+                                </div>
+                                <div class="module-feature">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>Níveis progressivos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Jogo de Treino Musical/index.html" class="module-link" data-favorite="Jogo de Treino Musical">
+                                Acessar Bônus
+                                <span class="arrow">→</span>
+                            </a>
+                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Jogo de Treino Musical/index.html">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </section>
+
+        <section id="favoritos" class="favorites-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h2 class="section-title">Seus Favoritos</h2>
+                    <p class="section-subtitle">Acesso rápido aos seus materiais salvos</p>
+                </div>
+                
+                <div id="favoritesContainer" class="favorites-container">
+                    <div class="no-favorites">
+                        <div class="no-favorites-icon">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        <h3>Nenhum favorito ainda</h3>
+                        <p>Marque materiais como favoritos clicando no ícone <i class="far fa-heart"></i> nos módulos para acessá-los rapidamente.</p>
+                        <a href="#metodo" class="btn btn-secondary">Explorar Materiais</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Pronto para dominar o violão?</h2>
+                    <p class="cta-text">Comece agora mesmo e em uma semana você estará tocando suas músicas favoritas!</p>
+                    <a href="#metodo" class="btn btn-primary btn-large">Começar Jornada <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><span class="icon-guitar">🎸</span> Domine o Violão</h3>
+                    <p>Da primeira nota à primeira música</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-nav">
+                        <h4>Navegação</h4>
+                        <ul>
+                            <li><a href="#inicio">Início</a></li>
+                            <li><a href="#metodo">Método Completo</a></li>
+                            <li><a href="#bonus">Bônus</a></li>
+                            <li><a href="#favoritos">Favoritos</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav">
+                        <h4>Suporte</h4>
+                        <ul>
+                            <li><a href="#">Contato</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Política de Privacidade</a></li>
+                            <li><a href="#">Termos de Uso</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+                <p class="signature">© 2025 - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="install-prompt" id="installPrompt">
+        <div class="install-content">
+            <div class="prompt-header">
+                <img src="img/icon-192.svg" alt="Ícone do App" class="prompt-icon">
+                <h3>Instale o App</h3>
+                <button class="close-prompt text-btn" id="closePrompt">&times;</button>
+            </div>
+            <p>Instale nosso aplicativo para acesso offline e uma melhor experiência!</p>
+            <div class="prompt-buttons">
+                <button class="btn btn-primary" id="installBtn">Instalar App</button>
+                <button class="text-btn" id="laterBtn">Mais tarde</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="violao-nav.js"></script>
+    <script>
+        // Registrar o service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registrado com sucesso'))
+                    .catch(err => console.error('Erro ao registrar Service Worker:', err));
+            });
+        }
+    </script>
+</body>
+</html>

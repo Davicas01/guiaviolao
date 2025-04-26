@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Ritmo Guiado - Kit Violão Profissional</title>
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #A0522D;
+            --accent-color: #CD853F;
+            --light-bg: #FAF0E6;
+            --dark-text: #5D4037;
+            --light-text: #fff;
+            --shadow: 0 8px 16px rgba(139, 69, 19, 0.15);
+            --border-radius: 12px;
+            --border-color: #DEB887;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Inter', 'Segoe UI', Roboto, sans-serif;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+            background-image: linear-gradient(45deg, rgba(139, 69, 19, 0.03) 25%, transparent 25%, transparent 75%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03)), 
+                              linear-gradient(45deg, rgba(139, 69, 19, 0.03) 25%, transparent 25%, transparent 75%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03));
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            background-color: rgba(139, 69, 19, 0.2);
+            color: var(--light-text);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(139, 69, 19, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            position: relative;
+            border-bottom-left-radius: 30% 5%;
+            border-bottom-right-radius: 30% 5%;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(139, 69, 19, 0.2);
+        }
+        
+        .intro-card {
+            border-left: 6px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .intro-card::after {
+            content: '🎵';
+            position: absolute;
+            bottom: -30px;
+            right: -10px;
+            font-size: 120px;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+        }
+        
+        h2 {
+            font-size: 1.7rem;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60%;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+        
+        .rhythm-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0));
+            z-index: -1;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        
+        button.secondary-btn {
+            background-color: #78644C;
+        }
+        
+        button.secondary-btn:hover {
+            background-color: #665540;
+        }
+        
+        button.accent-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        button.accent-btn:hover {
+            background-color: #BC7A38;
+        }
+        
+        .control-btn i {
+            font-size: 1.3rem;
+        }
+        
+        .rhythm-selector, .tempo-control {
+            margin: 2rem 0;
+        }
+        
+        .rhythm-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .rhythm-card {
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rhythm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.05), transparent);
+            z-index: 0;
+        }
+        
+        .rhythm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.15);
+            border-color: var(--primary-color);
+        }
+        
+        .rhythm-card.selected {
+            background-color: rgba(139, 69, 19, 0.08);
+            border-color: var(--primary-color);
+            border-width: 2px;
+            box-shadow: 0 8px 16px rgba(139, 69, 19, 0.15);
+        }
+        
+        .rhythm-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .rhythm-badges {
+            display: flex;
+            gap: 0.7rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .rhythm-badge {
+            background-color: rgba(139, 69, 19, 0.1);
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .rhythm-pattern {
+            font-family: monospace;
+            font-size: 1.1rem;
+            background-color: rgba(139, 69, 19, 0.07);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-top: 0.8rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+        }
+        
+        .tempo-settings {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            background-color: rgba(139, 69, 19, 0.05);
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .tempo-slider {
+            flex-grow: 1;
+        }
+        
+        .tempo-value {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            min-width: 85px;
+            text-align: center;
+            background-color: white;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(139, 69, 19, 0.1);
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #e5d6c7;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: var(--secondary-color);
+            transform: scale(1.2);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+        
+        .visualization {
+            height: 180px;
+            background-color: rgba(139, 69, 19, 0.04);
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(139, 69, 19, 0.1);
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .beat-marker {
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            transition: opacity 0.2s ease, height 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .beat-marker.accent {
+            background-color: var(--accent-color);
+            width: 6px;
+            box-shadow: 0 0 10px rgba(205, 133, 63, 0.5);
+        }
+        
+        .beat-counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 1.5rem;
+            text-shadow: 0 2px 6px rgba(139, 69, 19, 0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .beat-counter:not(.-) {
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .vibration-toggle {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            padding: 1rem;
+            background-color: rgba(139, 69, 19, 0.05);
+            border-radius: var(--border-radius);
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 62px;
+            height: 34px;
+            margin-right: 1.2rem;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(0,0,0,0.2);
+        }
+        
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+        
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--secondary-color);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(28px);
+        }
+        
+        .feedback-message {
+            display: none;
+            background-color: rgba(160, 82, 45, 0.1);
+            color: var(--secondary-color);
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary-color);
+            font-weight: 500;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tips-section {
+            background-color: rgba(205, 133, 63, 0.1);
+            border-left: 6px solid var(--accent-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #8B7765;
+            font-size: 0.9rem;
+            background-color: rgba(139, 69, 19, 0.05);
+            border-top: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .rhythm-controls {
+                justify-content: center;
+            }
+            
+            button {
+                padding: 0.8rem 1.4rem;
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .tempo-settings {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .tempo-value {
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <a href="../../index.html" class="back-button"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
+    <header>
+        <div class="container">
+            <h1>🔊 Modo Ritmo Guiado</h1>
+            <div class="subtitle">Aprenda a tocar no tempo com ajuda de áudio real e vibração</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card intro-card">
+            <h2>Como funciona o Modo Ritmo Guiado?</h2>
+            <p>Esta ferramenta inovadora combina recursos audiovisuais e táteis para ajudar você a desenvolver seu senso rítmico de forma natural e intuitiva:</p>
+            
+            <ul class="feature-list">
+                <li><strong>Áudio Real:</strong> Ouça batidas reais gravadas por músicos profissionais</li>
+                <li><strong>Vibração Sincronizada:</strong> Sinta o ritmo no seu corpo através da vibração do celular</li>
+                <li><strong>Visualização Dinâmica:</strong> Acompanhe visualmente o andamento das batidas em tempo real</li>
+                <li><strong>Padrões Personalizáveis:</strong> Escolha entre diversos ritmos e ajuste o andamento conforme sua necessidade</li>
+            </ul>
+            
+            <p>Esta experiência sensorial completa ajuda a internalizar o ritmo de maneira muito mais eficaz que métodos tradicionais.</p>
+        </div>
+
+        <div class="card">
+            <h2>Selecione um Padrão Rítmico</h2>
+            
+            <div class="rhythm-options">
+                <div class="rhythm-card" data-rhythm="pop">
+                    <div class="rhythm-title">Pop Básico</div>
+                    <div class="rhythm-badges">
+                        <span class="rhythm-badge">4/4</span>
+                        <span class="rhythm-badge">Iniciante</span>
+                    </div>
+                    <p>Batida simples para músicas pop e rock lento.</p>
+                    <div class="rhythm-pattern">↓ ↓ ↑↓ ↑↓</div>
+                </div>
+                
+                <div class="rhythm-card" data-rhythm="popDancing">
+                    <div class="rhythm-title">Pop Dançante</div>
+                    <div class="rhythm-badges">
+                        <span class="rhythm-badge">4/4</span>
+                        <span class="rhythm-badge">Intermediário</span>
+                    </div>
+                    <p>Batida animada com acentos nos contratempos.</p>
+                    <div class="rhythm-pattern">↓ ↑↓↑ ↓ ↑↓↑</div>
+                </div>
+                
+                <div class="rhythm-card" data-rhythm="bossaNova">
+                    <div class="rhythm-title">Bossa Nova</div>
+                    <div class="rhythm-badges">
+                        <span class="rhythm-badge">4/4</span>
+                        <span class="rhythm-badge">Avançado</span>
+                    </div>
+                    <p>O clássico balanço brasileiro.</p>
+                    <div class="rhythm-pattern">↓ · ↓↑ ↓ · ↓↑</div>
+                </div>
+                
+                <div class="rhythm-card" data-rhythm="sertanejo">
+                    <div class="rhythm-title">Sertanejo</div>
+                    <div class="rhythm-badges">
+                        <span class="rhythm-badge">4/4</span>
+                        <span class="rhythm-badge">Intermediário</span>
+                    </div>
+                    <p>Batida para músicas sertanejas.</p>
+                    <div class="rhythm-pattern">↓↑ ↓↑ ↓↑ ↓↑</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Controle do Andamento</h2>
+            
+            <div class="tempo-settings">
+                <button class="tempo-btn" data-tempo="decrease"><i class="fas fa-minus"></i></button>
+                <input type="range" min="40" max="200" value="80" class="tempo-slider" id="tempoSlider">
+                <button class="tempo-btn" data-tempo="increase"><i class="fas fa-plus"></i></button>
+                <div class="tempo-value">80 BPM</div>
+            </div>
+            
+            <div class="vibration-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="vibrationToggle" checked>
+                    <span class="slider"></span>
+                </label>
+                <span>Ativar vibração (dispositivos móveis)</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Visualização do Ritmo</h2>
+            
+            <div class="visualization" id="rhythmVisualization">
+                <!-- Beat markers will be added dynamically -->
+            </div>
+            
+            <div class="rhythm-controls">
+                <button id="playButton" class="control-btn"><i class="fas fa-play"></i> Iniciar</button>
+                <button id="stopButton" class="control-btn secondary-btn"><i class="fas fa-stop"></i> Parar</button>
+                <button id="countInButton" class="control-btn accent-btn"><i class="fas fa-stopwatch"></i> Contagem Inicial</button>
+            </div>
+            
+            <div class="beat-counter" id="beatCounter">-</div>
+            
+            <div class="feedback-message" id="feedbackMessage">
+                Vibrações funcionando! Sinta o ritmo no seu dispositivo.
+            </div>
+        </div>
+
+        <div class="card tips-section">
+            <h2>💡 Dicas para Praticar</h2>
+            
+            <h3>Como tirar máximo proveito do Modo Ritmo Guiado:</h3>
+            
+            <ul class="feature-list">
+                <li>Comece com um andamento lento e aumente gradualmente</li>
+                <li>Palme junto com a batida antes de pegar o violão</li>
+                <li>Pratique primeiro os movimentos da mão direita sem tocar as cordas</li>
+                <li>Ao usar o violão, foque inicialmente apenas no ritmo, não na mudança de acordes</li>
+                <li>Use a função de vibração para realmente "sentir" o pulso rítmico</li>
+            </ul>
+            
+            <p>Pratique diariamente por apenas 5 minutos e você perceberá uma enorme evolução no seu senso rítmico!</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const playButton = document.getElementById('playButton');
+        const stopButton = document.getElementById('stopButton');
+        const countInButton = document.getElementById('countInButton');
+        const tempoSlider = document.getElementById('tempoSlider');
+        const tempoValue = document.querySelector('.tempo-value');
+        const rhythmCards = document.querySelectorAll('.rhythm-card');
+        const visualization = document.getElementById('rhythmVisualization');
+        const beatCounter = document.getElementById('beatCounter');
+        const vibrationToggle = document.getElementById('vibrationToggle');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        
+        // App State
+        let isPlaying = false;
+        let tempo = 80;
+        let selectedRhythm = 'pop';
+        let intervalId = null;
+        let currentBeat = 0;
+        let vibrationEnabled = true;
+        let countInActive = false;
+        
+        // Criando os sons diretamente na página para garantir o funcionamento
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Função para criar som de clique
+        function createClickSound(isAccent) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // Configurar o oscilador para som de clique ou acento
+            oscillator.type = isAccent ? 'triangle' : 'sine';
+            oscillator.frequency.setValueAtTime(isAccent ? 1400 : 1000, audioContext.currentTime);
+            
+            // Configurar envelope do som
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(isAccent ? 0.7 : 0.5, audioContext.currentTime + 0.001);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+            
+            // Conectar os nós
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Iniciar e parar o oscilador
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+        
+        // Tocar som de clique normal
+        function playClickSound() {
+            createClickSound(false);
+        }
+        
+        // Tocar som de acento
+        function playAccentSound() {
+            createClickSound(true);
+        }
+        
+        // Rhythm Patterns (1 = accent, 0 = normal beat, -1 = rest)
+        const rhythmPatterns = {
+            pop: [1, 0, 0, 0, 0, 0, 0, 0],
+            popDancing: [1, 0, 0, 1, 0, 0, 1, 0],
+            bossaNova: [1, -1, 0, 1, 0, -1, 0, 1],
+            sertanejo: [1, 0, 0, 1, 0, 0, 1, 0]
+        };
+        
+        // Event Listeners
+        rhythmCards.forEach(card => {
+            card.addEventListener('click', () => {
+                rhythmCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedRhythm = card.dataset.rhythm;
+                resetVisualization();
+            });
+        });
+        
+        playButton.addEventListener('click', () => {
+            if (!isPlaying) {
+                startPlayback();
+                playButton.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+            } else {
+                stopPlayback();
+                playButton.innerHTML = '<i class="fas fa-play"></i> Iniciar';
+            }
+        });
+        
+        stopButton.addEventListener('click', () => {
+            stopPlayback();
+            resetVisualization();
+            playButton.innerHTML = '<i class="fas fa-play"></i> Iniciar';
+            beatCounter.textContent = '-';
+        });
+        
+        countInButton.addEventListener('click', () => {
+            if (!isPlaying) {
+                startCountIn();
+            }
+        });
+        
+        tempoSlider.addEventListener('input', () => {
+            tempo = parseInt(tempoSlider.value);
+            tempoValue.textContent = `${tempo} BPM`;
+            
+            if (isPlaying) {
+                stopPlayback();
+                startPlayback();
+            }
+        });
+        
+        vibrationToggle.addEventListener('change', () => {
+            vibrationEnabled = vibrationToggle.checked;
+            if (vibrationEnabled) {
+                // Test vibration and show feedback
+                if ('vibrate' in navigator) {
+                    navigator.vibrate([100, 100, 100]);
+                    feedbackMessage.style.display = 'block';
+                    setTimeout(() => {
+                        feedbackMessage.style.display = 'none';
+                    }, 3000);
+                }
+            }
+        });
+        
+        // Functions
+        function startPlayback() {
+            isPlaying = true;
+            const beatDuration = 60000 / (tempo * 2); // Converting to milliseconds (8th notes)
+            
+            // Clear previous interval if any
+            if (intervalId) clearInterval(intervalId);
+            
+            // Start new interval
+            intervalId = setInterval(() => {
+                playBeat();
+                currentBeat = (currentBeat + 1) % rhythmPatterns[selectedRhythm].length;
+            }, beatDuration);
+        }
+        
+        function startCountIn() {
+            countInActive = true;
+            currentBeat = 0;
+            beatCounter.textContent = "4";
+            
+            const countInDuration = 60000 / tempo; // Quarter note duration
+            
+            // Play 4 beats of count-in
+            let countBeats = 4;
+            
+            const countInterval = setInterval(() => {
+                countBeats--;
+                
+                if (countBeats > 0) {
+                    beatCounter.textContent = countBeats.toString();
+                    playAccentSound();
+                    
+                    if (vibrationEnabled && 'vibrate' in navigator) {
+                        navigator.vibrate([100]);
+                    }
+                } else {
+                    clearInterval(countInterval);
+                    countInActive = false;
+                    beatCounter.textContent = "1";
+                    startPlayback();
+                    playButton.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+                }
+            }, countInDuration);
+        }
+        
+        function stopPlayback() {
+            isPlaying = false;
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+        }
+        
+        function playBeat() {
+            const beatType = rhythmPatterns[selectedRhythm][currentBeat];
+            
+            if (beatType !== -1) { // Skip rests
+                // Display current beat
+                updateBeatCounter();
+                
+                // Create visual marker
+                createBeatMarker(beatType === 1);
+                
+                // Play sound
+                if (beatType === 1) {
+                    playAccentSound();
+                } else {
+                    playClickSound();
+                }
+                
+                // Trigger vibration
+                if (vibrationEnabled && 'vibrate' in navigator) {
+                    navigator.vibrate(beatType === 1 ? [100] : [50]);
+                }
+            }
+        }
+        
+        function createBeatMarker(isAccent) {
+            const marker = document.createElement('div');
+            marker.classList.add('beat-marker');
+            if (isAccent) marker.classList.add('accent');
+            
+            // Position marker
+            const leftPosition = Math.random() * (visualization.offsetWidth - 10);
+            marker.style.left = `${leftPosition}px`;
+            
+            // Add to visualization
+            visualization.appendChild(marker);
+            
+            // Animate and remove marker
+            setTimeout(() => {
+                marker.style.opacity = '0';
+                setTimeout(() => {
+                    visualization.removeChild(marker);
+                }, 300);
+            }, 300);
+        }
+        
+        function updateBeatCounter() {
+            // Calculate the beat number (1-based)
+            const beatNumber = Math.floor(currentBeat / 2) + 1;
+            beatCounter.textContent = beatNumber.toString();
+        }
+        
+        function resetVisualization() {
+            currentBeat = 0;
+            beatCounter.textContent = '-';
+            
+            // Clear all markers
+            while (visualization.firstChild) {
+                visualization.removeChild(visualization.firstChild);
+            }
+        }
+        
+        // Initialize with the first rhythm selected
+        rhythmCards[0].classList.add('selected');
+    </script>
+</body>
+</html>

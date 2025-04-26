@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Anti-Pestana (7 Dias) - Kit Violão Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;  /* Marrom mais escuro */
+            --secondary-color: #A0522D; /* Marrom secundário */
+            --dark-color: #3E2723;     /* Marrom quase preto */
+            --light-color: #F5F5DC;    /* Bege claro */
+            --success-color: #4caf50;
+            --warning-color: #D2691E;  /* Cor de chocolate */
+            --danger-color: #B22222;   /* Vermelho mais escuro */
+            --gradient: linear-gradient(135deg, var(--primary-color), #CD853F); /* Gradiente marrom */
+            --shadow: 0 4px 6px rgba(62, 39, 35, 0.2);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            padding-bottom: 60px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.08)" d="M0,0 L100,0 L100,20 C60,40 40,10 0,30 Z" /></svg>') no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .intro-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: -30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 2;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .intro-card h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .intro-card p {
+            margin-bottom: 1rem;
+        }
+        
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .day-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .day-header {
+            padding: 1rem;
+            background: var(--gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .day-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.1)" d="M0,0 L100,0 L100,20 C60,40 40,10 0,30 Z" /></svg>') no-repeat;
+            background-size: cover;
+        }
+        
+        .day-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .difficulty {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 0.8rem;
+            font-weight: normal;
+            vertical-align: middle;
+        }
+        
+        .task-count {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .day-content {
+            padding: 1.5rem;
+        }
+        
+        .mission-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .mission-description {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .video-preview {
+            width: 100%;
+            height: 180px;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--secondary-color);
+            padding: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 5px rgba(139, 69, 19, 0.2);
+        }
+        
+        .video-preview:hover {
+            background-color: #f5efe0;
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .instruction-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .instruction-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .instruction-title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tasks {
+            margin-top: 1.5rem;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.7rem;
+            padding: 0.7rem;
+            border-radius: var(--border-radius);
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .task-item:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .task-checkbox {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .task-checkbox.completed {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+        
+        .task-label {
+            flex-grow: 1;
+            user-select: none;
+        }
+        
+        .task-label.completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .reward-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .reward-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .reward-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background-color: #fff3e0;
+            color: #ff9800;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar-container {
+            background-color: #eeeeee;
+            border-radius: 50px;
+            height: 10px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 50px;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .day-locked .day-header {
+            background: linear-gradient(135deg, #9e9e9e, #616161);
+        }
+        
+        .day-locked .day-content {
+            position: relative;
+        }
+        
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .lock-icon {
+            font-size: 2.5rem;
+            color: #9e9e9e;
+            margin-bottom: 1rem;
+        }
+        
+        .lock-message {
+            font-weight: 600;
+            color: #616161;
+            text-align: center;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #e64a19;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-full {
+            display: block;
+            width: 100%;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #1976d2;
+        }
+        
+        .mt-2 {
+            margin-top: 1.5rem;
+        }
+        
+        .help-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .help-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .help-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        
+        .help-text {
+            flex-grow: 1;
+        }
+        
+        .help-text p {
+            margin-bottom: 1rem;
+        }
+        
+        .help-community {
+            flex-shrink: 0;
+            background-color: #f1f1f1;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            width: 250px;
+        }
+        
+        .help-community h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .help-community p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-carousel {
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+        
+        .testimonial-slide {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            max-width: 350px;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9e9e9e;
+            font-weight: 600;
+        }
+        
+        .author-info {
+            flex-grow: 1;
+        }
+        
+        .author-name {
+            font-weight: 600;
+        }
+        
+        .author-progress {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+        
+        .additional-resources {
+            margin-top: 3rem;
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .additional-resources h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .resource-card {
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resource-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-desc {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        
+        .resource-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: var(--dark-color);
+            color: white;
+            margin-top: 3rem;
+        }
+        
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+        
+        .modal-title {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            padding-right: 40px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: var(--danger-color);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        /* Novos estilos para aprimoramentos */
+        .diagnostic-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .diagnostic-title {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .diagnostic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .diagnostic-card {
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            border: 1px solid #eee;
+            transition: all 0.2s ease;
+        }
+        
+        .diagnostic-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .diagnostic-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .problems-solutions {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            margin-top: 1rem;
+        }
+        
+        .problems-title {
+            color: var(--dark-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .problem-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        
+        .problem-header {
+            padding: 0.8rem;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .problem-title {
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .problem-content {
+            padding: 1rem;
+            display: none;
+        }
+        
+        .problem-content.active {
+            display: block;
+        }
+
+        .detail-bar {
+            display: flex;
+            background-color: #f9f9f9;
+            border-radius: 20px;
+            height: 8px;
+            margin: 8px 0 15px;
+            overflow: hidden;
+        }
+        
+        .detail-segment {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+        
+        .segment-poor {
+            background-color: #ff6b6b;
+        }
+        
+        .segment-fair {
+            background-color: #ffd166;
+        }
+        
+        .segment-good {
+            background-color: #06d6a0;
+        }
+        
+        .segment-great {
+            background-color: #118ab2;
+        }
+
+        .technique-checklist {
+            margin-top: 1rem;
+        }
+        
+        .technique-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.7rem;
+        }
+        
+        .technique-checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid var(--secondary-color);
+            margin-right: 10px;
+            flex-shrink: 0;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .technique-checkbox.checked::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .technique-label {
+            font-size: 0.95rem;
+        }
+        
+        .next-step {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .timer-container {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .timer-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            background-color: #f5f5f5;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            min-width: 100px;
+            text-align: center;
+            margin-right: 1rem;
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .timer-btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .timer-btn:hover {
+            background-color: #a0522d;
+        }
+
+        .timer-btn.pause {
+            background-color: var(--warning-color);
+        }
+
+        .timer-btn.reset {
+            background-color: var(--dark-color);
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .celebration.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .celebration-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: pop-in 0.5s forwards;
+        }
+
+        .tip-box {
+            background-color: rgba(139, 69, 19, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .tip-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tip-title i {
+            margin-right: 0.5rem;
+        }
+
+        .progress-detail {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+        
+        .progress-label {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        .progress-value {
+            font-weight: 600;
+            margin-left: 1rem;
+            color: var(--primary-color);
+        }
+
+        @keyframes pop-in {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .video-library {
+            margin-top: 2rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .video-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background-color: #f5f5f5;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .video-duration {
+            font-size: 0.8rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-duration i {
+            margin-right: 0.3rem;
+        }
+
+        .feedback-form {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .feedback-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            background: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rating-btn:hover,
+        .rating-btn.active {
+            border-color: var(--primary-color);
+            background-color: var(--light-color);
+        }
+
+        .rating-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Classes de utilidade */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flex-between {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Ajustes para mobile */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .testimonial-slide {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .help-content {
+                flex-direction: column;
+            }
+            
+            .help-community {
+                width: 100%;
+            }
+            
+            .day-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .diagnostic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../../../index.html" class="back-button"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
+    <div class="header">
+        <div class="header-content">
+            <h1>💪 Desafio Anti-Pestana: 7 Dias</h1>
+            <div class="subtitle">Supere a dificuldade mais temida no violão com missões diárias e sistema de recompensas</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>Como dominar acordes com pestana em apenas 7 dias</h2>
+            <p>Pestanas são o maior obstáculo para violonistas iniciantes, mas você pode dominá-las com a abordagem certa. Neste desafio de 7 dias, você receberá exercícios diários, ilustrações e técnicas comprovadas que facilitarão seu aprendizado.</p>
+            <p><strong>Como funciona:</strong> Complete as missões diárias, marque suas conquistas e desbloqueie os próximos dias do desafio. Ao final dos 7 dias, você estará tocando pestanas com muito mais facilidade e confiança!</p>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="overall-progress"></div>
+            </div>
+            <div class="progress-text">Progresso total: <span id="progress-percentage">0%</span></div>
+        </div>
+
+        <div class="challenge-grid">
+            <!-- Dia 1 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <h3>Dia 1 <span class="difficulty">⭐</span></h3>
+                    <div class="task-count">3 missões</div>
+                </div>
+                <div class="day-content">
+                    <div class="mission-title">Preparação dos dedos e mão</div>
+                    <div class="mission-description">Hoje vamos preparar sua mão e fortalecer seus dedos com exercícios básicos que facilitarão a execução de pestanas.</div>
+                    
+                    <div class="video-preview">
+        <div class="instruction-content">
+            <div class="instruction-icon">
+                <i class="fas fa-guitar"></i>
+            </div>
+            <div class="instruction-title">Instruções do Dia</div>
+            <p>Clique para ver instruções detalhadas e imagens dos exercícios</p>
+        </div>
+    </div>
+                    
+                    <div class="tasks">
+                        <div class="task-item" onclick="toggleTask(this)">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Exercício de fortalecimento do dedo indicador (3x10)</div>
+                        </div>
+                        <div class="task-item" onclick="toggleTask(this)">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Prática de posicionamento do polegar (5 minutos)</div>
+                        </div>
+                        <div class="task-item" onclick="toggleTask(this)">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Alongamento dos dedos antes e depois da prática</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-section">
+                        <div class="reward-title">Recompensa do dia</div>
+                        <div class="reward-badge">Badge: "Primeiro Passo"</div>
+                        <button class="btn btn-full mt-2" onclick="completeDay(1)">Marcar dia como concluído</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dia 2 -->
+            <div class="day-card day-locked" id="day-2">
+                <div class="day-header">
+                    <h3>Dia 2 <span class="difficulty">⭐⭐</span></h3>
+                    <div class="task-count">3 missões</div>
+                </div>
+                <div class="day-content">
+                    <div class="lock-overlay">
+                        <div class="lock-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="lock-message">Complete o dia 1 para desbloquear</div>
+                    </div>
+                    
+                    <div class="mission-title">Postura e posição da mão</div>
+                    <div class="mission-description">Sua postura e o posicionamento correto da mão são essenciais para executar pestanas com qualidade.</div>
+                    
+                    <div class="video-preview" onclick="openInstructionsModal('Posicionamento correto da mão para pestanas', 'dia2')">
+                        <div class="instruction-content">
+                            <div class="instruction-icon">
+                                <i class="fas fa-hand-paper"></i>
+                            </div>
+                            <div class="instruction-title">Posicionamento das Mãos</div>
+                            <p>Técnicas para posicionar corretamente as mãos e pulso</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tasks">
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Ajuste da altura do violão para melhor postura</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Praticar o posicionamento de polegar e pulso</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Experimentar diferentes ângulos do indicador</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-section">
+                        <div class="reward-title">Recompensa do dia</div>
+                        <div class="reward-badge">Badge: "Postura Perfeita"</div>
+                        <button class="btn btn-full mt-2" onclick="completeDay(2)" disabled>Marcar dia como concluído</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dia 3 -->
+            <div class="day-card day-locked" id="day-3">
+                <div class="day-header">
+                    <h3>Dia 3 <span class="difficulty">⭐⭐</span></h3>
+                    <div class="task-count">3 missões</div>
+                </div>
+                <div class="day-content">
+                    <div class="lock-overlay">
+                        <div class="lock-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="lock-message">Complete o dia 2 para desbloquear</div>
+                    </div>
+                    
+                    <div class="mission-title">Sua primeira pestana: técnica básica</div>
+                    <div class="mission-description">Aprenda a pressionar corretamente todas as cordas com seu dedo indicador e execute seu primeiro acorde com pestana.</div>
+                    
+                    <div class="video-preview" onclick="openInstructionsModal('Sua primeira pestana: Explicação passo a passo', 'dia3')">
+                        <div class="instruction-content">
+                            <div class="instruction-icon">
+                                <i class="fas fa-guitar"></i>
+                            </div>
+                            <div class="instruction-title">Sua Primeira Pestana</div>
+                            <p>Instruções detalhadas e diagramas para sua primeira pestana</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tasks">
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Pressionar todas as cordas na primeira casa (10x)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Praticar acorde F maior básico (10 minutos)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Verificar se todas as notas estão soando limpas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-section">
+                        <div class="reward-title">Recompensa do dia</div>
+                        <div class="reward-badge">Badge: "Primeira Pestana"</div>
+                        <button class="btn btn-full mt-2" onclick="completeDay(3)" disabled>Marcar dia como concluído</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dia 4 -->
+            <div class="day-card day-locked" id="day-4">
+                <div class="day-header">
+                    <h3>Dia 4 <span class="difficulty">⭐⭐⭐</span></h3>
+                    <div class="task-count">4 missões</div>
+                </div>
+                <div class="day-content">
+                    <div class="lock-overlay">
+                        <div class="lock-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="lock-message">Complete o dia 3 para desbloquear</div>
+                    </div>
+                    
+                    <div class="mission-title">Acorde F maior: resistência e sonoridade</div>
+                    <div class="mission-description">Desenvolva resistência e qualidade sonora no acorde F maior com pestana completa.</div>
+                    
+                    <div class="video-preview" onclick="openVideoModal('Dominando o acorde F com pestana', 'dia4')">
+                        <div class="instruction-content">
+                            <div class="instruction-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="instruction-title">Acorde F Maior</div>
+                            <p>Instruções detalhadas para dominar o acorde F com pestana</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tasks">
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Treinar mudança de C para F (20x)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Fazer exercício de resistência: segurar F por 20s (3x)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Praticar dedilhado no acorde F (5 minutos)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Tocar sequência G, C, F lentamente (10x)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-section">
+                        <div class="reward-title">Recompensa do dia</div>
+                        <div class="reward-badge">Badge: "Mestre do F Maior"</div>
+                        <button class="btn btn-full mt-2" onclick="completeDay(4)" disabled>Marcar dia como concluído</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dia 5 -->
+            <div class="day-card day-locked" id="day-5">
+                <div class="day-header">
+                    <h3>Dia 5 <span class="difficulty">⭐⭐⭐</span></h3>
+                    <div class="task-count">3 missões</div>
+                </div>
+                <div class="day-content">
+                    <div class="lock-overlay">
+                        <div class="lock-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="lock-message">Complete o dia 4 para desbloquear</div>
+                    </div>
+                    
+                    <div class="mission-title">Expandindo: B♭ e Bm</div>
+                    <div class="mission-description">Aplique as técnicas aprendidas em novos acordes com pestana: B♭ maior e Si menor.</div>
+                    
+                    <div class="video-preview" onclick="openVideoModal('Novos acordes com pestana: B♭ e Bm', 'dia5')">
+                        <div class="instruction-content">
+                            <div class="instruction-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="instruction-title">Acordes B♭ e Bm</div>
+                            <p>Diagramas e instruções para dominar novos acordes com pestana</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tasks">
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Praticar acorde B♭ isoladamente (15 minutos)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Praticar acorde Bm isoladamente (15 minutos)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Treinar progressões com os novos acordes: F - B♭ - C</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-section">
+                        <div class="reward-title">Recompensa do dia</div>
+                        <div class="reward-badge">Badge: "Horizontes Expandidos"</div>
+                        <button class="btn btn-full mt-2" onclick="completeDay(5)" disabled>Marcar dia como concluído</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dia 6 -->
+            <div class="day-card day-locked" id="day-6">
+                <div class="day-header">
+                    <h3>Dia 6 <span class="difficulty">⭐⭐⭐⭐</span></h3>
+                    <div class="task-count">3 missões</div>
+                </div>
+                <div class="day-content">
+                    <div class="lock-overlay">
+                        <div class="lock-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="lock-message">Complete o dia 5 para desbloquear</div>
+                    </div>
+                    
+                    <div class="mission-title">Transições rápidas entre pestanas</div>
+                    <div class="mission-description">Aprenda a trocar acordes com pestana de forma fluida e eficiente.</div>
+                    
+                    <div class="video-preview" onclick="openVideoModal('Técnicas para transições rápidas entre acordes com pestana', 'dia6')">
+                        <div class="instruction-content">
+                            <div class="instruction-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="instruction-title">Transições Rápidas</div>
+                            <p>Aprenda técnicas para trocar acordes com pestana com fluidez</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tasks">
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Treinar troca rápida: F - B♭ (30x)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Treinar troca rápida: F - Bm (30x)</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Praticar progressão completa: C - G - F - B♭</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-section">
+                        <div class="reward-title">Recompensa do dia</div>
+                        <div class="reward-badge">Badge: "Mestre das Transições"</div>
+                        <button class="btn btn-full mt-2" onclick="completeDay(6)" disabled>Marcar dia como concluído</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dia 7 -->
+            <div class="day-card day-locked" id="day-7">
+                <div class="day-header">
+                    <h3>Dia 7 <span class="difficulty">⭐⭐⭐⭐⭐</span></h3>
+                    <div class="task-count">3 missões</div>
+                </div>
+                <div class="day-content">
+                    <div class="lock-overlay">
+                        <div class="lock-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="lock-message">Complete o dia 6 para desbloquear</div>
+                    </div>
+                    
+                    <div class="mission-title">Aplicação prática: música completa</div>
+                    <div class="mission-description">Coloque em prática tudo o que aprendeu tocando uma música completa que utiliza acordes com pestana.</div>
+                    
+                    <div class="video-preview" onclick="openVideoModal('Aplicando pestanas na música: tutorial completo', 'dia7')">
+                        <div class="instruction-content">
+                            <div class="instruction-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="instruction-title">Aplicação Prática</div>
+                            <p>Instruções e diagramas para aplicar pestanas em músicas completas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tasks">
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Aprender os acordes da música escolhida</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Praticar a sequência de acordes sem cantar</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"><i class="fas fa-check"></i></div>
+                            <div class="task-label">Tocar a música completa, com ritmo e cantando</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-section">
+                        <div class="reward-title">Recompensa do dia</div>
+                        <div class="reward-badge">Badge: "Anti-Pestana Completo"</div>
+                        <button class="btn btn-full mt-2" onclick="completeDay(7)" disabled>Marcar dia como concluído</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Removida a seção de ajuda, depoimentos e recursos complementares -->
+
+    </div>
+
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <div class="modal-overlay" id="video-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Título do Vídeo</h3>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                    <iframe id="video-frame" style="position:absolute; top:0; left:0; width:100%; height:100%;" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div style="margin-top:1rem;">
+                    <p>Este vídeo explica detalhadamente como realizar os exercícios do dia. Assista com atenção e pratique junto!</p>
+                    <p>Lembre-se: consistência é mais importante que perfeição. Faça o melhor que puder hoje, e amanhã você vai melhorar ainda mais.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+        <p>Siga cada exercício com paciência e consistência. Todos podem dominar as pestanas com a técnica certa!</p>
+    </footer>
+
+    <script>
+        // Track completed days
+        let completedDays = [];
+        const totalDays = 7;
+        
+        // Check for completed days in localStorage
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('anti-pestana-progress');
+            if (savedProgress) {
+                completedDays = JSON.parse(savedProgress);
+                updateUI();
+            }
+        }
+        
+        // Update UI based on completed days
+        function updateUI() {
+            // Update progress bar
+            const progressPercentage = (completedDays.length / totalDays) * 100;
+            document.getElementById('overall-progress').style.width = progressPercentage + '%';
+            document.getElementById('progress-percentage').textContent = Math.round(progressPercentage) + '%';
+            
+            // Unlock next day
+            completedDays.forEach(day => {
+                const nextDay = day + 1;
+                if (nextDay <= totalDays) {
+                    const nextDayElement = document.getElementById('day-' + nextDay);
+                    if (nextDayElement) {
+                        nextDayElement.classList.remove('day-locked');
+                        const lockOverlay = nextDayElement.querySelector('.lock-overlay');
+                        if (lockOverlay) lockOverlay.remove();
+                        
+                        const completeButton = nextDayElement.querySelector('.btn');
+                        if (completeButton) completeButton.disabled = false;
+                    }
+                }
+            });
+        }
+        
+        // Mark a day as complete
+        function completeDay(day) {
+            if (!completedDays.includes(day)) {
+                completedDays.push(day);
+                localStorage.setItem('anti-pestana-progress', JSON.stringify(completedDays));
+                
+                // Show confetti animation
+                showConfetti();
+                
+                // Update UI
+                updateUI();
+            }
+        }
+        
+        // Toggle task completion
+        function toggleTask(element) {
+            const checkbox = element.querySelector('.task-checkbox');
+            const label = element.querySelector('.task-label');
+            
+            checkbox.classList.toggle('completed');
+            label.classList.toggle('completed');
+        }
+        
+        // Open instructions modal
+        function openInstructionsModal(title, dayId) {
+            document.getElementById('modal-title').textContent = title;
+            
+            // Conteúdo de instruções por dia
+            const instructionsContent = {
+                'dia1': `
+                    <div class="instruction-detail">
+                        <h4>Exercícios de Preparação</h4>
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'><rect x='10' y='30' width='180' height='5' fill='%238B4513'/><circle cx='50' cy='20' r='10' fill='%23A0522D'/><circle cx='80' cy='20' r='10' fill='%23A0522D'/><circle cx='110' cy='20' r='10' fill='%23A0522D'/><circle cx='140' cy='20' r='10' fill='%23A0522D'/></svg>" alt="Ilustração de dedos" style="width:100%; max-width:300px; margin:15px 0;">
+                        <p>1. Coloque o violão em uma posição confortável, com o braço na altura do seu peito.</p>
+                        <p>2. Faça o exercício de "pinça": pressione as pontas dos dedos contra o polegar, um de cada vez, repetindo 10 vezes para cada dedo.</p>
+                        <p>3. Alongue os dedos abrindo a mão ao máximo e depois fechando lentamente em formato de "C".</p>
+                        <h4>Dica importante:</h4>
+                        <p>O segredo para pestanas sem dor é a preparação gradual. Nunca force demais nos primeiros dias. Respeite o tempo de descanso entre as sessões de prática.</p>
+                    </div>
+                `,
+                'dia2': `
+                    <div class="instruction-detail">
+                        <h4>Posicionamento Correto das Mãos</h4>
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><rect x='50' y='10' width='10' height='130' fill='%238B4513'/><rect x='70' y='10' width='10' height='130' fill='%238B4513'/><rect x='90' y='10' width='10' height='130' fill='%238B4513'/><rect x='110' y='10' width='10' height='130' fill='%238B4513'/><rect x='130' y='10' width='10' height='130' fill='%238B4513'/><rect x='150' y='10' width='10' height='130' fill='%238B4513'/><rect x='45' y='30' width='120' height='8' fill='%23A0522D'/><circle cx='170' cy='125' r='15' fill='%23F5F5DC'/></svg>" alt="Posição da mão para pestana" style="width:100%; max-width:300px; margin:15px 0;">
+                        <p>1. O polegar deve ficar posicionado atrás do braço do violão, aproximadamente na mesma altura do dedo indicador.</p>
+                        <p>2. Use a borda lateral do dedo indicador (lado do osso), não a parte macia.</p>
+                        <p>3. O pulso deve estar levemente arqueado, nunca totalmente reto.</p>
+                        <h4>Dica para melhor posicionamento:</h4>
+                        <p>Tente diferentes ângulos do seu pulso até encontrar o que oferece mais pressão com menos esforço. Para alguns, um ângulo de 45° do pulso facilita muito a pestana.</p>
+                    </div>
+                `,
+                'dia3': `
+                    <div class="instruction-detail">
+                        <h4>Sua Primeira Pestana</h4>
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><rect x='50' y='10' width='10' height='130' fill='%238B4513'/><rect x='70' y='10' width='10' height='130' fill='%238B4513'/><rect x='90' y='10' width='10' height='130' fill='%238B4513'/><rect x='110' y='10' width='10' height='130' fill='%238B4513'/><rect x='130' y='10' width='10' height='130' fill='%238B4513'/><rect x='150' y='10' width='10' height='130' fill='%238B4513'/><rect x='45' y='30' width='120' height='8' fill='%23A0522D'/><circle cx='70' cy='50' r='8' fill='%23F5F5DC'/><circle cx='90' cy='70' r='8' fill='%23F5F5DC'/><circle cx='130' cy='50' r='8' fill='%23F5F5DC'/></svg>" alt="Acorde F com pestana" style="width:100%; max-width:300px; margin:15px 0;">
+                        <p>1. Comece pela primeira casa do violão, que requer menos pressão.</p>
+                        <p>2. Posicione o dedo indicador cobrindo todas as cordas na primeira casa.</p>
+                        <p>3. Pressione o dedo médio na segunda corda/segunda casa.</p>
+                        <p>4. Posicione o anelar na quarta corda/terceira casa.</p>
+                        <p>5. Posicione o dedo mínimo na terceira corda/terceira casa.</p>
+                        <h4>Teste sua pestana:</h4>
+                        <p>Toque cada corda individualmente para verificar se todas estão soando limpas. Ajuste a pressão onde necessário - geralmente nas cordas 1 e 6.</p>
+                    </div>
+                `,
+                'dia4': `
+                    <div class="instruction-detail">
+                        <h4>Dominando o Acorde F Maior</h4>
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><rect x='50' y='10' width='10' height='130' fill='%238B4513'/><rect x='70' y='10' width='10' height='130' fill='%238B4513'/><rect x='90' y='10' width='10' height='130' fill='%238B4513'/><rect x='110' y='10' width='10' height='130' fill='%238B4513'/><rect x='130' y='10' width='10' height='130' fill='%238B4513'/><rect x='150' y='10' width='10' height='130' fill='%238B4513'/><rect x='45' y='30' width='120' height='8' fill='%23A0522D'/><circle cx='70' cy='50' r='8' fill='%23F5F5DC'/><circle cx='90' cy='70' r='8' fill='%23F5F5DC'/><circle cx='130' cy='50' r='8' fill='%23F5F5DC'/><text x='25' y='35' font-family='sans-serif' font-size='12' fill='%23333'>1</text></svg>" alt="Diagrama do acorde F" style="width:100%; max-width:300px; margin:15px 0;">
+                        <p>1. Pratique transições lentas entre C e F, contando 4 tempos para cada acorde.</p>
+                        <p>2. Exercício de resistência: segure o acorde F por 20 segundos, descanse 10, repita 3 vezes.</p>
+                        <p>3. Pratique o dedilhado p-i-m-a no acorde F, repetindo o padrão lentamente.</p>
+                        <h4>Progressão para praticar:</h4>
+                        <p>G - C - F - G (4 tempos cada)</p>
+                        <p>Esta progressão é ótima para desenvolver a transição de um acorde sem pestana para um com pestana.</p>
+                    </div>
+                `,
+                'dia5': `
+                    <div class="instruction-detail">
+                        <h4>Novos Acordes: B♭ e Bm</h4>
+                        <div style="display:flex; flex-wrap:wrap; justify-content:space-around;">
+                            <div style="margin:10px;">
+                                <p style="text-align:center; font-weight:bold;">B♭ (Si bemol)</p>
+                                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 150'><rect x='20' y='10' width='8' height='130' fill='%238B4513'/><rect x='40' y='10' width='8' height='130' fill='%238B4513'/><rect x='60' y='10' width='8' height='130' fill='%238B4513'/><rect x='80' y='10' width='8' height='130' fill='%238B4513'/><rect x='100' y='10' width='8' height='130' fill='%238B4513'/><rect x='15' y='30' width='100' height='8' fill='%23A0522D'/><circle cx='40' cy='50' r='8' fill='%23F5F5DC'/><circle cx='60' cy='70' r='8' fill='%23F5F5DC'/><circle cx='80' cy='50' r='8' fill='%23F5F5DC'/><text x='5' y='35' font-family='sans-serif' font-size='12' fill='%23333'>6</text></svg>" alt="Acorde B♭" style="width:120px;">
+                            </div>
+                            <div style="margin:10px;">
+                                <p style="text-align:center; font-weight:bold;">Bm (Si menor)</p>
+                                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 150'><rect x='20' y='10' width='8' height='130' fill='%238B4513'/><rect x='40' y='10' width='8' height='130' fill='%238B4513'/><rect x='60' y='10' width='8' height='130' fill='%238B4513'/><rect x='80' y='10' width='8' height='130' fill='%238B4513'/><rect x='100' y='10' width='8' height='130' fill='%238B4513'/><rect x='15' y='30' width='100' height='8' fill='%23A0522D'/><circle cx='40' cy='50' r='8' fill='%23F5F5DC'/><circle cx='80' cy='50' r='8' fill='%23F5F5DC'/><circle cx='60' cy='90' r='8' fill='%23F5F5DC'/><text x='5' y='35' font-family='sans-serif' font-size='12' fill='%23333'>2</text></svg>" alt="Acorde Bm" style="width:120px;">
+                            </div>
+                        </div>
+                    </div>
+                `,
+                'dia6': `
+                    <div class="instruction-detail">
+                        <h4>Transições Rápidas</h4>
+                        <p>Para tocar músicas fluidamente, é essencial que você consiga trocar de acordes rapidamente. Aqui estão alguns exercícios:</p>
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><rect x='20' y='10' width='8' height='130' fill='%238B4513'/><rect x='40' y='10' width='8' height='130' fill='%238B4513'/><rect x='60' y='10' width='8' height='130' fill='%238B4513'/><rect x='80' y='10' width='8' height='130' fill='%238B4513'/><rect x='100' y='10' width='8' height='130' fill='%238B4513'/><rect x='120' y='10' width='8' height='130' fill='%238B4513'/><rect x='20' y='30' width='100' height='8' fill='%23A0522D'/><circle cx='40' cy='50' r='8' fill='%23F5F5DC'/><circle cx='80' cy='50' r='8' fill='%23F5F5DC'/><circle cx='120' cy='50' r='8' fill='%23F5F5DC'/><text x='5' y='35' font-family='sans-serif' font-size='12' fill='%23333'>1</text></svg>" alt="Transições Rápidas" style="width:100%; max-width:300px; margin:15px 0;">
+                        <p>1. Escolha dois acordes que você já conhece bem.</p>
+                        <p>2. Toque o primeiro acorde por 4 tempos e mude rapidamente para o segundo acorde por 4 tempos.</p>
+                        <p>3. Repita esse exercício, aumentando gradativamente a velocidade da troca.</p>
+                        <h4>Importante:</h4>
+                        <p>Mantenha a calma e a precisão. É melhor tocar devagar e certo, do que rápido e errado.</p>
+                    </div>
+                `,                
+                'dia7': `
+                    <div class="instruction-detail">
+                        <h4>Aplicação Prática</h4>
+                        <p>Agora é hora de aplicar tudo o que você aprendeu! Escolha uma música que você gosta e que tenha acordes com pestana.</p>
+                        <p>Desafio: Tente tocar a música inteira sem parar. Se errar, não desanime! Volte e pratique a parte que você achou mais difícil.</p>
+                        <h4>Dicas Finais:</h4>
+                        <ul>
+                            <li>Use um metrônomo para manter o tempo.</li>
+                            <li>Grave-se tocando e ouça depois para identificar áreas de melhoria.</li>
+                            <li>Divirta-se e não tenha pressa. A música é para ser apreciada!</li>
+                        </ul>
+                    </div>
+                `
+            };
+            
+            // Set content for the modal
+            const modalBody = document.querySelector('.modal-body');
+            modalBody.innerHTML = instructionsContent[dayId] || '<p>Conteúdo não disponível.</p>';
+            
+            // Show modal
+            document.getElementById('video-modal').classList.add('show');
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById('video-modal').classList.remove('show');
+        }
+        
+        // Show confetti animation
+        function showConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.style.display = 'block';
+            
+            // Number of confetti pieces
+            const pieces = 100;
+            const duration = 3; // seconds
+            const delay = 0.1; // seconds
+            
+            for (let i = 0; i < pieces; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                container.appendChild(confetti);
+                
+                // Randomize position and animation
+                const xPos = Math.random() * 100;
+                const animationDelay = Math.random() * delay;
+                const animationDuration = Math.random() * duration;
+                
+                confetti.animate(
+                    [
+                        { transform: `translateY(0)`, opacity: 1 },
+                        { transform: `translateY(100vh)`, opacity: 0 }
+                    ],
+                    {
+                        duration: duration * 1000,
+                        delay: delay * 1000,
+                        easing: 'cubic-bezier(0.21, 0.53, 0.29, 0.8)',
+                        fill: 'forwards'
+                    }
+                );
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, (duration + delay) * 1000);
+            }
+            
+            // Hide container after all animations
+            setTimeout(() => {
+                container.style.display = 'none';
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+            }, 7000);
+        }
+        
+        // Load progress on page load
+        document.addEventListener('DOMContentLoaded', loadProgress);
+    </script>
+</body>
+</html>

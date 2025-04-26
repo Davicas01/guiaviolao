@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Fundo com espaço seguro para máscara (safe zone é 40% centralizado) -->
+  <rect width="512" height="512" fill="#1a4b8c" />
+  
+  <!-- Desenho centralizado na safe zone (área interna que não será cortada) -->
+  <g transform="translate(128, 128) scale(0.5)">
+    <path d="M146.7,277.3 L146.7,128 C146.7,117.3 154.7,106.7 165.3,106.7 L346.7,106.7 C357.3,106.7 365.3,117.3 365.3,128 L365.3,405.3 C365.3,416 357.3,426.7 346.7,426.7 L165.3,426.7 C154.7,426.7 146.7,416 146.7,405.3 L146.7,320" stroke="#ffffff" stroke-width="24" fill="none" />
+    <path d="M93.3,277.3 L213.3,277.3 M213.3,213.3 L213.3,341.3" stroke="#ffffff" stroke-width="24" fill="none" />
+    <circle cx="213.3" cy="277.3" r="80" stroke="#ffffff" stroke-width="24" fill="none" />
+    <line x1="266.7" y1="173.3" x2="320" y2="173.3" stroke="#ffffff" stroke-width="16" />
+    <line x1="266.7" y1="213.3" x2="320" y2="213.3" stroke="#ffffff" stroke-width="16" />
+    <line x1="266.7" y1="253.3" x2="320" y2="253.3" stroke="#ffffff" stroke-width="16" />
+    <line x1="266.7" y1="293.3" x2="320" y2="293.3" stroke="#ffffff" stroke-width="16" />
+    <line x1="266.7" y1="333.3" x2="320" y2="333.3" stroke="#ffffff" stroke-width="16" />
+    <line x1="266.7" y1="373.3" x2="320" y2="373.3" stroke="#ffffff" stroke-width="16" />
+  </g>
+  
+  <!-- Texto ao redor -->
+  <text x="256" y="80" font-family="Arial" font-size="40" text-anchor="middle" fill="#ffffff" font-weight="bold">Kit Violão Profissional</text>
+</svg>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎸 Desafio de 7 Dias no Violão</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a4b8c;
+            --secondary-color: #4a90e2;
+            --accent-color: #e6a23c;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --border-color: #ddd;
+            --footer-color: #666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #ffffff;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .intro {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        .day-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .day-header .number {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .day-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .tip-box {
+            background-color: #e8f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 3px solid var(--secondary-color);
+        }
+        
+        .tip-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .progress-section {
+            margin: 40px 0;
+        }
+        
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--light-bg);
+            margin: 0 5px;
+            border-radius: 4px;
+            position: relative;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .notes-section {
+            background-color: var(--light-bg);
+            border: 1px dashed var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+        .notes-section h3 {
+            margin-top: 0;
+        }
+        
+        .notes-lines {
+            height: 150px;
+            background-image: linear-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 100% 2rem;
+            padding: 0 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--footer-color);
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .motivation {
+            background-color: #fef7e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+            font-style: italic;
+            color: #5f6368;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .progress-tracker {
+                flex-direction: column;
+            }
+            
+            .progress-step {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎸 Desafio de 7 Dias no Violão</h1>
+        <p class="subtitle">Pronto para melhorar seu ritmo, acordes e confiança em 7 dias? Vamos nessa!</p>
+    </header>
+    
+    <section class="intro">
+        <p>Bem-vindo ao desafio que vai transformar seu jeito de tocar violão em apenas uma semana! Cada dia traz novos exercícios e técnicas progressivas que se complementam, desenvolvendo suas habilidades de forma consistente e divertida.</p>
+        <p>Este programa foi desenvolvido por professores experientes para garantir resultados visíveis em pouco tempo, seja você iniciante ou intermediário. Dedique pelo menos 20-30 minutos por dia e veja a diferença!</p>
+    </section>
+    
+    <section class="progress-section">
+        <h2>📊 Seu Progresso</h2>
+        <div class="progress-tracker">
+            <div class="progress-step">Dia 1</div>
+            <div class="progress-step">Dia 2</div>
+            <div class="progress-step">Dia 3</div>
+            <div class="progress-step">Dia 4</div>
+            <div class="progress-step">Dia 5</div>
+            <div class="progress-step">Dia 6</div>
+            <div class="progress-step">Dia 7</div>
+        </div>
+        <p>Marque seu progresso ao completar cada dia do desafio!</p>
+    </section>
+
+    <section class="days-content">
+        <h2>🔍 Conteúdo do Desafio</h2>
+        
+        <div class="day-card">
+            <div class="day-header">
+                <div class="number">1</div>
+                <div class="day-title">Fundamentos e Primeiros Acordes</div>
+            </div>
+            <p>Hoje vamos focar nos fundamentos e postura correta para garantir uma base sólida.</p>
+            <ul>
+                <li><strong>Exercício 1:</strong> Posicionamento correto de mãos e dedos (10 minutos)</li>
+                <li><strong>Exercício 2:</strong> Prática dos acordes básicos: G, C, D, Em (10 minutos)</li>
+                <li><strong>Exercício 3:</strong> Transições suaves entre acordes (10 minutos)</li>
+            </ul>
+            <div class="tip-box">
+                <h4>💡 Dica do Dia</h4>
+                <p>Não se preocupe com a velocidade! Foque na precisão dos movimentos e na clareza das notas.</p>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">
+                <div class="number">2</div>
+                <div class="day-title">Ritmos Básicos</div>
+            </div>
+            <p>Hoje vamos desenvolver a sua mão direita com padrões rítmicos essenciais.</p>
+            <ul>
+                <li><strong>Exercício 1:</strong> Batida em 4/4 simples (10 minutos)</li>
+                <li><strong>Exercício 2:</strong> Alternância entre batidas para cima e para baixo (10 minutos)</li>
+                <li><strong>Exercício 3:</strong> Aplicando ritmos aos acordes do dia anterior (10 minutos)</li>
+            </ul>
+            <div class="tip-box">
+                <h4>💡 Dica do Dia</h4>
+                <p>Use o metrônomo! Começe devagar e aumente gradualmente a velocidade à medida que fica confortável.</p>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">
+                <div class="number">3</div>
+                <div class="day-title">Acordes Intermediários</div>
+            </div>
+            <p>Vamos expandir seu repertório de acordes e praticar transições mais complexas.</p>
+            <ul>
+                <li><strong>Exercício 1:</strong> Aprender novos acordes: Am, F, Dm (10 minutos)</li>
+                <li><strong>Exercício 2:</strong> Progressões comuns com acordes novos e antigos (10 minutos)</li>
+                <li><strong>Exercício 3:</strong> Mini-música usando todos os acordes aprendidos (10 minutos)</li>
+            </ul>
+            <div class="tip-box">
+                <h4>💡 Dica do Dia</h4>
+                <p>Pratique as mudanças entre acordes sem ritmo primeiro, focando apenas na precisão das transições.</p>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">
+                <div class="number">4</div>
+                <div class="day-title">Introdução ao Dedilhado</div>
+            </div>
+            <p>Hoje vamos explorar técnicas de dedilhado para enriquecer suas interpretações.</p>
+            <ul>
+                <li><strong>Exercício 1:</strong> Posicionamento da mão para dedilhado (5 minutos)</li>
+                <li><strong>Exercício 2:</strong> Padrões simples de dedilhado p-i-m-a (15 minutos)</li>
+                <li><strong>Exercício 3:</strong> Aplicando dedilhado em um acorde (10 minutos)</li>
+            </ul>
+            <div class="tip-box">
+                <h4>💡 Dica do Dia</h4>
+                <p>Mantenha o pulso relaxado e os dedos levemente curvados para maior eficiência no dedilhado.</p>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">
+                <div class="number">5</div>
+                <div class="day-title">Sua Primeira Música Completa</div>
+            </div>
+            <p>É hora de aplicar tudo que aprendeu em uma música completa e simples.</p>
+            <ul>
+                <li><strong>Exercício 1:</strong> Praticar a sequência de acordes da música escolhida (10 minutos)</li>
+                <li><strong>Exercício 2:</strong> Trabalhar no ritmo específico da música (10 minutos)</li>
+                <li><strong>Exercício 3:</strong> Juntar acordes e ritmo, tocando a música completa (10 minutos)</li>
+            </ul>
+            <div class="tip-box">
+                <h4>💡 Dica do Dia</h4>
+                <p>Grave-se tocando para identificar pontos a melhorar. Não se preocupe com perfeição - progresso é o que importa!</p>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">
+                <div class="number">6</div>
+                <div class="day-title">Técnicas Expressivas</div>
+            </div>
+            <p>Vamos adicionar expressividade à sua interpretação com técnicas especiais.</p>
+            <ul>
+                <li><strong>Exercício 1:</strong> Introdução às técnicas de hammer-on e pull-off (10 minutos)</li>
+                <li><strong>Exercício 2:</strong> Dinâmica: tocando forte e suave intencionalmente (10 minutos)</li>
+                <li><strong>Exercício 3:</strong> Aplicando técnicas expressivas à música do dia anterior (10 minutos)</li>
+            </ul>
+            <div class="tip-box">
+                <h4>💡 Dica do Dia</h4>
+                <p>A expressão musical vem da variação intencional. Experimente tocar a mesma passagem de formas diferentes.</p>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">
+                <div class="number">7</div>
+                <div class="day-title">Consolidação e Apresentação</div>
+            </div>
+            <p>No último dia, vamos consolidar tudo que aprendeu e preparar uma mini-apresentação.</p>
+            <ul>
+                <li><strong>Exercício 1:</strong> Revisão rápida de todos os acordes e técnicas (10 minutos)</li>
+                <li><strong>Exercício 2:</strong> Prática da música completa com todas as técnicas (10 minutos)</li>
+                <li><strong>Exercício 3:</strong> Sua "apresentação final" - toque a música do início ao fim como se estivesse em um show (5-10 minutos)</li>
+            </ul>
+            <div class="tip-box">
+                <h4>💡 Dica do Dia</h4>
+                <p>Comemore seu progresso! Compare onde você estava no dia 1 com o que consegue fazer agora.</p>
+            </div>
+        </div>
+    </section>
+    
+    <div class="motivation">
+        "A música é o espaço entre as notas. A prática constante preenche esses espaços com beleza e significado. Continue praticando mesmo após este desafio!"
+    </div>
+    
+    <section class="notes-section">
+        <h3>✏️ Minhas anotações e reflexões:</h3>
+        <div class="notes-lines">
+            <!-- Espaço para anotações do usuário -->
+        </div>
+    </section>
+    
+    <footer>
+        <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+        <p class="signature">Com carinho, equipe do Kit Violão Profissional</p>
+    </footer>
+</body>
+</html>
