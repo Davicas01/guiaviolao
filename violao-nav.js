@@ -1,6 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se o botão já existe (evitar duplicação)
-    if (document.querySelector('.violao-nav-container')) return;
+    // Verificar se a função getPathToRoot existe (caso este script carregue antes do script.js)
+    if (typeof getPathToRoot !== 'function') {
+        window.getPathToRoot = function() {
+            const currentPath = window.location.pathname;
+            const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
+            if (pathSegments.length <= 1) return '';
+            const depth = pathSegments.length - 1;
+            return '../'.repeat(depth);
+        };
+    }
+
+    // Usar o caminho para a raiz em todos os links
+    const pathToRoot = getPathToRoot();
+    
+    // Atualizar o template de navegação para usar caminhos absolutos
+    const template = `
+        <a href="${pathToRoot}index.html#inicio"><i class="fas fa-home"></i> Início</a>
+        <a href="${pathToRoot}index.html#metodo"><i class="fas fa-book-open"></i> Método</a>
+        <a href="${pathToRoot}index.html#bonus"><i class="fas fa-gift"></i> Bônus</a>
+        <a href="${pathToRoot}index.html#favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+        <div class="violao-nav-divider"></div>
+        <a href="${pathToRoot}Guia_violao/index.html"><i class="fas fa-guitar"></i> Guia Completo</a>
+    `;
     
     // Criar o contêiner de navegação flutuante
     const navContainer = document.createElement('div');
@@ -16,18 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.createElement('div');
     navMenu.className = 'violao-nav-menu';
     
-    // Determinar o caminho relativo para a raiz
-    const pathToRoot = getPathToRoot();
-    
     // Adicionar itens ao menu
-    navMenu.innerHTML = `
-        <a href="${pathToRoot}index.html#inicio"><i class="fas fa-home"></i> Início</a>
-        <a href="${pathToRoot}index.html#metodo"><i class="fas fa-book-open"></i> Método</a>
-        <a href="${pathToRoot}index.html#bonus"><i class="fas fa-gift"></i> Bônus</a>
-        <a href="${pathToRoot}index.html#favoritos"><i class="fas fa-heart"></i> Favoritos</a>
-        <div class="violao-nav-divider"></div>
-        <a href="${pathToRoot}Guia_violao/index.html"><i class="fas fa-guitar"></i> Guia Completo</a>
-    `;
+    navMenu.innerHTML = template;
     
     // Adicionar botão "Bônus" com submenu
     const bonusButton = document.createElement('a');
@@ -101,24 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Adicionar estilos CSS
     addNavigationStyles();
-    
-    // Função para determinar o caminho relativo para a raiz
-    function getPathToRoot() {
-        const path = window.location.pathname;
-        const segments = path.split('/').filter(segment => segment.length > 0);
-        
-        // Ignorar o arquivo no final do caminho
-        const depth = segments.length - 1;
-        
-        if (depth <= 0) return './';
-        
-        let pathToRoot = '';
-        for (let i = 0; i < depth; i++) {
-            pathToRoot += '../';
-        }
-        
-        return pathToRoot;
-    }
     
     // Função para adicionar estilos CSS
     function addNavigationStyles() {

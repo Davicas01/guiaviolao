@@ -2,14 +2,28 @@
     TEMPLATE PARA BOTÃO DE VOLTAR
     Instruções de uso:
     1. Copie o código abaixo e cole no início do <body> de qualquer página de bônus
-    2. Ajuste o número de "../" no href baseado na profundidade da pasta
-    3. Para páginas no primeiro nível de pasta use: href="../index.html"
-    4. Para páginas no segundo nível de pasta use: href="../../index.html"
+    2. Não precisa ajustar o número de "../" - o script agora faz isso automaticamente
 -->
 
-<a href="../../index.html" class="back-button">
+<a href="#" id="dynamic-back-button" class="back-button">
     <i class="fas fa-home"></i> Voltar à Página Inicial
 </a>
+
+<script>
+    // Script para calcular o caminho correto para a raiz
+    (function() {
+        function getPathToRoot() {
+            const currentPath = window.location.pathname;
+            const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
+            if (pathSegments.length <= 1) return '';
+            const depth = pathSegments.length - 1;
+            return '../'.repeat(depth);
+        }
+        
+        // Configurar o link de volta corretamente
+        document.getElementById('dynamic-back-button').href = getPathToRoot() + 'index.html';
+    })();
+</script>
 
 <!-- 
     IMPORTANTE: Se esta página não tiver o FontAwesome importado,
@@ -18,36 +32,4 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 -->
 
-<!-- 
-    ESTILO CSS DO BOTÃO (inclua no <head> se não estiver usando o arquivo style.css):
--->
-<!--
-<style>
-    .back-button {
-        display: inline-flex;
-        align-items: center;
-        padding: 8px 15px;
-        background-color: rgba(139, 69, 19, 0.15);
-        color: #8B4513;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        z-index: 10;
-        font-size: 0.9rem;
-    }
-
-    .back-button i {
-        margin-right: 8px;
-    }
-
-    .back-button:hover {
-        background-color: rgba(139, 69, 19, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-</style>
--->
+<!-- Você pode continuar usando o estilo CSS abaixo se não estiver incluindo style.css -->

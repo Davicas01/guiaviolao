@@ -628,26 +628,37 @@
     
     <script src="script.js"></script>
     
-<!-- Adiciona o botão de navegação flutuante -->
-<script>
-    (function() {
-        // Garantir que o script só seja executado uma vez
-        if (window.navegacaoIniciada) return;
-        window.navegacaoIniciada = true;
-    
-        // Calcular caminho relativo para a raiz do site
-        const pathToRoot = window.location.pathname.split('/').filter(segment => segment.length > 0).length - 1;
-        let path = '';
-        for (let i = 0; i < pathToRoot; i++) path += '../';
-    
-        // Criar e adicionar o script
-        const script = document.createElement('script');
-        script.src = path + 'violao-nav.js';
-        script.onerror = function() {
-            console.error('Erro ao carregar o script de navegação de: ' + script.src);
-        };
-        document.body.appendChild(script);
-    })();
-    </script>
+    <!-- Botão de navegação fixo para voltar ao menu principal -->
+    <a href="../index.html" class="fixed-nav-button">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <style>
+        /* Estilo para o botão de navegação fixo */
+        .fixed-nav-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #8B4513;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fixed-nav-button:hover {
+            background-color: #A0522D;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </body>
 </html>

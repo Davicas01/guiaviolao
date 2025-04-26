@@ -115,6 +115,54 @@ document.addEventListener('DOMContentLoaded', function() {
         renderFavoritesSection(favorites);
     }
     
+    // Função para calcular o caminho relativo para a raiz do site
+function getPathToRoot() {
+    // Obter o caminho atual (por exemplo: /Bônus%20Exclusivos%20-%20Kit%20Violão%20Profissional/Modo%20Toque%20Agora%20com%20IA/index.html)
+    const currentPath = window.location.pathname;
+    
+    // Dividir o caminho por "/"
+    const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
+    
+    // Se estamos na raiz, não precisamos de ajuste no caminho
+    if (pathSegments.length <= 1) {
+        return '';
+    }
+    
+    // Caso contrário, precisamos voltar N diretórios (onde N é a profundidade atual)
+    // -1 porque não contamos o arquivo index.html
+    const depth = pathSegments.length - 1;
+    
+    // Criar o caminho relativo para a raiz (ex: "../../" para profundidade 2)
+    return '../'.repeat(depth);
+}
+
+// Função para resolver caminhos relativos à raiz
+function resolvePathFromRoot(path) {
+    return getPathToRoot() + path;
+}
+
+// Atualizar os favoritos para usar o caminho correto
+document.addEventListener('DOMContentLoaded', function() {
+    // Aplicar aos botões de favoritos existentes
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const originalPath = this.getAttribute('data-path');
+            const resolvedPath = resolvePathFromRoot(originalPath);
+            
+            // Usar o caminho resolvido para operações
+            // (armazenar o caminho original em data-path para consistência)
+            markAsFavorite(btn);
+            saveFavorite(originalPath, this.closest('.module-card').querySelector('h3').textContent);
+        });
+    });
+    
+    // Atualizar os links dos módulos para usar caminhos corretos
+    document.querySelectorAll('.module-link').forEach(link => {
+        const originalHref = link.getAttribute('href');
+        link.setAttribute('href', resolvePathFromRoot(originalHref));
+    });
+});
+
     // Marcar botão como favorito
     function markAsFavorite(btn) {
         btn.innerHTML = '<i class="fas fa-heart"></i>';

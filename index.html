@@ -644,6 +644,13 @@
         </div>
     </div>
 
+    <!-- Botão de navegação fixo -->
+    <div class="fixed-nav">
+        <a href="index.html" class="fixed-nav-button" title="Voltar à página principal">
+            <i class="fas fa-home"></i>
+        </a>
+    </div>
+
     <script src="script.js"></script>
     <script src="violao-nav.js"></script>
     <script>
@@ -656,5 +663,50 @@
             });
         }
     </script>
+    
+    <!-- Estilos para o botão de navegação fixo -->
+    <style>
+        .fixed-nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+        
+        .fixed-nav-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #8B4513;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+        
+        .fixed-nav-button:hover {
+            background-color: #A0522D;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .fixed-nav {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .fixed-nav-button {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
 </body>
 </html>
