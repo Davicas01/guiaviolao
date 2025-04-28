@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajudante de Violão Inteligente com IA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B4513; /* Marrom escuro */
+            --secondary-color: #A0522D; /* Marrom médio */
+            --accent-color: #CD853F; /* Marrom claro */
+            --light-accent: #DEB887; /* Bege */
+            --dark-text: #442C1E; /* Marrom muito escuro para texto */
+            --light-text: #FFF8E1; /* Texto claro */
+            --bg-light: #FAF0E6; /* Fundo claro */
+            --border-color: #D3C1AE;
+            --shadow: 0 5px 15px rgba(139, 69, 19, 0.15);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+            --bg-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px; /* Added padding for container */
+        }
+        
+        header {
+            background: var(--bg-gradient);
+            color: var(--light-text);
+            padding: 3rem 1rem; /* Adjusted padding */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 5px solid var(--accent-color);
+        }
+        
+        /* Removed header::before for cleaner look */
+        
+        header h1 {
+            font-family: 'Poppins', sans-serif; /* Changed font */
+            font-weight: 700;
+            font-size: 2.5rem; /* Adjusted size */
+            margin-bottom: 1rem; /* Adjusted margin */
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text {
+            font-size: 1.1rem; /* Adjusted size */
+            max-width: 700px;
+            margin: 0 auto 2rem; /* Adjusted margin */
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .hero-cta {
+            position: relative;
+            z-index: 1;
+        }
+        
+        main {
+            padding: 40px 0; /* Adjusted padding */
+        }
+        
+        section {
+            margin-bottom: 40px; /* Adjusted margin */
+            background-color: #fff;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        h2 {
+            font-family: 'Poppins', sans-serif; /* Changed font */
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.8rem; /* Adjusted size */
+            margin-bottom: 1.5rem; /* Adjusted margin */
+            text-align: left; /* Align left */
+            position: relative;
+            padding-bottom: 10px; /* Adjusted padding */
+            border-bottom: 2px solid var(--border-color); /* Add border bottom */
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        /* Removed h2::after */
+
+        .ai-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .camera-area, .feedback-area {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .camera-area h3, .feedback-area h3, #exercise-section h3, #chat-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .camera-area h3 i, .feedback-area h3 i, #exercise-section h3 i, #chat-section h3 i {
+            margin-right: 8px;
+        }
+
+        #cameraFeed {
+            width: 100%;
+            height: auto;
+            background-color: #333;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+        }
+        
+        #feedbackArea {
+            min-height: 200px; /* Ensure minimum height */
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: var(--radius);
+            border: 1px dashed var(--border-color);
+            font-size: 0.95rem;
+            overflow-y: auto; /* Add scroll if content overflows */
+        }
+        
+        .feedback-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .feedback-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .feedback-item.positive { color: #2E7D32; }
+        .feedback-item.negative { color: #B22222; }
+        .feedback-item strong { color: var(--dark-text); }
+
+        #exercise-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #exercise-section li {
+            background: var(--bg-light);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+        }
+        
+        #chat-section {
+            margin-top: 30px;
+        }
+        
+        #chatInterface {
+            display: flex;
+            flex-direction: column;
+            height: 400px; /* Fixed height for chat */
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background-color: #fff;
+        }
+        
+        #chatMessages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: var(--bg-light);
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius);
+            max-width: 80%;
+        }
+        
+        .message.user {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+            margin-left: auto;
+            text-align: right;
+        }
+        
+        .message.ai {
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--dark-text);
+            margin-right: auto;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .message.ai i {
+            color: var(--primary-color);
+            margin-top: 3px;
+        }
+        
+        #inputArea {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            background-color: #fff;
+        }
+        
+        #userInput {
+            flex-grow: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            background: var(--primary-color);
+            color: var(--light-text);
+            padding: 0.8rem 1.5rem; /* Adjusted padding */
+            border-radius: var(--radius); /* Adjusted radius */
+            text-decoration: none;
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 1rem; /* Adjusted size */
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+            gap: 8px; /* Space between icon and text */
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-secondary {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+        }
+        .btn-secondary:hover {
+            background-color: var(--light-accent);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 1.5rem 1rem; /* Adjusted padding */
+            margin-top: 40px; /* Adjusted margin */
+            border-top: 5px solid var(--accent-color);
+        }
+        
+        @media (max-width: 992px) {
+            .ai-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-text {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+
+            #cameraFeed {
+                min-height: 200px; /* Adjust height for smaller screens */
+            }
+            
+            #chatInterface {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            #userInput {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-robot"></i> Ajudante de Violão Inteligente</h1>
+            <p class="hero-text">Receba feedback em tempo real e acelere seu aprendizado com IA</p>
+            <!-- Removed CTA button from header -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="analysis-section">
+            <h2><i class="fas fa-camera"></i> Análise em Tempo Real</h2>
+            <div class="ai-section">
+                <div class="camera-area">
+                    <h3><i class="fas fa-video"></i> Sua Câmera</h3>
+                    <div id="cameraFeed">
+                        <i class="fas fa-spinner fa-spin"></i> Carregando Câmera...
+                        <!-- Video element will be inserted here by JS -->
+                    </div>
+                    <button id="startAnalysisBtn" class="btn"><i class="fas fa-play"></i> Iniciar Análise</button>
+                    <button id="stopAnalysisBtn" class="btn btn-secondary" style="display: none;"><i class="fas fa-stop"></i> Parar Análise</button>
+                    <p style="font-size: 0.85rem; margin-top: 1rem; color: var(--secondary-color);">Posicione-se de forma que o violão e suas mãos fiquem visíveis.</p>
+                </div>
+                <div class="feedback-area">
+                    <h3><i class="fas fa-comment-dots"></i> Feedback da IA</h3>
+                    <div id="feedbackArea">
+                        <p>Aguardando análise...</p>
+                        <!-- Feedback items will be inserted here by JS -->
+                        <!-- Example:
+                        <div class="feedback-item positive"><strong>Postura:</strong> Correta! Costas retas.</div>
+                        <div class="feedback-item negative"><strong>Mão Esquerda:</strong> Polegar muito alto no braço do violão.</div>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exercise-section">
+            <h2><i class="fas fa-dumbbell"></i> Exercícios Sugeridos</h2>
+            <h3><i class="fas fa-tasks"></i> Com base na análise</h3>
+            <ul id="exerciseList">
+                <li>Nenhum exercício sugerido ainda. Inicie a análise.</li>
+                <!-- Exercise items will be inserted here by JS -->
+                <!-- Example:
+                <li><strong>Foco: Posição do Polegar Esquerdo.</strong> Pratique o exercício 'Aranha' lentamente, focando em manter o polegar centrado atrás do braço.</li>
+                -->
+            </ul>
+        </section>
+
+        <section id="chat-section">
+            <h2><i class="fas fa-comments"></i> Converse com a IA</h2>
+            <h3><i class="fas fa-question-circle"></i> Tire suas dúvidas</h3>
+            <div id="chatInterface">
+                <div id="chatMessages">
+                    <div class="message ai">
+                        <i class="fas fa-robot"></i>
+                        <span>Olá! Como posso ajudar você com seus estudos de violão hoje?</span>
+                    </div>
+                    <!-- Chat messages will be inserted here by JS -->
+                </div>
+                <div id="inputArea">
+                    <input type="text" id="userInput" placeholder="Digite sua pergunta aqui...">
+                    <button id="sendMessageBtn" class="btn"><i class="fas fa-paper-plane"></i> Enviar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            &copy; 2025 Kit Violão Profissional - Todos os direitos reservados
+        </div>
+    </footer>
+
+    <script>
+        // Placeholder for JavaScript logic
+        
+        const startAnalysisBtn = document.getElementById('startAnalysisBtn');
+        const stopAnalysisBtn = document.getElementById('stopAnalysisBtn');
+        const cameraFeed = document.getElementById('cameraFeed');
+        const feedbackArea = document.getElementById('feedbackArea');
+        const exerciseList = document.getElementById('exerciseList');
+        const sendMessageBtn = document.getElementById('sendMessageBtn');
+        const userInput = document.getElementById('userInput');
+        const chatMessages = document.getElementById('chatMessages');
+
+        let analysisActive = false;
+        let videoStream = null;
+
+        // --- Camera and Analysis Logic ---
+        async function startAnalysis() {
+            if (analysisActive) return;
+            console.log('Starting analysis...');
+            analysisActive = true;
+            startAnalysisBtn.style.display = 'none';
+            stopAnalysisBtn.style.display = 'inline-flex';
+            feedbackArea.innerHTML = '<p>Analisando...</p>';
+            exerciseList.innerHTML = '<li>Analisando para sugerir exercícios...</li>';
+
+            try {
+                // 1. Access Camera
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                const videoElement = document.createElement('video');
+                videoElement.srcObject = videoStream;
+                videoElement.autoplay = true;
+                videoElement.playsInline = true; // Important for mobile
+                videoElement.style.width = '100%';
+                videoElement.style.height = '100%';
+                videoElement.style.objectFit = 'cover'; // Cover the area
+                cameraFeed.innerHTML = ''; // Clear placeholder
+                cameraFeed.appendChild(videoElement);
+
+                // 2. TODO: Send video frames to AI backend for analysis
+                //    - Use Canvas API to capture frames from videoElement
+                //    - Send frames via WebSocket or Fetch API
+                
+                // 3. TODO: Receive feedback from AI backend
+                //    - Listen for messages from the backend
+                
+                // --- Mock Feedback (Replace with actual AI integration) ---
+                setTimeout(() => {
+                    displayFeedback([
+                        { type: 'positive', text: '<strong>Postura:</strong> Boa inclinação do violão.' },
+                        { type: 'negative', text: '<strong>Mão Esquerda:</strong> Dedos estão muito deitados nas cordas. Tente usar mais as pontas.' },
+                        { type: 'info', text: '<strong>Ritmo:</strong> Batida parece consistente.' }
+                    ]);
+                    displayExercises([
+                        '<strong>Foco: Ponta dos Dedos.</strong> Pratique pressionar as cordas com a ponta dos dedos em um acorde simples (Ex: Em) por 1 minuto.',
+                        '<strong>Foco: Curvatura dos Dedos.</strong> Faça o exercício cromático (1-2-3-4) em cada corda, garantindo que os dedos formem um arco.'
+                    ]);
+                }, 5000);
+                // --- End Mock Feedback ---
+
+            } catch (err) {
+                console.error("Error accessing camera or starting analysis:", err);
+                feedbackArea.innerHTML = `<p style="color: red;">Erro ao acessar a câmera: ${err.message}. Verifique as permissões.</p>`;
+                stopAnalysis(); // Reset state on error
+            }
+        }
+
+        function stopAnalysis() {
+            if (!analysisActive) return;
+            console.log('Stopping analysis...');
+            analysisActive = false;
+            startAnalysisBtn.style.display = 'inline-flex';
+            stopAnalysisBtn.style.display = 'none';
+            feedbackArea.innerHTML = '<p>Análise parada. Clique em "Iniciar Análise" para começar.</p>';
+            exerciseList.innerHTML = '<li>Inicie a análise para receber sugestões.</li>';
+            
+            // Stop camera stream
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoStream = null;
+            }
+            cameraFeed.innerHTML = '<i class="fas fa-video-slash"></i> Câmera Desligada'; // Show placeholder
+
+            // TODO: Signal backend to stop analysis if connection is active
+        }
+
+        function displayFeedback(feedbackItems) {
+            feedbackArea.innerHTML = ''; // Clear previous feedback
+            if (feedbackItems.length === 0) {
+                feedbackArea.innerHTML = '<p>Nenhum feedback específico no momento.</p>';
+                return;
+            }
+            feedbackItems.forEach(item => {
+                const div = document.createElement('div');
+                div.classList.add('feedback-item', item.type); // type can be 'positive', 'negative', 'info'
+                div.innerHTML = item.text;
+                feedbackArea.appendChild(div);
+            });
+        }
+
+        function displayExercises(exercises) {
+            exerciseList.innerHTML = ''; // Clear previous exercises
+            if (exercises.length === 0) {
+                exerciseList.innerHTML = '<li>Nenhum exercício específico sugerido com base na análise atual.</li>';
+                return;
+            }
+            exercises.forEach(exerciseText => {
+                const li = document.createElement('li');
+                li.innerHTML = exerciseText;
+                exerciseList.appendChild(li);
+            });
+        }
+
+        startAnalysisBtn.addEventListener('click', startAnalysis);
+        stopAnalysisBtn.addEventListener('click', stopAnalysis);
+
+        // --- Chat Logic ---
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender); // sender is 'user' or 'ai'
+            
+            if (sender === 'ai') {
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-robot';
+                messageDiv.appendChild(icon);
+                const span = document.createElement('span');
+                span.textContent = text;
+                messageDiv.appendChild(span);
+            } else {
+                messageDiv.textContent = text;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        }
+
+        function handleSendMessage() {
+            const messageText = userInput.value.trim();
+            if (messageText === '') return;
+
+            addMessage(messageText, 'user');
+            userInput.value = '';
+
+            // TODO: Send messageText to AI backend for chat response
+            
+            // --- Mock AI Response (Replace with actual AI integration) ---
+            setTimeout(() => {
+                let aiResponse = "Desculpe, não entendi. Pode reformular?";
+                if (messageText.toLowerCase().includes("pestana")) {
+                    aiResponse = "Ah, pestanas! Para melhorar, tente estes exercícios: 1. Pressione apenas o dedo indicador em todas as cordas, garantindo som limpo. 2. Adicione os outros dedos para formar um acorde de Fá Maior lentamente. Qual sua maior dificuldade com pestanas?";
+                } else if (messageText.toLowerCase().includes("ritmo")) {
+                    aiResponse = "Ritmo é fundamental! Qual ritmo você gostaria de praticar? Pop, rock, reggae? Posso dar dicas ou sugerir batidas.";
+                } else if (messageText.toLowerCase().includes("acorde c")) {
+                    aiResponse = "O acorde de Dó Maior (C) é formado assim: Dedo 1 na casa 1 da corda B (2ª), Dedo 2 na casa 2 da corda D (4ª), Dedo 3 na casa 3 da corda A (5ª). A corda E grave (6ª) geralmente não é tocada. Quer tentar?";
+                }
+                addMessage(aiResponse, 'ai');
+            }, 1500);
+            // --- End Mock AI Response ---
+        }
+
+        sendMessageBtn.addEventListener('click', handleSendMessage);
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleSendMessage();
+            }
+        });
+
+        // Initial setup
+        stopAnalysis(); // Ensure initial state is stopped
+
+    </script>
+</body>
+</html>

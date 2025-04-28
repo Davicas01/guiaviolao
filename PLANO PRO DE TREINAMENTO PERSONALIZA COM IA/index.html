@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano PRO de Treinamento Personalizado com IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513; /* Saddle Brown */
+            --secondary-color: #A0522D; /* Sienna */
+            --accent-color: #CD853F; /* Peru */
+            --dark-color: #3E2723; /* Dark Brown */
+            --light-color: #FFF8E1; /* Light Cream */
+            --light-bg: #FDF5E6; /* Old Lace */
+            --card-bg: #FFFFFF;
+            --border-color: #E0D8C7;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --radius: 10px;
+            --shadow: 0 5px 15px rgba(62, 39, 35, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-color);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-color);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        main > section {
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: calc(var(--radius) / 2);
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: #fff;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: calc(var(--radius) / 2);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(62, 39, 35, 0.2);
+        }
+
+        .btn i {
+            font-size: 1.1em;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #loading-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        #loading-section i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #dashboard-section .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .progress-bar-container {
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%; /* Will be set by JS */
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .exercise-item {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: calc(var(--radius) / 2);
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-item h4 {
+            margin: 0 0 0.3rem 0;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+         .exercise-item p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #555;
+         }
+
+        .exercise-actions button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+            padding: 0.3rem;
+        }
+         .exercise-actions button:hover {
+            color: var(--accent-color);
+         }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+            h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-guitar"></i> Plano PRO Personalizado com IA</h1>
+            <p>Seu treinamento adaptativo para dominar o violão</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Assessment Section -->
+        <section id="assessment-section" class="card">
+            <h2>Vamos começar! Conte-nos sobre você:</h2>
+            <form id="assessment-form">
+                <div class="form-group">
+                    <label for="level">Qual seu nível atual no violão?</label>
+                    <select id="level" name="level" required>
+                        <option value="" disabled selected>Selecione seu nível</option>
+                        <option value="iniciante_zero">Iniciante (nunca toquei)</option>
+                        <option value="iniciante_basico">Iniciante (sei alguns acordes básicos)</option>
+                        <option value="intermediario">Intermediário (troco acordes, toco músicas simples)</option>
+                        <option value="intermediario_avancado">Intermediário Avançado (domino pestanas, ritmos variados)</option>
+                        <option value="avancado">Avançado (busco técnicas específicas, improviso)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="goals">Quais seus principais objetivos? (Ex: tocar músicas X, aprender dedilhado, improvisar)</label>
+                    <textarea id="goals" name="goals" rows="3" placeholder="Descreva seus objetivos..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Quantos minutos por dia você pode praticar em média?</label>
+                    <input type="number" id="time" name="time" min="10" max="180" placeholder="Ex: 30" required>
+                </div>
+
+                 <div class="form-group">
+                    <label for="styles">Quais estilos musicais você mais gosta? (Opcional)</label>
+                    <input type="text" id="styles" name="styles" placeholder="Ex: MPB, Rock, Pop, Sertanejo...">
+                </div>
+
+                <button type="submit" class="btn">Gerar meu Plano Personalizado <i class="fas fa-cogs"></i></button>
+            </form>
+        </section>
+
+        <!-- Loading Section -->
+        <section id="loading-section" class="hidden">
+            <i class="fas fa-sync-alt"></i>
+            <p>Analisando suas informações e criando seu plano personalizado...</p>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="hidden">
+            <h2><i class="fas fa-clipboard-list"></i> Seu Plano de Hoje</h2>
+            <div class="card" id="todays-plan">
+                <!-- Plan content will be loaded here by JS -->
+                <p>Carregando plano...</p>
+            </div>
+
+            <h2><i class="fas fa-chart-line"></i> Visão Geral do Progresso</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Progresso Geral</h3>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="overall-progress" style="width: 10%;"></div>
+                    </div>
+                    <p><small>Nível atual: <span id="current-level-display">Iniciante</span></small></p>
+                </div>
+                <div class="card">
+                    <h3>Foco da Semana</h3>
+                    <p id="weekly-focus">Trabalhar transição de acordes C e G.</p>
+                </div>
+            </div>
+
+             <h2><i class="fas fa-book-open"></i> Biblioteca de Exercícios e Sugestões</h2>
+             <div class="card">
+                 <div id="exercise-suggestions">
+                     <p>Sugestões de exercícios aparecerão aqui com base no seu progresso.</p>
+                 </div>
+             </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            &copy; 2024 Kit Violão Profissional - Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        const assessmentSection = document.getElementById('assessment-section');
+        const loadingSection = document.getElementById('loading-section');
+        const dashboardSection = document.getElementById('dashboard-section');
+        const assessmentForm = document.getElementById('assessment-form');
+        const todaysPlanContainer = document.getElementById('todays-plan');
+        const overallProgress = document.getElementById('overall-progress');
+        const currentLevelDisplay = document.getElementById('current-level-display');
+        const weeklyFocus = document.getElementById('weekly-focus');
+        const exerciseSuggestions = document.getElementById('exercise-suggestions');
+
+        // --- Utility Functions ---
+        function showSection(sectionId) {
+            assessmentSection.classList.add('hidden');
+            loadingSection.classList.add('hidden');
+            dashboardSection.classList.add('hidden');
+
+            const sectionToShow = document.getElementById(sectionId);
+            if (sectionToShow) {
+                sectionToShow.classList.remove('hidden');
+            }
+        }
+
+        function saveUserData(data) {
+            localStorage.setItem('guitarProPlanUser', JSON.stringify(data));
+        }
+
+        function loadUserData() {
+            const data = localStorage.getItem('guitarProPlanUser');
+            return data ? JSON.parse(data) : null;
+        }
+
+        // --- "AI" Simulation ---
+        function generatePlan(userData) {
+            console.log("Generating plan for:", userData);
+            // Basic AI simulation based on level
+            let plan = {
+                today: [],
+                focus: "",
+                suggestions: [],
+                progress: 10 // Starting progress
+            };
+
+            // Warm-up
+            plan.today.push({ id: 'warmup1', title: "Aquecimento de Dedos", description: "Exercício 1-2-3-4 em todas as cordas (5 min)", type: "warmup", completed: false });
+
+            // Core exercises based on level
+            switch (userData.level) {
+                case 'iniciante_zero':
+                    plan.today.push({ id: 'ex1', title: "Postura e Pegada", description: "Revisar postura correta e como segurar o violão (5 min)", type: "technique", completed: false });
+                    plan.today.push({ id: 'ex2', title: "Acorde Em", description: "Aprender e praticar o acorde Em (10 min)", type: "chords", completed: false });
+                    plan.focus = "Familiarização com o instrumento e primeiro acorde.";
+                    plan.progress = 5;
+                    plan.suggestions.push({ id: 'sug1', title: "Vídeo: Postura Correta", link: "#" });
+                    break;
+                case 'iniciante_basico':
+                    plan.today.push({ id: 'ex1', title: "Transição C -> G", description: `Praticar a troca entre C e G (${Math.max(10, Math.floor(userData.time / 3))} min)`, type: "chords", completed: false });
+                    plan.today.push({ id: 'ex2', title: "Ritmo Básico (Pop)", description: `Praticar batida ↓↓↑↑↓↑ (${Math.max(10, Math.floor(userData.time / 3))} min)`, type: "rhythm", completed: false });
+                    plan.focus = "Fluidez na troca de acordes básicos e ritmo pop.";
+                    plan.progress = 25;
+                     plan.suggestions.push({ id: 'sug1', title: "Música: Parabéns pra Você (C, G7)", link: "#" });
+                    break;
+                case 'intermediario':
+                     plan.today.push({ id: 'ex1', title: "Acorde F (Pestana)", description: `Praticar o acorde F com pestana (${Math.max(15, Math.floor(userData.time / 2))} min)`, type: "chords", completed: false });
+                     plan.today.push({ id: 'ex2', title: "Escala Pentatônica Am", description: `Praticar a escala pentatônica de Am (${Math.max(10, Math.floor(userData.time / 3))} min)`, type: "scales", completed: false });
+                     plan.focus = "Introdução à pestana e escala pentatônica.";
+                     plan.progress = 45;
+                     plan.suggestions.push({ id: 'sug1', title: "Exercício: Força da Pestana", link: "#" });
+                     plan.suggestions.push({ id: 'sug2', title: "Música: Knockin' on Heaven's Door (G, D, Am, C)", link: "#" });
+                    break;
+                // Add more cases for other levels
+                default:
+                    plan.today.push({ id: 'ex1', title: "Revisão Geral", description: "Revise acordes e técnicas conhecidas (15 min)", type: "review", completed: false });
+                    plan.focus = "Manutenção e revisão.";
+                    plan.progress = 60;
+            }
+
+             // Add a fun element if time allows
+             if (userData.time >= 30) {
+                 plan.today.push({ id: 'fun1', title: "Tocar uma Música", description: "Escolha uma música que você gosta e tente tocar (Tempo restante)", type: "fun", completed: false });
+             }
+
+
+            return plan;
+        }
+
+        // --- UI Update Functions ---
+        function displayDashboard(userData, planData) {
+            // Display Today's Plan
+            todaysPlanContainer.innerHTML = '<h3><i class="fas fa-calendar-day"></i> Tarefas de Hoje</h3>';
+            if (planData.today.length === 0) {
+                todaysPlanContainer.innerHTML += '<p>Nenhuma tarefa para hoje. Revise seus objetivos ou gere um novo plano.</p>';
+            } else {
+                planData.today.forEach(item => {
+                    todaysPlanContainer.innerHTML += `
+                        <div class="exercise-item ${item.completed ? 'completed' : ''}" data-id="${item.id}">
+                            <div>
+                                <h4>${item.title}</h4>
+                                <p>${item.description}</p>
+                            </div>
+                            <div class="exercise-actions">
+                                <button onclick="toggleTaskComplete('${item.id}')" title="Marcar como concluída">
+                                    <i class="fas ${item.completed ? 'fa-check-square' : 'fa-square'}"></i>
+                                </button>
+                                <button onclick="showExerciseDetails('${item.id}')" title="Mais detalhes">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // Display Progress
+            overallProgress.style.width = `${planData.progress}%`;
+            currentLevelDisplay.textContent = userData.level.replace(/_/g, ' '); // Format level name
+            weeklyFocus.textContent = planData.focus || "Defina seus objetivos para gerar um foco.";
+
+            // Display Suggestions
+            exerciseSuggestions.innerHTML = '<h3>Sugestões Personalizadas</h3>';
+             if (planData.suggestions.length === 0) {
+                exerciseSuggestions.innerHTML += '<p>Continue praticando para receber novas sugestões.</p>';
+            } else {
+                planData.suggestions.forEach(sug => {
+                     exerciseSuggestions.innerHTML += `
+                        <div class="exercise-item">
+                            <div><h4>${sug.title}</h4></div>
+                            <div><a href="${sug.link || '#'}" target="_blank" class="btn btn-sm"><i class="fas fa-external-link-alt"></i> Acessar</a></div>
+                        </div>
+                    `;
+                });
+            }
+
+
+            showSection('dashboard-section');
+        }
+
+        // --- Event Handlers ---
+        function handleAssessmentSubmit(event) {
+            event.preventDefault();
+            showSection('loading-section');
+
+            const formData = new FormData(assessmentForm);
+            const userData = {
+                level: formData.get('level'),
+                goals: formData.get('goals'),
+                time: parseInt(formData.get('time'), 10),
+                styles: formData.get('styles'),
+                lastUpdate: new Date().toISOString()
+            };
+
+            // Simulate AI processing time
+            setTimeout(() => {
+                const planData = generatePlan(userData);
+                userData.currentPlan = planData; // Store plan with user data
+                saveUserData(userData);
+                displayDashboard(userData, planData);
+            }, 2000); // 2 seconds delay
+        }
+
+        function toggleTaskComplete(taskId) {
+            const userData = loadUserData();
+            if (!userData || !userData.currentPlan) return;
+
+            const taskIndex = userData.currentPlan.today.findIndex(task => task.id === taskId);
+            if (taskIndex !== -1) {
+                userData.currentPlan.today[taskIndex].completed = !userData.currentPlan.today[taskIndex].completed;
+
+                // Simple progress update simulation
+                const completedTasks = userData.currentPlan.today.filter(t => t.completed).length;
+                const totalTasks = userData.currentPlan.today.length;
+                // Base progress + increment per task
+                let baseProgress = 10; // Adjust as needed
+                 switch (userData.level) {
+                    case 'iniciante_basico': baseProgress = 20; break;
+                    case 'intermediario': baseProgress = 40; break;
+                    // ... other levels
+                 }
+                userData.currentPlan.progress = baseProgress + Math.round((completedTasks / totalTasks) * (100 - baseProgress));
+
+
+                saveUserData(userData);
+                // Re-render the specific item and progress bar for visual feedback
+                 displayDashboard(userData, userData.currentPlan); // Re-render whole dashboard for simplicity now
+            }
+        }
+
+        function showExerciseDetails(taskId) {
+            // In a real app, this would open a modal with more details, videos, etc.
+            alert(`Detalhes do exercício ${taskId} (Implementação futura)`);
+        }
+
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const existingUserData = loadUserData();
+            if (existingUserData && existingUserData.currentPlan) {
+                // If user data exists, show dashboard directly
+                console.log("Existing user data found, loading dashboard.");
+                // Optional: Add logic to check if plan is outdated and needs regeneration
+                displayDashboard(existingUserData, existingUserData.currentPlan);
+            } else {
+                // Otherwise, show assessment
+                console.log("No user data found, showing assessment.");
+                showSection('assessment-section');
+            }
+
+            assessmentForm.addEventListener('submit', handleAssessmentSubmit);
+        });
+
+    </script>
+
+</body>
+</html>

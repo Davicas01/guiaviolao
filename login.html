@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8B4513">
+    <title>Acesso Exclusivo | Domine o Violão</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #A0522D;
+            --accent-color: #CD853F;
+            --light-color: #F5DEB3;
+            --dark-color: #3E2723;
+            --bg-color: #FBF7F0;
+            --text-color: #333;
+            --radius: 12px;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-image: linear-gradient(135deg, #FBF7F0, #F5DEB3);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .guitar-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.07;
+            overflow: hidden;
+        }
+        
+        .guitar-shape {
+            position: absolute;
+            background-color: var(--primary-color);
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            top: -100px;
+            left: -100px;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            bottom: -50px;
+            right: 10%;
+        }
+        
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            border-radius: 0 50% 50% 50%;
+            bottom: 15%;
+            left: 5%;
+            transform: rotate(45deg);
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .login-header {
+            margin-bottom: 30px;
+        }
+        
+        .icon-guitar {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: guitar-swing 3s ease-in-out infinite;
+        }
+        
+        @keyframes guitar-swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        h1 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .subtitle {
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-text {
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .access-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 8px;
+        }
+        
+        label {
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        input {
+            padding: 14px;
+            border: 2px solid rgba(139, 69, 19, 0.2);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--dark-color);
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+        }
+        
+        .access-code {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .code-digit {
+            flex: 1;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .code-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .code-input {
+            width: 50px;
+            height: 60px;
+            font-size: 1.8rem;
+            text-align: center;
+            border-radius: 10px;
+            flex: 1;
+        }
+        
+        .code-input.error {
+            border-color: #e74c3c;
+            animation: shake 0.5s ease;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            color: #2ecc71;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .spinner {
+            border: 3px solid rgba(139, 69, 19, 0.1);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .unique-code-info {
+            margin-top: 30px;
+            padding: 10px;
+            background-color: rgba(139, 69, 19, 0.1);
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            color: var(--dark-color);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--dark-color);
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .code-input {
+                width: 40px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="guitar-shapes">
+        <div class="guitar-shape shape-1"></div>
+        <div class="guitar-shape shape-2"></div>
+        <div class="guitar-shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="login-header">
+            <span class="icon-guitar">🎸</span>
+            <h1>Domine o Violão</h1>
+            <p class="subtitle">Acesso Exclusivo</p>
+        </div>
+        
+        <div class="welcome-text">
+            <p>Digite o código <strong>DVM365</strong> para acessar o conteúdo exclusivo</p>
+            <button type="button" id="autoFillButton" style="margin-top: 10px; background-color: #CD853F;">
+                <i class="fas fa-magic"></i> Preencher Automaticamente
+            </button>
+        </div>
+        
+        <form class="access-form" id="accessForm">
+            <div class="form-row">
+                <label><i class="fas fa-key"></i> Seu código de acesso</label>
+                <div class="code-box">
+                    <input type="text" class="code-input" maxlength="1" value="D" id="code1" required>
+                    <input type="text" class="code-input" maxlength="1" value="V" id="code2" required>
+                    <input type="text" class="code-input" maxlength="1" value="M" id="code3" required>
+                    <input type="text" class="code-input" maxlength="1" value="3" id="code4" required>
+                    <input type="text" class="code-input" maxlength="1" value="6" id="code5" required>
+                    <input type="text" class="code-input" maxlength="1" value="5" id="code6" required>
+                </div>
+            </div>
+            
+            <button type="submit" id="loginButton">
+                <i class="fas fa-guitar"></i> Acessar Conteúdo
+            </button>
+        </form>
+
+        <div class="error-message" id="errorMessage">
+            Código de acesso incorreto. Por favor, verifique e tente novamente.
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            Código de acesso validado! Redirecionando para o conteúdo exclusivo...
+        </div>
+        
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Validando seu acesso...</p>
+        </div>
+        
+        <div class="footer">
+            <p>Kit Violão Profissional - Acesso Exclusivo</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('accessForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const codeInputs = document.querySelectorAll('.code-input');
+            const autoFillButton = document.getElementById('autoFillButton');
+            
+            // Código de acesso correto
+            const CORRECT_CODE = "DVM365";
+            
+            // Preencher automaticamente
+            autoFillButton.addEventListener('click', function() {
+                const codeChars = CORRECT_CODE.split('');
+                codeInputs.forEach((input, index) => {
+                    input.value = codeChars[index] || '';
+                });
+            });
+            
+            // Versão simplificada do manipulador de formulário
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Verificar se todos os campos estão preenchidos
+                let enteredCode = '';
+                codeInputs.forEach(input => {
+                    enteredCode += input.value;
+                });
+                
+                // Ocultar mensagens de erro anteriores
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+                
+                // Mostrar indicador de carregamento
+                loadingIndicator.style.display = 'block';
+                
+                setTimeout(() => {
+                    loadingIndicator.style.display = 'none';
+                    
+                    // Simplified - we always accept the login
+                    successMessage.style.display = 'block';
+                    
+                    // Salvar estado de autenticação
+                    localStorage.setItem('violaoAuth', 'true');
+                    localStorage.setItem('violaoLoginTime', new Date().getTime());
+                    
+                    // Redirecionar após mensagem de sucesso
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>

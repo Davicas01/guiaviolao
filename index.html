@@ -7,6 +7,14 @@
     <meta name="description" content="Domine o Violão - Da Primeira Nota à Sua Primeira Música! Um aplicativo completo com método em PDF + bônus incríveis">
     <title>Domine o Violão</title>
     
+    <!-- Verificação de autenticação -->
+    <script>
+        // Verificar se o usuário está autenticado
+        if (localStorage.getItem('violaoAuth') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+    
     <!-- PWA Meta Tags -->
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
@@ -19,6 +27,782 @@
     <!-- Fonts e FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Verificação de autenticação aprimorada -->
+    <script>
+        // Função para verificar autenticação
+        function checkAuth() {
+            const isAuthenticated = localStorage.getItem('violaoAuth') === 'true';
+            const lastLoginTime = localStorage.getItem('violaoLoginTime');
+            const currentTime = new Date().getTime();
+            
+            // Verifica se o login expirou (após 24 horas)
+            const sessionExpired = lastLoginTime && (currentTime - parseInt(lastLoginTime) > 24 * 60 * 60 * 1000);
+            
+            if (!isAuthenticated || sessionExpired) {
+                // Se não autenticado ou sessão expirada, redireciona para login
+                if (sessionExpired) {
+                    localStorage.setItem('loginMessage', 'Sua sessão expirou. Por favor, faça login novamente.');
+                }
+                window.location.replace('login.html');
+                return false;
+            }
+            return true;
+        }
+        
+        // Executar verificação imediatamente
+        checkAuth();
+    </script>
+    
+    <!-- Estilos para elementos adicionais -->
+    <style>
+        /* Estilos para o botão de Voltar ao Topo */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 100px; /* Posicionado ao lado do botão home */
+            width: 60px;
+            height: 60px;
+            background-color: #8B4513;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            border: none;
+            font-size: 24px;
+            z-index: 9999;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #A0522D;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Estilos para a barra de pesquisa */
+        .search-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .search-button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-form {
+            position: absolute;
+            right: 20px;
+            top: 80px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            height: 50px;
+            width: 50px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-form.active {
+            width: 300px;
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .search-form input {
+            flex-grow: 1;
+            border: none;
+            padding: 0 20px;
+            height: 100%;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .search-form button {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            height: 100%;
+            width: 50px;
+            cursor: pointer;
+        }
+        
+        /* Estilos para seção Continue de onde parou */
+        .continue-section {
+            padding: var(--spacing-xl) 0;
+            background-color: #f9f5f0;
+        }
+        
+        .continue-cards {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) #eee;
+        }
+        
+        .continue-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .continue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .continue-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .continue-details {
+            flex-grow: 1;
+        }
+        
+        .continue-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .continue-details p {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+        
+        .continue-button {
+            white-space: nowrap;
+            padding: 8px 15px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .continue-button:hover {
+            background: var(--accent-color);
+        }
+        
+        .no-history {
+            width: 100%;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .no-history-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        /* Estilos para a seção de depoimentos */
+        .testimonials-section {
+            background-color: #f5f5f5;
+            padding: var(--spacing-xxl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            margin: 30px 0;
+            width: 300%;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 0 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            flex: 1;
+        }
+        
+        .testimonial-rating {
+            color: #FFB900;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .author-info h4 {
+            margin: 0;
+            color: var(--dark-color);
+        }
+        
+        .author-info p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .testimonial-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .testimonial-nav {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-nav:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .testimonial-dots {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: var(--primary-color);
+            transform: scale(1.3);
+        }
+        
+        /* Animações para elementos */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Estilos para o botão de navegação fixo */
+        .fixed-nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+        
+        .fixed-nav-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #8B4513;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+        
+        .fixed-nav-button:hover {
+            background-color: #A0522D;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Estilos para a seção de bônus */
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .bonus-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .bonus-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .bonus-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: white;
+        }
+        
+        .bonus-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .bonus-card p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        .bonus-footer {
+            margin-top: auto;
+        }
+        
+        .bonus-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            gap: 8px;
+        }
+        
+        .bonus-link:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        
+        /* Estilos para seção de produtos */
+        .products-section {
+            background-color: #f9f5f0;
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        
+        .product-badge-new {
+            background: #22c55e;
+        }
+        
+        .product-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .product-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .product-rating {
+            color: #FFB900;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .product-rating span {
+            color: #666;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        
+        .product-card p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .product-price {
+            margin-bottom: 20px;
+        }
+        
+        .price-current {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .price-original {
+            font-size: 1.1rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .price-info {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .product-footer {
+            margin-top: auto;
+        }
+        
+        /* Responsividade para os produtos e bônus */
+        @media (max-width: 768px) {
+            .bonus-grid, .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-card, .bonus-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .fixed-nav, .back-to-top {
+                bottom: 20px;
+            }
+            
+            .fixed-nav {
+                right: 20px;
+            }
+            
+            .back-to-top {
+                right: 90px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            /* Design minimalista para os bônus em celular */
+            .bonus-card {
+                padding: 15px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 15px;
+                border-top: none;
+                border-left: 4px solid var(--primary-color);
+                margin-bottom: 15px;
+            }
+            
+            .bonus-icon {
+                width: 50px;
+                height: 50px;
+                min-width: 50px;
+                margin-bottom: 0;
+                font-size: 20px;
+            }
+            
+            .bonus-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 5px;
+            }
+            
+            .bonus-card p {
+                display: none;
+            }
+            
+            .bonus-footer {
+                margin-top: 5px;
+            }
+            
+            .bonus-link {
+                font-size: 0.9rem;
+            }
+            
+            /* Ajuste para a grade de bônus */
+            .bonus-grid {
+                gap: 12px;
+            }
+            
+            .section-header {
+                padding: 0 15px;
+            }
+            
+            .fixed-nav-button {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .search-form.active {
+                width: 200px;
+                top: 70px;
+            }
+            
+            .testimonial-card {
+                padding: 15px;
+            }
+            
+            .testimonial-text {
+                font-size: 0.95rem;
+            }
+            
+            .author-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .continue-card {
+                min-width: 280px;
+                padding: 15px;
+            }
+        }
+        
+        /* Adicionando um ajuste específico para telas muito pequenas */
+        @media (max-width: 480px) {
+            .bonus-card h3 {
+                font-size: 1rem;
+            }
+            
+            .bonus-icon {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                font-size: 16px;
+            }
+        }
+
+        /* Estilos para o modal de código de acesso */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: modalIn 0.3s ease-out forwards;
+        }
+
+        @keyframes modalIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: #fff;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 1.8rem;
+        }
+
+        .modal-footer {
+            padding: 1.2rem 1.8rem;
+            background-color: #f9f5f0;
+            border-top: 1px solid rgba(139, 69, 19, 0.1);
+            text-align: right;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .access-code-input {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .access-code-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="main-header">
@@ -36,7 +820,7 @@
                     <li><a href="#inicio" class="active">Início</a></li>
                     <li><a href="#metodo">Método Completo</a></li>
                     <li><a href="#bonus">Bônus</a></li>
-                    <li><a href="#favoritos">Favoritos</a></li>
+                    <li><a href="#" id="logoutBtn">Sair <i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </nav>
         </div>
@@ -49,7 +833,6 @@
                 <a href="#inicio"><i class="fas fa-home"></i> Início</a>
                 <a href="#metodo"><i class="fas fa-book-open"></i> Método</a>
                 <a href="#bonus"><i class="fas fa-gift"></i> Bônus</a>
-                <a href="#favoritos"><i class="fas fa-heart"></i> Favoritos</a>
             </div>
         </div>
     </header>
@@ -65,11 +848,6 @@
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <div class="badge-container">
-                            <span class="badge-new">NOVA VERSÃO</span>
-                            <span class="badge-special">ACESSO IMEDIATO</span>
-                            <span class="badge-highlight pulse-animation">ATUALIZADO</span>
-                        </div>
                         <h2 class="hero-title">
                             <span class="title-highlight">Domine o Violão</span> 
                             Da Primeira Nota à Primeira Música!
@@ -79,48 +857,6 @@
                             <a href="#metodo" class="btn btn-primary">Começar Agora <i class="fas fa-arrow-right"></i></a>
                             <a href="#bonus" class="btn btn-secondary">Explorar Bônus</a>
                         </div>
-                        <div class="hero-features">
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                                <span>Acesso imediato ao material</span>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                                <span>Progresso garantido em 7 dias</span>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                                <span>Suporte e materiais exclusivos</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-image">
-                        <div class="mockup-container">
-                            <div class="mockup-highlight"></div>
-                            <img src="img/Mockup .png" alt="Domine o Violão App" class="floating-image">
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">2.500+</div>
-                        <div class="stat-label">Alunos satisfeitos</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <div class="stat-number">10</div>
-                        <div class="stat-label">Bônus exclusivos</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <div class="stat-number">7</div>
-                        <div class="stat-label">Dias para tocar</div>
                     </div>
                 </div>
             </div>
@@ -137,10 +873,9 @@
                     <div class="section-icon">
                         <i class="fas fa-book-open"></i>
                     </div>
-                    <h2 class="section-title">Método Completo em PDF</h2>
-                    <p class="section-subtitle">Material estruturado para aprender violão de forma progressiva</p>
+                    <h2 class="section-title">Método Completo Passo a Passo</h2>
+                    <p class="section-subtitle">Material estruturado para aprender violão de forma progressiva no aplicativo</p>
                 </div>
-                
                 <div class="module-card main-module">
                     <div class="module-header">
                         <div class="module-icon">
@@ -180,7 +915,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="bonus" class="bonus-section">
             <div class="container">
                 <div class="section-header">
@@ -191,404 +926,265 @@
                     <p class="section-subtitle">Materiais complementares para acelerar seu aprendizado</p>
                 </div>
                 
-                <div class="bonus-categories">
-                    <button class="category-btn active" data-category="all">Todos</button>
-                    <button class="category-btn" data-category="iniciantes">Para Iniciantes</button>
-                    <button class="category-btn" data-category="tecnica">Técnica Avançada</button>
-                    <button class="category-btn" data-category="interativo">Ferramentas Interativas</button>
-                    <button class="category-btn" data-category="teoria">Teoria Musical</button>
-                </div>
-                
-                <div class="module-grid">
+                <div class="bonus-grid">
                     <!-- Bônus 1 -->
-                    <div class="module-card" data-categories="iniciantes interativo">
-                        <div class="module-badge">POPULAR</div>
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-tasks"></i>
-                            </div>
-                            <div>
-                                <h3>Checklist Interativo</h3>
-                                <p class="module-meta">3 dias para sua primeira música</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-map"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Toque sua 1ª música em 3 dias com checkpoints e vídeos animados que garantem sua evolução rápida.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>Progresso diário</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-video"></i>
-                                    <span>Vídeos demonstrativos</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Checklist Interativo - 3 Dias/index.html" class="module-link" data-favorite="Checklist Interativo">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Checklist Interativo - 3 Dias/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Mapa Interativo dos Acordes</h3>
+                        <p>Visualize todos os acordes e suas relações harmônicas de forma interativa para compreender como eles se conectam.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Mapa Interativo dos Acordes/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
                     <!-- Bônus 2 -->
-                    <div class="module-card" data-categories="tecnica">
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-hand-rock"></i>
-                            </div>
-                            <div>
-                                <h3>Desafio Anti-Pestana</h3>
-                                <p class="module-meta">7 dias de exercícios</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-file-pdf"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Atividades diárias com vídeos animados para dominar pestanas sem dor e com progresso constante.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-calendar-check"></i>
-                                    <span>Desafio de 7 dias</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-hand-paper"></i>
-                                    <span>Sem dor nas mãos</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Desafio Anti-Pestana/index.html" class="module-link" data-favorite="Desafio Anti-Pestana">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Desafio Anti-Pestana/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Pack com 1.000 Cifras em PDF</h3>
+                        <p>Uma biblioteca completa com cifras interativas para você praticar suas músicas favoritas em qualquer lugar.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Pack com 1.000 Cifras em PDF Interativo/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
                     <!-- Bônus 3 -->
-                    <div class="module-card" data-categories="interativo teoria">
-                        <div class="module-badge">INTERATIVO</div>
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-random"></i>
-                            </div>
-                            <div>
-                                <h3>Gerador de Acordes</h3>
-                                <p class="module-meta">Treinamento dinâmico</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-music"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Treine criatividade com combinações novas de acordes todos os dias para nunca ficar na mesmice.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-dice"></i>
-                                    <span>Sorteio aleatório</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-lightbulb"></i>
-                                    <span>Criatividade musical</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Gerador de Acordes Aleatórios/index.html" class="module-link" data-favorite="Gerador de Acordes">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Gerador de Acordes Aleatórios/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Modo Ritmo Guiado</h3>
+                        <p>Aprenda os ritmos mais populares com orientação visual e sonora para desenvolver seu senso rítmico perfeito.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Modo Ritmo Guiado/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
                     <!-- Bônus 4 -->
-                    <div class="module-card" data-categories="teoria interativo">
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-map-marked-alt"></i>
-                            </div>
-                            <div>
-                                <h3>Mapa Interativo dos Acordes</h3>
-                                <p class="module-meta">Visualize e entenda os acordes</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-hand-paper"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Visualize as relações entre acordes e aprenda a criar progressões harmônicas incríveis com facilidade.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-project-diagram"></i>
-                                    <span>Conexões harmônicas</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-puzzle-piece"></i>
-                                    <span>Aprenda a teoria na prática</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Mapa Interativo dos Acordes/index.html" class="module-link" data-favorite="Mapa Interativo dos Acordes">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Mapa Interativo dos Acordes/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Mini-curso Destravando os Dedos</h3>
+                        <p>Exercícios progressivos para desenvolver agilidade, independência e força nos dedos enquanto pratica violão.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Mini-curso Destravando os Dedos/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
                     <!-- Bônus 5 -->
-                    <div class="module-card" data-categories="tecnica">
-                        <div class="module-badge">EXCLUSIVO</div>
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-hand-sparkles"></i>
-                            </div>
-                            <div>
-                                <h3>Mini-curso Destravando os Dedos</h3>
-                                <p class="module-meta">Agilidade e independência</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-gamepad"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Exercícios específicos para ganhar agilidade e flexibilidade nos dedos e evoluir tecnicamente no violão.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-bolt"></i>
-                                    <span>Exercícios progressivos</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-dumbbell"></i>
-                                    <span>Fortalecimento muscular</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Mini-curso Destravando os Dedos/index.html" class="module-link" data-favorite="Mini-curso Destravando os Dedos">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Mini-curso Destravando os Dedos/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Jogo de Treino Musical</h3>
+                        <p>Aprenda teoria musical de forma divertida com um jogo interativo que testa seus conhecimentos e desenvolve seu ouvido.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Jogo de Treino Musical/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
                     <!-- Bônus 6 -->
-                    <div class="module-card" data-categories="iniciantes interativo">
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div>
-                                <h3>Modo Ritmo Guiado</h3>
-                                <p class="module-meta">Sinta o ritmo no corpo</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-robot"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Aprenda a tocar no tempo com ajuda de áudio real e vibração, desenvolvendo seu senso rítmico naturalmente.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-drum"></i>
-                                    <span>Batidas sincronizadas</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-mobile-alt"></i>
-                                    <span>Feedback por vibração</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Modo Ritmo Guiado/index.html" class="module-link" data-favorite="Modo Ritmo Guiado">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Modo Ritmo Guiado/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Modo Toque Agora com IA</h3>
+                        <p>Inteligência artificial que analisa seu nível e sugere músicas adequadas para praticar com base no seu progresso atual.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Modo Toque Agora com IA/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
                     <!-- Bônus 7 -->
-                    <div class="module-card" data-categories="interativo">
-                        <div class="module-badge">COM IA</div>
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div>
-                                <h3>Modo Toque Agora com IA</h3>
-                                <p class="module-meta">Desafios personalizados</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-tasks"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Desafios diários gerados por IA para praticar de forma divertida e personalizada ao seu nível atual.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-brain"></i>
-                                    <span>Sugestões inteligentes</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-chart-line"></i>
-                                    <span>Acompanha seu progresso</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Modo Toque Agora com IA/index.html" class="module-link" data-favorite="Modo Toque Agora com IA">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Modo Toque Agora com IA/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Checklist Interativo - 3 Dias</h3>
+                        <p>Plano intensivo de três dias para iniciar seu aprendizado com exercícios diários estruturados e metas claras.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Checklist Interativo - 3 Dias/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
                     <!-- Bônus 8 -->
-                    <div class="module-card" data-categories="interativo teoria">
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-file-pdf"></i>
-                            </div>
-                            <div>
-                                <h3>Pack com 1.000 Cifras em PDF</h3>
-                                <p class="module-meta">Biblioteca completa</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-calendar-alt"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Acesso imediato a 1.000 cifras em PDF organizadas por gênero musical para tocar suas músicas favoritas.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-search"></i>
-                                    <span>Pesquisa avançada</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-download"></i>
-                                    <span>Uso offline</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Pack com 1.000 Cifras em PDF Interativo/index.html" class="module-link" data-favorite="Pack com 1.000 Cifras em PDF">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Pack com 1.000 Cifras em PDF Interativo/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Planner Inteligente com IA</h3>
+                        <p>Crie planos de estudo personalizados com ajuda de inteligência artificial para maximizar seu tempo de prática.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Planner Inteligente com IA/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
                     <!-- Bônus 9 -->
-                    <div class="module-card" data-categories="iniciantes interativo">
-                        <div class="module-badge">INTELIGENTE</div>
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <div>
-                                <h3>Planner Inteligente com IA</h3>
-                                <p class="module-meta">Rotina personalizada</p>
-                            </div>
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-bolt"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Crie uma rotina de estudos personalizada para dominar o violão com ajuda da inteligência artificial.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-clock"></i>
-                                    <span>Adapta-se à sua agenda</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-bullseye"></i>
-                                    <span>Foco em seus objetivos</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Planner Inteligente com IA/index.html" class="module-link" data-favorite="Planner Inteligente com IA">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Planner Inteligente com IA/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Desafio Anti-Pestana</h3>
+                        <p>Técnicas e exercícios especiais para dominar a temida pestana sem dor e com resultados rápidos em apenas 7 dias.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Desafio Anti-Pestana/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     
-                    <!-- Bônus 10 -->
-                    <div class="module-card" data-categories="iniciantes teoria">
-                        <div class="module-header">
-                            <div class="module-icon">
-                                <i class="fas fa-gamepad"></i>
-                            </div>
-                            <div>
-                                <h3>Jogo de Treino Musical</h3>
-                                <p class="module-meta">Aprenda se divertindo</p>
-                            </div>
+                    <!-- Bônus 10 - Gerador de Acordes Aleatórios -->
+                    <div class="bonus-card">
+                        <div class="bonus-icon">
+                            <i class="fas fa-dice"></i>
                         </div>
-                        <div class="module-content">
-                            <p>Desenvolva seu ouvido musical e conhecimento teórico com um jogo divertido que transforma o aprendizado em diversão.</p>
-                            <div class="module-features">
-                                <div class="module-feature">
-                                    <i class="fas fa-trophy"></i>
-                                    <span>Sistema de pontuação</span>
-                                </div>
-                                <div class="module-feature">
-                                    <i class="fas fa-graduation-cap"></i>
-                                    <span>Níveis progressivos</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="module-footer">
-                            <a href="Bônus Exclusivos - Kit Violão Profissional/Jogo de Treino Musical/index.html" class="module-link" data-favorite="Jogo de Treino Musical">
-                                Acessar Bônus
-                                <span class="arrow">→</span>
-                            </a>
-                            <button class="favorite-btn" data-path="Bônus Exclusivos - Kit Violão Profissional/Jogo de Treino Musical/index.html">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <h3>Gerador de Acordes Aleatórios</h3>
+                        <p>Receba combinações surpresa para treinar criatividade e improviso de forma dinâmica.</p>
+                        <div class="bonus-footer">
+                            <a href="Bônus Exclusivos - Kit Violão Profissional/Gerador de Acordes Aleatórios/index.html" class="bonus-link">Acessar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
         </section>
-
-        <section id="favoritos" class="favorites-section">
+        
+        <section id="produtos" class="products-section">
             <div class="container">
                 <div class="section-header">
                     <div class="section-icon">
-                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-star"></i>
                     </div>
-                    <h2 class="section-title">Seus Favoritos</h2>
-                    <p class="section-subtitle">Acesso rápido aos seus materiais salvos</p>
+                    <h2 class="section-title">Produtos Premium</h2>
+                    <p class="section-subtitle">Leve seu aprendizado para o próximo nível com nossos produtos exclusivos</p>
                 </div>
                 
-                <div id="favoritesContainer" class="favorites-container">
-                    <div class="no-favorites">
-                        <div class="no-favorites-icon">
-                            <i class="far fa-heart"></i>
+                <div class="products-grid">
+                    <!-- Produto Premium - Plano PRO de Treinamento Personalizado com IA -->
+                    <div class="product-card animate-on-scroll">
+                        <div class="product-badge product-badge-new">Premium</div>
+                        <div class="product-content">
+                            <h3>Plano PRO de Treinamento Personalizado com IA</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(42 avaliações)</span>
+                            </div>
+                            <p>Treinamento adaptativo guiado por inteligência artificial que ajusta exercícios e repertório conforme sua evolução e objetivos.</p>
+                            <div class="product-price">
+                                <span class="price-current">R$ 297,00</span>
+                                <span class="price-original">R$ 397,00</span>
+                            </div>
+                            <div class="product-footer">
+                                <a href="PLANO PRO DE TREINAMENTO PERSONALIZA COM IA/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="#" class="btn btn-secondary" id="accessCodeBtn">Já tenho acesso</a>
+                            </div>
                         </div>
-                        <h3>Nenhum favorito ainda</h3>
-                        <p>Marque materiais como favoritos clicando no ícone <i class="far fa-heart"></i> nos módulos para acessá-los rapidamente.</p>
-                        <a href="#metodo" class="btn btn-secondary">Explorar Materiais</a>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="cta-section">
-            <div class="container">
-                <div class="cta-content">
-                    <h2 class="cta-title">Pronto para dominar o violão?</h2>
-                    <p class="cta-text">Comece agora mesmo e em uma semana você estará tocando suas músicas favoritas!</p>
-                    <a href="#metodo" class="btn btn-primary btn-large">Começar Jornada <i class="fas fa-arrow-right"></i></a>
+                    <!-- Produto Premium - Ajudante de Violão Inteligente com IA -->
+                    <div class="product-card animate-on-scroll">
+                        <div class="product-badge product-badge-new">Premium</div>
+                        <div class="product-content">
+                            <h3>Ajudante de Violão Inteligente com IA</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(38 avaliações)</span>
+                            </div>
+                            <p>Assistente virtual que responde dúvidas em tempo real, corrige sua postura e técnica através da câmera, e sugere exercícios específicos para melhorar pontos fracos.</p>
+                            <div class="product-price">
+                                <span class="price-current">R$ 247,00</span>
+                                <span class="price-original">R$ 347,00</span>
+                            </div>
+                            <div class="product-footer">
+                                <a href="Ajudante de Violao Inteligente/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="#" class="btn btn-secondary" id="aiAssistantCodeBtn">Já tenho acesso</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Produto Premium - Desafio de 30 Dias: Toque 10 Músicas Completas -->
+                    <div class="product-card animate-on-scroll">
+                        <div class="product-badge product-badge-new">Premium</div>
+                        <div class="product-content">
+                            <h3>Desafio de 30 Dias: Toque 10 Músicas Completas</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(45 avaliações)</span>
+                            </div>
+                            <p>Desafio intensivo que te leva a dominar 10 músicas populares em apenas 30 dias, com plano diário estruturado, vídeo aulas exclusivas e acompanhamento de progresso.</p>
+                            <div class="product-price">
+                                <span class="price-current">R$ 197,00</span>
+                                <span class="price-original">R$ 297,00</span>
+                            </div>
+                            <div class="product-footer">
+                                <a href="Desafio de 30 Dias/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="#" class="btn btn-secondary" id="desafio30DiasBtn">Já tenho acesso</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produto Premium - Curso Relâmpago: Como Gravar Seu Primeiro Cover -->
+                    <div class="product-card animate-on-scroll">
+                        <div class="product-badge product-badge-new">Premium</div>
+                        <div class="product-content">
+                            <h3>Curso Relâmpago: Como Gravar Seu Primeiro Cover 🎤📹</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>(25 avaliações)</span>
+                            </div>
+                            <p>Aprenda passo a passo como gravar e editar seu primeiro cover de violão com qualidade profissional, usando equipamentos acessíveis.</p>
+                            <div class="product-price">
+                                <span class="price-current">R$ 147,00</span>
+                                <span class="price-original">R$ 247,00</span>
+                            </div>
+                            <div class="product-footer">
+                                <a href="Curso Relampago Cover/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="#" class="btn btn-secondary" id="coverCourseBtn">Já tenho acesso</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produto Premium - Pack de Rítmicas Prontas -->
+                    <div class="product-card animate-on-scroll">
+                        <div class="product-badge product-badge-new">Premium</div>
+                        <div class="product-content">
+                            <h3>Pack de Rítmicas Prontas 🥁</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(30 avaliações)</span>
+                            </div>
+                            <p>Coleção de ritmos populares (Pop, Rock, Sertanejo, MPB, etc.) com demonstrações em vídeo e áudio para você aplicar imediatamente nas suas músicas.</p>
+                            <div class="product-price">
+                                <span class="price-current">R$ 97,00</span>
+                                <span class="price-original">R$ 147,00</span>
+                            </div>
+                            <div class="product-footer">
+                                <a href="Pack de Ritmicas Prontas/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="#" class="btn btn-secondary" id="ritmicasPackBtn">Já tenho acesso</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -608,14 +1204,6 @@
                             <li><a href="#inicio">Início</a></li>
                             <li><a href="#metodo">Método Completo</a></li>
                             <li><a href="#bonus">Bônus</a></li>
-                            <li><a href="#favoritos">Favoritos</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-nav">
-                        <h4>Suporte</h4>
-                        <ul>
-                            <li><a href="#">Contato</a></li>
-                            <li><a href="#">FAQ</a></li>
                             <li><a href="#">Política de Privacidade</a></li>
                             <li><a href="#">Termos de Uso</a></li>
                         </ul>
@@ -628,6 +1216,18 @@
             </div>
         </div>
     </footer>
+
+    <!-- Botão de navegação fixo -->
+    <div class="fixed-nav">
+        <a href="index.html" class="fixed-nav-button" title="Voltar à página principal">
+            <i class="fas fa-home"></i>
+        </a>
+    </div>
+
+    <!-- Botão Voltar ao Topo -->
+    <button id="backToTop" class="back-to-top" title="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <div class="install-prompt" id="installPrompt">
         <div class="install-content">
@@ -644,11 +1244,24 @@
         </div>
     </div>
 
-    <!-- Botão de navegação fixo -->
-    <div class="fixed-nav">
-        <a href="index.html" class="fixed-nav-button" title="Voltar à página principal">
-            <i class="fas fa-home"></i>
-        </a>
+    <!-- Modal para entrada do código de acesso -->
+    <div class="modal-overlay" id="accessCodeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Digite seu código de acesso</h3>
+                <button class="modal-close" id="closeAccessModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Por favor, insira abaixo o código único que você recebeu ao adquirir o Plano PRO:</p>
+                <div class="form-group">
+                    <input type="text" id="accessCodeInput" placeholder="Exemplo: PRO-12345-ABCDE" class="access-code-input">
+                </div>
+                <div id="accessError" class="error-message" style="display: none; color: red; margin-top: 10px;"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="submitAccessCode">Acessar</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
@@ -662,51 +1275,187 @@
                     .catch(err => console.error('Erro ao registrar Service Worker:', err));
             });
         }
-    </script>
-    
-    <!-- Estilos para o botão de navegação fixo -->
-    <style>
-        .fixed-nav {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 9999;
-        }
         
-        .fixed-nav-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background-color: #8B4513;
-            color: white;
-            border-radius: 50%;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            font-size: 24px;
-        }
+        // Funcionalidade Voltar ao Topo
+        const backToTopButton = document.getElementById('backToTop');
         
-        .fixed-nav-button:hover {
-            background-color: #A0522D;
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-        }
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
         
-        /* Responsividade para telas menores */
-        @media (max-width: 768px) {
-            .fixed-nav {
-                bottom: 20px;
-                right: 20px;
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Tem certeza que deseja sair? Você precisará inserir seu código de acesso novamente.')) {
+                localStorage.setItem('violaoAuth', 'false');
+                window.location.href = 'login.html';
+            }
+        });
+        
+        // Display user name if available
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedName = localStorage.getItem('violaoUserName');
+            if (savedName) {
+                // Add user name to header if exists
+                const userElement = document.createElement('div');
+                userElement.className = 'user-welcome';
+                userElement.innerHTML = `<i class="fas fa-user-circle"></i> Olá, ${savedName}!`;
+                document.querySelector('.main-header .container').appendChild(userElement);
             }
             
-            .fixed-nav-button {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
+            // Forçar a exibição dos cartões de produtos premium
+            document.querySelectorAll('.product-card.animate-on-scroll').forEach(card => {
+                card.classList.add('animated');
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Funcionalidade para o modal de código de acesso
+        document.addEventListener('DOMContentLoaded', function() {
+            const accessCodeBtn = document.getElementById('accessCodeBtn');
+            const aiAssistantCodeBtn = document.getElementById('aiAssistantCodeBtn'); // Added for AI Assistant
+            const desafio30DiasBtn = document.getElementById('desafio30DiasBtn'); // Added for Desafio 30 Dias
+            const coverCourseBtn = document.getElementById('coverCourseBtn'); // Added for Cover Course
+            const ritmicasPackBtn = document.getElementById('ritmicasPackBtn'); // Added for Ritmicas Pack
+            const accessCodeModal = document.getElementById('accessCodeModal');
+            const closeAccessModal = document.getElementById('closeAccessModal');
+            const submitAccessCode = document.getElementById('submitAccessCode');
+            const accessCodeInput = document.getElementById('accessCodeInput');
+            const accessError = document.getElementById('accessError');
+            let currentProduct = ''; // Variable to store which product modal was opened for
+
+            // Function to open modal and set current product
+            function openAccessModal(productType) {
+                currentProduct = productType;
+                accessCodeModal.style.display = 'flex';
+                accessCodeInput.value = ''; // Clear previous input
+                accessError.style.display = 'none'; // Hide previous error
             }
-        }
-    </style>
+
+            // Event listeners for each "Já tenho acesso" button
+            if (accessCodeBtn) {
+                accessCodeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAccessModal('pro-plan');
+                });
+            }
+            if (aiAssistantCodeBtn) {
+                aiAssistantCodeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAccessModal('ai-assistant');
+                });
+            }
+            if (desafio30DiasBtn) {
+                desafio30DiasBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAccessModal('desafio-30dias');
+                });
+            }
+            if (coverCourseBtn) {
+                coverCourseBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAccessModal('cover-course');
+                });
+            }
+             if (ritmicasPackBtn) {
+                ritmicasPackBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAccessModal('ritmicas-pack');
+                });
+            }
+            
+            // Fechar o modal quando clicar no botão de fechar
+            closeAccessModal.addEventListener('click', function() {
+                accessCodeModal.style.display = 'none';
+            });
+            
+            // Fechar o modal quando clicar fora do conteúdo
+            window.addEventListener('click', function(e) {
+                if (e.target === accessCodeModal) {
+                    accessCodeModal.style.display = 'none';
+                }
+            });
+            
+            // Validar e processar o código de acesso
+            submitAccessCode.addEventListener('click', function() {
+                const code = accessCodeInput.value.trim().toUpperCase(); // Standardize input
+                
+                // Verifica se o campo está vazio
+                if (code === '') {
+                    accessError.textContent = 'Por favor, digite seu código de acesso.';
+                    accessError.style.display = 'block';
+                    return;
+                }
+                
+                // Limpar erro anterior
+                accessError.style.display = 'none';
+
+                // Validação baseada no produto selecionado
+                if (currentProduct === 'pro-plan') {
+                    // Validação para o Plano PRO
+                    if (code.startsWith('PRO-') || code === 'DEMO123' || code === 'PROCODIGO231') {
+                        localStorage.setItem('accessCode', code);
+                        localStorage.setItem('accessCodeValid', 'true');
+                        window.location.href = 'PLANO PRO DE TREINAMENTO PERSONALIZA COM IA/index.html';
+                    } else {
+                        accessError.textContent = 'Código de acesso inválido para o Plano PRO.';
+                        accessError.style.display = 'block';
+                    }
+                } else if (currentProduct === 'ai-assistant') {
+                    // Validação para o Ajudante de Violão Inteligente
+                    if (code.startsWith('AI-') || code === 'IAVIOLA123' || code === 'IAVIOLA324') {
+                        localStorage.setItem('aiAssistantCode', code);
+                        localStorage.setItem('aiAssistantValid', 'true');
+                        window.location.href = 'Ajudante de Violao Inteligente/index.html';
+                    } else {
+                        accessError.textContent = 'Código de acesso inválido para o Ajudante de Violão Inteligente.';
+                        accessError.style.display = 'block';
+                    }
+                } else if (currentProduct === 'desafio-30dias') {
+                    // Validação para o Desafio de 30 Dias
+                    if (code.startsWith('D30-') || code === 'DESAFIO10' || code === 'MUSICA30D') {
+                        localStorage.setItem('desafio30DiasCode', code);
+                        localStorage.setItem('desafio30DiasValid', 'true');
+                        window.location.href = 'Desafio de 30 Dias/index.html';
+                    } else {
+                        accessError.textContent = 'Código de acesso inválido para o Desafio de 30 Dias.';
+                        accessError.style.display = 'block';
+                    }
+                } else if (currentProduct === 'cover-course') {
+                    // Validação para o Curso Relâmpago Cover
+                    if (code.startsWith('COVER-') || code === 'GRAVARCOVER' || code === 'COVERPRO123') {
+                        localStorage.setItem('coverCourseCode', code);
+                        localStorage.setItem('coverCourseValid', 'true');
+                        window.location.href = 'Curso Relampago Cover/index.html';
+                    } else {
+                        accessError.textContent = 'Código de acesso inválido para o Curso Relâmpago Cover.';
+                        accessError.style.display = 'block';
+                    }
+                } else if (currentProduct === 'ritmicas-pack') {
+                    // Validação para o Pack de Rítmicas Prontas
+                    if (code.startsWith('RIT-') || code === 'RITMOS100' || code === 'PACKRITMO') {
+                        localStorage.setItem('ritmicasPackCode', code);
+                        localStorage.setItem('ritmicasPackValid', 'true');
+                        window.location.href = 'Pack de Ritmicas Prontas/index.html'; // Adjust path if needed
+                    } else {
+                        accessError.textContent = 'Código de acesso inválido para o Pack de Rítmicas.';
+                        accessError.style.display = 'block';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

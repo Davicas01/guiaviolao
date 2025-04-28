@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎸 Desafio de 30 Dias: Toque 10 Músicas Completas</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5D4037;
+            --secondary-color: #8D6E63;
+            --accent-color: #D7CCC8;
+            --text-color: #3E2723;
+            --light-bg: #EFEBE9;
+            --section-bg: #ffffff;
+            --border-color: #BCAAA4;
+            --footer-color: #6D4C41;
+            --success-color: #4CAF50;
+            --locked-color: #BCAAA4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            background-color: var(--section-bg);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .progress-section h2 {
+             border-bottom: none;
+             text-align: center;
+             margin-bottom: 25px;
+        }
+
+        .progress-tracker {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            text-align: center;
+            padding: 10px 5px;
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .progress-step.completed {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .progress-step.current {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .days-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .day-card {
+            background-color: var(--section-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(93, 64, 55, 0.1);
+        }
+
+        .day-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.15);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .day-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(93, 64, 55, 0.2);
+        }
+
+        .day-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .day-card h4 {
+            color: var(--secondary-color);
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .day-card ul {
+            list-style: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+         .day-card li {
+             padding-left: 20px;
+             position: relative;
+             font-size: 0.95rem;
+         }
+         .day-card li::before {
+             content: "\f00c"; /* FontAwesome check icon */
+             font-family: "Font Awesome 6 Free";
+             font-weight: 900;
+             position: absolute;
+             left: 0;
+             color: var(--success-color);
+             opacity: 0.7;
+         }
+
+        .song-focus {
+            background-color: var(--light-bg);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 1rem;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 4px rgba(93, 64, 55, 0.1);
+        }
+        .song-focus strong {
+            color: var(--primary-color);
+        }
+
+        .songs-list ul {
+            list-style: none;
+            padding-left: 0;
+            columns: 2;
+            -webkit-columns: 2;
+            -moz-columns: 2;
+        }
+        .songs-list li {
+            margin-bottom: 8px;
+            font-size: 1rem;
+            padding-left: 25px;
+            position: relative;
+        }
+        .songs-list li::before {
+            content: "\f001"; /* FontAwesome music icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .motivation {
+            background-color: var(--accent-color);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+            font-style: italic;
+            color: var(--text-color);
+            border-left: 6px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(93, 64, 55, 0.1);
+        }
+
+        .notes-section {
+            background-color: var(--light-bg);
+            border: 1px dashed var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .notes-section h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .notes-lines {
+            min-height: 150px;
+            background-image: linear-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 100% 2rem;
+            padding: 10px;
+            line-height: 2rem;
+            font-style: italic;
+            color: #777;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--footer-color);
+            font-size: 0.9rem;
+        }
+
+        .signature {
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .practice-tips {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .daily-exercises {
+            background-color: #fff5e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .progress-tracking {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .checkpoints {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkpoint {
+            background-color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .day-card ul ul {
+            margin: 5px 0 10px 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .progress-tracker { grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); gap: 5px; }
+            .progress-step { font-size: 0.8rem; padding: 8px 3px; }
+            .days-content { grid-template-columns: 1fr; }
+            .songs-list ul { columns: 1; -webkit-columns: 1; -moz-columns: 1; }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎸 Desafio de 30 Dias: Toque 10 Músicas Completas</h1>
+        <p class="subtitle">Desafio intensivo que te leva a dominar 10 músicas populares em apenas 30 dias, com plano diário estruturado, vídeo aulas exclusivas e acompanhamento de progresso.</p>
+    </header>
+
+    <div class="container">
+        <section class="intro">
+            <h2>Bem-vindo ao Desafio!</h2>
+            <p>Prepare-se para uma jornada transformadora! Nos próximos 30 dias, você vai aprender a tocar 10 músicas populares do início ao fim. Este desafio foi cuidadosamente estruturado para garantir seu progresso diário, combinando técnica, teoria aplicada e muita prática musical.</p>
+            <p>Siga o plano diário, assista às vídeo aulas exclusivas e pratique com consistência. Ao final do desafio, você terá um repertório de 10 músicas completas e sua confiança no violão estará nas alturas!</p>
+        </section>
+
+        <section class="progress-section">
+            <h2>📊 Acompanhe seu Progresso</h2>
+            <div class="progress-tracker" id="progress-tracker">
+                <!-- Progress steps will be generated by JS -->
+            </div>
+            <p style="text-align:center; margin-top: 10px;">Clique em um dia para marcar como concluído.</p>
+        </section>
+
+        <section class="songs-list">
+            <h2>🎵 As 10 Músicas do Desafio</h2>
+            <ul>
+                <li>Wonderwall - Oasis</li>
+                <li>Knockin' on Heaven's Door - Bob Dylan</li>
+                <li>No Woman, No Cry - Bob Marley</li>
+                <li>Imagine - John Lennon</li>
+                <li>Hey Jude - The Beatles</li>
+                <li>Wish You Were Here - Pink Floyd</li>
+                <li>Hotel California - Eagles</li>
+                <li>Smoke on the Water - Deep Purple</li>
+                <li>Billie Jean - Michael Jackson</li>
+                <li>Sweet Child O' Mine - Guns N' Roses</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🗓️ Plano Diário do Desafio</h2>
+            <div class="days-content" id="days-content">
+                <div class="day-card" id="day-1">
+                    <div class="day-header">
+                        <div class="day-number">1</div>
+                        <div class="day-title">Fundamentos e Postura</div>
+                    </div>
+                    <p>Começando com os fundamentos essenciais do violão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Postura correta e posicionamento do violão (10 min)</li>
+                        <li>Exercícios de alongamento para dedos (5 min)</li>
+                        <li>Aprender acordes básicos: Em e Am (25 min)</li>
+                        <li>Praticar transições lentas entre Em-Am (20 min)</li>
+                        <li>Tocar cada corda individualmente (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Postura e primeiros acordes</div>
+                </div>
+
+                <div class="day-card" id="day-2">
+                    <div class="day-header">
+                        <div class="day-number">2</div>
+                        <div class="day-title">Acordes Fundamentais</div>
+                    </div>
+                    <p>Expandindo os acordes básicos.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisão dos acordes do dia 1 (10 min)</li>
+                        <li>Aprender acordes: C e G (20 min)</li>
+                        <li>Praticar sequência Em-Am-C-G (20 min)</li>
+                        <li>Exercício de troca rápida entre acordes (10 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Fluência nos acordes básicos</div>
+                </div>
+
+                <div class="day-card" id="day-3">
+                    <div class="day-header">
+                        <div class="day-number">3</div>
+                        <div class="day-title">Ritmo Básico</div>
+                    </div>
+                    <p>Introdução ao ritmo com batidas simples.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Batida básica ↓↓↑↓↑ (20 min)</li>
+                        <li>Aplicar ritmo nos acordes aprendidos (20 min)</li>
+                        <li>Praticar trocas de acordes com ritmo (20 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Coordenação entre acordes e ritmo</div>
+                </div>
+
+                <div class="day-card" id="day-4">
+                    <div class="day-header">
+                        <div class="day-number">4</div>
+                        <div class="day-title">Primeira Música - Parte 1</div>
+                    </div>
+                    <p>Começando "Wonderwall" do Oasis (versão simplificada)</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender acordes da música: Em7, G, D, A7sus4 (30 min)</li>
+                        <li>Praticar progressão de acordes lentamente (15 min)</li>
+                        <li>Treinar ritmo específico da música (15 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Introdução à primeira música</div>
+                </div>
+
+                <div class="day-card" id="day-5">
+                    <div class="day-header">
+                        <div class="day-number">5</div>
+                        <div class="day-title">Primeira Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Wonderwall" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: Cadd9, D, Em7 (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a primeira música</div>
+                </div>
+
+                <div class="day-card" id="day-6">
+                    <div class="day-header">
+                        <div class="day-number">6</div>
+                        <div class="day-title">Segunda Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "Knockin' on Heaven's Door" - Bob Dylan</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender acordes: G, D, A, C (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Segunda Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Segunda Música</div>
+                </div>
+
+                <div class="day-card" id="day-7">
+                    <div class="day-header">
+                        <div class="day-number">7</div>
+                        <div class="day-title">Segunda Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Knockin' on Heaven's Door" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: G, D, A (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Segunda Música</div>
+                </div>
+
+                <div class="day-card" id="day-8">
+                    <div class="day-header">
+                        <div class="day-number">8</div>
+                        <div class="day-title">Terceira Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "No Woman, No Cry" - Bob Marley</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender acordes: C, G, Am, F (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Terceira Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Terceira Música</div>
+                </div>
+
+                <div class="day-card" id="day-9">
+                    <div class="day-header">
+                        <div class="day-number">9</div>
+                        <div class="day-title">Terceira Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "No Woman, No Cry" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: C, G, Am, F (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Terceira Música</div>
+                </div>
+
+                <div class="day-card" id="day-10">
+                    <div class="day-header">
+                        <div class="day-number">10</div>
+                        <div class="day-title">Quarta Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "Imagine" - John Lennon</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender acordes: C, E, F, Am (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Quarta Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Quarta Música</div>
+                </div>
+
+                <div class="day-card" id="day-11">
+                    <div class="day-header">
+                        <div class="day-number">11</div>
+                        <div class="day-title">Quarta Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Imagine" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: C, E, F, Am (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Quarta Música</div>
+                </div>
+
+                <div class="day-card" id="day-12">
+                    <div class="day-header">
+                        <div class="day-number">12</div>
+                        <div class="day-title">Quinta Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "Hey Jude" - The Beatles</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender acordes: A, D, E, F#m (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Quinta Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Quinta Música</div>
+                </div>
+
+                <div class="day-card" id="day-13">
+                    <div class="day-header">
+                        <div class="day-number">13</div>
+                        <div class="day-title">Quinta Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Hey Jude" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: A, D, E, F#m (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Quinta Música</div>
+                </div>
+
+                <div class="day-card" id="day-14">
+                    <div class="day-header">
+                        <div class="day-number">14</div>
+                        <div class="day-title">Sexta Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "Wish You Were Here" - Pink Floyd</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender acordes: G, C, D, A (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Sexta Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Sexta Música</div>
+                </div>
+
+                <div class="day-card" id="day-15">
+                    <div class="day-header">
+                        <div class="day-number">15</div>
+                        <div class="day-title">Sexta Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Wish You Were Here" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: G, C, D, A (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Sexta Música</div>
+                </div>
+
+                <div class="day-card" id="day-16">
+                    <div class="day-header">
+                        <div class="day-number">16</div>
+                        <div class="day-title">Sétima Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "Hotel California" - Eagles</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender acordes: Bm, F#, A, E, G, D (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Sétima Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Sétima Música</div>
+                </div>
+
+                <div class="day-card" id="day-17">
+                    <div class="day-header">
+                        <div class="day-number">17</div>
+                        <div class="day-title">Sétima Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Hotel California" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: Bm, F#, A, E, G, D (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Sétima Música</div>
+                </div>
+
+                <div class="day-card" id="day-18">
+                    <div class="day-header">
+                        <div class="day-number">18</div>
+                        <div class="day-title">Oitava Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "Smoke on the Water" - Deep Purple</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender riff principal e acordes: G, Bb, C, Cm (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Oitava Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Oitava Música</div>
+                </div>
+
+                <div class="day-card" id="day-19">
+                    <div class="day-header">
+                        <div class="day-number">19</div>
+                        <div class="day-title">Oitava Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Smoke on the Water" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: G, Bb, C, Cm (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Oitava Música</div>
+                </div>
+
+                <div class="day-card" id="day-20">
+                    <div class="day-header">
+                        <div class="day-number">20</div>
+                        <div class="day-title">Nona Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "Billie Jean" - Michael Jackson</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender riff principal e acordes: Em, Am, D, G (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Nona Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Nona Música</div>
+                </div>
+
+                <div class="day-card" id="day-21">
+                    <div class="day-header">
+                        <div class="day-number">21</div>
+                        <div class="day-title">Nona Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Billie Jean" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: Em, Am, D, G (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Nona Música</div>
+                </div>
+
+                <div class="day-card" id="day-22">
+                    <div class="day-header">
+                        <div class="day-number">22</div>
+                        <div class="day-title">Décima Música - Parte 1</div>
+                    </div>
+                    <p>Iniciando "Sweet Child O' Mine" - Guns N' Roses</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Aprender riff principal e acordes: D, C, G, Bb (30 min)</li>
+                        <li>Praticar a progressão de acordes (20 min)</li>
+                        <li>Assistir vídeo aula: Introdução à Décima Música</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Iniciar Décima Música</div>
+                </div>
+
+                <div class="day-card" id="day-23">
+                    <div class="day-header">
+                        <div class="day-number">23</div>
+                        <div class="day-title">Décima Música - Parte 2</div>
+                    </div>
+                    <p>Avançando em "Sweet Child O' Mine" - Aprendendo o refrão.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisar acordes e ritmo da música (10 min)</li>
+                        <li>Aprender o refrão: D, C, G, Bb (20 min)</li>
+                        <li>Praticar a transição verso-refrão (20 min)</li>
+                        <li>Tocar a música completa uma vez (5 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Completar a Décima Música</div>
+                </div>
+
+                <div class="day-card" id="day-24">
+                    <div class="day-header">
+                        <div class="day-number">24</div>
+                        <div class="day-title">Revisão Geral - Parte 1</div>
+                    </div>
+                    <p>Revisando as músicas 1 a 5.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Tocar cada música uma vez, focando na fluência (40 min)</li>
+                        <li>Escolher trechos difíceis e praticar separadamente (20 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Consolidar aprendizado das músicas 1 a 5</div>
+                </div>
+
+                <div class="day-card" id="day-25">
+                    <div class="day-header">
+                        <div class="day-number">25</div>
+                        <div class="day-title">Revisão Geral - Parte 2</div>
+                    </div>
+                    <p>Revisando as músicas 6 a 10.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Tocar cada música uma vez, focando na fluência (40 min)</li>
+                        <li>Escolher trechos difíceis e praticar separadamente (20 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Consolidar aprendizado das músicas 6 a 10</div>
+                </div>
+
+                <div class="day-card" id="day-26">
+                    <div class="day-header">
+                        <div class="day-number">26</div>
+                        <div class="day-title">Preparação para Apresentação</div>
+                    </div>
+                    <p>Escolhendo as músicas para a apresentação final.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Selecionar 3 músicas favoritas (10 min)</li>
+                        <li>Praticar cada uma delas individualmente (30 min)</li>
+                        <li>Planejar a ordem da apresentação (10 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Preparar apresentação final</div>
+                </div>
+
+                <div class="day-card" id="day-27">
+                    <div class="day-header">
+                        <div class="day-number">27</div>
+                        <div class="day-title">Ensaio Geral</div>
+                    </div>
+                    <p>Ensaio completo da apresentação.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Tocar as 3 músicas selecionadas uma após a outra (40 min)</li>
+                        <li>Ajustar detalhes e transições (20 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Ensaiar apresentação final</div>
+                </div>
+
+                <div class="day-card" id="day-28">
+                    <div class="day-header">
+                        <div class="day-number">28</div>
+                        <div class="day-title">Gravação da Apresentação</div>
+                    </div>
+                    <p>Gravar a performance das músicas selecionadas.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Configurar equipamento de gravação (10 min)</li>
+                        <li>Gravar cada música individualmente (40 min)</li>
+                        <li>Revisar gravações e escolher melhores takes (20 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Gravar apresentação final</div>
+                </div>
+
+                <div class="day-card" id="day-29">
+                    <div class="day-header">
+                        <div class="day-number">29</div>
+                        <div class="day-title">Edição de Vídeo</div>
+                    </div>
+                    <p>Editar gravações para criar um vídeo coeso.</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Importar gravações para software de edição (10 min)</li>
+                        <li>Cortar partes indesejadas e ajustar áudio (40 min)</li>
+                        <li>Adicionar títulos e transições (20 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Editar vídeo da apresentação</div>
+                </div>
+
+                <div class="day-card" id="day-30">
+                    <div class="day-header">
+                        <div class="day-number">30</div>
+                        <div class="day-title">Apresentação Final</div>
+                    </div>
+                    <p>Celebração e apresentação do repertório completo!</p>
+                    <h4>Tarefas do Dia:</h4>
+                    <ul>
+                        <li>Revisão rápida das 10 músicas (30 min)</li>
+                        <li>Gravar performance de suas 3 músicas favoritas (20 min)</li>
+                        <li>Compartilhar seu progresso com a comunidade (10 min)</li>
+                    </ul>
+                    <div class="song-focus"><strong>Foco:</strong> Celebrar sua conquista!</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="motivation">
+            "A jornada de mil músicas começa com um único acorde. A prática diária é o caminho. Parabéns por aceitar este desafio e investir em sua paixão pela música!"
+        </div>
+
+        <section class="notes-section">
+            <h3>✏️ Minhas Anotações e Descobertas</h3>
+            <div class="notes-lines">
+                Use este espaço para anotar dificuldades, progressos, músicas favoritas, ou qualquer reflexão durante o desafio...
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Kit Violão Profissional - Desafio de 30 Dias</p>
+        <p class="signature">Desenvolvido com paixão pela equipe do Kit Violão Profissional</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressTracker = document.getElementById('progress-tracker');
+            const totalDays = 30;
+            let completedDays = JSON.parse(localStorage.getItem('completedDays30') || '{}');
+
+            // Generate progress steps
+            for (let i = 1; i <= totalDays; i++) {
+                const step = document.createElement('div');
+                step.classList.add('progress-step');
+                step.dataset.day = i;
+                step.textContent = `Dia ${i}`;
+                if (completedDays[i]) {
+                    step.classList.add('completed');
+                }
+                step.addEventListener('click', () => toggleDayCompletion(i));
+                progressTracker.appendChild(step);
+            }
+            updateCurrentDayMarker();
+
+            function toggleDayCompletion(day) {
+                completedDays[day] = !completedDays[day];
+                localStorage.setItem('completedDays30', JSON.stringify(completedDays));
+                updateProgressStep(day);
+                updateCurrentDayMarker();
+            }
+
+            function updateProgressStep(day) {
+                 const step = progressTracker.querySelector(`.progress-step[data-day="${day}"]`);
+                 if (step) {
+                     step.classList.toggle('completed', completedDays[day]);
+                 }
+            }
+
+            function updateCurrentDayMarker() {
+                // Remove current marker from all
+                progressTracker.querySelectorAll('.progress-step.current').forEach(el => el.classList.remove('current'));
+
+                // Find the first uncompleted day and mark it as current
+                let firstUncompleted = -1;
+                for (let i = 1; i <= totalDays; i++) {
+                    if (!completedDays[i]) {
+                        firstUncompleted = i;
+                        break;
+                    }
+                }
+
+                if (firstUncompleted !== -1) {
+                     const currentStep = progressTracker.querySelector(`.progress-step[data-day="${firstUncompleted}"]`);
+                     if (currentStep) {
+                         currentStep.classList.add('current');
+                     }
+                } else {
+                    // All days completed, maybe mark the last one or none
+                     const lastStep = progressTracker.querySelector(`.progress-step[data-day="${totalDays}"]`);
+                     if (lastStep && lastStep.classList.contains('completed')) {
+                         // Optionally add a special style or message
+                     }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

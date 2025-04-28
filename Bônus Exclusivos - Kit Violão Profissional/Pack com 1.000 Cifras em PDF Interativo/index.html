@@ -7,15 +7,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2); /* Cor de fundo semi-transparente */
+            color: white; /* Cor do texto */
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+
+        .back-button i {
+            margin-right: 8px;
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
+    <a href="../../index.html" class="back-button"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
     <header>
         <div class="container">
             <h1><i class="fas fa-guitar"></i> 1.000 Cifras em PDF Interativo</h1>
             <p class="subtitle">Músicas separadas por gênero e dificuldade + busca rápida</p>
         </div>
     </header>
-
+    
     <main class="container">
         <div class="search-container">
             <div class="search-wrapper">
@@ -40,24 +69,24 @@
                 </select>
             </div>
         </div>
-
+        
         <div class="result-stats">
             <span id="resultCount">1000</span> cifras encontradas
             <button id="downloadAll" class="btn btn-download"><i class="fas fa-download"></i> Baixar Todas</button>
         </div>
-
+        
         <div class="tabs">
             <button class="tab-btn active" data-tab="grid-view"><i class="fas fa-th"></i> Grade</button>
             <button class="tab-btn" data-tab="list-view"><i class="fas fa-list"></i> Lista</button>
             <button class="tab-btn" data-tab="favorites"><i class="fas fa-star"></i> Favoritos</button>
         </div>
-
+        
         <div id="grid-view" class="tab-content active">
             <div class="cifra-grid">
                 <!-- Cifras serão carregadas dinamicamente via JavaScript -->
             </div>
         </div>
-
+        
         <div id="list-view" class="tab-content">
             <table class="cifra-table">
                 <thead>
@@ -74,7 +103,7 @@
                 </tbody>
             </table>
         </div>
-
+        
         <div id="favorites" class="tab-content">
             <div class="favorites-container">
                 <h2>Seus Favoritos</h2>
@@ -82,14 +111,14 @@
                 <div id="favoritesList"></div>
             </div>
         </div>
-
+        
         <div class="pagination">
             <button class="pagination-btn" id="prevPage" disabled><i class="fas fa-chevron-left"></i></button>
             <span id="currentPage">Página 1 de 50</span>
             <button class="pagination-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
         </div>
     </main>
-
+    
     <div id="pdfViewer" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,14 +140,14 @@
             </div>
         </div>
     </div>
-
+    
     <footer>
         <div class="container">
             <p>Kit Violão Profissional - Todos os direitos reservados &copy; 2023</p>
             <p class="footer-note">Este material é exclusivo para uso educacional dos alunos do curso.</p>
         </div>
     </footer>
-
+    
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';</script>

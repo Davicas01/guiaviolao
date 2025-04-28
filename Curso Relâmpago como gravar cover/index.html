@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Relâmpago: Como Gravar Seu Primeiro Cover</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513; /* Marrom SaddleBrown */
+            --secondary-color: #A0522D; /* Marrom Sienna */
+            --accent-color: #D2691E; /* Marrom Chocolate */
+            --background-light: #F5F5DC; /* Bege */
+            --background-dark: #DEB887; /* BurlyWood */
+            --text-color: #333;
+            --text-light: #555;
+            --white: #fff;
+            --border-color: #CD853F; /* Marrom Peru */
+            --shadow-color: rgba(139, 69, 19, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 3rem 0 4rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .back-button i {
+            margin-right: 8px;
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .module {
+            background-color: var(--white);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .module-header {
+            background-color: var(--background-dark);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .module-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+            width: 50px;
+            text-align: center;
+        }
+
+        .module-title h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .module-title p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .module-content {
+            padding: 2rem;
+        }
+
+        .module-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 0.8rem;
+        }
+
+        .module-content p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .module-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        .module-content li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .module-content li::before {
+            content: '\f00c'; /* Font Awesome check icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: var(--accent-color);
+        }
+
+        .tip-box {
+            background-color: #fffaf0; /* FloralWhite */
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-color);
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+        }
+
+        .tip-box strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-placeholder {
+            background-color: #eee;
+            border: 1px dashed var(--border-color);
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            flex-direction: column;
+        }
+
+        .video-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .module-header {
+                padding: 1rem 1.5rem;
+            }
+            .module-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+        <div class="container">
+            <h1><i class="fas fa-microphone-alt"></i> Curso Relâmpago</h1>
+            <p class="subtitle">Como Gravar Seu Primeiro Cover com Qualidade Profissional 🎤📹</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Módulo 1: Equipamentos Essenciais -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-tools"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 1: Equipamentos Essenciais</h2>
+                    <p>O que você realmente precisa para começar (sem gastar muito!)</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>O Básico para Gravar</h3>
+                <p>Vamos desmistificar os equipamentos. Você não precisa de um estúdio profissional para ter um bom resultado. Focaremos no essencial e acessível.</p>
+                <ul>
+                    <li>Seu violão (acústico ou elétrico)</li>
+                    <li>Smartphone ou Computador</li>
+                    <li>Microfone (do celular, de lapela, USB ou interface de áudio)</li>
+                    <li>Fones de ouvido</li>
+                    <li>Software de gravação (DAW - Digital Audio Workstation) - opções gratuitas</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Dica de Ouro:</strong> Comece com o que você já tem! A qualidade do seu celular pode surpreender. O mais importante é aprender a técnica.
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulo 2: Preparação e Gravação -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-record-vinyl"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 2: Preparação e Gravação</h2>
+                    <p>Configurando tudo para capturar o melhor som e imagem</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>Gravando o Áudio</h3>
+                <p>A qualidade do áudio é crucial. Aprenda a posicionar o microfone, ajustar níveis e evitar ruídos indesejados.</p>
+                <ul>
+                    <li>Escolhendo o ambiente certo (acústica)</li>
+                    <li>Posicionamento do microfone para violão</li>
+                    <li>Gravação da voz (se aplicável)</li>
+                    <li>Configuração básica do software de gravação (DAW)</li>
+                    <li>Gravação em pistas separadas (violão e voz)</li>
+                </ul>
+                <h3>Gravando o Vídeo</h3>
+                <p>Um bom vídeo complementa seu áudio. Dicas simples para iluminação, enquadramento e estabilidade.</p>
+                <ul>
+                    <li>Iluminação natural vs. artificial</li>
+                    <li>Enquadramento e ângulos interessantes</li>
+                    <li>Estabilização da câmera (tripé ou improviso)</li>
+                    <li>Sincronização áudio-vídeo (claquete improvisada)</li>
+                </ul>
+                <div class="video-placeholder">
+                    <i class="fas fa-video"></i>
+                    <span>Vídeo Explicativo: Técnicas de Gravação</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulo 3: Edição de Áudio -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-sliders-h"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 3: Edição de Áudio</h2>
+                    <p>Polindo o som para um resultado profissional</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>Trabalhando na DAW</h3>
+                <p>A edição é onde a mágica acontece. Vamos aprender o básico para limpar, equilibrar e melhorar seu áudio.</p>
+                <ul>
+                    <li>Corte e limpeza de ruídos</li>
+                    <li>Alinhamento de pistas (violão e voz)</li>
+                    <li>Equalização básica (EQ): realçando frequências boas, cortando ruins</li>
+                    <li>Compressão: nivelando o volume</li>
+                    <li>Reverb: adicionando ambiência</li>
+                    <li>Mixagem: equilibrando os volumes das pistas</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Menos é Mais:</strong> Não exagere nos efeitos. O objetivo é um som natural e limpo. Use fones de ouvido para perceber os detalhes.
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulo 4: Edição de Vídeo e Finalização -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-film"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 4: Edição de Vídeo e Finalização</h2>
+                    <p>Juntando tudo e preparando para compartilhar</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>Montagem Final</h3>
+                <p>Sincronizar o áudio editado com o vídeo e fazer os cortes finais.</p>
+                <ul>
+                    <li>Importando o áudio finalizado para o editor de vídeo</li>
+                    <li>Sincronização precisa com a imagem</li>
+                    <li>Cortes e transições básicas</li>
+                    <li>Correção de cor simples (opcional)</li>
+                    <li>Adição de texto/títulos (opcional)</li>
+                </ul>
+                <h3>Exportação e Compartilhamento</h3>
+                <p>Configurações ideais para exportar seu vídeo para plataformas como YouTube, Instagram, etc.</p>
+                <ul>
+                    <li>Formatos de vídeo recomendados</li>
+                    <li>Resolução e taxa de quadros (FPS)</li>
+                    <li>Configurações de áudio na exportação</li>
+                    <li>Dicas para upload e descrição do vídeo</li>
+                </ul>
+                 <div class="video-placeholder">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Tutorial: Edição de Vídeo e Exportação</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Domine o Violão - Curso Relâmpago Cover. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
