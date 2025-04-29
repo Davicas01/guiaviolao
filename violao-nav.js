@@ -13,12 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Usar o caminho para a raiz em todos os links
     const pathToRoot = getPathToRoot();
     
-    // Atualizar o template de navegação para usar caminhos absolutos
+    // Atualizar o template de navegação para usar caminhos absolutos - removido Favoritos e adicionados Produtos Premium e Ferramentas Essenciais
     const template = `
         <a href="${pathToRoot}index.html#inicio"><i class="fas fa-home"></i> Início</a>
         <a href="${pathToRoot}index.html#metodo"><i class="fas fa-book-open"></i> Método</a>
         <a href="${pathToRoot}index.html#bonus"><i class="fas fa-gift"></i> Bônus</a>
-        <a href="${pathToRoot}index.html#favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="${pathToRoot}index.html#produtos"><i class="fas fa-star"></i> Produtos Premium</a>
+        <a href="${pathToRoot}index.html#produtos-essenciais"><i class="fas fa-toolbox"></i> Ferramentas Essenciais</a>
         <div class="violao-nav-divider"></div>
         <a href="${pathToRoot}Guia_violao/index.html"><i class="fas fa-guitar"></i> Guia Completo</a>
     `;
