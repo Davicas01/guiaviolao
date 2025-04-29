@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit Acordes do Violonista Iniciante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #A0522D;
+            --accent-color: #D2691E;
+            --dark-color: #3E2723;
+            --light-color: #F5F5DC;
+            --text-color: #333;
+            --background-color: #FFF8DC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 30px 0;
+            padding: 30px;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .chord-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .chord-card {
+            background: var(--light-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chord-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .chord-diagram {
+            width: 200px;
+            height: 250px;
+            margin: 0 auto;
+            position: relative;
+            background: white;
+            border: 1px solid var(--dark-color);
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .chord-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--accent-color);
+        }
+
+        .chord-tips {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-top: 10px;
+        }
+
+        .transition-tips {
+            background: var(--secondary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .rhythm-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .rhythm-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progression-box {
+            background: var(--light-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .tip-box {
+            background: var(--accent-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Botão de Voltar - Melhorado e mais visível */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 2px solid white;
+            font-size: 1.1rem;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+
+        .back-button i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        /* Menu de navegação interna */
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 20px;
+            background: var(--background-color);
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .nav-tab {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab:hover, .nav-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* Diagrama de acordes detalhado */
+        .chord-fretboard {
+            width: 180px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            background-image: linear-gradient(to bottom, #f9f9f9 0%, #f9f9f9 100%);
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        
+        .chord-string {
+            width: 100%;
+            height: 1px;
+            background: #666;
+            position: absolute;
+        }
+        
+        .chord-fret {
+            width: 100%;
+            height: 1px;
+            background: #999;
+            position: absolute;
+        }
+        
+        .finger-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            color: white;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .open-string, .muted-string {
+            position: absolute;
+            top: -20px;
+            font-size: 18px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .chord-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        /* Seção de músicas para praticar */
+        .song-section {
+            margin-top: 20px;
+        }
+        
+        .song-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .song-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .song-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .song-chords {
+            margin: 10px 0;
+            padding: 10px;
+            background: var(--light-color);
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+        
+        /* Melhorias visuais gerais */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .back-button {
+                padding: 8px 16px;
+                font-size: 1rem;
+            }
+            
+            .nav-tabs {
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+            
+            .nav-tab {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Indicador de prática */
+        .practice-tracker {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .practice-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 4px;
+            margin-right: 10px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .practice-checkbox.checked {
+            background-color: var(--secondary-color);
+        }
+        
+        .practice-checkbox.checked::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+        }
+        
+        /* Tooltip para dicas */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Animações melhoradas */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .highlight-pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão de Voltar - Melhorado -->
+    <a href="../index.html" class="back-button highlight-pulse">
+        <i class="fas fa-home"></i> Voltar ao Menu Principal
+    </a>
+
+    <header>
+        <div class="container">
+            <h1 class="main-title">Kit Acordes do Violonista Iniciante</h1>
+            <p>Seu guia completo para dominar os acordes e ritmos essenciais no violão</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Menu de navegação interna -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="scrollToSection('acordes')">Acordes</button>
+            <button class="nav-tab" onclick="scrollToSection('trocas')">Trocas</button>
+            <button class="nav-tab" onclick="scrollToSection('ritmos')">Ritmos</button>
+            <button class="nav-tab" onclick="scrollToSection('musicas')">Músicas Fáceis</button>
+            <button class="nav-tab" onclick="scrollToSection('dicas')">Dicas</button>
+        </div>
+
+        <section id="acordes" class="content-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-guitar"></i></div>
+                <h2 class="section-title">Acordes Fundamentais</h2>
+            </div>
+            <div class="chord-grid">
+                <div class="chord-card" onclick="showChordDetails('Em')">
+                    <h3 class="chord-name">Em (Mi menor)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: 022000</p>
+                    <p class="chord-tips">Um dos acordes mais fáceis para iniciar</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Pratiquei este acorde</span>
+                    </div>
+                </div>
+                
+                <div class="chord-card" onclick="showChordDetails('C')">
+                    <h3 class="chord-name">C (Dó maior)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: 032010</p>
+                    <p class="chord-tips">Acorde fundamental para músicas pop</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Pratiquei este acorde</span>
+                    </div>
+                </div>
+                
+                <div class="chord-card" onclick="showChordDetails('G')">
+                    <h3 class="chord-name">G (Sol maior)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: 320003</p>
+                    <p class="chord-tips">Muito usado em progressões com C e D</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Pratiquei este acorde</span>
+                    </div>
+                </div>
+                
+                <div class="chord-card" onclick="showChordDetails('D')">
+                    <h3 class="chord-name">D (Ré maior)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: xx0232</p>
+                    <p class="chord-tips">Completa a tríade básica C-G-D</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Pratiquei este acorde</span>
+                    </div>
+                </div>
+                
+                <div class="chord-card" onclick="showChordDetails('Am')">
+                    <h3 class="chord-name">Am (Lá menor)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: x02210</p>
+                    <p class="chord-tips">Acorde menor mais usado</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Pratiquei este acorde</span>
+                    </div>
+                </div>
+                
+                <div class="chord-card" onclick="showChordDetails('F')">
+                    <h3 class="chord-name">F (Fá maior)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: 133211</p>
+                    <p class="chord-tips">Primeiro acorde com pestana</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Pratiquei este acorde</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trocas" class="content-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-exchange-alt"></i></div>
+                <h2 class="section-title">Trocas de Acordes</h2>
+            </div>
+            <div class="transition-tips">
+                <h3><i class="fas fa-lightbulb"></i> Dicas para Transições Suaves</h3>
+                <ul>
+                    <li>Pratique lentamente no início, aumente a velocidade gradualmente</li>
+                    <li>Foque na precisão antes da velocidade</li>
+                    <li>Visualize o próximo acorde antes da troca</li>
+                    <li>Tente mover todos os dedos ao mesmo tempo</li>
+                    <li>Use um metrônomo para manter o ritmo consistente</li>
+                </ul>
+            </div>
+            
+            <h3>Exercícios de Transição:</h3>
+            
+            <div class="progression-box">
+                <h3>Progressão Iniciante #1</h3>
+                <p><strong>Em → G → C → D</strong></p>
+                <p>Use esta progressão para praticar as trocas básicas (4 tempos por acorde)</p>
+                <div class="practice-tracker">
+                    <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                    <span>Dominei esta progressão</span>
+                </div>
+            </div>
+            
+            <div class="progression-box">
+                <h3>Progressão Iniciante #2</h3>
+                <p><strong>C → Am → F → G</strong></p>
+                <p>Progressão pop clássica, excelente para praticar o F com pestana (4 tempos por acorde)</p>
+                <div class="practice-tracker">
+                    <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                    <span>Dominei esta progressão</span>
+                </div>
+            </div>
+            
+            <div class="progression-box">
+                <h3>Exercício de Transição Rápida</h3>
+                <p><strong>C → G (alternando)</strong></p>
+                <p>Troque rapidamente entre C e G, 2 tempos por acorde. Aumente a velocidade gradualmente.</p>
+                <div class="practice-tracker">
+                    <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                    <span>Dominei esta transição</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="ritmos" class="content-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-drum"></i></div>
+                <h2 class="section-title">Ritmos Essenciais</h2>
+            </div>
+            <p>A notação usa ↓ para batida para baixo e ↑ para batida para cima</p>
+            
+            <div class="rhythm-section">
+                <div class="rhythm-card">
+                    <h3>Batida Pop Básica</h3>
+                    <p class="song-chords">↓ ↓ ↑ ↓ ↑</p>
+                    <ul>
+                        <li>Perfeita para pop e MPB</li>
+                        <li>Velocidade inicial: 80 BPM</li>
+                        <li>Usada em músicas como "Knockin' on Heaven's Door"</li>
+                    </ul>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Dominei este ritmo</span>
+                    </div>
+                </div>
+                
+                <div class="rhythm-card">
+                    <h3>Batida Balada</h3>
+                    <p class="song-chords">↓ ↓ ↑ ↑</p>
+                    <ul>
+                        <li>Ideal para baladas e músicas lentas</li>
+                        <li>Velocidade inicial: 60-70 BPM</li>
+                        <li>Usada em músicas como "Wonderwall" (Oasis)</li>
+                    </ul>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Dominei este ritmo</span>
+                    </div>
+                </div>
+                
+                <div class="rhythm-card">
+                    <h3>Batida Reggae</h3>
+                    <p class="song-chords">↑ ↓ ↑ ↓</p>
+                    <ul>
+                        <li>Enfatiza o contratempo (upbeat)</li>
+                        <li>Velocidade inicial: 70-80 BPM</li>
+                        <li>Use um pouco de palm muting (abafamento)</li>
+                    </ul>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Dominei este ritmo</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="musicas" class="content-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-music"></i></div>
+                <h2 class="section-title">Músicas Fáceis para Praticar</h2>
+            </div>
+            <div class="song-section">
+                <div class="song-card">
+                    <h3 class="song-title">Knockin' on Heaven's Door (Bob Dylan)</h3>
+                    <p>Progressão simples de 4 acordes repetidos</p>
+                    <div class="song-chords">G - D - Am - Am - G - D - C - C</div>
+                    <p><strong>Ritmo:</strong> Batida Pop Básica (↓ ↓ ↑ ↓ ↑)</p>
+                </div>
+                
+                <div class="song-card">
+                    <h3 class="song-title">Love Me Do (The Beatles)</h3>
+                    <p>Apenas 2 acordes principais - perfeita para iniciantes</p>
+                    <div class="song-chords">G - C (repetir)</div>
+                    <p><strong>Ritmo:</strong> ↓ ↑ ↓ ↑</p>
+                </div>
+                
+                <div class="song-card">
+                    <h3 class="song-title">Pra Não Dizer Que Não Falei das Flores (Geraldo Vandré)</h3>
+                    <p>Clássico da MPB com acordes simples</p>
+                    <div class="song-chords">Am - D - Am - G - F - Em - Am</div>
+                    <p><strong>Ritmo:</strong> Batida Balada adaptada</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dicas" class="content-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-star"></i></div>
+                <h2 class="section-title">Dicas do Professor</h2>
+            </div>
+            
+            <div class="tip-box">
+                <h3><i class="fas fa-clock"></i> Rotina de Prática</h3>
+                <p>Pratique 15 minutos por dia consistentemente em vez de sessões longas e esporádicas. A regularidade é mais importante que a duração.</p>
+            </div>
+            
+            <div class="tip-box">
+                <h3><i class="fas fa-hand-paper"></i> Posição Correta das Mãos</h3>
+                <p>Mantenha o polegar aproximadamente no meio da parte de trás do braço do violão. Pressione as cordas com as pontas dos dedos, mantendo-os curvados.</p>
+            </div>
+            
+            <div class="tip-box">
+                <h3><i class="fas fa-chart-line"></i> Acompanhe seu Progresso</h3>
+                <p>Grave-se tocando a cada semana e compare os vídeos para ver sua evolução. Isso é motivador e ajuda a identificar pontos a melhorar.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Navegação Rápida -->
+    <div class="quick-nav">
+        <button class="quick-nav-btn" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+            <p>© 2024 - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Função para rolar suavemente ao topo
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Função para rolar para uma seção específica
+        function scrollToSection(sectionId) {
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelector(`.nav-tab[onclick="scrollToSection('${sectionId}')"]`).classList.add('active');
+            
+            const section = document.getElementById(sectionId);
+            const yOffset = -80; 
+            const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            
+            window.scrollTo({
+                top: y,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Função para alternar o estado do checkbox de prática
+        function togglePractice(checkbox) {
+            checkbox.classList.toggle('checked');
+            
+            // Salvar progresso no localStorage
+            updateProgress();
+        }
+        
+        // Salvar progresso
+        function updateProgress() {
+            const progressData = {};
+            document.querySelectorAll('.practice-checkbox').forEach((checkbox, index) => {
+                progressData[`item-${index}`] = checkbox.classList.contains('checked');
+            });
+            
+            localStorage.setItem('kitAcordesProgress', JSON.stringify(progressData));
+        }
+        
+        // Carregar progresso salvo
+        function loadProgress() {
+            const progressData = JSON.parse(localStorage.getItem('kitAcordesProgress') || '{}');
+            
+            document.querySelectorAll('.practice-checkbox').forEach((checkbox, index) => {
+                if (progressData[`item-${index}`]) {
+                    checkbox.classList.add('checked');
+                }
+            });
+        }
+
+        // Renderizar diagrama de acordes
+        function renderChordDiagram(container, chord) {
+            // Definições dos acordes
+            const chordData = {
+                'Em': {
+                    frets: [0, 2, 2, 0, 0, 0],
+                    fingers: [0, 2, 3, 0, 0, 0]
+                },
+                'C': {
+                    frets: [0, 3, 2, 0, 1, 0],
+                    fingers: [0, 3, 2, 0, 1, 0]
+                },
+                'G': {
+                    frets: [3, 2, 0, 0, 0, 3],
+                    fingers: [2, 1, 0, 0, 0, 3]
+                },
+                'D': {
+                    frets: [-1, -1, 0, 2, 3, 2],
+                    fingers: [0, 0, 0, 1, 3, 2]
+                },
+                'Am': {
+                    frets: [-1, 0, 2, 2, 1, 0],
+                    fingers: [0, 0, 2, 3, 1, 0]
+                },
+                'F': {
+                    frets: [1, 3, 3, 2, 1, 1],
+                    fingers: [1, 4, 3, 2, 1, 1]
+                }
+            };
+            
+            // Criar fretboard
+            const fretboard = document.createElement('div');
+            fretboard.className = 'chord-fretboard';
+            
+            // Adicionar cordas
+            for (let i = 0; i < 6; i++) {
+                const string = document.createElement('div');
+                string.className = 'chord-string';
+                string.style.top = `${20 + i * 30}px`;
+                fretboard.appendChild(string);
+            }
+            
+            // Adicionar trastes
+            for (let i = 0; i < 5; i++) {
+                const fret = document.createElement('div');
+                fret.className = 'chord-fret';
+                fret.style.top = `${35 + i * 30}px`;
+                fretboard.appendChild(fret);
+            }
+            
+            // Dados específicos do acorde
+            const data = chordData[chord];
+            if (data) {
+                // Adicionar marcadores de dedos
+                for (let i = 0; i < 6; i++) {
+                    if (data.frets[i] > 0) {
+                        const dot = document.createElement('div');
+                        dot.className = 'finger-dot';
+                        dot.style.top = `${5 + data.frets[i] * 30}px`;
+                        dot.style.left = `${159 - i * 30}px`;
+                        dot.textContent = data.fingers[i] > 0 ? data.fingers[i] : '';
+                        fretboard.appendChild(dot);
+                    } else if (data.frets[i] === 0) {
+                        // Corda solta
+                        const open = document.createElement('div');
+                        open.className = 'open-string';
+                        open.textContent = 'o';
+                        open.style.left = `${159 - i * 30}px`;
+                        fretboard.appendChild(open);
+                    } else {
+                        // Corda abafada/não tocada
+                        const muted = document.createElement('div');
+                        muted.className = 'muted-string';
+                        muted.textContent = 'x';
+                        muted.style.left = `${159 - i * 30}px`;
+                        fretboard.appendChild(muted);
+                    }
+                }
+            }
+            
+            container.innerHTML = '';
+            container.appendChild(fretboard);
+        }
+        
+        // Inicializar diagramas de acordes
+        function initChords() {
+            document.querySelectorAll('.chord-card').forEach(card => {
+                const chordName = card.querySelector('.chord-name').textContent.split(' ')[0];
+                const diagramContainer = card.querySelector('.chord-diagram');
+                renderChordDiagram(diagramContainer, chordName);
+            });
+        }
+        
+        // Mostrar detalhes do acorde em um modal ou expandir o card
+        function showChordDetails(chord) {
+            alert(`Dicas para o acorde ${chord}:\n\n- Certifique-se de que todas as notas soam claramente\n- Verifique se nenhuma corda está sendo abafada acidentalmente\n- Pressione as cordas com as pontas dos dedos\n- Mantenha o pulso relaxado`);
+        }
+        
+        // Inicializar quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', function() {
+            initChords();
+            loadProgress();
+            
+            // Verificar posição de rolagem para definir guia ativa
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                
+                // Verificar qual seção está visível
+                document.querySelectorAll('section[id]').forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        document.querySelectorAll('.nav-tab').forEach(tab => {
+                            tab.classList.remove('active');
+                        });
+                        
+                        document.querySelector(`.nav-tab[onclick="scrollToSection('${section.id}')"]`).classList.add('active');
+                    }
+                });
+                
+                // Mostrar/ocultar botão de navegação rápida
+                const quickNav = document.querySelector('.quick-nav');
+                if (scrollPosition > 300) {
+                    quickNav.style.opacity = '1';
+                } else {
+                    quickNav.style.opacity = '0';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio "Livre das Pestanas" - Toque Sem Dor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;  /* Marrom escuro */
+            --secondary-color: #A0522D; /* Marrom médio */
+            --accent-color: #CD853F;   /* Marrom claro */
+            --dark-color: #3E2723;     /* Marrom quase preto */
+            --light-color: #F5F5DC;    /* Bege claro */
+            --success-color: #4caf50;
+            --warning-color: #D2691E;  /* Chocolate */
+            --gradient: linear-gradient(135deg, var(--primary-color), #CD853F); /* Gradiente marrom */
+            --shadow: 0 4px 6px rgba(62, 39, 35, 0.2);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            padding-bottom: 60px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: rgba(139, 69, 19, 0.2);
+            color: var(--dark-color);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(139, 69, 19, 0.4);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .header {
+            background: var(--gradient);
+            color: white;
+            padding: 4rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+        }
+        
+        .content-section h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 0.8rem;
+        }
+        
+        .content-section p {
+            margin-bottom: 1rem;
+        }
+        
+        .technique-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 1.5rem;
+        }
+        
+        .technique-card {
+            background-color: rgba(139, 69, 19, 0.05);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .technique-card h3 {
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+        }
+        
+        .technique-card i {
+            margin-right: 0.8rem;
+            color: var(--primary-color);
+        }
+        
+        .technique-card p {
+            font-size: 0.95rem;
+        }
+        
+        .chord-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 1.5rem 0;
+        }
+        
+        .chord-box {
+            text-align: center;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            background: white;
+            box-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .chord-name {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .chord-diagram {
+            max-width: 100px;
+            height: 120px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .chord-note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .tip-box {
+            background-color: rgba(139, 69, 19, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .tip-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .tip-box h4 i {
+            margin-right: 0.5rem;
+        }
+        
+        .step-list {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .step-list li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: "";
+            position: absolute;
+            left: -1.5rem;
+            top: 0.5rem;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 1.5rem 0;
+        }
+        
+        .example-box {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            box-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
+        }
+        
+        .example-box h4 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+        
+        .progression {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .chord {
+            padding: 0.5rem 1rem;
+            background: var(--light-color);
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .progression-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            color: #777;
+        }
+        
+        @media (max-width: 768px) {
+            .technique-grid, .example-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chord-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button"><i class="fas fa-home"></i> Voltar ao Menu</a>
+    
+    <header class="header">
+        <div class="header-content">
+            <h1>Desafio "Livre das Pestanas" 🚫🤚</h1>
+            <div class="subtitle">Toque violão sem dor e sem usar pestanas!</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="content-section">
+            <h2>Sobre o Desafio</h2>
+            <p>As pestanas são o maior obstáculo para violonistas iniciantes e até mesmo intermediários. Muitos desistem do instrumento por causa da dor e dificuldade. O <strong>Desafio "Livre das Pestanas"</strong> foi criado para ensinar técnicas alternativas, substituições e posicionamentos que permitem tocar sem usar pestanas tradicionais.</p>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Importante!</h4>
+                <p>A ideia não é "pular" o aprendizado das pestanas para sempre, mas oferecer alternativas que te permitam tocar suas músicas favoritas enquanto desenvolve gradualmente a força e técnica para as pestanas tradicionais.</p>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>Técnicas Principais</h2>
+            <p>Neste desafio, você vai conhecer três técnicas principais para substituir as pestanas tradicionais:</p>
+            
+            <div class="technique-grid">
+                <div class="technique-card">
+                    <h3><i class="fas fa-hand-point-up"></i> Mini-Barré</h3>
+                    <p>Use apenas parte do dedo para pressionar somente as cordas necessárias, reduzindo o esforço em até 70% e evitando dores. Funciona principalmente em acordes que não precisam de todas as cordas.</p>
+                </div>
+                
+                <div class="technique-card">
+                    <h3><i class="fas fa-exchange-alt"></i> Acordes Substitutos</h3>
+                    <p>Aprenda acordes alternativos que soam idênticos aos acordes com pestana, mas são muito mais fáceis de executar e não causam dor.</p>
+                </div>
+                
+                <div class="technique-card">
+                    <h3><i class="fas fa-music"></i> Transposição Inteligente</h3>
+                    <p>Mude a tonalidade das músicas para eliminar a necessidade de pestanas sem alterar substancialmente a sonoridade original.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>Acordes Alternativos</h2>
+            <p>Existem diversas formas de tocar os acordes que tradicionalmente usam pestanas. Abaixo estão algumas das mais importantes substituições:</p>
+            
+            <h3>Substituições para o acorde F (Fá maior)</h3>
+            <div class="chord-grid">
+                <div class="chord-box">
+                    <div class="chord-name">F (Comum)</div>
+                    <img src="data:image/svg+xml;utf8,<svg width='100' height='120' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='80' height='100' fill='none' stroke='black' stroke-width='2'/><line x1='10' y1='30' x2='90' y2='30' stroke='black' stroke-width='2'/><line x1='10' y1='50' x2='90' y2='50' stroke='black' stroke-width='2'/><line x1='10' y1='70' x2='90' y2='70' stroke='black' stroke-width='2'/><line x1='10' y1='90' x2='90' y2='90' stroke='black' stroke-width='2'/><line x1='30' y1='10' x2='30' y2='110' stroke='black' stroke-width='1'/><line x1='50' y1='10' x2='50' y2='110' stroke='black' stroke-width='1'/><line x1='70' y1='10' x2='70' y2='110' stroke='black' stroke-width='1'/><text x='5' y='25' font-family='Arial' font-size='12' text-anchor='middle'>E</text><text x='5' y='45' font-family='Arial' font-size='12' text-anchor='middle'>A</text><text x='5' y='65' font-family='Arial' font-size='12' text-anchor='middle'>D</text><text x='5' y='85' font-family='Arial' font-size='12' text-anchor='middle'>G</text><text x='5' y='105' font-family='Arial' font-size='12' text-anchor='middle'>B</text><text x='20' y='125' font-family='Arial' font-size='12' text-anchor='middle'>1</text><line x1='10' y1='20' x2='90' y2='20' stroke='black' stroke-width='6'/><circle cx='20' cy='40' r='8' fill='black'/><circle cx='20' cy='60' r='8' fill='black'/><circle cx='20' cy='80' r='8' fill='black'/></svg>" class="chord-diagram" alt="Acorde F com pestana">
+                    <div class="chord-note">Pestana na 1ª casa</div>
+                </div>
+                
+                <div class="chord-box">
+                    <div class="chord-name">F (Alternativo 1)</div>
+                    <img src="data:image/svg+xml;utf8,<svg width='100' height='120' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='80' height='100' fill='none' stroke='black' stroke-width='2'/><line x1='10' y1='30' x2='90' y2='30' stroke='black' stroke-width='2'/><line x1='10' y1='50' x2='90' y2='50' stroke='black' stroke-width='2'/><line x1='10' y1='70' x2='90' y2='70' stroke='black' stroke-width='2'/><line x1='10' y1='90' x2='90' y2='90' stroke='black' stroke-width='2'/><line x1='30' y1='10' x2='30' y2='110' stroke='black' stroke-width='1'/><line x1='50' y1='10' x2='50' y2='110' stroke='black' stroke-width='1'/><line x1='70' y1='10' x2='70' y2='110' stroke='black' stroke-width='1'/><text x='5' y='25' font-family='Arial' font-size='12' text-anchor='middle'>E</text><text x='5' y='45' font-family='Arial' font-size='12' text-anchor='middle'>A</text><text x='5' y='65' font-family='Arial' font-size='12' text-anchor='middle'>D</text><text x='5' y='85' font-family='Arial' font-size='12' text-anchor='middle'>G</text><text x='5' y='105' font-family='Arial' font-size='12' text-anchor='middle'>B</text><text x='20' y='125' font-family='Arial' font-size='12' text-anchor='middle'>X</text><circle cx='20' cy='40' r='8' fill='black'/><circle cx='40' cy='80' r='8' fill='black'/><circle cx='40' cy='100' r='8' fill='black'/><circle cx='20' cy='60' r='8' fill='black'/></svg>" class="chord-diagram" alt="Acorde F alternativo 1">
+                    <div class="chord-note">Não toque a 6ª corda</div>
+                </div>
+                
+                <div class="chord-box">
+                    <div class="chord-name">F (Alternativo 2)</div>
+                    <img src="data:image/svg+xml;utf8,<svg width='100' height='120' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='80' height='100' fill='none' stroke='black' stroke-width='2'/><line x1='10' y1='30' x2='90' y2='30' stroke='black' stroke-width='2'/><line x1='10' y1='50' x2='90' y2='50' stroke='black' stroke-width='2'/><line x1='10' y1='70' x2='90' y2='70' stroke='black' stroke-width='2'/><line x1='10' y1='90' x2='90' y2='90' stroke='black' stroke-width='2'/><line x1='30' y1='10' x2='30' y2='110' stroke='black' stroke-width='1'/><line x1='50' y1='10' x2='50' y2='110' stroke='black' stroke-width='1'/><line x1='70' y1='10' x2='70' y2='110' stroke='black' stroke-width='1'/><text x='5' y='25' font-family='Arial' font-size='12' text-anchor='middle'>E</text><text x='5' y='45' font-family='Arial' font-size='12' text-anchor='middle'>A</text><text x='5' y='65' font-family='Arial' font-size='12' text-anchor='middle'>D</text><text x='5' y='85' font-family='Arial' font-size='12' text-anchor='middle'>G</text><text x='5' y='105' font-family='Arial' font-size='12' text-anchor='middle'>B</text><text x='20' y='125' font-family='Arial' font-size='12' text-anchor='middle'>X</text><text x='40' y='125' font-family='Arial' font-size='12' text-anchor='middle'>X</text><circle cx='60' cy='40' r='8' fill='black'/><circle cx='80' cy='60' r='8' fill='black'/><circle cx='80' cy='80' r='8' fill='black'/><circle cx='60' cy='100' r='8' fill='black'/></svg>" class="chord-diagram" alt="Acorde F alternativo 2">
+                    <div class="chord-note">Forma no 3º traste</div>
+                </div>
+            </div>
+            
+            <h3>Substituições para o acorde Bm (Si menor)</h3>
+            <div class="chord-grid">
+                <div class="chord-box">
+                    <div class="chord-name">Bm (Comum)</div>
+                    <img src="data:image/svg+xml;utf8,<svg width='100' height='120' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='80' height='100' fill='none' stroke='black' stroke-width='2'/><line x1='10' y1='30' x2='90' y2='30' stroke='black' stroke-width='2'/><line x1='10' y1='50' x2='90' y2='50' stroke='black' stroke-width='2'/><line x1='10' y1='70' x2='90' y2='70' stroke='black' stroke-width='2'/><line x1='10' y1='90' x2='90' y2='90' stroke='black' stroke-width='2'/><line x1='30' y1='10' x2='30' y2='110' stroke='black' stroke-width='1'/><line x1='50' y1='10' x2='50' y2='110' stroke='black' stroke-width='1'/><line x1='70' y1='10' x2='70' y2='110' stroke='black' stroke-width='1'/><text x='5' y='25' font-family='Arial' font-size='12' text-anchor='middle'>E</text><text x='5' y='45' font-family='Arial' font-size='12' text-anchor='middle'>A</text><text x='5' y='65' font-family='Arial' font-size='12' text-anchor='middle'>D</text><text x='5' y='85' font-family='Arial' font-size='12' text-anchor='middle'>G</text><text x='5' y='105' font-family='Arial' font-size='12' text-anchor='middle'>B</text><text x='20' y='125' font-family='Arial' font-size='12' text-anchor='middle'>2</text><line x1='10' y1='20' x2='90' y2='20' stroke='black' stroke-width='6'/><circle cx='40' cy='40' r='8' fill='black'/><circle cx='60' cy='60' r='8' fill='black'/><circle cx='60' cy='80' r='8' fill='black'/></svg>" class="chord-diagram" alt="Acorde Bm com pestana">
+                    <div class="chord-note">Pestana na 2ª casa</div>
+                </div>
+                
+                <div class="chord-box">
+                    <div class="chord-name">Bm (Alternativo 1)</div>
+                    <img src="data:image/svg+xml;utf8,<svg width='100' height='120' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='80' height='100' fill='none' stroke='black' stroke-width='2'/><line x1='10' y1='30' x2='90' y2='30' stroke='black' stroke-width='2'/><line x1='10' y1='50' x2='90' y2='50' stroke='black' stroke-width='2'/><line x1='10' y1='70' x2='90' y2='70' stroke='black' stroke-width='2'/><line x1='10' y1='90' x2='90' y2='90' stroke='black' stroke-width='2'/><line x1='30' y1='10' x2='30' y2='110' stroke='black' stroke-width='1'/><line x1='50' y1='10' x2='50' y2='110' stroke='black' stroke-width='1'/><line x1='70' y1='10' x2='70' y2='110' stroke='black' stroke-width='1'/><text x='5' y='25' font-family='Arial' font-size='12' text-anchor='middle'>E</text><text x='5' y='45' font-family='Arial' font-size='12' text-anchor='middle'>A</text><text x='5' y='65' font-family='Arial' font-size='12' text-anchor='middle'>D</text><text x='5' y='85' font-family='Arial' font-size='12' text-anchor='middle'>G</text><text x='5' y='105' font-family='Arial' font-size='12' text-anchor='middle'>B</text><text x='20' y='125' font-family='Arial' font-size='12' text-anchor='middle'>X</text><text x='40' y='125' font-family='Arial' font-size='12' text-anchor='middle'>X</text><circle cx='20' cy='40' r='8' fill='black'/><circle cx='40' cy='60' r='8' fill='black'/><circle cx='20' cy='80' r='8' fill='black'/></svg>" class="chord-diagram" alt="Acorde Bm alternativo 1">
+                    <div class="chord-note">Não toque as cordas 6 e 5</div>
+                </div>
+                
+                <div class="chord-box">
+                    <div class="chord-name">Bm7 (Substituto)</div>
+                    <img src="data:image/svg+xml;utf8,<svg width='100' height='120' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='80' height='100' fill='none' stroke='black' stroke-width='2'/><line x1='10' y1='30' x2='90' y2='30' stroke='black' stroke-width='2'/><line x1='10' y1='50' x2='90' y2='50' stroke='black' stroke-width='2'/><line x1='10' y1='70' x2='90' y2='70' stroke='black' stroke-width='2'/><line x1='10' y1='90' x2='90' y2='90' stroke='black' stroke-width='2'/><line x1='30' y1='10' x2='30' y2='110' stroke='black' stroke-width='1'/><line x1='50' y1='10' x2='50' y2='110' stroke='black' stroke-width='1'/><line x1='70' y1='10' x2='70' y2='110' stroke='black' stroke-width='1'/><text x='5' y='25' font-family='Arial' font-size='12' text-anchor='middle'>E</text><text x='5' y='45' font-family='Arial' font-size='12' text-anchor='middle'>A</text><text x='5' y='65' font-family='Arial' font-size='12' text-anchor='middle'>D</text><text x='5' y='85' font-family='Arial' font-size='12' text-anchor='middle'>G</text><text x='5' y='105' font-family='Arial' font-size='12' text-anchor='middle'>B</text><text x='20' y='125' font-family='Arial' font-size='12' text-anchor='middle'>X</text><circle cx='20' cy='40' r='8' fill='black'/><circle cx='20' cy='60' r='8' fill='black'/><circle cx='20' cy='80' r='8' fill='black'/><circle cx='20' cy='100' r='8' fill='black'/></svg>" class="chord-diagram" alt="Acorde Bm7 como substituto">
+                    <div class="chord-note">Soa semelhante sem pestana</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>A Técnica do "Mini-Barré"</h2>
+            <p>O mini-barré é uma forma de fazer pestanas parciais usando apenas parte do seu dedo indicador para pressionar somente as cordas que realmente importam. Esta técnica reduz significativamente o esforço e a dor.</p>
+            
+            <h3>Como executar o mini-barré:</h3>
+            <ol class="step-list">
+                <li>Identifique quais cordas precisam ser pressionadas pelo dedo indicador (nem sempre são todas)</li>
+                <li>Posicione o dedo indicador de forma que ele cubra apenas essas cordas específicas</li>
+                <li>Use a borda lateral do dedo (lado do osso) para melhor precisão</li>
+                <li>Mantenha o polegar bem posicionado na parte de trás do braço para contrapressão</li>
+                <li>Aplique força apenas nas cordas necessárias</li>
+            </ol>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Dica de Ouro</h4>
+                <p>Para o acorde F, muitas vezes só precisamos pressionar as cordas 1 e 2 com o mini-barré, enquanto o dedo 2 pressiona a corda 3 na casa 2, e os dedos 3 e 4 nas casas 3 das cordas 4 e 5. A corda 6 fica solta ou não é tocada.</p>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>Transposição Inteligente</h2>
+            <p>Mudar a tonalidade de uma música pode eliminar a necessidade de usar acordes com pestana. Por exemplo, se uma música em Ré (D) usa B7, podemos transpô-la para Dó (C) e usar A7 no lugar.</p>
+            
+            <h3>Exemplos de transposições úteis:</h3>
+            <div class="example-grid">
+                <div class="example-box">
+                    <h4>Exemplo 1: Música em G</h4>
+                    <p>Progressão original:</p>
+                    <div class="progression">
+                        <span class="chord">G</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">Em</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">C</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">D</span>
+                    </div>
+                    <p>Se aparecer B ou F#m, transpor para:</p>
+                    <div class="progression">
+                        <span class="chord">F</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">Dm</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">Bb</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">C</span>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <h4>Exemplo 2: Música em D</h4>
+                    <p>Progressão original:</p>
+                    <div class="progression">
+                        <span class="chord">D</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">Bm</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">G</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">A</span>
+                    </div>
+                    <p>Transposição para C:</p>
+                    <div class="progression">
+                        <span class="chord">C</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">Am</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">F</span>
+                        <span class="progression-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="chord">G</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Entendendo as mudanças</h4>
+                <p>Use um capotraste para facilitar a transposição sem mudar a digitação dos acordes. Por exemplo, colocando um capotraste na 2ª casa e tocando os acordes em C, você produzirá o som da tonalidade D.</p>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>Exercícios Práticos</h2>
+            <p>Para dominar as técnicas do Desafio "Livre das Pestanas", siga estes exercícios:</p>
+            
+            <h3>Exercício 1: Alternância de acordes</h3>
+            <p>Pratique trocas entre acordes simples e suas alternativas para acordes com pestanas:</p>
+            <ul class="step-list">
+                <li>Alternância C → F (alternativo) - Conte 4 tempos em cada acorde</li>
+                <li>Alternância Am → Bm (alternativo) - Conte 4 tempos em cada acorde</li>
+                <li>Alternância G → Em → C → D - Conte 2 tempos em cada acorde</li>
+            </ul>
+            
+            <h3>Exercício 2: Aplicação em músicas simples</h3>
+            <p>Escolha uma música que conhece bem e identifique todos os acordes com pestana. Substitua-os usando as técnicas aprendidas e pratique a música completa.</p>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Dica de progresso</h4>
+                <p>Pratique diariamente por pelo menos 15-20 minutos. À medida que você ganha confiança com as alternativas, pode começar a introduzir gradualmente algumas pestanas simples, como o F no primeiro traste apenas nas primeiras duas cordas.</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>Kit Violão Profissional &copy; 2023 - Todos os direitos reservados</p>
+        <p>Desafio "Livre das Pestanas" - Toque sem dor e sem limitações!</p>
+    </footer>
+</body>
+</html>
