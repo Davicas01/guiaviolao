@@ -7,20 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #8B4513;  /* Marrom mais escuro */
-            --secondary-color: #A0522D; /* Marrom secundário */
-            --accent-color: #D2691E;   /* Chocolate */
-            --dark-color: #3E2723;     /* Marrom quase preto */
-            --light-color: #F5F5DC;    /* Bege claro */
-            --light-bg: #FFF8E1;       /* Fundo claro amarelado */
-            --border-color: #DEB887;   /* Burlywood */
-            --footer-color: #5D4037;   /* Marrom escuro para rodapé */
-            --shadow: 0 4px 8px rgba(62, 39, 35, 0.2);
+                :root {
+            --primary-color: #8B4513; /* Marrom escuro (SaddleBrown) */
+            --secondary-color: #A0522D; /* Marrom médio (Sienna) */
+            --accent-color: #CD853F; /* Marrom claro (Peru) */
+            --dark-color: #3E2723; /* Marrom muito escuro */
+            --light-color: #FAF0E6; /* Bege clarinho com tom marrom (Linen) */
+            --light-bg: #FFF8E1; /* Tom bege claro */
+            --border-color: #D3C1AE; /* Borda em tom marrom claro */
+            --footer-color: #5D4037; /* Tom marrom escuro para rodapé */
+            --shadow: 0 5px 15px rgba(139, 69, 19, 0.15);
             --radius: 8px;
             --transition: all 0.3s ease;
-            --gradient: linear-gradient(135deg, var(--primary-color), #CD853F);
-            --wood-texture: linear-gradient(135deg, #d5b78e, #c9a878);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --wood-texture: linear-gradient(135deg, #CD853F, #A0522D);
         }
         
         * {
@@ -62,21 +62,30 @@
             padding: 1.5rem;
         }
         
+        /* Estilo para o botão fixo no canto inferior direito */
         .back-button {
-            display: inline-block;
-            padding: 8px 15px;
-            background-color: var(--dark-color);
+            position: fixed;
+            bottom: 30px;
+            right: 30px; /* Alterado de left para right */
+            width: 60px;
+            height: 60px;
+            background-color: #8B4513;
             color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            z-index: 1000;
         }
         
         .back-button:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
+            background-color: #A0522D;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
         
         .intro-card {
@@ -116,33 +125,40 @@
         }
         
         .tonality-btn {
-            background-color: #f1f3f5;
+            background: linear-gradient(135deg, #FAF0E6, #F5F0E6);
             border: 2px solid var(--border-color);
             border-radius: 50px;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(139, 69, 19, 0.12);
+            color: var(--primary-color);
         }
         
         .tonality-btn:hover {
-            background-color: #e9ecef;
+            background: linear-gradient(135deg, #EFEBE9, #D7CCC8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border-color: var(--secondary-color);
         }
         
         .tonality-btn.active {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: #fff;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            border-color: #3E2723;
+            color: #FFF8E1;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(139, 69, 19, 0.3);
         }
         
         .chord-map-container {
             position: relative;
             height: 500px;
             margin: 2rem 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23f9f6f2" width="100" height="100"/><g fill="%23e6d7c3"><rect width="100" height="1" y="20"/><rect width="100" height="1" y="40"/><rect width="100" height="1" y="60"/><rect width="100" height="1" y="80"/><rect width="1" height="100" x="20"/><rect width="1" height="100" x="40"/><rect width="1" height="100" x="60"/><rect width="1" height="100" x="80"/></g></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23f5efe9" width="100" height="100"/><g fill="%23e6d7c3"><rect width="100" height="1" y="20"/><rect width="100" height="1" y="40"/><rect width="100" height="1" y="60"/><rect width="100" height="1" y="80"/><rect width="1" height="100" x="20"/><rect width="1" height="100" x="40"/><rect width="1" height="100" x="60"/><rect width="1" height="100" x="80"/></g></svg>');
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 20px rgba(93, 64, 55, 0.15);
             overflow: hidden;
         }
         
@@ -159,25 +175,22 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: var(--gradient);
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, #CD853F 0%, #A0522D 80%, #8B4513 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
             font-weight: 700;
-            font-size: 1.5rem;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            font-size: 1.8rem;
+            box-shadow: 0 6px 15px rgba(139, 69, 19, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.3);
             z-index: 10;
             cursor: pointer;
-            border: 2px solid rgba(255,255,255,0.3);
-            transition: transform 0.3s ease;
-        }
-        
-        .wheel-center:hover {
-            transform: translate(-50%, -50%) scale(1.1);
+            border: 3px solid rgba(255,255,255,0.25);
+            text-shadow: 0 2px 3px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .chord-node {
@@ -203,37 +216,42 @@
         }
         
         .chord-node.major {
-            background-color: #FFF3E0;
-            border-color: var(--primary-color);
+            background-color: #FFF8E1;
+            border-color: #CD853F;
+            color: #8B4513;
         }
         
         .chord-node.minor {
-            background-color: #FBE9E7;
-            border-color: #BF360C;
+            background-color: #F5F0E6;
+            border-color: #A0522D;
+            color: #5D4037;
         }
         
         .chord-node.diminished {
-            background-color: #E8EAF6;
-            border-color: #5c6bc0;
+            background-color: #EFE5DC;
+            border-color: #8B4513;
+            color: #3E2723;
         }
         
         .chord-node.selected {
             transform: scale(1.2);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 12px rgba(93, 64, 55, 0.4);
             z-index: 5;
             border-width: 3px;
             animation: pulse 1.5s infinite;
+            background-color: #8D6E63;
+            color: white;
         }
         
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(139, 69, 19, 0.7);
+                box-shadow: 0 0 0 0 rgba(93, 64, 55, 0.7);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(139, 69, 19, 0);
+                box-shadow: 0 0 0 10px rgba(93, 64, 55, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(139, 69, 19, 0);
+                box-shadow: 0 0 0 0 rgba(93, 64, 55, 0);
             }
         }
         
@@ -262,13 +280,13 @@
         .chord-fretboard {
             display: inline-block;
             position: relative;
-            width: 200px;
-            height: 250px;
-            background: var(--wood-texture);
+            width: 210px;
+            height: 260px;
+            background: linear-gradient(135deg, #8D6E63 0%, #A1887F 50%, #795548 100%);
             border-radius: 5px;
             padding: 10px 0;
             margin: 0 auto;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
         }
         
         .chord-string {
@@ -298,18 +316,70 @@
             border-right: none;
         }
         
-        .chord-dot {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: var(--accent-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        /* Estilos para melhorar a visualização de acordes */
+.position-indicator {
+    position: absolute;
+    left: -30px;
+    top: -25px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    background-color: #fff;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.barre-indicator {
+    position: absolute;
+    height: 12px;
+    background-color: rgba(139, 69, 19, 0.7);
+    border-radius: 6px;
+    z-index: 10;
+}
+
+.barre-dot {
+    background-color: rgba(139, 69, 19, 0.7);
+    color: white;
+}
+
+.chord-dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #F5F5F5, #E0E0E0);
+    color: var(--dark-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+        
+        /* Melhorias no design do diagrama do braço */
+        .open-string, .muted-string {
+            position: absolute;
+            top: -25px;
+            font-size: 1rem;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
+        }
+        
+        .open-string {
+            color: #3E2723;
+            border: 2px solid #3E2723;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        
+        .muted-string {
+            color: #3E2723;
+            font-weight: bold;
         }
         
         .chord-string-labels {
@@ -368,6 +438,81 @@
             font-size: 0.95rem;
         }
         
+        /* Estilos para melhorar a visualização de progressões */
+.progression-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.progression-card {
+    background-color: #fff;
+    border-radius: var(--radius);
+    padding: 12px 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
+}
+
+.progression-chords {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.chord-button {
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: 600;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chord-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.progression-arrow {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.progression-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+}
+
+.play-progression {
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.play-progression:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
         .progression-examples {
             margin-top: 1.2rem;
         }
@@ -399,7 +544,7 @@
         
         .action-btn {
             padding: 0.75rem 1.5rem;
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
             border-radius: var(--radius);
@@ -409,19 +554,21 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            box-shadow: 0 3px 6px rgba(139, 69, 19, 0.2);
         }
         
         .action-btn:hover {
-            background-color: var(--dark-color);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(139, 69, 19, 0.3);
         }
         
         .action-btn.secondary {
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), #8D6E63);
         }
         
         .action-btn.secondary:hover {
-            background-color: #B35A1F;
+            background: linear-gradient(135deg, #8D6E63, #6D4C41);
         }
         
         .chord-suggestions {
@@ -511,16 +658,12 @@
         }
         
         .tip-box {
-            background-color: #f6efe6;
-            padding: 15px;
+            background-color: #EFEBE9;
+            padding: 20px;
             border-radius: 8px;
             margin: 20px 0;
-            border-left: 3px solid var(--accent-color);
-        }
-        
-        .tip-box h4 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 3px 6px rgba(93, 64, 55, 0.1);
         }
         
         footer {
@@ -545,49 +688,169 @@
             opacity: 0.8;
         }
         
-        @media (max-width: 768px) {
-            .chord-wheel {
-                height: 400px;
-            }
-            
-            .chord-map-container {
-                height: 400px;
-            }
-            
-            .chord-node {
-                width: 50px;
-                height: 50px;
-                font-size: 0.9rem;
-            }
-            
-            .wheel-center {
-                width: 70px;
-                height: 70px;
-                font-size: 1.2rem;
-            }
-            
-            .button-row {
-                flex-direction: column;
-            }
-            
-            .suggestions-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-            
-            .step-box {
-                flex-direction: column;
-            }
-            
-            .step-number {
-                margin-bottom: 10px;
-            }
+        /* Botão para reprodução de progressões */
+        .play-progression-btn {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #6D4C41, #8D6E63);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
+        
+        .play-progression-btn:hover {
+            background: linear-gradient(135deg, #5D4037, #6D4C41);
+            transform: translateY(-2px);
+        }
+        
+        /* Melhorias na responsividade para dispositivos móveis */
+@media (max-width: 480px) {
+    .tonality-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .chord-wheel {
+        height: 350px;
+    }
+    
+    .chord-map-container {
+        height: 350px;
+    }
+    
+    .chord-node {
+        width: 45px;
+        height: 45px;
+        font-size: 0.8rem;
+    }
+    
+    .wheel-center {
+        width: 60px;
+        height: 60px;
+        font-size: 1.1rem;
+    }
+    
+    .chord-fretboard {
+        width: 180px;
+    }
+}
+
+/* Adicionar feedback visual ao tocar acordes */
+@keyframes chord-played {
+    0% { box-shadow: 0 0 0 5px rgba(139, 69, 19, 0.5); }
+    100% { box-shadow: 0 0 0 15px rgba(139, 69, 19, 0); }
+}
+
+.playing {
+    animation: chord-played 1s ease-out;
+}
+
+/* Adicionar ao seu CSS */
+.history-chips, .favorite-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.history-chip, .favorite-chip {
+    padding: 6px 12px;
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.history-chip:hover, .favorite-chip:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.favorite-chip {
+    background-color: #FFF8DC;
+    border-color: #FFD700;
+}
+
+/* Estilos para o modo prática aprimorado */
+.practice-sequence {
+    background-color: var(--light-bg);
+    border-radius: var(--radius);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.sequence-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.chord-chip {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.remove-chord {
+    width: 18px;
+    height: 18px;
+    background-color: var(--light-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.remove-chord:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.countdown-timer {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 100;
+}
+
+.highlight {
+    animation: pulse-chord 0.5s ease-out;
+}
+
+@keyframes pulse-chord {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
     </style>
 </head>
 <body>
+    <a href="../../index.html" class="back-button"><i class="fas fa-home"></i></a>
     <header>
         <div class="container">
-            <a href="../../index.html" class="back-button">← Voltar ao início</a>
             <h1>🗺️ Mapa Interativo dos Acordes Mágicos</h1>
             <div class="subtitle">Descubra combinações harmônicas perfeitas e desbloqueie sua criatividade musical</div>
         </div>
@@ -667,16 +930,14 @@
                         <div class="fret-label">2</div>
                         <div class="fret-label">3</div>
                         <div class="fret-label">4</div>
-                        <div class="fret-label">5</div>
-                        <div class="fret-label">6</div>
                     </div>
                     <!-- 6ª corda (E) -->
                     <div class="chord-string">
+                        <div class="chord-fret"></div>
+                        <div class="chord-fret"></div>
                         <div class="chord-fret">
                             <div class="chord-dot">3</div>
                         </div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
                         <div class="chord-fret"></div>
                     </div>
                     <!-- 5ª corda (A) -->
@@ -684,16 +945,16 @@
                         <div class="chord-fret"></div>
                         <div class="chord-fret"></div>
                         <div class="chord-fret">
-                            <div class="chord-dot">1</div>
+                            <div class="chord-dot">3</div>
                         </div>
                         <div class="chord-fret"></div>
                     </div>
                     <!-- 4ª corda (D) -->
                     <div class="chord-string">
-                        <div class="chord-fret"></div>
                         <div class="chord-fret">
                             <div class="chord-dot">2</div>
                         </div>
+                        <div class="chord-fret"></div>
                         <div class="chord-fret"></div>
                         <div class="chord-fret"></div>
                     </div>
@@ -721,20 +982,13 @@
                         <div class="chord-fret"></div>
                     </div>
                 </div>
-                
-                <div class="chord-string-labels">
-                    <div class="string-label">E</div>
-                    <div class="string-label">B</div>
-                    <div class="string-label">G</div>
-                    <div class="string-label">D</div>
-                    <div class="string-label">A</div>
-                    <div class="string-label">E</div>
-                </div>
 
                 <div class="button-row">
                     <button class="action-btn" id="playChordBtn"><i class="fas fa-play"></i> Tocar Acorde</button>
                     <button class="action-btn secondary" id="seeExamplesBtn"><i class="fas fa-music"></i> Ver Músicas com Este Acorde</button>
                 </div>
+                
+                <button class="play-progression-btn" id="playProgressionBtn"><i class="fas fa-play-circle"></i> Tocar Progressão</button>
             </div>
 
             <div class="chord-info">
@@ -781,401 +1035,588 @@
                 </div>
             </div>
         </div>
-    </div>
+
+
 
     <footer>
         <div class="container">
-            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+            <p>Domine o Violão</p>
             <p>Use este mapa para descobrir novas possibilidades musicais em suas composições e arranjos!</p>
-            <p class="signature">Com carinho, equipe do Kit Violão Profissional</p>
         </div>
     </footer>
 
     <script>
-        // Data for chord positioning and relationships
-        const chordData = {
-            C: {
-                name: "C (Dó Maior)",
-                description: "Acorde básico, perfeito para iniciar uma progressão",
-                relatives: ["F", "G", "Am", "Dm", "Em", "C7"],
-                position: { x: 0, y: 0 }, // Center
-                fingering: [[0,1,0,2,3,0], [3,1,0,2,3,0]], // Alternative fingerings
-                progressions: ["C - G - Am - F", "C - F - G", "C - Am - F - G", "C - E7 - Am - G"],
-                about: "O acorde de Dó maior é formado pelas notas C, E e G. É um dos acordes mais fundamentais no violão e frequentemente usado como acorde inicial em muitas músicas."
-            },
-            G: {
-                name: "G (Sol Maior)",
-                description: "Dominante de C, cria tensão que resolve bem em C",
-                relatives: ["C", "D", "Em", "Am", "Bm"],
-                position: { angle: 60, distance: 150 },
-                fingering: [[3,2,0,0,0,3]],
-                progressions: ["G - C - D", "G - Em - C - D", "G - D - Em - C"],
-                about: "O acorde de Sol maior é formado pelas notas G, B e D. É frequentemente usado como acorde dominante na tonalidade de C, criando uma tensão que resolve bem de volta para C."
-            },
-            F: {
-                name: "F (Fá Maior)",
-                description: "Subdominante de C, cria sensação de movimento",
-                relatives: ["C", "Bb", "Dm", "Gm"],
-                position: { angle: 300, distance: 150 },
-                fingering: [[1,1,2,3,0,0], [0,1,3,2,1,1]], // Barre chord as alternative
-                progressions: ["F - G - C", "F - C - G", "F - Dm - C"],
-                about: "O acorde de Fá maior é formado pelas notas F, A e C. Na tonalidade de C, atua como subdominante, criando sensação de movimento. Pode ser um desafio para iniciantes por ser um dos primeiros acordes com pestana."
-            },
-            Am: {
-                name: "Am (Lá menor)",
-                description: "Relativo menor de C, tom melancólico",
-                relatives: ["C", "F", "G", "Dm", "E7"],
-                position: { angle: 120, distance: 150 },
-                fingering: [[0,1,2,2,0,0]],
-                progressions: ["Am - F - C - G", "Am - G - F", "Am - Dm - E7"],
-                about: "O acorde de Lá menor é formado pelas notas A, C e E. É o relativo menor de C maior, compartilhando as mesmas notas da escala. Traz um tom mais emotivo e melancólico às progressões."
-            },
-            Dm: {
-                name: "Dm (Ré menor)",
-                description: "Subdominante menor, tom contemplativo",
-                relatives: ["F", "C", "A7", "Bb", "Am"],
-                position: { angle: 240, distance: 150 },
-                fingering: [[0,0,0,2,3,1]],
-                progressions: ["Dm - Am - E7", "Dm - G - C", "Dm - F - C"],
-                about: "O acorde de Ré menor é formado pelas notas D, F e A. Na tonalidade de C, ele acrescenta um tom nostálgico e contemplativo, muitas vezes usado em baladas."
-            },
-            Em: {
-                name: "Em (Mi menor)",
-                description: "Contraste emotivo e dinâmico",
-                relatives: ["G", "C", "D", "Am", "Bm"],
-                position: { angle: 180, distance: 150 },
-                fingering: [[0,0,0,2,2,0]],
-                progressions: ["Em - D - C", "Em - G - C", "Em - Am - D - G"],
-                about: "O acorde de Mi menor é formado pelas notas E, G e B. Traz um tom melancólico e introspectivo, muito usado em músicas de folk e rock acústico."
-            },
-            E7: {
-                name: "E7 (Mi com sétima)",
-                description: "Cria tensão que resolve bem em Am",
-                relatives: ["Am", "Dm", "C"],
-                position: { angle: 150, distance: 120 },
-                fingering: [[0,0,1,0,2,0]],
-                progressions: ["E7 - Am", "C - E7 - Am - Dm", "Dm - E7 - Am"],
-                about: "O acorde de Mi com sétima contém as notas E, G#, B e D. É comumente usado como dominante de Am, criando uma forte tensão que resolve bem neste acorde."
+// Data for chord positioning and relationships
+const chordData = {
+    C: {
+        name: "C (Dó Maior)",
+        description: "Acorde básico, perfeito para iniciar uma progressão",
+        relatives: ["F", "G", "Am", "Dm", "Em", "C7"],
+        position: { x: 0, y: 0 }, // Center
+        fingering: [[0,1,0,2,3,0], [3,1,0,2,3,0]], // Alternative fingerings
+        progressions: ["C - G - Am - F", "C - F - G", "C - Am - F - G", "C - E7 - Am - G"],
+        about: "O acorde de Dó maior é formado pelas notas C, E e G. É um dos acordes mais fundamentais no violão e frequentemente usado como acorde inicial em muitas músicas."
+    },
+    G: {
+        name: "G (Sol Maior)",
+        description: "Dominante de C, cria tensão que resolve bem em C",
+        relatives: ["C", "D", "Em", "Am", "Bm"],
+        position: { angle: 60, distance: 150 },
+        fingering: [[3,2,0,0,0,3], [3,2,0,0,3,3]],
+        progressions: ["G - C - D", "G - Em - C - D", "G - D - Em - C"],
+        about: "O acorde de Sol maior é formado pelas notas G, B e D. É frequentemente usado como acorde dominante na tonalidade de C, criando uma tensão que resolve bem de volta para C."
+    },
+    F: {
+        name: "F (Fá Maior)",
+        description: "Subdominante de C, cria sensação de movimento",
+        relatives: ["C", "Bb", "Dm", "Gm"],
+        position: { angle: 300, distance: 150 },
+        fingering: [[1,1,2,3,3,1], [1,1,2,3,3,-1]],
+        progressions: ["F - C - G", "F - Bb - C", "F - G - Am - G"],
+        about: "O acorde de Fá maior é formado pelas notas F, A e C. Funciona como subdominante na tonalidade de C e cria uma sensação de movimento em progressões harmônicas."
+    },
+    Am: {
+        name: "Am (Lá menor)",
+        description: "Relativo menor de C, adiciona tom melancólico",
+        relatives: ["C", "E", "G", "Dm", "Em"],
+        position: { angle: 120, distance: 150 },
+        fingering: [[0,1,2,2,0,0], [0,1,3,2,0,0]],
+        progressions: ["Am - F - C - G", "Am - G - F - E", "Am - Dm - E - Am"],
+        about: "O acorde de Lá menor é formado pelas notas A, C e E. É o relativo menor de C maior, trazendo um tom mais melancólico e introspectivo às progressões."
+    },
+    Dm: {
+        name: "Dm (Ré menor)",
+        description: "Subdominante menor de C, tom contemplativo",
+        relatives: ["F", "C", "Am", "Bb"],
+        position: { angle: 240, distance: 150 },
+        fingering: [[-1,0,0,2,3,1], [-1,-1,0,2,3,1]],
+        progressions: ["Dm - G - C", "Dm - Am - E - Am", "Dm - F - C"],
+        about: "O acorde de Ré menor é formado pelas notas D, F e A. Serve como subdominante menor na tonalidade de C, trazendo um tom mais contemplativo e introspectivo."
+    },
+    Em: {
+        name: "Em (Mi menor)",
+        description: "Relativo menor de G, contraste emotivo",
+        relatives: ["G", "Am", "C", "D"],
+        position: { angle: 180, distance: 150 },
+        fingering: [[0,0,0,2,2,0], [0,0,0,0,2,0]],
+        progressions: ["Em - D - C", "Em - G - C - D", "Em - Am - D - G"],
+        about: "O acorde de Mi menor é formado pelas notas E, G e B. Como relativo menor de G, adiciona um contraste emotivo em progressões na tonalidade de C."
+    }
+};
+
+// Improved chord frequencies for more accurate guitar sound
+const chordNotes = {
+    'C': [130.81, 261.63, 329.63, 392.00, 523.25],
+    'F': [174.61, 220.00, 261.63, 349.23, 440.00],
+    'G': [196.00, 246.94, 392.00, 493.88, 587.33],
+    'Am': [110.00, 220.00, 261.63, 329.63, 440.00],
+    'Dm': [146.83, 174.61, 220.00, 293.66, 440.00],
+    'Em': [82.41, 164.81, 196.00, 246.94, 329.63],
+    'G7': [196.00, 246.94, 370.00, 392.00, 493.88],
+    'C7': [130.81, 261.63, 311.13, 392.00, 523.25],
+    'E7': [82.41, 196.00, 246.94, 311.13, 329.63],
+    'A7': [110.00, 220.00, 277.18, 330.00, 440.00],
+    'D7': [146.83, 220.00, 293.66, 349.23, 440.00],
+    'B7': [123.47, 246.94, 370.00, 493.88, 587.33],
+    'Bm': [123.47, 246.94, 370.00, 493.88, 587.33]
+};
+
+// Variáveis globais
+let currentTonality = 'C';
+let currentChord = 'C';
+let chordHistory = [];
+
+// Funções principais
+function playChord(chord) {
+    // Efeito visual no acorde sendo tocado
+    const chordNode = document.querySelector(`.chord-node[data-chord="${chord}"], .wheel-center[data-chord="${chord}"]`);
+    if (chordNode) {
+        chordNode.classList.add('playing');
+        setTimeout(() => {
+            chordNode.classList.remove('playing');
+        }, 1000);
+    }
+    
+    // Efeito visual no diagrama do acorde
+    const fretboard = document.querySelector('.chord-fretboard');
+    fretboard.classList.add('playing');
+    setTimeout(() => {
+        fretboard.classList.remove('playing');
+    }, 1000);
+    
+    // Usar as frequências definidas ou um conjunto padrão
+    const frequencies = chordNotes[chord] || [196.00, 246.94, 293.66, 392.00, 493.88];
+    
+    // Criar contexto de áudio se necessário
+    if (!audioContext) {
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.error('Web Audio API não suportada:', e);
+            return;
+        }
+    }
+    
+    // Master compressor para melhor qualidade de áudio
+    const compressor = audioContext.createDynamicsCompressor();
+    compressor.threshold.setValueAtTime(-24, audioContext.currentTime);
+    compressor.knee.setValueAtTime(30, audioContext.currentTime);
+    compressor.ratio.setValueAtTime(12, audioContext.currentTime);
+    compressor.attack.setValueAtTime(0.003, audioContext.currentTime);
+    compressor.release.setValueAtTime(0.25, audioContext.currentTime);
+    compressor.connect(audioContext.destination);
+    
+    // Tocar cada nota do acorde com um pequeno arpejo
+    frequencies.forEach((freq, index) => {
+        setTimeout(() => {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // Misturar tipos diferentes para som mais rico
+            if (index % 3 === 0) {
+                oscillator.type = 'triangle';
+            } else if (index % 3 === 1) {
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.value = freq * 0.5; // Oitava abaixo para Sawtooth
+            } else {
+                oscillator.type = 'sine';
             }
-        };
-        
-        // Variables to store current state
-        let currentTonality = 'C';
-        let currentChord = 'C';
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set up tonality buttons
-            document.querySelectorAll('.tonality-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    // Update active state
-                    document.querySelectorAll('.tonality-btn').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    
-                    // Update current tonality
-                    currentTonality = this.getAttribute('data-tonality');
-                    updateChordWheel(currentTonality);
-                });
-            });
             
-            // Initial chord wheel setup
-            updateChordWheel(currentTonality);
+            oscillator.frequency.value = freq;
+            oscillator.detune.value = Math.random() * 6 - 3; // Pequena variação para som mais natural
             
-            // Set up play chord button
-            document.getElementById('playChordBtn').addEventListener('click', function() {
-                playChord(currentChord);
-            });
+            // Envelope ADSR para som mais realista
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.01);
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.15, audioContext.currentTime + 0.3);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.5);
             
-            // Set up progression tags
-            document.querySelectorAll('.progression-tag').forEach(tag => {
-                tag.addEventListener('click', function() {
-                    alert(`Esta progressão é muito usada em: rock, pop e baladas acústicas!\n\nTente tocar com ritmo de 4/4 (BAIXO-BAIXO-CIMA-BAIXO-CIMA)`);
-                });
-            });
+            // Filtro passa-baixa para simular ressonância do violão
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 2500;
+            filter.Q.value = 1;
             
-            // Set up see examples button
-            document.getElementById('seeExamplesBtn').addEventListener('click', function() {
-                alert(`Músicas populares com ${currentChord}:\n\n1. "Imagine" - John Lennon\n2. "Let It Be" - The Beatles\n3. "Viva La Vida" - Coldplay\n4. "Photograph" - Ed Sheeran`);
-            });
+            // Conectar os nós de áudio
+            oscillator.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(compressor);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1.5);
+        }, index * 25); // Efeito de arpejo mais pronunciado
+    });
+    
+    // Adicionar ao histórico
+    if (!chordHistory.includes(chord)) {
+        chordHistory.push(chord);
+        if (chordHistory.length > 10) {
+            chordHistory.shift();
+        }
+        updateHistoryDisplay();
+    }
+}
+
+function toggleFavorite(chord) {
+    let favorites = JSON.parse(localStorage.getItem('favoriteChords') || '[]');
+    
+    if (favorites.includes(chord)) {
+        favorites = favorites.filter(c => c !== chord);
+    } else {
+        favorites.push(chord);
+    }
+    
+    localStorage.setItem('favoriteChords', JSON.stringify(favorites));
+    updateFavoritesDisplay();
+}
+
+function updateFavoritesDisplay() {
+    const favoritesContainer = document.getElementById('favorite-chords');
+    if (!favoritesContainer) return;
+    
+    const favorites = JSON.parse(localStorage.getItem('favoriteChords') || '[]');
+    
+    favoritesContainer.innerHTML = '';
+    
+    if (favorites.length === 0) {
+        favoritesContainer.innerHTML = '<p>Você ainda não tem acordes favoritos.</p>';
+        return;
+    }
+    
+    favorites.forEach(chord => {
+        const chip = document.createElement('span');
+        chip.className = 'favorite-chip';
+        chip.textContent = chord;
+        chip.addEventListener('click', () => updateChordDisplay(chord));
+        favoritesContainer.appendChild(chip);
+    });
+}
+
+function updateHistoryDisplay() {
+    const historyContainer = document.getElementById('chord-history');
+    if (!historyContainer) return;
+    
+    historyContainer.innerHTML = '';
+    
+    chordHistory.slice().reverse().forEach(historyChord => {
+        const chip = document.createElement('span');
+        chip.className = 'history-chip';
+        chip.textContent = historyChord;
+        chip.addEventListener('click', () => updateChordDisplay(historyChord));
+        historyContainer.appendChild(chip);
+    });
+}
+
+function playProgression(progression) {
+    // Split the progression string to get individual chords
+    const chords = progression.split(' - ');
+    
+    // Play each chord with a delay between them
+    chords.forEach((chord, index) => {
+        setTimeout(() => {
+            playChord(chord);
+        }, index * 1500); // 1.5 second between chords
+    });
+}
+
+function updateChordWheel(tonality) {
+    const wheelCenter = document.querySelector('.wheel-center');
+    wheelCenter.textContent = tonality;
+    wheelCenter.setAttribute('data-chord', tonality);
+    
+    // Clear existing chord nodes
+    document.querySelectorAll('.chord-node').forEach(node => {
+        node.remove();
+    });
+    
+    // Add chord nodes based on the selected tonality
+    const chords = getRelatedChords(tonality);
+    
+    chords.forEach((chord, index) => {
+        createChordNode(chord, index, chords.length);
+    });
+    
+    // Set the center chord as current
+    updateChordDisplay(tonality);
+    
+    // Add event listener to center chord
+    wheelCenter.addEventListener('click', function() {
+        updateChordDisplay(this.getAttribute('data-chord'));
+    });
+}
+
+function createChordNode(chord, index, total) {
+    const node = document.createElement('div');
+    node.classList.add('chord-node');
+    
+    // Add class based on chord type
+    if (chord.includes('m') && !chord.includes('maj')) {
+        node.classList.add('minor');
+    } else if (chord.includes('dim') || chord.includes('°')) {
+        node.classList.add('diminished');
+    } else {
+        node.classList.add('major');
+    }
+    
+    node.textContent = chord;
+    node.setAttribute('data-chord', chord);
+    
+    // Position the node in a circle
+    const angle = (360 / total) * index;
+    const radian = angle * Math.PI / 180;
+    const radius = 150; // Distance from center
+    
+    const x = Math.cos(radian) * radius;
+    const y = Math.sin(radian) * radius;
+    
+    node.style.top = `calc(50% - 30px + ${y}px)`;
+    node.style.left = `calc(50% - 30px + ${x}px)`;
+    
+    // Add event listener
+    node.addEventListener('click', function() {
+        updateChordDisplay(this.getAttribute('data-chord'));
+    });
+    
+    document.querySelector('.chord-wheel').appendChild(node);
+}
+
+function getRelatedChords(tonality) {
+    // Simplified chord relationships by tonality
+    const relationships = {
+        'C': ['F', 'G', 'Am', 'Dm', 'Em', 'G7'],
+        'G': ['C', 'D', 'Em', 'Am', 'Bm', 'D7'],
+        'D': ['G', 'A', 'Bm', 'Em', 'F#m', 'A7'],
+        'A': ['D', 'E', 'F#m', 'Bm', 'C#m', 'E7'],
+        'E': ['A', 'B', 'C#m', 'F#m', 'G#m', 'B7'],
+        'B': ['E', 'F#', 'G#m', 'C#m', 'D#m', 'F#7'],
+        'F': ['Bb', 'C', 'Dm', 'Gm', 'Am', 'C7'],
+        'Bb': ['Eb', 'F', 'Gm', 'Cm', 'Dm', 'F7'],
+        'Eb': ['Ab', 'Bb', 'Cm', 'Fm', 'Gm', 'Bb7'],
+        'Ab': ['Db', 'Eb', 'Fm', 'Bbm', 'Cm', 'Eb7'],
+        'Am': ['Dm', 'Em', 'F', 'G', 'C', 'E7'],
+        'Em': ['Am', 'Bm', 'C', 'D', 'G', 'B7']
+    };
+    
+    return relationships[tonality] || ['C', 'F', 'G', 'Am', 'Dm', 'Em']; // Default to C if not found
+}
+
+function updateChordDisplay(chord) {
+    currentChord = chord;
+    
+    // Update all nodes to remove selected state
+    document.querySelectorAll('.chord-node').forEach(node => {
+        node.classList.remove('selected');
+    });
+    
+    // Add selected state to current chord node
+    const selectedNode = document.querySelector(`.chord-node[data-chord="${chord}"]`);
+    if (selectedNode) {
+        selectedNode.classList.add('selected');
+    }
+    
+    // Update chord display title and description
+    const chordInfo = chordData[chord] || {
+        name: chord,
+        description: "Acorde complementar na tonalidade",
+        about: `O acorde ${chord} é parte desta tonalidade.`
+    };
+    
+    document.querySelector('.chord-title').textContent = chordInfo.name || chord;
+    document.querySelector('.chord-description').textContent = chordInfo.description || "";
+    
+    // Update chord info section
+    document.querySelector('.chord-info h3').textContent = `Sobre o Acorde ${chord}`;
+    document.querySelector('.chord-info p').textContent = chordInfo.about || "";
+    
+    // Update suggested chords
+    updateChordSuggestions(chord);
+    
+    // Update chord diagram
+    updateChordDiagram(chord);
+    
+    // Update progression tags
+    updateProgressionTags(chord);
+}
+
+function updateChordDiagram(chord) {
+    // Expanded chord shapes with barre information
+    // Format: [fret positions, finger positions, barres (array of {fromString, toString, fret})]
+    const chordShapes = {
+        'C': [[0,1,0,2,3,0], [0,1,3,2,0,0], []],
+        'F': [[1,1,2,3,3,1], [1,1,2,3,3,1], [{fromString: 1, toString: 6, fret: 1}]],
+        'G': [[3,2,0,0,0,3], [3,2,0,0,0,3], []],
+        'Am': [[0,1,2,2,0,0], [0,1,3,2,0,0], []],
+        'Dm': [[-1,0,0,2,3,1], [-1,0,0,2,3,1], []],
+        'Em': [[0,0,0,2,2,0], [0,0,0,1,2,0], []],
+        'G7': [[3,2,0,0,0,1], [3,2,0,0,0,1], []],
+        'C7': [[0,1,3,2,3,0], [0,1,3,2,4,0], []],
+        'A7': [[0,2,0,2,0,0], [0,2,0,1,0,0], []],
+        'D7': [[0,0,0,2,1,2], [0,0,0,2,1,3], []],
+        'E7': [[0,0,1,0,2,0], [0,0,1,0,2,0], []],
+        'Bm': [[2,2,4,4,3,2], [1,1,3,4,2,1], [{fromString: 1, toString: 2, fret: 2}]],
+        'B7': [[2,1,2,0,2,0], [2,1,3,0,4,0], []]
+    };
+    
+    // Se temos dados de dedilhado para este acorde
+    if (chordShapes[chord]) {
+        // Limpar elementos existentes
+        document.querySelectorAll('.chord-dot, .open-string, .muted-string, .barre-indicator').forEach(el => {
+            el.remove();
         });
         
-        // Update the chord wheel based on selected tonality
-        function updateChordWheel(tonality) {
-            const wheelCenter = document.querySelector('.wheel-center');
-            wheelCenter.textContent = tonality;
-            wheelCenter.setAttribute('data-chord', tonality);
-            
-            // Clear existing chord nodes
-            document.querySelectorAll('.chord-node').forEach(node => {
-                node.remove();
-            });
-            
-            // Add chord nodes based on the selected tonality
-            const chords = getRelatedChords(tonality);
-            
-            chords.forEach((chord, index) => {
-                createChordNode(chord, index, chords.length);
-            });
-            
-            // Set the center chord as current
-            updateChordDisplay(tonality);
-            
-            // Add event listener to center chord
-            wheelCenter.addEventListener('click', function() {
-                updateChordDisplay(this.getAttribute('data-chord'));
-            });
+        const frets = chordShapes[chord][0];
+        const fingers = chordShapes[chord][1];
+        const barres = chordShapes[chord][2];
+        
+        // Encontrar a menor casa pressionada para determinar a posição
+        const pressedFrets = frets.filter(fret => fret > 0);
+        const minFret = pressedFrets.length > 0 ? Math.min(...pressedFrets) : 1;
+        
+        // Adicionar indicador de posição
+        if (minFret > 1) {
+            const positionIndicator = document.createElement('div');
+            positionIndicator.className = 'position-indicator';
+            positionIndicator.textContent = minFret + 'ª casa';
+            document.querySelector('.chord-fretboard').appendChild(positionIndicator);
         }
         
-        // Create a chord node on the wheel
-        function createChordNode(chord, index, total) {
-            const node = document.createElement('div');
-            node.classList.add('chord-node');
+        // Adicionar pontos para cada posição de dedo
+        frets.forEach((fret, stringIndex) => {
+            // Indicadores de estado da corda (aberta ou muda)
+            const stringElement = document.querySelectorAll('.chord-string')[5 - stringIndex];
             
-            // Add class based on chord type
-            if (chord.includes('m') && !chord.includes('maj')) {
-                node.classList.add('minor');
-            } else if (chord.includes('dim') || chord.includes('°')) {
-                node.classList.add('diminished');
-            } else {
-                node.classList.add('major');
+            if (fret === 0) {
+                // Indicador de corda aberta
+                const openIndicator = document.createElement('div');
+                openIndicator.className = 'open-string';
+                openIndicator.textContent = 'o';
+                openIndicator.style.left = `${25 * stringIndex + 12}px`;
+                document.querySelector('.chord-fretboard').appendChild(openIndicator);
+            } else if (fret === -1) {
+                // Indicador de corda muda
+                const mutedIndicator = document.createElement('div');
+                mutedIndicator.className = 'muted-string';
+                mutedIndicator.textContent = 'x';
+                mutedIndicator.style.left = `${25 * stringIndex + 12}px`;
+                document.querySelector('.chord-fretboard').appendChild(mutedIndicator);
             }
             
-            node.textContent = chord;
-            node.setAttribute('data-chord', chord);
-            
-            // Position the node in a circle
-            const angle = (360 / total) * index;
-            const radian = angle * Math.PI / 180;
-            const radius = 150; // Distance from center
-            
-            const x = Math.cos(radian) * radius;
-            const y = Math.sin(radian) * radius;
-            
-            node.style.top = `calc(50% - 30px + ${y}px)`;
-            node.style.left = `calc(50% - 30px + ${x}px)`;
-            
-            // Add event listener
-            node.addEventListener('click', function() {
-                updateChordDisplay(this.getAttribute('data-chord'));
-            });
-            
-            document.querySelector('.chord-wheel').appendChild(node);
-        }
-        
-        // Get related chords based on tonality
-        function getRelatedChords(tonality) {
-            // Simplified chord relationships by tonality
-            const relationships = {
-                'C': ['F', 'G', 'Am', 'Dm', 'Em', 'G7'],
-                'G': ['C', 'D', 'Em', 'Am', 'Bm', 'D7'],
-                'D': ['G', 'A', 'Bm', 'Em', 'F#m', 'A7'],
-                'A': ['D', 'E', 'F#m', 'Bm', 'C#m', 'E7'],
-                'E': ['A', 'B', 'C#m', 'F#m', 'G#m', 'B7'],
-                'B': ['E', 'F#', 'G#m', 'C#m', 'D#m', 'F#7'],
-                'F': ['Bb', 'C', 'Dm', 'Gm', 'Am', 'C7'],
-                'Bb': ['Eb', 'F', 'Gm', 'Cm', 'Dm', 'F7'],
-                'Eb': ['Ab', 'Bb', 'Cm', 'Fm', 'Gm', 'Bb7'],
-                'Ab': ['Db', 'Eb', 'Fm', 'Bbm', 'Cm', 'Eb7'],
-                'Am': ['Dm', 'Em', 'F', 'G', 'C', 'E7'],
-                'Em': ['Am', 'Bm', 'C', 'D', 'G', 'B7']
-            };
-            
-            return relationships[tonality] || ['C', 'F', 'G', 'Am', 'Dm', 'Em']; // Default to C if not found
-        }
-        
-        // Update the chord display with selected chord info
-        function updateChordDisplay(chord) {
-            currentChord = chord;
-            
-            // Update all nodes to remove selected state
-            document.querySelectorAll('.chord-node').forEach(node => {
-                node.classList.remove('selected');
-            });
-            
-            // Add selected state to current chord node
-            const selectedNode = document.querySelector(`.chord-node[data-chord="${chord}"]`);
-            if (selectedNode) {
-                selectedNode.classList.add('selected');
-            }
-            
-            // Update chord display title and description
-            document.querySelector('.chord-title').textContent = chord;
-            
-            // Update chord info section
-            document.querySelector('.chord-info h3').textContent = `Sobre o Acorde ${chord}`;
-            
-            // Update suggested chords
-            updateChordSuggestions(chord);
-            
-            // Update chord diagram (simplified)
-            updateChordDiagram(chord);
-            
-            // Update progression tags
-            updateProgressionTags(chord);
-        }
-        
-        // Update the chord diagram visualization
-        function updateChordDiagram(chord) {
-            // Simplified chord shapes for demonstration
-            const chordShapes = {
-                'C': [[0,1,0,2,3,0]],
-                'F': [[1,1,2,3,0,0]],
-                'G': [[3,2,0,0,0,3]],
-                'Am': [[0,1,2,2,0,0]],
-                'Dm': [[0,0,0,2,3,1]],
-                'Em': [[0,0,0,2,2,0]],
-                'G7': [[3,2,0,0,0,1]],
-                'E7': [[0,0,1,0,2,0]],
-                'A7': [[0,0,0,1,0,2]],
-                'D7': [[0,0,0,2,1,2]],
-                'C7': [[0,1,3,2,3,0]]
-            };
-            
-            // If we have fingering data for this chord
-            if (chordShapes[chord]) {
-                // Clear existing dots
-                document.querySelectorAll('.chord-dot').forEach(dot => {
-                    dot.remove();
-                });
+            if (fret > 0) {
+                // Criar um novo ponto para a posição do dedo
+                const dot = document.createElement('div');
+                dot.classList.add('chord-dot');
                 
-                const fingering = chordShapes[chord][0]; // Get first fingering option
-                
-                // Add dots for each finger position
-                fingering.forEach((fret, stringIndex) => {
-                    if (fret > 0) {
-                        // Create a new dot
-                        const dot = document.createElement('div');
-                        dot.classList.add('chord-dot');
-                        dot.textContent = fret; // Finger number
-                        
-                        // Find the right string and fret position
-                        const stringElement = document.querySelectorAll('.chord-string')[5 - stringIndex]; // Reverse order
-                        const fretElement = stringElement.querySelectorAll('.chord-fret')[fret - 1];
-                        
-                        fretElement.appendChild(dot);
+                // Verificar se este dedo faz parte de uma pestana
+                let isPartOfBarre = false;
+                barres.forEach(barre => {
+                    if (barre.fret === fret && stringIndex >= barre.fromString - 1 && stringIndex <= barre.toString - 1) {
+                        isPartOfBarre = true;
+                        dot.classList.add('barre-dot');
                     }
                 });
-            }
-        }
-        
-        // Update chord suggestions
-        function updateChordSuggestions(chord) {
-            const suggestionsGrid = document.querySelector('.suggestions-grid');
-            suggestionsGrid.innerHTML = ''; // Clear existing suggestions
-            
-            // Get related chords based on the current chord
-            const relatedChords = getRelatedChords(chord);
-            
-            relatedChords.forEach(relatedChord => {
-                if (relatedChord !== chord) {
-                    const card = document.createElement('div');
-                    card.classList.add('suggestion-card');
-                    card.setAttribute('data-chord', relatedChord);
-                    
-                    card.innerHTML = `
-                        <h4>${relatedChord}</h4>
-                        <p>Complemento harmônico</p>
-                    `;
-                    
-                    card.addEventListener('click', function() {
-                        updateChordDisplay(this.getAttribute('data-chord'));
-                    });
-                    
-                    suggestionsGrid.appendChild(card);
-                }
-            });
-        }
-        
-        // Update progression tags based on selected chord
-        function updateProgressionTags(chord) {
-            const progressionExamples = document.querySelector('.progression-examples');
-            if (progressionExamples) {
-                progressionExamples.innerHTML = `<h4>Progressões populares com ${chord}:</h4>`;
                 
-                // Get example progressions for this chord from our data
-                const chordInfo = chordData[chord];
-                if (chordInfo && chordInfo.progressions) {
-                    chordInfo.progressions.forEach(progression => {
-                        const tag = document.createElement('span');
-                        tag.className = 'progression-tag';
-                        tag.textContent = progression;
-                        tag.addEventListener('click', function() {
-                            alert(`Esta progressão é muito usada em: rock, pop e baladas acústicas!\n\nTente tocar com ritmo de 4/4 (BAIXO-BAIXO-CIMA-BAIXO-CIMA)`);
-                        });
-                        progressionExamples.appendChild(tag);
-                    });
-                } else {
-                    // Default progressions if not found in our data
-                    const defaultProgressions = [
-                        `${chord} - ${getRelatedChords(chord)[0]} - ${getRelatedChords(chord)[1]}`,
-                        `${chord} - ${getRelatedChords(chord)[2]} - ${getRelatedChords(chord)[0]}`
-                    ];
-                    
-                    defaultProgressions.forEach(progression => {
-                        const tag = document.createElement('span');
-                        tag.className = 'progression-tag';
-                        tag.textContent = progression;
-                        tag.addEventListener('click', function() {
-                            alert(`Experimente esta progressão com diferentes ritmos!`);
-                        });
-                        progressionExamples.appendChild(tag);
-                    });
+                if (!isPartOfBarre && fingers[stringIndex]) {
+                    dot.textContent = fingers[stringIndex]; // Número do dedo
+                }
+                
+                // Encontrar a posição correta da casa
+                const fretElement = stringElement.querySelectorAll('.chord-fret')[fret - 1];
+                
+                if (fretElement) {
+                    fretElement.appendChild(dot);
                 }
             }
-        }
+        });
         
-        // Play a chord sound
-        function playChord(chord) {
-            // Simple chord note frequencies (simplified)
-            const chordNotes = {
-                'C': [261.63, 329.63, 392.00],
-                'F': [174.61, 220.00, 261.63],
-                'G': [196.00, 246.94, 392.00],
-                'Am': [220.00, 261.63, 329.63],
-                'Dm': [146.83, 174.61, 220.00],
-                'Em': [164.81, 196.00, 246.94],
-                'G7': [196.00, 246.94, 367.00],
-                'C7': [261.63, 329.63, 370.00],
-                'E7': [164.81, 196.00, 246.94, 311.13],
-                'A7': [220.00, 277.18, 329.63, 415.30],
-                'D7': [146.83, 185.00, 220.00, 293.66],
-            };
+        // Adicionar indicadores de pestana
+        barres.forEach(barre => {
+            const barreIndicator = document.createElement('div');
+            barreIndicator.className = 'barre-indicator';
             
-            // Use default C notes if chord is not in our simplified list
-            const notes = chordNotes[chord] || chordNotes['C'];
+            const width = (barre.toString - barre.fromString) * 25;
+            barreIndicator.style.width = width + 'px';
+            barreIndicator.style.left = (barre.fromString - 1) * 25 + 10 + 'px';
+            barreIndicator.style.top = ((barre.fret - 1) * 38) + 19 + 'px';
             
-            // Create a new context if the old one is in a closed state
-            if (audioContext.state === 'closed') {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
+            document.querySelector('.chord-fretboard').appendChild(barreIndicator);
+        });
+    }
+}
+
+function updateChordSuggestions(chord) {
+    const suggestionsGrid = document.querySelector('.suggestions-grid');
+    if (!suggestionsGrid) return;
+    
+    suggestionsGrid.innerHTML = ''; // Clear existing suggestions
+    
+    // Get related chords based on the current chord
+    const relatedChords = getRelatedChords(chord);
+    
+    relatedChords.forEach(relatedChord => {
+        if (relatedChord !== chord) {
+            const card = document.createElement('div');
+            card.classList.add('suggestion-card');
+            card.setAttribute('data-chord', relatedChord);
             
-            // Resume audio context if it's suspended (browser autoplay policy)
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
+            card.innerHTML = `
+                <h4>${relatedChord}</h4>
+                <p>Complemento harmônico</p>
+            `;
             
-            // Play each note in the chord
-            notes.forEach(frequency => {
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.type = 'sine';
-                oscillator.frequency.value = frequency;
-                
-                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-                gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.1);
-                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 1.5);
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.start();
-                oscillator.stop(audioContext.currentTime + 1.5);
+            card.addEventListener('click', function() {
+                updateChordDisplay(this.getAttribute('data-chord'));
             });
+            
+            suggestionsGrid.appendChild(card);
         }
+    });
+}
+
+function updateProgressionTags(chord) {
+    const progressionExamples = document.querySelector('.progression-examples');
+    if (!progressionExamples) return;
+    
+    // Get progressions from chord data or use defaults
+    const chordInfo = chordData[chord];
+    const progressions = (chordInfo && chordInfo.progressions) ? 
+        chordInfo.progressions : 
+        [
+            `${chord} - ${getRelatedChords(chord)[0]} - ${getRelatedChords(chord)[1]}`,
+            `${chord} - ${getRelatedChords(chord)[2]} - ${getRelatedChords(chord)[0]}`
+        ];
+    
+    progressionExamples.innerHTML = `<h4>Progressões populares com ${chord}:</h4>`;
+    
+    progressions.forEach(progression => {
+        const tag = document.createElement('span');
+        tag.className = 'progression-tag';
+        tag.textContent = progression;
+        tag.addEventListener('click', function() {
+            alert(`Esta progressão é muito usada em: rock, pop e baladas acústicas!\n\nTente tocar com ritmo de 4/4 (BAIXO-BAIXO-CIMA-BAIXO-CIMA)`);
+        });
+        progressionExamples.appendChild(tag);
+    });
+}
+
+// Inicialização
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar o AudioContext no primeiro clique do usuário para compatibilidade com navegadores
+    document.addEventListener('click', initAudioContext, { once: true });
+    
+    function initAudioContext() {
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.error('Web Audio API não suportada:', e);
+        }
+    }
+    
+    // Set up tonality buttons
+    document.querySelectorAll('.tonality-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // Update active state
+            document.querySelectorAll('.tonality-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+            
+            // Update current tonality
+            currentTonality = this.getAttribute('data-tonality');
+            updateChordWheel(currentTonality);
+        });
+    });
+    
+    // Initial chord wheel setup
+    updateChordWheel(currentTonality);
+    
+    // Set up play chord button
+    const playChordBtn = document.getElementById('playChordBtn');
+    if (playChordBtn) {
+        playChordBtn.addEventListener('click', function() {
+            playChord(currentChord);
+        });
+    }
+    
+    // Set up see examples button
+    const seeExamplesBtn = document.getElementById('seeExamplesBtn');
+    if (seeExamplesBtn) {
+        seeExamplesBtn.addEventListener('click', function() {
+            alert(`Músicas populares com ${currentChord}:\n\n1. "Imagine" - John Lennon\n2. "Let It Be" - The Beatles\n3. "Viva La Vida" - Coldplay\n4. "Photograph" - Ed Sheeran`);
+        });
+    }
+    
+    // Set up play progression button
+    const playProgressionBtn = document.getElementById('playProgressionBtn');
+    if (playProgressionBtn) {
+        playProgressionBtn.addEventListener('click', function() {
+            const progression = document.querySelector('.progression-tag');
+            if (progression) {
+                playProgression(progression.textContent);
+            }
+        });
+    }
+});
     </script>
     
     <!-- Adiciona o botão de navegação flutuante -->
