@@ -243,18 +243,49 @@
             color: white;
         }
         
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(93, 64, 55, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(93, 64, 55, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(93, 64, 55, 0);
-            }
-        }
-        
+        /* Substituir a animação pulse existente por esta versão melhorada */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(93, 64, 55, 0.8);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 12px rgba(93, 64, 55, 0);
+        transform: scale(1.15);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(93, 64, 55, 0);
+        transform: scale(1);
+    }
+}
+
+/* Animação para reprodução de acorde mais visível */
+@keyframes chord-played {
+    0% { 
+        box-shadow: 0 0 0 5px rgba(139, 69, 19, 0.7);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(139, 69, 19, 0.3);
+        transform: scale(1.08);
+    }
+    100% { 
+        box-shadow: 0 0 0 15px rgba(139, 69, 19, 0);
+        transform: scale(1);
+    }
+}
+
+.playing {
+    animation: chord-played 0.8s ease-out;
+}
+
+/* Suavizar transições */
+.chord-node, .suggestion-card, .chord-button {
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.25s ease,
+                background-color 0.3s ease;
+}
+
         .chord-diagram {
             margin-top: 2rem;
             padding: 1.5rem;
@@ -331,11 +362,10 @@
 }
 
 .barre-indicator {
-    position: absolute;
-    height: 12px;
-    background-color: rgba(139, 69, 19, 0.7);
-    border-radius: 6px;
-    z-index: 10;
+    height: 14px;
+    background-color: rgba(139, 69, 19, 0.8);
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .barre-dot {
@@ -343,45 +373,28 @@
     color: white;
 }
 
+/* Adicione ao seu CSS para diagramas de acordes mais claros */
 .chord-dot {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #F5F5F5, #E0E0E0);
+    background: linear-gradient(135deg, #F9F9F9, #E0E0E0);
     color: var(--dark-color);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: 0.9rem;
-    border: 1px solid rgba(0,0,0,0.1);
+    font-weight: 700;
+    font-size: 1rem;
+    border: 1px solid rgba(0,0,0,0.2);
 }
-        
+
+.open-string, .muted-string {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
         /* Melhorias no design do diagrama do braço */
-        .open-string, .muted-string {
-            position: absolute;
-            top: -25px;
-            font-size: 1rem;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .open-string {
-            color: #3E2723;
-            border: 2px solid #3E2723;
-            border-radius: 50%;
-            font-weight: bold;
-        }
-        
-        .muted-string {
-            color: #3E2723;
-            font-weight: bold;
-        }
-        
         .chord-string-labels {
             display: flex;
             justify-content: space-around;
@@ -710,140 +723,67 @@
         }
         
         /* Melhorias na responsividade para dispositivos móveis */
-@media (max-width: 480px) {
-    .tonality-btn {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.85rem;
-    }
-    
+@media (max-width: 600px) {
     .chord-wheel {
-        height: 350px;
+        height: 400px;
     }
     
     .chord-map-container {
-        height: 350px;
+        height: 400px;
     }
     
     .chord-node {
-        width: 45px;
-        height: 45px;
-        font-size: 0.8rem;
+        width: 50px;
+        height: 50px;
+        font-size: 0.9rem;
+        font-weight: 700;
     }
     
     .wheel-center {
-        width: 60px;
-        height: 60px;
-        font-size: 1.1rem;
+        width: 70px;
+        height: 70px;
+        font-size: 1.4rem;
     }
     
+    /* Melhorar toque em telas pequenas */
+    .chord-node, .suggestion-card, .progression-tag, .tonality-btn {
+        padding: 10px;
+        margin: 4px;
+    }
+    
+    .chord-dot {
+        touch-action: manipulation;
+    }
+    
+    /* Aumentar contrastes para melhor leitura */
+    .chord-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+    
+    .chord-description {
+        font-size: 1rem;
+        margin-bottom: 16px;
+    }
+    
+    /* Ajustes no diagrama de acorde para telas menores */
     .chord-fretboard {
-        width: 180px;
+        width: 90%;
+        max-width: 240px;
     }
 }
 
-/* Adicionar feedback visual ao tocar acordes */
-@keyframes chord-played {
-    0% { box-shadow: 0 0 0 5px rgba(139, 69, 19, 0.5); }
-    100% { box-shadow: 0 0 0 15px rgba(139, 69, 19, 0); }
-}
-
-.playing {
-    animation: chord-played 1s ease-out;
-}
-
-/* Adicionar ao seu CSS */
-.history-chips, .favorite-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 12px 0;
-}
-
-.history-chip, .favorite-chip {
-    padding: 6px 12px;
-    background-color: var(--light-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.history-chip:hover, .favorite-chip:hover {
-    background-color: var(--accent-color);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.favorite-chip {
-    background-color: #FFF8DC;
-    border-color: #FFD700;
-}
-
-/* Estilos para o modo prática aprimorado */
-.practice-sequence {
-    background-color: var(--light-bg);
-    border-radius: var(--radius);
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-.sequence-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.chord-chip {
-    background-color: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 6px 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-}
-
-.remove-chord {
-    width: 18px;
-    height: 18px;
-    background-color: var(--light-bg);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.remove-chord:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.countdown-timer {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid var(--primary-color);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 100;
-}
-
-.highlight {
-    animation: pulse-chord 0.5s ease-out;
-}
-
-@keyframes pulse-chord {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+@media (max-width: 400px) {
+    .tonality-selector {
+        justify-content: center;
+    }
+    
+    .tonality-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        margin: 2px;
+    }
 }
     </style>
 </head>
@@ -1128,6 +1068,22 @@ let chordHistory = [];
 
 // Funções principais
 function playChord(chord) {
+    // Verificações iniciais
+    if (!audioContext) {
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.error('Web Audio API não suportada:', e);
+            alert('Seu navegador não suporta a reprodução de áudio. Tente usar Chrome ou Firefox atualizados.');
+            return;
+        }
+    }
+    
+    // Reativar contexto de áudio se estiver suspenso (políticas de autoplay do navegador)
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+    
     // Efeito visual no acorde sendo tocado
     const chordNode = document.querySelector(`.chord-node[data-chord="${chord}"], .wheel-center[data-chord="${chord}"]`);
     if (chordNode) {
@@ -1147,16 +1103,6 @@ function playChord(chord) {
     // Usar as frequências definidas ou um conjunto padrão
     const frequencies = chordNotes[chord] || [196.00, 246.94, 293.66, 392.00, 493.88];
     
-    // Criar contexto de áudio se necessário
-    if (!audioContext) {
-        try {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        } catch (e) {
-            console.error('Web Audio API não suportada:', e);
-            return;
-        }
-    }
-    
     // Master compressor para melhor qualidade de áudio
     const compressor = audioContext.createDynamicsCompressor();
     compressor.threshold.setValueAtTime(-24, audioContext.currentTime);
@@ -1166,7 +1112,7 @@ function playChord(chord) {
     compressor.release.setValueAtTime(0.25, audioContext.currentTime);
     compressor.connect(audioContext.destination);
     
-    // Tocar cada nota do acorde com um pequeno arpejo
+    // Tocar cada nota do acorde com um pequeno arpejo e melhor envelope sonoro
     frequencies.forEach((freq, index) => {
         setTimeout(() => {
             const oscillator = audioContext.createOscillator();
@@ -1183,20 +1129,20 @@ function playChord(chord) {
             }
             
             oscillator.frequency.value = freq;
-            oscillator.detune.value = Math.random() * 6 - 3; // Pequena variação para som mais natural
+            oscillator.detune.value = Math.random() * 8 - 4; // Variação melhorada para som mais natural
             
-            // Envelope ADSR para som mais realista
+            // Envelope ADSR melhorado para som mais realista de violão
             gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.01);
-            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime + 0.1);
-            gainNode.gain.exponentialRampToValueAtTime(0.15, audioContext.currentTime + 0.3);
-            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.5);
+            gainNode.gain.linearRampToValueAtTime(0.25, audioContext.currentTime + 0.005);
+            gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.03);
+            gainNode.gain.exponentialRampToValueAtTime(0.1, audioContext.currentTime + 0.6);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.8);
             
             // Filtro passa-baixa para simular ressonância do violão
             const filter = audioContext.createBiquadFilter();
             filter.type = 'lowpass';
-            filter.frequency.value = 2500;
-            filter.Q.value = 1;
+            filter.frequency.value = 3000 - (index * 200); // Filtro diferente por nota
+            filter.Q.value = 0.8;
             
             // Conectar os nós de áudio
             oscillator.connect(filter);
@@ -1204,8 +1150,8 @@ function playChord(chord) {
             gainNode.connect(compressor);
             
             oscillator.start();
-            oscillator.stop(audioContext.currentTime + 1.5);
-        }, index * 25); // Efeito de arpejo mais pronunciado
+            oscillator.stop(audioContext.currentTime + 1.8);
+        }, index * 30); // Arpejo mais natural
     });
     
     // Adicionar ao histórico
