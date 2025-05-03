@@ -203,38 +203,19 @@
             border-radius: var(--border-radius);
             height: 0;
             padding-bottom: 56.25%;
-            cursor: pointer;
             background: #e2d5c7;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        .song-video .play-icon {
-            position: absolute;
-            font-size: 3rem;
-            color: var(--primary-color);
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-        
-        .song-video:hover .play-icon {
-            transform: scale(1.2);
-            opacity: 1;
-        }
-        
         .song-video img {
-            opacity: 0.7;
-            transition: var(--transition);
             width: 100%;
             height: 100%;
             object-fit: cover;
             position: absolute;
             top: 0;
-        }
-        
-        .song-video:hover img {
-            opacity: 0.9;
+            opacity: 1;
         }
 
         .action-btn {
@@ -376,6 +357,34 @@
             text-decoration: underline;
         }
         
+        /* Estilo para o botão flutuante de voltar */
+        .back-to-home {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+            text-decoration: none;
+        }
+        
+        .back-to-home:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        .back-to-home i {
+            font-size: 24px;
+        }
+        
         @media (max-width: 768px) {
             .song-grid {
                 grid-template-columns: 1fr;
@@ -386,6 +395,13 @@
                 left: 10px;
                 padding: 8px 12px;
                 font-size: 0.9rem;
+            }
+            
+            .back-to-home {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
             }
             
             .intro-section {
@@ -401,7 +417,6 @@
 </head>
 <body>
     <header>
-        <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> Voltar à Página Inicial</a>
         <h1>10 Músicas Prontas pra Tocar</h1>
         <p>Aprenda a tocar músicas completas de forma simples e prática!</p>
     </header>
@@ -439,7 +454,6 @@
                 </div>
                 <div class="song-video" data-song="evidencias">
                     <img src="https://img.youtube.com/vi/ePjtnSPFWK8/hqdefault.jpg" alt="Miniatura Evidências">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="evidencias">
                     <i class="fas fa-music"></i>
@@ -464,7 +478,6 @@
                 </div>
                 <div class="song-video" data-song="trembala">
                     <img src="https://img.youtube.com/vi/sWhy1VcvvgY/hqdefault.jpg" alt="Miniatura Trem-Bala">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="trembala">
                     <i class="fas fa-music"></i>
@@ -489,7 +502,6 @@
                 </div>
                 <div class="song-video" data-song="perfect">
                     <img src="https://img.youtube.com/vi/2Vv-BfVoq4g/hqdefault.jpg" alt="Miniatura Perfect">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="perfect">
                     <i class="fas fa-music"></i>
@@ -514,7 +526,6 @@
                 </div>
                 <div class="song-video" data-song="aindabem">
                     <img src="https://img.youtube.com/vi/KVHLmDVFTJ0/hqdefault.jpg" alt="Miniatura Ainda Bem">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="aindabem">
                     <i class="fas fa-music"></i>
@@ -539,7 +550,6 @@
                 </div>
                 <div class="song-video" data-song="knockin">
                     <img src="https://img.youtube.com/vi/f8OHybVhQwc/hqdefault.jpg" alt="Miniatura Knockin' on Heaven's Door">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="knockin">
                     <i class="fas fa-music"></i>
@@ -565,7 +575,6 @@
                 </div>
                 <div class="song-video" data-song="velhainfancia">
                     <img src="https://img.youtube.com/vi/eeNj3F5y8V8/hqdefault.jpg" alt="Miniatura Velha Infância">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="velhainfancia">
                     <i class="fas fa-music"></i>
@@ -591,7 +600,6 @@
                 </div>
                 <div class="song-video" data-song="letitbe">
                     <img src="https://img.youtube.com/vi/QDYfEBY9NM4/hqdefault.jpg" alt="Miniatura Let It Be">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="letitbe">
                     <i class="fas fa-music"></i>
@@ -616,7 +624,6 @@
                 </div>
                 <div class="song-video" data-song="aiseeutepego">
                     <img src="https://img.youtube.com/vi/hcm55lU9knw/hqdefault.jpg" alt="Miniatura Ai Se Eu Te Pego">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="aiseeutepego">
                     <i class="fas fa-music"></i>
@@ -641,7 +648,6 @@
                 </div>
                 <div class="song-video" data-song="wonderwall">
                     <img src="https://img.youtube.com/vi/bx1Bh8ZvH84/hqdefault.jpg" alt="Miniatura Wonderwall">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="wonderwall">
                     <i class="fas fa-music"></i>
@@ -666,7 +672,6 @@
                 </div>
                 <div class="song-video" data-song="eduardoemonica">
                     <img src="https://img.youtube.com/vi/kCNNPQoc7b8/hqdefault.jpg" alt="Miniatura Eduardo e Mônica">
-                    <i class="fas fa-play-circle play-icon"></i>
                 </div>
                 <a href="#" class="action-btn" data-song="eduardoemonica">
                     <i class="fas fa-music"></i>
@@ -707,14 +712,10 @@
         </div>
     </div>
 
-    <footer>
-        <p>© 2024 Kit Violão Profissional - Todos os direitos reservados</p>
-        <div class="footer-links">
-            <a href="../index.html" class="footer-link">Página Inicial</a>
-            <a href="#" class="footer-link">Suporte</a>
-            <a href="#" class="footer-link">Todos os Cursos</a>
-        </div>
-    </footer>
+    <!-- Botão flutuante para voltar à página principal -->
+    <a href="/" class="back-to-home">
+        <i class="fas fa-home"></i>
+    </a>
     
     <script>
         // Cifras das músicas
@@ -745,6 +746,50 @@ Que eu preciso para viver
 D                  C
 Eu tenho medo de te dar meu coração
         Em              D            G
+E confessar que não sei viver sem teu amor
+
+[Verso 2]
+G                    D/F#
+Quando eu digo não me toque mais assim
+Em                C
+É porque eu me derreto
+G                    D/F#
+O teu beijo que ainda está aqui
+          C
+É tudo o que eu desejo
+
+[Pré-refrão]
+D                            C
+São só palavras e o que eu sinto mesmo
+          Em
+É que eu não consigo é ficar sem você
+         D
+O teu amor é tudo
+                G - D7
+Que eu preciso para viver
+
+[Refrão]
+D                  C
+Eu tenho medo de te dar meu coração
+        Em              D            G
+E confessar que não sei viver sem teu amor
+
+[Solo] D  C  Em  D  G  D  C  G
+
+[Pré-refrão]
+D                            C
+São só palavras e o que eu sinto mesmo
+          Em
+É que eu não consigo é ficar sem você
+         D
+O teu amor é tudo
+                G - D7
+Que eu preciso para viver
+
+[Refrão - Repetir 2x]
+D                  C
+Eu tenho medo de te dar meu coração
+        Em              D            G
 E confessar que não sei viver sem teu amor`,
             trembala: `[Intro] G D/F# Em C G D Em C
 
@@ -756,7 +801,51 @@ C             G                 D                Em           C
 G                 D/F#                Em
 É sobre cantar e poder escutar mais do que a própria voz
 C             G           D            Em         C
-É sobre dançar na chuva de vida que cai sobre nós`,
+É sobre dançar na chuva de vida que cai sobre nós
+
+[Refrão]
+G                 D/F#                 Em
+É saber se sentir infinito num universo tão vasto e bonito
+C          G                    D              Em        C
+É saber sonhar, e então fazer valer a pena cada verso daquele poema sobre acreditar
+
+[Verso 2]
+G                   D/F#              Em
+Não é sobre chegar no topo do mundo e saber que venceu
+C              G                D               Em           C
+É sobre escalar e sentir que o caminho te fortaleceu
+G                 D/F#                     Em
+É sobre ser abrigo e também ter morada em outros corações
+C           G          D              Em           C
+E assim ter amigos contigo em todas as situações
+
+[Refrão]
+G                  D/F#                    Em
+A gente não pode ter tudo, qual seria graça do mundo se fosse assim?
+C             G                 D                Em           C
+Por isso eu prefiro sorrisos e os presentes que a vida trouxe pra perto de mim
+
+[Ponte]
+Am                 C
+Não é sobre tudo que o seu dinheiro é capaz de comprar
+G                      D
+E sim sobre cada momento sorriso a se compartilhar
+Am                 C
+Também não é sobre correr contra o tempo pra ter sempre mais
+G                      D
+Porque quando menos se espera a vida já ficou pra trás
+
+[Verso 3]
+G                 D/F#            Em
+Segura teu filho no colo, sorria e abrace teus pais enquanto estão aqui
+C              G                  D               Em           C
+Que a vida é trem-bala, parceiro, e a gente é só passageiro prestes a partir
+
+[Refrão Final]
+G                 D/F#                 Em
+Laiá, laiá, laiá, laiá, laiá, laiá, laiá, laiá
+C          G                    D              Em        C
+Laiá, laiá, laiá, laiá, laiá, laiá, laiá, laiá`,
             perfect: `[Intro] G Em C D G Em C D
 
 [Verso 1]
@@ -767,10 +856,54 @@ Mas é a única coisa que eu sei, quando fica difícil
            G                 Em
 Você sabe que pode ficar ruim às vezes
           C                  D               Em
-É a única coisa que nos faz sentir vivos`,
+É a única coisa que nos faz sentir vivos
+
+[Refrão]
+        G                                    Em
+Nós encontramos o amor bem aqui em circunstâncias duvidosas
+     C                         D
+Nós somos apenas crianças, mas estamos tão apaixonados
+        G                      Em
+Lutando contra todas essas probabilidades
+      C                         D             Em
+Eu sei que ficaremos bem dessa vez, querida, só me abrace
+
+[Verso 2]
+         G                            Em
+Bem, eu encontrei uma mulher, mais forte que qualquer um que eu conheço
+       C                           D                 Em
+Ela compartilha meus sonhos, espero que algum dia eu compartilhe seu lar
+         G                      Em
+Encontrei um amor, para além do que poderia portar
+        C                     D                Em
+Ela é linda e doce, nunca estive tão seguro assim
+
+[Refrão 2]
+       G                                 Em
+Nós ainda somos crianças, mas estamos tão apaixonados
+         C                     D
+Lutando contra todas essas probabilidades
+           G                       Em
+Eu sei que ficaremos bem dessa vez, querida
+         C              D                   Em
+Apenas segure minha mão, seja minha garota, eu verei o seu futuro em seus olhos
+
+[Ponte]
+G Em C D
+Hmm... Baby
+
+[Verso 3]
+         G                           Em
+Eu tenho fé no que vejo, agora eu sei que encontrei um anjo
+    C                      D
+De pessoa, e ela é perfeita
+ G               Em
+Não mereço isso
+            C                      D               G
+Você é perfeita esta noite`,
             knockin: `[Intro] G  D  Am  G  D  C
 
-[Verso]
+[Verso 1]
 G              D              Am
 Mama, take this badge off of me
 G          D             C
@@ -788,10 +921,42 @@ Knock, knock, knocking on heaven's door
 G            D                  Am
 Knock, knock, knocking on heaven's door
 G            D                  C
+Knock, knock, knocking on heaven's door
+
+[Verso 2]
+G               D                Am
+Mama, put my guns in the ground
+G           D                 C
+I can't shoot them anymore
+G           D                      Am
+That cold black cloud is coming down
+G         D                 C
+I feel I'm knocking on heaven's door
+
+[Refrão]
+G            D                  Am
+Knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door
+G            D                  Am
+Knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door
+
+[Solo] G  D  Am  C  (repita várias vezes)
+
+[Refrão Final]
+G            D                  Am
+Knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door
+G            D                  Am
+Feel I'm knock, knock, knocking on heaven's door
+G            D                  C
 Knock, knock, knocking on heaven's door`,
             letitbe: `[Intro] C G Am F C G F C
 
-[Verso]
+[Verso 1]
 C              G                 Am          F
 When I find myself in times of trouble, Mother Mary comes to me
 C                 G              F  C
@@ -805,10 +970,52 @@ Speaking words of wisdom, let it be
 Am         G          F          C
 Let it be, let it be, let it be, let it be
 C                 G              F  C
+Whisper words of wisdom, let it be
+
+[Verso 2]
+C               G                  Am         F
+And when the broken hearted people living in the world agree
+C                 G              F  C
+There will be an answer, let it be
+C                G                 Am             F
+For though they may be parted, there is still a chance that they will see
+C                 G              F  C
+There will be an answer, let it be
+
+[Refrão]
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
+There will be an answer, let it be
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
+Whisper words of wisdom, let it be
+
+[Solo] C G Am F C G F C (com melodia)
+
+[Verso 3]
+C              G                  Am         F
+And when the night is cloudy there is still a light that shines on me
+C             G                F  C
+Shine until tomorrow, let it be
+C              G                    Am        F
+I wake up to the sound of music, Mother Mary comes to me
+C                 G              F  C
+Speaking words of wisdom, let it be
+
+[Refrão Final]
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
+There will be an answer, let it be
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
 Whisper words of wisdom, let it be`,
             aiseeutepego: `[Intro] Am F C G (2x)
 
-[Verso]
+[Verso 1]
 Am               F
 Nossa, nossa! Assim você me mata
 C                    G
@@ -826,10 +1033,48 @@ A galera começou a dançar
 Am             F
 E passou a menina mais linda
 C                          G
+Tomei coragem e comecei a falar
+
+[Verso 2]
+Am               F
+Nossa, nossa! Assim você me mata
+C                    G
+Ai, se eu te pego, ai, ai, se eu te pego
+Am               F
+Delícia, delícia! Assim você me mata
+C                    G
+Ai, se eu te pego, ai, ai, se eu te pego
+
+[Refrão]
+Am         F
+Sábado na balada
+C                          G
+A galera começou a dançar
+Am             F
+E passou a menina mais linda
+C                          G
+Tomei coragem e comecei a falar
+
+[Ponte]
+F                 G
+Olá, tudo bem? Tô a fim de você
+Am                G
+E esse seu jeito de olhar 
+F              G                 Am
+Que dá vontade de amar, sem parar, sem parar
+
+[Refrão Final]
+Am         F
+Sábado na balada
+C                          G
+A galera começou a dançar
+Am             F
+E passou a menina mais linda
+C                          G
 Tomei coragem e comecei a falar`,
             wonderwall: `[Intro] Em G D A  x2
 
-[Verso]
+[Verso 1]
 Em     G       D        A
 Today is gonna be the day 
 Em        G        D      A
@@ -843,7 +1088,7 @@ I don't believe that anybody feels the way
       Em G D A
 I do about you now
 
-[Refrão]
+[Refrão 1]
 C        D           Em
 And all the roads we have to walk are winding
 C        D           Em
@@ -851,7 +1096,60 @@ And all the lights that lead us there are blinding
 C      D            G        D/F# Em
 There are many things that I would like to 
 D/F#    G
-Say to you, but I don't know how`,
+Say to you, but I don't know how
+
+[Verso 2]
+Em          G        D        A
+Because maybe, you're gonna be the one
+Em        G       D       A
+That saves me, and after all
+Em       G        D      A
+You're my wonderwall
+
+Em          G        D        A
+Today was gonna be the day
+Em          G      D         A
+But they'll never throw it back to you
+Em       G         D              A
+By now you should've somehow
+Em            G       D      A
+Realized what you're not to do
+Em              G           D          A
+I don't believe that anybody feels the way 
+      Em G D A
+I do about you now
+
+[Refrão 2]
+C        D           Em
+And all the roads that lead you there were winding
+C        D           Em
+And all the lights that light the way are blinding
+C      D            G        D/F# Em
+There are many things that I would like to 
+D/F#    G
+Say to you, but I don't know how
+
+[Bridge]
+Em          G        D        A
+I said maybe, you're gonna be the one
+Em        G       D       A
+That saves me, and after all
+Em       G        D      A
+You're my wonderwall
+
+[Solo] Em G D A (repetir)
+
+[Verso 3]
+Em          G        D        A
+I said maybe, you're gonna be the one
+Em        G       D       A
+That saves me, and after all
+Em       G        D      A
+You're my wonderwall
+Em          G        D        A
+I said maybe (I said maybe)
+Em        G       D       A    Em
+You're gonna be the one that saves me`,
             eduardoemonica: `[Intro] G  Em  C  D  (2x)
 
 [Verso 1]
@@ -870,7 +1168,67 @@ Ficou deitado e viu que horas eram
 G          D/F#         Em
 Enquanto Mônica tomava um conhaque
 C          G           D
-No outro canto da cidade, como eles disseram`,
+No outro canto da cidade, como eles disseram
+
+[Verso 2]
+G        Em     C         D
+Eduardo e Mônica um dia se encontraram sem querer
+G        Em    C          D
+E conversaram muito mesmo pra tentar se conhecer
+G       Em         C             D
+Um carinha do cursinho do Eduardo que disse
+G        Em         C             D
+"Tem uma festa legal e a gente quer se divertir"
+
+[Refrão]
+G       D/F#         Em
+Festa estranha, com gente esquisita
+C             G              D
+"Eu não estou legal, não aguento mais"
+G           D/F#           Em
+E a Mônica riu e quis saber um pouco mais
+C              G            D
+Sobre o boyzinho que tentava impressionar
+
+[Verso 3]
+G        Em     C         D
+E o Eduardo, meio tonto, só pensava em ir pra casa
+G      Em         C           D
+"É quase duas, eu vou me ferrar"
+G       Em       C           D
+E a Mônica, meio alta, resolveu ficar
+G      Em         C              D
+E se divertia com o efeito do álcool
+
+[Ponte]
+Am           D           G
+O Eduardo e a Mônica eram nada parecidos
+Am         D         G
+Ela era de Leão e ele tinha dezesseis
+Am           D         G
+Ela fazia Medicina e falava alemão
+Am           D              Em
+E ele ainda nas aulinhas de inglês
+
+[Verso 4]
+G        Em    C         D
+Ela gostava do Bandeira e do Bauhaus
+G        Em     C             D
+De Van Gogh e dos Mutantes, de Caetano e de Rimbaud
+G       Em      C           D
+E o Eduardo gostava de novela
+G      Em        C            D
+E jogava futebol de botão com seu avô
+
+[Final]
+G       D/F#         Em
+Eduardo e Mônica fizeram natação, fotografia
+C             G              D
+Teatro, artesanato, e foram viajar
+G           D/F#           Em
+A Mônica explicava pro Eduardo
+C              G            D
+Coisas sobre o céu, a terra, a água e o ar`,
             aindabem: `[Intro] F  Am  Bb  C  (2x)
 
 [Verso 1]
@@ -883,7 +1241,41 @@ Este inverno e os apagões da vida, sem você pra me aquecer, sem você
 F     Am       Bb             C
 Ainda bem, que você existe, ah!
 F     Am       Bb             C
-Ainda bem, que você existe`,
+Ainda bem, que você existe
+
+[Verso 2]
+F                    Am                 Bb                C
+Você é o colo que acolhe, você é a mão que afaga, você é tudo o que me resta
+F                     Am              Bb              C
+Uma insônia de verão, um tomate maduro, desses de antiga horta
+
+[Refrão]
+F     Am       Bb             C
+Ainda bem, que você existe, ah!
+F     Am       Bb             C
+Ainda bem, que você existe
+
+[Ponte]
+Dm                    Am
+Você é mais do que sei dizer 
+Bb                     C
+Você é mais do que posso crer
+
+[Verso 3]
+F                    Am                Bb              C
+Você pode me fazer sorrir quando eu não quero, e me fazer tão bem
+F                  Am                 Bb              C
+Seu olhar descobre em mim, cores que eu não sabia que eu tenho
+F                  Am            Bb                C
+E me faz tão bem, gosto de você, e gosto de ficar com você
+
+[Refrão Final]
+F     Am       Bb             C
+Ainda bem, que você existe, ah!
+F     Am       Bb             C
+Ainda bem, que você existe, eu!
+
+[Finalização] F  Am  Bb  C  (2x)`,
             velhainfancia: `[Intro] G  C  G  D  (2x)
 
 [Verso 1]
@@ -951,15 +1343,6 @@ E a gente não vacila, nem faz cara de desdém`
             if (e.target === modal) {
                 modal.style.display = 'none';
             }
-        });
-        
-        // Clicar no vídeo
-        document.querySelectorAll('.song-video').forEach(video => {
-            video.addEventListener('click', function() {
-                const song = this.getAttribute('data-song');
-                // Aqui você poderia abrir um vídeo tutorial
-                alert('Vídeo tutorial em breve disponível!');
-            });
         });
     </script>
 </body>

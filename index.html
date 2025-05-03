@@ -797,9 +797,66 @@
             margin-top: 0.5rem;
         }
 
+        /* Estilos para a tela de seleção de produtos dentro do kit */
+        .product-selection {
+            display: none; /* Escondido por padrão */
+        }
+        
+        .product-selection-title {
+            margin-bottom: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .product-selection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-selection-item {
+            background-color: #f9f5f0;
+            border: 1px solid #e0d5c5;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .product-selection-item:hover {
+            background-color: #efe6da;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(139, 69, 19, 0.1);
+        }
+        
+        .product-selection-item i {
+            display: block;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+        }
+        
+        .product-selection-item h4 {
+            margin: 0 0 0.5rem;
+            font-size: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .product-selection-item p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
         @media (max-width: 768px) {
             .modal-content {
                 width: 95%;
+            }
+            
+            .product-selection-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -862,7 +919,7 @@
             </div>
             <div class="wave-divider">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-                    <path fill="#ffffff" fill-opacity="1" d="M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,56C1248,48,1344,32,1392,24L1440,16L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z"></path>
+                    <path fill="#ffffff" fill-opacity="1" d="M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,56C1248,48,1344,32,1392,24L1440,16L1440,100L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z"></path>
                 </svg>
             </div>
         </section>
@@ -1065,7 +1122,7 @@
                     <div class="product-card animate-on-scroll">
                         <div class="product-badge product-badge-new">Premium</div>
                         <div class="product-content">
-                            <h3>Plano PRO de Treinamento Personalizado com IA</h3>
+                            <h3>Treino Personalizado IA 🎯</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1076,11 +1133,11 @@
                             </div>
                             <p>Treinamento adaptativo guiado por inteligência artificial que ajusta exercícios e repertório conforme sua evolução e objetivos.</p>
                             <div class="product-price">
-                                <span class="price-current">R$ 29,90</span> <!-- Adjusted from R$ 39,90 -->
-                                <span class="price-original">R$ 59,90</span> <!-- Adjusted from R$ 69,90 -->
+                                <span class="price-current">R$ 17,90</span>
+                                <span class="price-original">R$ 37,90</span>
                             </div>
                             <div class="product-footer">
-                                <a href="PLANO PRO DE TREINAMENTO PERSONALIZA COM IA/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="https://violaosemstress.pay.yampi.com.br/r/NWEVSZL855" class="btn btn-primary">Saiba mais</a>
                                 <a href="#" class="btn btn-secondary" id="accessCodeBtn">Já tenho acesso</a>
                             </div>
                         </div>
@@ -1090,7 +1147,7 @@
                     <div class="product-card animate-on-scroll">
                         <div class="product-badge product-badge-new">Premium</div>
                         <div class="product-content">
-                            <h3>Ajudante de Violão Inteligente com IA</h3>
+                            <h3>Assistente Virtual de Violão 🤖</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1099,13 +1156,13 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>(38 avaliações)</span>
                             </div>
-                            <p>Assistente virtual que responde dúvidas em tempo real, corrige sua postura e técnica através da câmera, e sugere exercícios específicos para melhorar pontos fracos.</p>
+                            <p>Assistente virtual que responde dúvidas em tempo real, corrige sua postura e técnicas, e sugere exercícios específicos para melhorar pontos fracos.</p>
                             <div class="product-price">
-                                <span class="price-current">R$ 24,90</span> <!-- Adjusted from R$ 34,90 -->
-                                <span class="price-original">R$ 54,90</span> <!-- Adjusted from R$ 64,90 -->
+                                <span class="price-current">R$ 19,90</span>
+                                <span class="price-original">R$ 34,90</span>
                             </div>
                             <div class="product-footer">
-                                <a href="Ajudante de Violao Inteligente/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="Ajudante de Violão Inteligente com Inteligencia Artificia/index.html" class="btn btn-primary">Saiba mais</a>
                                 <a href="#" class="btn btn-secondary" id="aiAssistantCodeBtn">Já tenho acesso</a>
                             </div>
                         </div>
@@ -1115,7 +1172,7 @@
                     <div class="product-card animate-on-scroll">
                         <div class="product-badge product-badge-new">Premium</div>
                         <div class="product-content">
-                            <h3>Desafio de 30 Dias: Toque 10 Músicas Completas</h3>
+                            <h3>Desafio 30 Dias: 10 Músicas 🎵</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1124,10 +1181,10 @@
                                 <i class="fas fa-star"></i>
                                 <span>(45 avaliações)</span>
                             </div>
-                            <p>Desafio intensivo que te leva a dominar 10 músicas populares em apenas 30 dias, com plano diário estruturado, vídeo aulas exclusivas e acompanhamento de progresso.</p>
+                            <p>Desafio intensivo que te leva a dominar 10 músicas populares em apenas 30 dias, com plano diário estruturado, guia passo a passo exclusivas e acompanhamento de progresso.</p>
                             <div class="product-price">
-                                <span class="price-current">R$ 29,90</span> <!-- Adjusted from R$ 39,90 -->
-                                <span class="price-original">R$ 59,90</span> <!-- Adjusted from R$ 69,90 -->
+                                <span class="price-current">R$ 14,90</span>
+                                <span class="price-original">R$ 34,90</span>
                             </div>
                             <div class="product-footer">
                                 <a href="Desafio de 30 Dias/index.html" class="btn btn-primary">Saiba mais</a>
@@ -1140,7 +1197,7 @@
                     <div class="product-card animate-on-scroll">
                         <div class="product-badge product-badge-new">Premium</div>
                         <div class="product-content">
-                            <h3>Curso Relâmpago: Como Gravar Seu Primeiro Cover 🎤📹</h3>
+                            <h3>Curso Rápido: Grave Seu Cover 🎤</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1151,11 +1208,11 @@
                             </div>
                             <p>Aprenda passo a passo como gravar e editar seu primeiro cover de violão com qualidade profissional, usando equipamentos acessíveis.</p>
                             <div class="product-price">
-                                <span class="price-current">R$ 24,90</span> <!-- Adjusted from R$ 34,90 -->
-                                <span class="price-original">R$ 54,90</span> <!-- Adjusted from R$ 64,90 -->
+                                <span class="price-current">R$ 16,90</span>
+                                <span class="price-original">R$ 31,90</span>
                             </div>
                             <div class="product-footer">
-                                <a href="Curso Relampago Cover/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="Curso Relâmpago como gravar cover/index.html" class="btn btn-primary">Saiba mais</a>
                                 <a href="#" class="btn btn-secondary" id="coverCourseBtn">Já tenho acesso</a>
                             </div>
                         </div>
@@ -1165,7 +1222,7 @@
                     <div class="product-card animate-on-scroll">
                         <div class="product-badge product-badge-new">Premium</div>
                         <div class="product-content">
-                            <h3>KIT DE GUIAS ESSENCIAIS DO VIOLONISTA MODERNO 📚</h3>
+                            <h3>Guias Essenciais do Violonista 📚</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1183,11 +1240,11 @@
                                 <li>Guia "Como Aprender Músicas Novas de Forma Rápida"</li>
                             </ul>
                             <div class="product-price">
-                                <span class="price-current">R$ 29,90</span> <!-- Unchanged -->
-                                <span class="price-original">R$ 59,90</span> <!-- Unchanged -->
+                                <span class="price-current">R$ 9,90</span>
+                                <span class="price-original">R$ 24,90</span>
                             </div>
                             <div class="product-footer">
-                                <a href="Kit Guias Essenciais/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="KIT DE GUIAS ESSENCIAIS DO VIOLONISTA MODERNO/index.html" class="btn btn-primary">Saiba mais</a>
                                 <a href="#" class="btn btn-secondary" id="guiasKitBtn">Já tenho acesso</a>
                             </div>
                         </div>
@@ -1208,132 +1265,82 @@
                 </div>
 
                 <div class="products-grid">
-                    <!-- Ferramenta Essencial - Pack de Ritmos Essenciais Para Violão -->
+                    <!-- PRODUTO CONSOLIDADO 1: Kit Completo para Iniciantes (Ritmos + Acordes) -->
                     <div class="product-card animate-on-scroll">
-                        <!-- No premium badge needed here -->
                         <div class="product-content">
-                            <h3>Pack de Ritmos Essenciais Para Violão 🥁</h3>
+                            <h3>Kit Iniciante: Ritmos e Acordes 🎵</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <span>(15 avaliações)</span>
+                                <i class="fas fa-star"></i>
+                                <span>(31 avaliações)</span>
                             </div>
-                            <p>Uma coleção focada nos ritmos mais importantes para iniciantes e intermediários tocarem centenas de músicas. Inclui Pop, Rock básico, Valsa e Balada.</p>
+                            <p>O pacote definitivo para iniciar no violão: Guia de Acordes Básicos, Troca de Acordes Rápida, Pack de Ritmos Essenciais + exercícios práticos de aplicação com músicas simples.</p>
                             <div class="product-price">
                                 <span class="price-current">R$ 9,90</span>
-                                <span class="price-original">R$ 39,90</span> <!-- Adjusted from R$ 47,00 -->
+                                <span class="price-original">R$ 23,80</span> <!-- Valor combinado -->
                             </div>
                             <div class="product-footer">
-                                <a href="Pack Ritmos Essenciais/index.html" class="btn btn-primary">Saiba mais</a>
-                                <a href="#" class="btn btn-secondary" id="ritmicasEssenciaisBtn">Já tenho acesso</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Ferramenta Essencial - Kit Acordes do Violonista Iniciante -->
-                    <div class="product-card animate-on-scroll">
-                        <div class="product-content">
-                            <h3>Kit Acordes do Violonista Iniciante 🎵</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>(23 avaliações)</span>
-                            </div>
-                            <p>Tudo que você precisa para dominar e memorizar acordes desde o início: Guia de Troca de Acordes Rápida + Guia Prático de Acordes Fáceis + Pack de Ritmos Essenciais.</p>
-                            <div class="product-price">
-                                <span class="price-current">R$ 11,90</span>
-                                <span class="price-original">R$ 41,90</span> <!-- Adjusted from R$ 57,00 -->
-                            </div>
-                            <div class="product-footer">
-                                <a href="Kit Acordes Iniciante/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="Kit Acordes do Violonista Iniciante/index.html" class="btn btn-primary">Saiba mais</a>
                                 <a href="#" class="btn btn-secondary" id="kitAcordesBtn">Já tenho acesso</a>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Ferramenta Essencial - Kit Força & Conforto -->
+                    <!-- PRODUTO CONSOLIDADO 2: Repertório Completo: Músicas Guiadas + Desafio -->
                     <div class="product-card animate-on-scroll">
                         <div class="product-content">
-                            <h3>Kit Força & Conforto para Violonistas Iniciantes 💪</h3>
+                            <h3>Repertório Iniciante: 10 Músicas 🎼</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>(19 avaliações)</span>
-                            </div>
-                            <p>Supere as limitações físicas dos primeiros meses: Treino completo de Força para Dedos + Kit de Alongamentos e Exercícios para Prevenção de Lesões.</p>
-                            <div class="product-price">
-                                <span class="price-current">R$ 8,90</span>
-                                <span class="price-original">R$ 37,00</span> <!-- Unchanged -->
-                            </div>
-                            <div class="product-footer">
-                                <a href="Kit Forca Conforto/index.html" class="btn btn-primary">Saiba mais</a>
-                                <a href="#" class="btn btn-secondary" id="kitForcaBtn">Já tenho acesso</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Ferramenta Essencial - 10 Músicas Prontas pra Tocar -->
-                    <div class="product-card animate-on-scroll">
-                        <div class="product-content">
-                            <h3>10 Músicas Prontas pra Tocar 🎼</h3>
-                            <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                                <span>(12 avaliações)</span>
+                                <span>(37 avaliações)</span>
                             </div>
-                            <p>Aumente seu repertório imediatamente com 10 músicas completas adaptadas para iniciantes. Inclui cifras simplificadas, áudio guia e vídeo tutorial para cada música.</p>
+                            <p>Comece tocando 10 músicas adaptadas para iniciantes e evolua até tocar versões completas com nosso desafio guiado de 30 dias. Inclui cifras, áudio guia, vídeos detalhados e plano progressivo.</p>
                             <div class="product-price">
-                                <span class="price-current">R$ 7,90</span>
-                                <span class="price-original">R$ 27,00</span> <!-- Unchanged -->
+                                <span class="price-current">R$ 8,90</span>
+                                <span class="price-original">R$ 23,90</span> <!-- Valor combinado -->
                             </div>
                             <div class="product-footer">
-                                <a href="10 Musicas Prontas/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="10 Músicas Prontas pra Tocar/index.html" class="btn btn-primary">Saiba mais</a>
                                 <a href="#" class="btn btn-secondary" id="musicasProntasBtn">Já tenho acesso</a>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Ferramenta Essencial - Desafio "Livre das Pestanas" -->
+                    <!-- PRODUTO CONSOLIDADO 3: Kit Superação de Barreiras Físicas -->
                     <div class="product-card animate-on-scroll">
                         <div class="product-content">
-                            <h3>Desafio "Livre das Pestanas" 🚫🤚</h3>
+                            <h3>Kit Conforto e Técnica 💪</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
-                                <span>(27 avaliações)</span>
+                                <span>(38 avaliações)</span>
                             </div>
-                            <p>Supere a dificuldade com pestanas e toque sem dor! Um curso rápido com exercícios específicos, técnicas exclusivas e alternativas para tocar sem usar pestanas.</p>
+                            <p>Pacote completo para superar desafios físicos do violão: treino de força para dedos, técnicas para tocar sem dor na pestana, alongamentos para prevenção de lesões e exercícios progressivos para melhorar a técnica.</p>
                             <div class="product-price">
-                                <span class="price-current">R$ 9,90</span>
-                                <span class="price-original">R$ 37,00</span> <!-- Unchanged -->
+                                <span class="price-current">R$ 7,90</span>
+                                <span class="price-original">R$ 25,90</span> <!-- Valor combinado -->
                             </div>
                             <div class="product-footer">
-                                <a href="Desafio Livre Pestanas/index.html" class="btn btn-primary">Saiba mais</a>
-                                <a href="#" class="btn btn-secondary" id="livePestanasBtn">Já tenho acesso</a>
+                                <a href="Kit forças e conforto/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="#" class="btn btn-secondary" id="kitForcaBtn">Já tenho acesso</a>
                             </div>
                         </div>
                     </div>
-
                     
-                    <!-- NOVO KIT CONSOLIDADO: Kit Bônus Exclusivos -->
+                    <!-- PRODUTO CONSOLIDADO 4: Kit Bônus Exclusivos -->
                     <div class="product-card animate-on-scroll">
                         <div class="product-content">
-                            <h3>Kit Bônus Exclusivos 💎</h3>
+                            <h3>Materiais Complementares 💎</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1343,18 +1350,20 @@
                                 <span>(Novo!)</span>
                             </div>
                             <p>Coleção completa de materiais extras para aprofundar seus estudos: teoria avançada (Campo Harmônico), repertório (50 Músicas, Batidas), técnica (Dedilhado, Pestana), organização (Planner, Ficha) e referência (Dicionário, Diagrama, Manual).</p>
+                            
+                            <!-- Os links para os Bonus Esquecidos foram removidos da exibição principal -->
+                            <!-- Eles só serão mostrados quando o usuário inserir o código de acesso correto -->
+                            
                             <div class="product-price">
-                                <span class="price-current">R$ 14,90</span>
-                                <span class="price-original">R$ 44,90</span> <!-- Adjusted from R$ 147,00 -->
+                                <span class="price-current">R$ 9,90</span>
+                                <span class="price-original">R$ 21,90</span>
                             </div>
                             <div class="product-footer">
-                                <a href="Kit Bonus Exclusivos/index.html" class="btn btn-primary">Saiba mais</a>
+                                <a href="Bonus Esquecidos/index.html" class="btn btn-primary">Saiba mais</a>
                                 <a href="#" class="btn btn-secondary" id="bonusKitBtn">Já tenho acesso</a>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </section>
@@ -1424,9 +1433,26 @@
             <div class="modal-body">
                 <p>Por favor, insira abaixo o código único que você recebeu ao adquirir o Plano PRO:</p>
                 <div class="form-group">
-                    <input type="text" id="accessCodeInput" placeholder="Exemplo: PRO-12345-ABCDE" class="access-code-input">
+                    <input type="text" id="accessCodeInput" placeholder="Exemplo: PROMASTER2025" class="access-code-input">
                 </div>
                 <div id="accessError" class="error-message" style="display: none; color: red; margin-top: 10px;"></div>
+                <!-- Tela de seleção de produtos -->
+                <div class="product-selection" id="productSelection">
+                    <h3 class="product-selection-title">Selecione um produto do kit:</h3>
+                    <div class="product-selection-grid">
+                        <div class="product-selection-item" data-product="product1">
+                            <i class="fas fa-guitar"></i>
+                            <h4>Produto 1</h4>
+                            <p>Descrição do Produto 1</p>
+                        </div>
+                        <div class="product-selection-item" data-product="product2">
+                            <i class="fas fa-music"></i>
+                            <h4>Produto 2</h4>
+                            <p>Descrição do Produto 2</p>
+                        </div>
+                        <!-- Adicione mais produtos conforme necessário -->
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" id="submitAccessCode">Acessar</button>
@@ -1492,38 +1518,194 @@
             });
         });
         
+        // Configuração para os produtos do Kit Bônus Esquecidos
+        const kitBonusEsquecidosProducts = [
+            {
+                id: "campo-harmonico",
+                name: "3 Apostilas do Campo Harmônico",
+                description: "Domine o campo harmônico de forma completa",
+                icon: "fas fa-book",
+                path: "Bonus Esquecidos/3 Apostilas para Dominar o Campo Harmônico/apostila01.html"
+            },
+            {
+                id: "atividades-alunos",
+                name: "Apostila com Atividades",
+                description: "Perfeito para professores de violão",
+                icon: "fas fa-tasks",
+                path: "Bonus Esquecidos/Apostila com Atividades para Seus Alunos/index.html"
+            },
+            {
+                id: "50-musicas",
+                name: "50 Músicas Mais Pedidas",
+                description: "As músicas que não podem faltar no seu repertório",
+                icon: "fas fa-music",
+                path: "Bonus Esquecidos/As 50 Músicas Mais Pedidas em Festas/index.html"
+            },
+            {
+                id: "batidas-todos-generos",
+                name: "Batidas para Todos Gêneros",
+                description: "Aprenda as batidas de todos os estilos musicais",
+                icon: "fas fa-guitar",
+                path: "Bonus Esquecidos/Batidas de Violão para Todos os Gêneros/index.html"
+            },
+            {
+                id: "desafio-7dias",
+                name: "Desafio de 7 Dias",
+                description: "Programa intensivo para avançar rapidamente",
+                icon: "fas fa-calendar-check",
+                path: "Bonus Esquecidos/Desafio de 7 Dias no Violão/index.html"
+            },
+            {
+                id: "diagrama-acordes",
+                name: "Diagrama de Acordes",
+                description: "Organizado por tom para consulta rápida",
+                icon: "fas fa-project-diagram",
+                path: "Bonus Esquecidos/Diagrama de Acordes (Organizado por Tom)/index.html"
+            },
+            {
+                id: "dicionario-acordes",
+                name: "Dicionário de Acordes",
+                description: "Guia completo de todos os acordes possíveis",
+                icon: "fas fa-book-open",
+                path: "Bonus Esquecidos/Dicionário de Acordes (PDF Digital)/index.html"
+            },
+            {
+                id: "exercicios-dedilhado",
+                name: "Exercícios para Dedilhado",
+                description: "Melhore sua técnica de dedilhado",
+                icon: "fas fa-hand-paper",
+                path: "Bonus Esquecidos/Exercícios para Melhorar o Dedilhado/index.html"
+            },
+            {
+                id: "ficha-evolucao",
+                name: "Ficha de Evolução",
+                description: "Acompanhe seu progresso com exercícios avançados",
+                icon: "fas fa-file-alt",
+                path: "Bonus Esquecidos/Ficha de Evolução e Exercícios Avançados/index.html"
+            },
+            {
+                id: "guia-pestana",
+                name: "Guia de Acordes com Pestana",
+                description: "Domine a técnica da pestana sem dificuldades",
+                icon: "fas fa-graduation-cap",
+                path: "Bonus Esquecidos/Guia de Acordes com Pestana/index.html"
+            },
+            {
+                id: "manual-cifras",
+                name: "Manual de Cifras Completo",
+                description: "Tudo sobre como ler e interpretar cifras",
+                icon: "fas fa-clipboard",
+                path: "Bonus Esquecidos/Manual de Cifras Completo/index.html"
+            },
+            {
+                id: "planner-estudos",
+                name: "Planner de Estudos",
+                description: "Organize seu tempo de prática com eficiência",
+                icon: "fas fa-clipboard-list",
+                path: "Bonus Esquecidos/Planner de Estudos para Violão/index.html"
+            }
+        ];
+
         // Funcionalidade para o modal de código de acesso
         document.addEventListener('DOMContentLoaded', function() {
-            const accessCodeBtn = document.getElementById('accessCodeBtn');
-            const aiAssistantCodeBtn = document.getElementById('aiAssistantCodeBtn'); // Added for AI Assistant
-            const desafio30DiasBtn = document.getElementById('desafio30DiasBtn'); // Added for Desafio 30 Dias
-            const coverCourseBtn = document.getElementById('coverCourseBtn'); // Added for Cover Course
-            const ritmicasPackBtn = document.getElementById('ritmicasPackBtn'); // Added for Ritmicas Pack
-            const guiasKitBtn = document.getElementById('guiasKitBtn'); // Added for Guias Kit
-            const ritmosEssenciaisBtn = document.getElementById('ritmosEssenciaisBtn'); // Added for Ritmos Essenciais Pack
-            const kitAcordesBtn = document.getElementById('kitAcordesBtn'); // Added for Kit Acordes
-            const kitForcaBtn = document.getElementById('kitForcaBtn'); // Added for Kit Força
-            const musicasProntasBtn = document.getElementById('musicasProntasBtn'); // Added for Músicas Prontas
-            const livePestanasBtn = document.getElementById('livePestanasBtn'); // Added for Livre Pestanas
-            const bonusKitBtn = document.getElementById('bonusKitBtn'); // Added for Kit Bônus Exclusivos
+            // Selecionar TODOS os botões "Já tenho acesso" relevantes
+            const accessCodeBtn = document.getElementById('accessCodeBtn'); // PDF Principal (já existe)
+            const proPlanCodeBtn = document.getElementById('proPlanCodeBtn'); // Plano PRO (já existe)
+            const aiAssistantCodeBtn = document.getElementById('aiAssistantCodeBtn'); // Ajudante IA (já existe)
+            const desafio30DiasBtn = document.getElementById('desafio30DiasBtn'); // Desafio 30 Dias (já existe)
+            const coverCourseBtn = document.getElementById('coverCourseBtn'); // Curso Cover (já existe)
+            const guiasKitBtn = document.getElementById('guiasKitBtn'); // Kit Guias Essenciais
+            const kitAcordesBtn = document.getElementById('kitAcordesBtn'); // Kit Acordes Iniciante
+            const kitForcaBtn = document.getElementById('kitForcaBtn'); // Kit Força e Conforto
+            const musicasProntasBtn = document.getElementById('musicasProntasBtn'); // 10 Músicas Prontas
+            const livePestanasBtn = document.getElementById('livePestanasBtn'); // Desafio Livre Pestanas
+            const bonusKitBtn = document.getElementById('bonusKitBtn'); // Bônus Exclusivos Kit Profissional
+            const ritmosEssenciaisBtn = document.getElementById('ritmosEssenciaisBtn'); // Pack Ritmos Essenciais
+
             const accessCodeModal = document.getElementById('accessCodeModal');
             const closeAccessModal = document.getElementById('closeAccessModal');
             const submitAccessCode = document.getElementById('submitAccessCode');
             const accessCodeInput = document.getElementById('accessCodeInput');
             const accessError = document.getElementById('accessError');
+            const productSelection = document.getElementById('productSelection');
             let currentProduct = ''; // Variable to store which product modal was opened for
 
-            // Function to open modal and set current product
+            // Função para abrir modal e setar produto atual
             function openAccessModal(productType) {
                 currentProduct = productType;
                 accessCodeModal.style.display = 'flex';
-                accessCodeInput.value = ''; // Clear previous input
-                accessError.style.display = 'none'; // Hide previous error
+                accessCodeInput.value = ''; // Limpar input anterior
+                accessError.style.display = 'none'; // Esconder erro anterior
+                accessCodeInput.focus(); // Focar no input
+                
+                // Atualizar o texto do placeholder com um código personalizado aleatório
+                updatePlaceholderWithRandomCode(productType);
+            }
+            
+            // Função para gerar um código de acesso personalizado para o produto atual
+            function updatePlaceholderWithRandomCode(productType) {
+                const randomSuffix = Math.floor(1000 + Math.random() * 9000); // Números aleatórios de 4 dígitos
+                let codeExample = '';
+                
+                // Definir exemplo de código baseado no tipo de produto
+                switch(productType) {
+                    case 'pro-plan':
+                        codeExample = `treinoia${randomSuffix}`;
+                        break;
+                    case 'ai-assistant':
+                        codeExample = `assistente${randomSuffix}`;
+                        break;
+                    case 'desafio-30dias':
+                        codeExample = `desafio${randomSuffix}`;
+                        break;
+                    case 'cover-course':
+                        codeExample = `cover${randomSuffix}`;
+                        break;
+                    case 'pdf-principal':
+                        codeExample = `pdf${randomSuffix}`;
+                        break;
+                    case 'guias-kit':
+                        codeExample = `guias${randomSuffix}`;
+                        break;
+                    case 'kit-acordes':
+                        codeExample = `acordes${randomSuffix}`;
+                        break;
+                    case 'kit-forca':
+                        codeExample = `forca${randomSuffix}`;
+                        break;
+                    case 'musicas-prontas':
+                        codeExample = `musicas${randomSuffix}`;
+                        break;
+                    case 'livre-pestanas':
+                        codeExample = `pestana${randomSuffix}`;
+                        break;
+                    case 'bonus-kit':
+                        codeExample = `bonus${randomSuffix}`;
+                        break;
+                    case 'ritmos-essenciais':
+                        codeExample = `ritmos${randomSuffix}`;
+                        break;
+                    default:
+                        codeExample = `acesso${randomSuffix}`;
+                }
+                
+                // Atualizar texto no modal para mostrar o código
+                const modalText = document.querySelector('.modal-body > p');
+                modalText.innerHTML = `Por favor, insira abaixo o código único <strong>${codeExample}</strong> que você recebeu ao adquirir o produto:`;
+                
+                // Atualizar placeholder do input
+                accessCodeInput.placeholder = `Exemplo: ${codeExample}`;
             }
 
-            // Event listeners for each "Já tenho acesso" button
+            // Adicionar ouvintes de evento para CADA botão
             if (accessCodeBtn) {
                 accessCodeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAccessModal('pro-plan'); // Corrigido para 'pro-plan' em vez de 'pdf-principal'
+                });
+            }
+            if (proPlanCodeBtn) {
+                proPlanCodeBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     openAccessModal('pro-plan');
                 });
@@ -1546,37 +1728,25 @@
                     openAccessModal('cover-course');
                 });
             }
-             if (ritmicasPackBtn) {
-                ritmicasPackBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('ritmicas-pack');
-                });
-            }
-            if (guiasKitBtn) { // Added listener for Guias Kit
+            if (guiasKitBtn) {
                 guiasKitBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     openAccessModal('guias-kit');
                 });
             }
-            if (ritmosEssenciaisBtn) { // Added listener for Ritmos Essenciais Pack
-                ritmosEssenciaisBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('ritmos-essenciais');
-                });
-            }
-            if (kitAcordesBtn) { // Added listener for Kit Acordes
+             if (kitAcordesBtn) {
                 kitAcordesBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     openAccessModal('kit-acordes');
                 });
             }
-            if (kitForcaBtn) { // Added listener for Kit Força
+            if (kitForcaBtn) {
                 kitForcaBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     openAccessModal('kit-forca');
                 });
             }
-            if (musicasProntasBtn) { // Added listener for Músicas Prontas
+            if (musicasProntasBtn) {
                 musicasProntasBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     openAccessModal('musicas-prontas');
@@ -1588,160 +1758,134 @@
                     openAccessModal('livre-pestanas');
                 });
             }
-            if (bonusKitBtn) { // Added listener for Kit Bônus Exclusivos
+            if (bonusKitBtn) {
                 bonusKitBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     openAccessModal('bonus-kit');
                 });
             }
-            
-            // Fechar o modal quando clicar no botão de fechar
+            if (ritmosEssenciaisBtn) { // Listener para Ritmos Essenciais
+                ritmosEssenciaisBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAccessModal('ritmos-essenciais');
+                });
+            }
+
+            // Fechar o modal
             closeAccessModal.addEventListener('click', function() {
                 accessCodeModal.style.display = 'none';
             });
-            
-            // Fechar o modal quando clicar fora do conteúdo
             window.addEventListener('click', function(e) {
                 if (e.target === accessCodeModal) {
                     accessCodeModal.style.display = 'none';
                 }
             });
-            
+
             // Validar e processar o código de acesso
             submitAccessCode.addEventListener('click', function() {
-                const code = accessCodeInput.value.trim().toUpperCase(); // Standardize input
-                
-                // Verifica se o campo está vazio
+                const code = accessCodeInput.value.trim().toLowerCase();
+
                 if (code === '') {
                     accessError.textContent = 'Por favor, digite seu código de acesso.';
                     accessError.style.display = 'block';
                     return;
                 }
-                
-                // Limpar erro anterior
                 accessError.style.display = 'none';
+                
+                // Códigos de acesso simplificados - um código único e simples para cada produto
+                const validCodes = {
+                    "treinoia714": { product: 'pro-plan', path: 'PLANO PRO DE TREINAMENTO PERSONALIZA COM IA/index.html' },
+                    "assistente512": { product: 'ai-assistant', path: 'Ajudante de Violão Inteligente com Inteligencia Artificia/index.html' },
+                    "desafio412": { product: 'desafio-30dias', path: 'Desafio de 30 Dias/index.html' },
+                    "cover361": { product: 'cover-course', path: 'Curso Relâmpago como gravar cover/index.html' },
+                    "guias925": { product: 'guias-kit', path: 'KIT DE GUIAS ESSENCIAIS DO VIOLONISTA MODERNO/index.html' },
+                    "acordes210": { product: 'kit-acordes', path: 'Kit Acordes do Violonista Iniciante/index.html' },
+                    "forca214": { product: 'kit-forca', path: 'Kit forças e conforto/index.html' },
+                    "musicas815": { product: 'musicas-prontas', path: '10 Músicas Prontas pra Tocar/index.html' },
+                    "pestana670": { product: 'livre-pestanas', path: 'Desafio Livre das Pestanas/index.html' },
+                    "bonus378": { product: 'bonus-kit', path: 'Bonus Esquecidos/index.html', isKit: true },
+                    "ritmos526": { product: 'ritmos-essenciais', path: 'Pack de Ritmos Essenciais Para Violão/index.html' }
+                };
+                
+                // Verificar se o código digitado existe
+                if (validCodes[code]) {
+                    const codeInfo = validCodes[code];
+                    
+                    // Verificar se corresponde ao produto atual
+                    if (codeInfo.product === currentProduct) {
+                        
+                        // Se for um kit com múltiplos subprodutos, mostrar tela de seleção
+                        if (codeInfo.isKit) {
+                            // Esconder elementos existentes no modal
+                            document.querySelector('.modal-body > p').style.display = 'none';
+                            document.querySelector('.form-group').style.display = 'none';
+                            submitAccessCode.style.display = 'none';
+                            
+                            // Atualizar título do modal
+                            document.querySelector('.modal-header h3').textContent = 'Selecione o material que deseja acessar';
+                            
+                            // Configurar a grade de produtos do kit
+                            const selectionGrid = document.querySelector('.product-selection-grid');
+                            selectionGrid.innerHTML = '';
+                            
+                            // Preencher o grid com os produtos do kit
+                            if (codeInfo.product === 'bonus-kit') {
+                                kitBonusEsquecidosProducts.forEach(product => {
+                                    const productItem = document.createElement('div');
+                                    productItem.className = 'product-selection-item';
+                                    productItem.dataset.path = product.path;
+                                    
+                                    productItem.innerHTML = `
+                                        <i class="${product.icon}"></i>
+                                        <h4>${product.name}</h4>
+                                        <p>${product.description}</p>
+                                    `;
+                                    
+                                    // Adicionar evento de clique para cada item
+                                    productItem.addEventListener('click', function() {
+                                        window.location.href = this.dataset.path;
+                                    });
+                                    
+                                    selectionGrid.appendChild(productItem);
+                                });
+                            }
+                            
+                            // Mostrar a tela de seleção
+                            productSelection.style.display = 'block';
+                            
+                            // Adicionar botão para ir para a página principal do kit
+                            const footerDiv = document.createElement('div');
+                            footerDiv.className = 'product-selection-footer';
+                            footerDiv.innerHTML = `
+                                <button class="btn btn-secondary" id="viewAllKitBtn">Ver página principal do Kit</button>
+                            `;
+                            
+                            document.querySelector('.modal-footer').appendChild(footerDiv);
+                            
+                            document.getElementById('viewAllKitBtn').addEventListener('click', function() {
+                                window.location.href = codeInfo.path;
+                            });
+                        } else {
+                            // Código válido para produto individual, redirecionar diretamente
+                            window.location.href = codeInfo.path;
+                        }
+                    } else {
+                        // Código existe mas não corresponde ao produto atual
+                        accessError.textContent = 'Este código é válido para outro produto. Verifique se está acessando o produto correto.';
+                        accessError.style.display = 'block';
+                    }
+                } else {
+                    // Código inválido
+                    accessError.textContent = 'Código de acesso inválido. Verifique e tente novamente.';
+                    accessError.style.display = 'block';
+                }
+            });
 
-                // Validação baseada no produto selecionado
-                if (currentProduct === 'pro-plan') {
-                    // Validação para o Plano PRO
-                    if (code.startsWith('PRO-') || code === 'DEMO123' || code === 'PROCODIGO231') {
-                        localStorage.setItem('accessCode', code);
-                        localStorage.setItem('accessCodeValid', 'true');
-                        window.location.href = 'PLANO PRO DE TREINAMENTO PERSONALIZA COM IA/index.html';
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Plano PRO.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'ai-assistant') {
-                    // Validação para o Ajudante de Violão Inteligente
-                    if (code.startsWith('AI-') || code === 'IAVIOLA123' || code === 'IAVIOLA324') {
-                        localStorage.setItem('aiAssistantCode', code);
-                        localStorage.setItem('aiAssistantValid', 'true');
-                        window.location.href = 'Ajudante de Violao Inteligente/index.html';
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Ajudante de Violão Inteligente.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'desafio-30dias') {
-                    // Validação para o Desafio de 30 Dias
-                    if (code.startsWith('D30-') || code === 'DESAFIO10' || code === 'MUSICA30D') {
-                        localStorage.setItem('desafio30DiasCode', code);
-                        localStorage.setItem('desafio30DiasValid', 'true');
-                        window.location.href = 'Desafio de 30 Dias/index.html';
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Desafio de 30 Dias.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'cover-course') {
-                    // Validação para o Curso Relâmpago Cover
-                    if (code.startsWith('COVER-') || code === 'GRAVARCOVER' || code === 'COVERPRO123') {
-                        localStorage.setItem('coverCourseCode', code);
-                        localStorage.setItem('coverCourseValid', 'true');
-                        window.location.href = 'Curso Relampago Cover/index.html';
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Curso Relâmpago Cover.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'ritmicas-pack') {
-                    // Validação para o Pack de Rítmicas Prontas
-                    if (code.startsWith('RIT-') || code === 'RITMOS100' || code === 'PACKRITMO') {
-                        localStorage.setItem('ritmicasPackCode', code);
-                        localStorage.setItem('ritmicasPackValid', 'true');
-                        window.location.href = 'Pack de Ritmicas Prontas/index.html'; // Adjust path if needed
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Pack de Rítmicas.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'guias-kit') { // Added validation for Guias Kit
-                    // Validação para o KIT DE GUIAS ESSENCIAIS
-                    if (code.startsWith('GUIAS-') || code === 'KITGUIAS' || code === 'ESSENCIAL24') {
-                        localStorage.setItem('guiasKitCode', code);
-                        localStorage.setItem('guiasKitValid', 'true');
-                        window.location.href = 'Kit Guias Essenciais/index.html'; // Adjust path if needed
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Kit de Guias Essenciais.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'ritmos-essenciais') { // Added validation for Ritmos Essenciais Pack
-                    // Validação para o Pack de Ritmos Essenciais
-                    if (code.startsWith('RITESS-') || code === 'RITMOFACIL' || code === 'ESSENCIAL24RIT') {
-                        localStorage.setItem('ritmosEssenciaisCode', code);
-                        localStorage.setItem('ritmosEssenciaisValid', 'true');
-                        window.location.href = 'Pack Ritmos Essenciais/index.html'; // Adjust path if needed
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Pack de Ritmos Essenciais.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'kit-acordes') {
-                    // Validação para o Kit Acordes
-                    if (code.startsWith('KITAC-') || code === 'ACORDES123' || code === 'KITACORDE456') {
-                        localStorage.setItem('kitAcordesCode', code);
-                        localStorage.setItem('kitAcordesValid', 'true');
-                        window.location.href = 'Kit Acordes Iniciante/index.html'; // Adjust path if needed
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Kit Acordes.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'kit-forca') {
-                    // Validação para o Kit Força & Conforto
-                    if (code.startsWith('KITFOR-') || code === 'FORCA123' || code === 'KITFORCA456') {
-                        localStorage.setItem('kitForcaCode', code);
-                        localStorage.setItem('kitForcaValid', 'true');
-                        window.location.href = 'Kit Forca Conforto/index.html'; // Adjust path if needed
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Kit Força & Conforto.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'musicas-prontas') {
-                    // Validação para 10 Músicas Prontas pra Tocar
-                    if (code.startsWith('MUSICA-') || code === 'MP123456' || code === 'MUSICASFACIL') {
-                        localStorage.setItem('musicasProntasCode', code);
-                        localStorage.setItem('musicasProntasValid', 'true');
-                        window.location.href = '10 Musicas Prontas/index.html'; // Adjust path if needed
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para 10 Músicas Prontas.';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'livre-pestanas') {
-                    // Validação para o Desafio "Livre das Pestanas"
-                    if (code.startsWith('LIVRE-') || code === 'PESTANA123' || code === 'LIVREPEST') {
-                        localStorage.setItem('livrePestanasCode', code);
-                        localStorage.setItem('livrePestanasValid', 'true');
-                        window.location.href = 'Desafio Livre Pestanas/index.html'; // Adjust path if needed
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Desafio "Livre das Pestanas".';
-                        accessError.style.display = 'block';
-                    }
-                } else if (currentProduct === 'bonus-kit') {
-                    // Validação para o Kit Bônus Exclusivos
-                    if (code.startsWith('BONUS-') || code === 'KITBONUS' || code === 'EXTRA25') {
-                        localStorage.setItem('bonusKitCode', code);
-                        localStorage.setItem('bonusKitValid', 'true');
-                        window.location.href = 'Kit Bonus Exclusivos/index.html'; // Adjust path if needed
-                    } else {
-                        accessError.textContent = 'Código de acesso inválido para o Kit Bônus Exclusivos.';
-                        accessError.style.display = 'block';
-                    }
+            // Permitir submissão com Enter no input
+            accessCodeInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault(); // Impedir submissão padrão do formulário (se houver)
+                    submitAccessCode.click(); // Simular clique no botão de submissão
                 }
             });
         });

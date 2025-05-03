@@ -35,30 +35,55 @@
         }
         
         .back-button {
-            display: inline-flex;
+            display: none; /* Removendo o botão de voltar */
+        }
+        
+        .home-button {
+            display: flex;
             align-items: center;
-            padding: 8px 15px;
-            background-color: rgba(255, 255, 255, 0.2);
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
             color: white;
-            text-decoration: none;
-            border-radius: var(--border-radius);
-            font-weight: 500;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            cursor: pointer;
             transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .home-icon {
+            font-size: 24px;
+        }
+        
+        .home-button .home-inner {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-top: none;
+        }
+        
+        .home-button .home-inner:before {
+            content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 10;
-            font-size: 0.9rem;
-        }
-        
-        .back-button i {
-            margin-right: 8px;
-        }
-        
-        .back-button:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            top: -10px;
+            left: -6px;
+            width: 0;
+            height: 0;
+            border-left: 16px solid transparent;
+            border-right: 16px solid transparent;
+            border-bottom: 12px solid white;
         }
         
         .header {
@@ -1179,7 +1204,6 @@
     </style>
 </head>
 <body>
-    <a href="../../../index.html" class="back-button"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
     <div class="header">
         <div class="header-content">
             <h1>💪 Desafio Anti-Pestana: 7 Dias</h1>
@@ -1210,7 +1234,7 @@
                     <div class="mission-title">Preparação dos dedos e mão</div>
                     <div class="mission-description">Hoje vamos preparar sua mão e fortalecer seus dedos com exercícios básicos que facilitarão a execução de pestanas.</div>
                     
-                    <div class="video-preview">
+                    <div class="video-preview" onclick="openInstructionsModal('Preparação dos dedos e mão: Exercícios iniciais', 'dia1')">
         <div class="instruction-content">
             <div class="instruction-icon">
                 <i class="fas fa-guitar"></i>
@@ -1360,7 +1384,7 @@
                     <div class="mission-title">Acorde F maior: resistência e sonoridade</div>
                     <div class="mission-description">Desenvolva resistência e qualidade sonora no acorde F maior com pestana completa.</div>
                     
-                    <div class="video-preview" onclick="openVideoModal('Dominando o acorde F com pestana', 'dia4')">
+                    <div class="video-preview" onclick="openInstructionsModal('Dominando o acorde F com pestana', 'dia4')">
                         <div class="instruction-content">
                             <div class="instruction-icon">
                                 <i class="fas fa-music"></i>
@@ -1414,7 +1438,7 @@
                     <div class="mission-title">Expandindo: B♭ e Bm</div>
                     <div class="mission-description">Aplique as técnicas aprendidas em novos acordes com pestana: B♭ maior e Si menor.</div>
                     
-                    <div class="video-preview" onclick="openVideoModal('Novos acordes com pestana: B♭ e Bm', 'dia5')">
+                    <div class="video-preview" onclick="openInstructionsModal('Novos acordes com pestana: B♭ e Bm', 'dia5')">
                         <div class="instruction-content">
                             <div class="instruction-icon">
                                 <i class="fas fa-book-open"></i>
@@ -1464,7 +1488,7 @@
                     <div class="mission-title">Transições rápidas entre pestanas</div>
                     <div class="mission-description">Aprenda a trocar acordes com pestana de forma fluida e eficiente.</div>
                     
-                    <div class="video-preview" onclick="openVideoModal('Técnicas para transições rápidas entre acordes com pestana', 'dia6')">
+                    <div class="video-preview" onclick="openInstructionsModal('Técnicas para transições rápidas entre acordes com pestana', 'dia6')">
                         <div class="instruction-content">
                             <div class="instruction-icon">
                                 <i class="fas fa-exchange-alt"></i>
@@ -1514,7 +1538,7 @@
                     <div class="mission-title">Aplicação prática: música completa</div>
                     <div class="mission-description">Coloque em prática tudo o que aprendeu tocando uma música completa que utiliza acordes com pestana.</div>
                     
-                    <div class="video-preview" onclick="openVideoModal('Aplicando pestanas na música: tutorial completo', 'dia7')">
+                    <div class="video-preview" onclick="openInstructionsModal('Aplicando pestanas na música: tutorial completo', 'dia7')">
                         <div class="instruction-content">
                             <div class="instruction-icon">
                                 <i class="fas fa-tasks"></i>
@@ -1573,9 +1597,13 @@
     </div>
 
     <footer>
-        <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+        <p>Dominando Violão - Material exclusivo para desenvolvimento musical</p>
         <p>Siga cada exercício com paciência e consistência. Todos podem dominar as pestanas com a técnica certa!</p>
     </footer>
+
+    <div class="home-button" onclick="window.location.href='../../../index.html'">
+        <i class="fas fa-home home-icon"></i>
+    </div>
 
     <script>
         // Track completed days

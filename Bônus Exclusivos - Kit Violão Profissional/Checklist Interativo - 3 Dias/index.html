@@ -21,7 +21,7 @@
             --border-radius: 8px;
             --shadow: 0 2px 10px rgba(139, 69, 19, 0.15);
             --transition: all 0.3s ease;
-            --background-color: #F5F5DC;
+            --background-color: #FFFFFF;
             --card-background: #FFF8E1;
         }
         
@@ -954,33 +954,6 @@
             color: var(--secondary-color);
         }
         
-        .back-to-home {
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: var(--light-color);
-            text-decoration: none;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 10;
-            font-size: 0.9rem;
-        }
-        
-        .back-to-home i {
-            margin-right: 8px;
-        }
-        
-        .back-to-home:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
         .progress-step {
             position: relative;
             padding-left: 30px;
@@ -1001,10 +974,34 @@
         .progress-step.active::before {
             background-color: var(--accent-color);
         }
+
+        .home-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 100;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            transform: scale(1.1);
+            background-color: var(--primary-dark);
+        }
     </style>
 </head>
 <body>
-    <a href="../../index.html" class="back-to-home"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
+    <a href="../../index.html" class="home-button"><i class="fas fa-home"></i></a>
     <div class="header">
         <div class="header-content">
             <h1>🎯 Toque Sua Primeira Música em 3 Dias</h1>
@@ -1338,24 +1335,7 @@
                 <p>A constância é mais importante que longas sessões de prática. É melhor praticar 15 minutos todos os dias do que 2 horas uma vez por semana. Continue praticando diariamente mesmo após completar este checklist!</p>
             </div>
             
-            <h3>Recursos adicionais para continuar seu aprendizado:</h3>
-            <div class="resource-list">
-                <div class="resource-card">
-                    <div class="resource-title">Mais músicas fáceis para iniciantes</div>
-                    <div class="resource-description">Coletânea com 10 músicas que usam apenas os acordes que você aprendeu.</div>
-                    <a href="#" class="resource-link">Acessar <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="resource-card">
-                    <div class="resource-title">Livro de acordes para impressão</div>
-                    <div class="resource-description">PDF com todos os acordes básicos para você consultar enquanto pratica.</div>
-                    <a href="#" class="resource-link">Baixar PDF <i class="fas fa-download"></i></a>
-                </div>
-                <div class="resource-card">
-                    <div class="resource-title">Roteiro para 30 dias</div>
-                    <div class="resource-description">Continue evoluindo com nosso plano de 30 dias para violonistas iniciantes.</div>
-                    <a href="#" class="resource-link">Acessar plano <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
+
         </div>
     </div>
 

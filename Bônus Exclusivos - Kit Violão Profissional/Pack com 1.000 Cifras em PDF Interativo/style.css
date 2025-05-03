@@ -274,25 +274,30 @@ select:focus {
 }
 
 .cifra-actions button {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: #fff;
-    color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.9);
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    transition: var(--transition);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    margin: 0 5px;
 }
 
 .cifra-actions button:hover {
-    background-color: var(--primary-color);
-    color: #fff;
-    transform: translateY(-3px);
+    transform: scale(1.1);
+    background-color: #fff;
+}
+
+.cifra-actions button i.fas.fa-star {
+    color: #ffc107;
+}
+
+.cifra-actions button i.far.fa-star {
+    color: #666;
 }
 
 .cifra-info {
@@ -385,25 +390,31 @@ select:focus {
 }
 
 .table-actions button {
-    width: 38px;
-    height: 38px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
+    margin: 0 3px;
     background-color: #f5efe6;
-    color: var(--secondary-color);
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.95rem;
-    transition: var(--transition);
+    transition: all 0.3s ease;
 }
 
 .table-actions button:hover {
+    transform: scale(1.1);
     background-color: var(--primary-color);
     color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.table-actions button i.fas.fa-star {
+    color: #ffc107;
+}
+
+.table-actions button i.far.fa-star {
+    color: #666;
 }
 
 /* Favorites */

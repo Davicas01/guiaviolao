@@ -311,20 +311,24 @@
         .chord-fretboard {
             display: inline-block;
             position: relative;
-            width: 210px;
-            height: 260px;
-            background: linear-gradient(135deg, #8D6E63 0%, #A1887F 50%, #795548 100%);
-            border-radius: 5px;
-            padding: 10px 0;
-            margin: 0 auto;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+            width: 200px; /* Slightly smaller default size */
+            height: 240px;
+            /* Refined gradient for a slightly richer wood look */
+            background: linear-gradient(145deg, #A1887F 0%, #8D6E63 40%, #795548 100%);
+            border-radius: 6px; /* Slightly smaller radius */
+            padding: 20px 0 10px 0; /* Adjusted padding */
+            margin: 10px auto; /* Added top/bottom margin */
+            /* Softer inner shadow and subtle outer shadow */
+            box-shadow: inset 0 1px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.1); /* Subtle border */
         }
         
         .chord-string {
             position: relative;
-            height: 38px;
+            height: 38px; /* Keep height for spacing */
             width: 100%;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            /* Lighter string color for better contrast */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25); 
             display: flex;
             align-items: center;
         }
@@ -337,7 +341,8 @@
             position: relative;
             width: 25%;
             height: 100%;
-            border-right: 2px solid rgba(0,0,0,0.2);
+            /* Lighter fret color */
+            border-right: 2px solid rgba(255, 255, 255, 0.1); 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -348,58 +353,90 @@
         }
         
         /* Estilos para melhorar a visualização de acordes */
-.position-indicator {
-    position: absolute;
-    left: -30px;
-    top: -25px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    background-color: #fff;
-    padding: 2px 6px;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-}
+        .position-indicator {
+            position: absolute;
+            left: -35px; /* Adjusted position */
+            top: -5px; /* Adjusted position */
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            background-color: var(--secondary-color); /* Use secondary color */
+            padding: 3px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
 
-.barre-indicator {
-    height: 14px;
-    background-color: rgba(139, 69, 19, 0.8);
-    border-radius: 7px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-}
+        .barre-indicator {
+            height: 18px; /* Slightly thicker */
+            background-color: rgba(255, 255, 255, 0.6); /* Lighter barre */
+            border-radius: 9px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
 
-.barre-dot {
-    background-color: rgba(139, 69, 19, 0.7);
-    color: white;
-}
+        .barre-dot { /* Style for dots under a barre */
+            background: rgba(0, 0, 0, 0.6); /* Darker dot under barre */
+            color: white;
+            font-weight: bold;
+        }
 
-/* Adicione ao seu CSS para diagramas de acordes mais claros */
-.chord-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #F9F9F9, #E0E0E0);
-    color: var(--dark-color);
-    box-shadow: 0 3px 5px rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1rem;
-    border: 1px solid rgba(0,0,0,0.2);
-}
+        /* Adicione ao seu CSS para diagramas de acordes mais claros */
+        .chord-dot {
+            width: 30px; /* Slightly larger */
+            height: 30px;
+            border-radius: 50%;
+            /* Brighter gradient for dots */
+            background: linear-gradient(135deg, #FFFFFF, #E8E8E8); 
+            color: #333; /* Darker text for contrast */
+            /* Refined shadow */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700; /* Bolder finger number */
+            font-size: 1.1rem; /* Larger finger number */
+            border: 1px solid rgba(0,0,0,0.15);
+            cursor: default; /* Default cursor as it's informational */
+            transition: transform 0.1s ease;
+        }
+        
+        .chord-dot:hover { /* Subtle hover effect */
+             transform: scale(1.05);
+        }
 
-.open-string, .muted-string {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
+
+        .open-string, .muted-string {
+            position: absolute;
+            top: -18px; /* Position above the nut */
+            font-size: 1.1rem; /* Slightly smaller */
+            font-weight: 600;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .open-string {
+             color: #eee; /* Light color for open string */
+        }
+        
+        .muted-string {
+             color: #FF8A80; /* Softer red for muted */
+             font-weight: bold;
+        }
 
         /* Melhorias no design do diagrama do braço */
         .chord-string-labels {
             display: flex;
             justify-content: space-around;
-            width: 200px;
-            margin: 5px auto;
+            width: 200px; /* Match fretboard width */
+            margin: 8px auto 0; /* Add margin top */
         }
         
         .string-label {
@@ -407,29 +444,31 @@
             height: 25px;
             text-align: center;
             font-weight: 600;
-            font-size: 0.8rem;
-            color: var(--dark-color);
+            font-size: 0.85rem; /* Slightly larger */
+            color: var(--dark-color); /* Ensure good contrast */
+            opacity: 0.8; /* Slightly less prominent */
         }
         
         .chord-fret-labels {
             position: absolute;
-            left: -25px;
-            top: 0;
-            height: 100%;
+            left: -30px; /* Adjusted position */
+            top: 20px; /* Align with first fret space */
+            height: calc(100% - 30px); /* Match fretboard playable area */
             display: flex;
             flex-direction: column;
             justify-content: space-around;
         }
         
         .fret-label {
-            width: 20px;
-            height: 38px;
+            width: 25px; /* Wider */
+            height: 38px; /* Match string height */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            color: var(--dark-color);
+            font-size: 0.9rem; /* Larger fret number */
+            color: var(--dark-color); /* Darker color for contrast */
             font-weight: 600;
+            opacity: 0.9;
         }
         
         .chord-info {
@@ -727,64 +766,49 @@
     .chord-wheel {
         height: 400px;
     }
-    
+
     .chord-map-container {
         height: 400px;
     }
-    
+
     .chord-node {
         width: 50px;
         height: 50px;
-        font-size: 0.9rem;
-        font-weight: 700;
+        font-size: 0.8rem; /* Smaller font inside nodes */
     }
-    
-    .wheel-center {
-        width: 70px;
-        height: 70px;
-        font-size: 1.4rem;
+
+    h1 {
+        font-size: 1.8rem; /* Reduce header size */
     }
-    
-    /* Melhorar toque em telas pequenas */
-    .chord-node, .suggestion-card, .progression-tag, .tonality-btn {
-        padding: 10px;
-        margin: 4px;
+
+    .container {
+        padding: 1rem; /* Reduce container padding */
     }
-    
-    .chord-dot {
-        touch-action: manipulation;
+
+    .card {
+        padding: 1rem; /* Reduce card padding */
     }
-    
-    /* Aumentar contrastes para melhor leitura */
-    .chord-title {
-        font-size: 1.6rem;
-        font-weight: 800;
-        margin-bottom: 8px;
+
+    .controls, .info-panel {
+        padding: 0.8rem; /* Reduce padding */
+        margin-bottom: 1rem; /* Add margin */
     }
-    
-    .chord-description {
-        font-size: 1rem;
-        margin-bottom: 16px;
+
+    .controls h2, .info-panel h2 {
+        font-size: 1.2rem; /* Reduce section titles */
+        margin-bottom: 0.8rem;
     }
-    
-    /* Ajustes no diagrama de acorde para telas menores */
-    .chord-fretboard {
-        width: 90%;
-        max-width: 240px;
+
+    .btn, .play-progression-btn {
+        padding: 6px 12px; /* Reduce button padding */
+        font-size: 0.9rem; /* Reduce button font size */
+    }
+
+    .chord-info p, .progression-list li {
+        font-size: 0.9rem; /* Reduce text size */
     }
 }
 
-@media (max-width: 400px) {
-    .tonality-selector {
-        justify-content: center;
-    }
-    
-    .tonality-btn {
-        padding: 8px 12px;
-        font-size: 0.85rem;
-        margin: 2px;
-    }
-}
     </style>
 </head>
 <body>

@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1.0">
     <title>Mini-curso "Destravando os Dedos" - Kit Violão Profissional</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -33,23 +33,28 @@
         }
         
         .back-button {
-            display: inline-block;
-            padding: 8px 15px;
-            background-color: rgba(255, 255, 255, 0.2);
+            display: flex; /* Use flexbox for centering */
+            align-items: center; /* Center icon vertically */
+            justify-content: center; /* Center icon horizontally */
+            width: 50px; /* Set fixed width */
+            height: 50px; /* Set fixed height */
+            background-color: var(--primary-color); /* Brown background */
             color: white;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 50%; /* Make it a circle */
             font-weight: 500;
             transition: all 0.3s ease;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 10;
+            position: fixed; /* Fixed position relative to viewport */
+            bottom: 20px; /* Position from bottom */
+            right: 20px; /* Position from right */
+            z-index: 100; /* Ensure it's above other content */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow like image */
         }
         
         .back-button:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: var(--primary-dark); /* Darker brown on hover */
             transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
         }
         
         header {
@@ -145,6 +150,25 @@
         .module-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        
+        .module-card.locked {
+            opacity: 0.6;
+            pointer-events: none; /* Disable clicks on locked modules */
+        }
+
+        .module-card.locked .view-module-btn {
+            background-color: #aaa; /* Grey button for locked modules */
+            cursor: not-allowed;
+        }
+
+        .module-card.completed .module-header {
+             background: linear-gradient(135deg, var(--accent-color) 0%, #a55417 100%); /* Change header for completed */
+        }
+
+        .module-card.completed .view-module-btn {
+            background-color: var(--accent-color); /* Change button color for completed */
+            cursor: default; /* Change cursor for completed button */
         }
         
         .module-header {
@@ -721,7 +745,7 @@
 </head>
 <body>
     <header>
-        <a href="../../../index.html" class="back-button"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
+        <a href="../../../index.html" class="back-button"><i class="fas fa-home"></i></a>
         <div class="container header-content">
             <h1>🎯 Mini-curso "Destravando os Dedos"</h1>
             <p class="subtitle">Desenvolva coordenação e independência dos dedos com exercícios práticos e animações explicativas</p>
@@ -740,7 +764,7 @@
         </div>
 
         <div class="course-content">
-            <div class="module-card">
+            <div class="module-card" id="module-1">
                 <div class="module-header">
                     <div class="module-number">1</div>
                     <h3 class="module-title">Fundamentos da Independência Digital</h3>
@@ -810,17 +834,17 @@
                 <div class="module-footer">
                     <div class="module-progress">
                         <div class="progress-bar">
-                            <div class="progress-fill" style="width: 30%"></div>
+                            <div class="progress-fill" style="width: 0%"></div>
                         </div>
-                        <div>30% Concluído</div>
+                        <div class="progress-text">0% Concluído</div>
                     </div>
-                    <button class="view-module-btn">
-                        Continuar <i class="fas fa-arrow-right"></i>
+                    <button class="view-module-btn" data-module-id="1">
+                        Iniciar <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
             
-            <div class="module-card">
+            <div class="module-card" id="module-2">
                 <div class="module-header">
                     <div class="module-number">2</div>
                     <h3 class="module-title">Exercícios para Força e Resistência</h3>
@@ -890,17 +914,17 @@
                 <div class="module-footer">
                     <div class="module-progress">
                         <div class="progress-bar">
-                            <div class="progress-fill" style="width: 10%"></div>
+                            <div class="progress-fill" style="width: 0%"></div>
                         </div>
-                        <div>10% Concluído</div>
+                         <div class="progress-text">0% Concluído</div>
                     </div>
-                    <button class="view-module-btn">
+                    <button class="view-module-btn" data-module-id="2">
                         Iniciar <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
             
-            <div class="module-card">
+            <div class="module-card" id="module-3">
                 <div class="module-header">
                     <div class="module-number">3</div>
                     <h3 class="module-title">Coordenação e Velocidade</h3>
@@ -972,15 +996,15 @@
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 0%"></div>
                         </div>
-                        <div>0% Concluído</div>
+                         <div class="progress-text">0% Concluído</div>
                     </div>
-                    <button class="view-module-btn">
+                    <button class="view-module-btn" data-module-id="3">
                         Iniciar <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
             
-            <div class="module-card">
+            <div class="module-card" id="module-4">
                 <div class="module-header">
                     <div class="module-number">4</div>
                     <h3 class="module-title">Aplicação Prática</h3>
@@ -1052,9 +1076,9 @@
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 0%"></div>
                         </div>
-                        <div>0% Concluído</div>
+                         <div class="progress-text">0% Concluído</div>
                     </div>
-                    <button class="view-module-btn">
+                    <button class="view-module-btn" data-module-id="4">
                         Iniciar <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -1065,32 +1089,32 @@
             <div class="tracker-header">
                 <h3 class="tracker-title">Seu progresso no mini-curso</h3>
                 <div class="overall-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 10%"></div>
+                    <div class="progress-bar" id="overall-progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
                     </div>
-                    <span class="progress-percentage">10% Concluído</span>
+                    <span class="progress-percentage" id="overall-progress-percentage">0% Concluído</span>
                 </div>
             </div>
             <div class="tracker-modules">
-                <div class="tracker-module">
+                <div class="tracker-module" id="tracker-module-1">
                     <div class="module-info">
                         <div class="module-name">Módulo 1</div>
-                        <div class="module-status status-in-progress">Em andamento</div>
+                        <div class="module-status status-incomplete">Não iniciado</div>
                     </div>
                     <div class="module-bar">
-                        <div class="module-fill" style="width: 30%"></div>
+                        <div class="module-fill" style="width: 0%"></div>
                     </div>
                 </div>
-                <div class="tracker-module">
+                <div class="tracker-module" id="tracker-module-2">
                     <div class="module-info">
                         <div class="module-name">Módulo 2</div>
-                        <div class="module-status status-in-progress">Em andamento</div>
+                        <div class="module-status status-incomplete">Não iniciado</div>
                     </div>
                     <div class="module-bar">
-                        <div class="module-fill" style="width: 10%"></div>
+                        <div class="module-fill" style="width: 0%"></div>
                     </div>
                 </div>
-                <div class="tracker-module">
+                <div class="tracker-module" id="tracker-module-3">
                     <div class="module-info">
                         <div class="module-name">Módulo 3</div>
                         <div class="module-status status-incomplete">Não iniciado</div>
@@ -1099,7 +1123,7 @@
                         <div class="module-fill" style="width: 0%"></div>
                     </div>
                 </div>
-                <div class="tracker-module">
+                <div class="tracker-module" id="tracker-module-4">
                     <div class="module-info">
                         <div class="module-name">Módulo 4</div>
                         <div class="module-status status-incomplete">Não iniciado</div>
@@ -1115,8 +1139,8 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <p>🎸 Kit Violão Profissional - Todos os direitos reservados</p>
-                <p>Pratique regularmente os exercícios para obter melhores resultados. Estes exercícios foram desenvolvidos por professores profissionais para garantir o desenvolvimento correto da sua técnica.</p>
+                <p>&copy; 2025 Domine o Violão - Todos os direitos reservados.</p>
+                <p>Pratique regularmente os exercícios para obter melhores resultados. Este mini-curso é parte do programa Domine o Violão.</p>
             </div>
         </div>
     </footer>
@@ -1634,6 +1658,119 @@
                 closeExerciseModal();
             }
         });
+
+        // --- Progress Tracking Logic ---
+        const totalModules = 4;
+        let courseProgress = {
+            completedModules: [] // Array of completed module IDs (e.g., [1, 2])
+        };
+
+        // Load progress from localStorage
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('destravandoDedosProgress');
+            if (savedProgress) {
+                courseProgress = JSON.parse(savedProgress);
+            }
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            localStorage.setItem('destravandoDedosProgress', JSON.stringify(courseProgress));
+        }
+
+        // Update UI based on progress
+        function updateUI() {
+            let completedCount = courseProgress.completedModules.length;
+            let overallPercentage = Math.round((completedCount / totalModules) * 100);
+
+            // Update overall progress bar
+            const overallBarFill = document.querySelector('#overall-progress-bar .progress-fill');
+            const overallPercentageText = document.getElementById('overall-progress-percentage');
+            if (overallBarFill) overallBarFill.style.width = `${overallPercentage}%`;
+            if (overallPercentageText) overallPercentageText.textContent = `${overallPercentage}% Concluído`;
+
+            // Update each module card and tracker item
+            for (let i = 1; i <= totalModules; i++) {
+                const moduleCard = document.getElementById(`module-${i}`);
+                const trackerModule = document.getElementById(`tracker-module-${i}`);
+                const moduleButton = moduleCard?.querySelector('.view-module-btn');
+                const moduleProgressFill = moduleCard?.querySelector('.module-progress .progress-fill');
+                const moduleProgressText = moduleCard?.querySelector('.module-progress .progress-text');
+                const trackerStatus = trackerModule?.querySelector('.module-status');
+                const trackerFill = trackerModule?.querySelector('.module-fill');
+
+                if (!moduleCard || !trackerModule) continue;
+
+                moduleCard.classList.remove('locked', 'completed'); // Reset classes
+
+                if (courseProgress.completedModules.includes(i)) {
+                    // Module is completed
+                    moduleCard.classList.add('completed');
+                    if (moduleButton) {
+                         moduleButton.innerHTML = 'Revisar <i class="fas fa-check"></i>';
+                         moduleButton.onclick = () => { /* Maybe scroll to module or do nothing */ };
+                    }
+                    if (moduleProgressFill) moduleProgressFill.style.width = '100%';
+                    if (moduleProgressText) moduleProgressText.textContent = '100% Concluído';
+                    if (trackerStatus) {
+                        trackerStatus.textContent = 'Completo';
+                        trackerStatus.className = 'module-status status-complete';
+                    }
+                     if (trackerFill) trackerFill.style.width = '100%';
+
+                } else if (i === 1 || courseProgress.completedModules.includes(i - 1)) {
+                    // Module is active (first module or previous is completed)
+                     if (moduleButton) {
+                         moduleButton.innerHTML = 'Concluir Módulo <i class="fas fa-arrow-right"></i>';
+                         moduleButton.onclick = () => completeModule(i);
+                     }
+                     if (moduleProgressFill) moduleProgressFill.style.width = '0%'; // Or show partial progress if needed
+                     if (moduleProgressText) moduleProgressText.textContent = '0% Concluído';
+                     if (trackerStatus) {
+                         trackerStatus.textContent = 'Em andamento';
+                         trackerStatus.className = 'module-status status-in-progress';
+                     }
+                     if (trackerFill) trackerFill.style.width = '0%'; // Or show partial progress
+
+                } else {
+                    // Module is locked
+                    moduleCard.classList.add('locked');
+                     if (moduleButton) {
+                         moduleButton.innerHTML = 'Bloqueado <i class="fas fa-lock"></i>';
+                         moduleButton.onclick = null; // Remove click handler
+                     }
+                     if (moduleProgressFill) moduleProgressFill.style.width = '0%';
+                     if (moduleProgressText) moduleProgressText.textContent = '0% Concluído';
+                     if (trackerStatus) {
+                         trackerStatus.textContent = 'Não iniciado';
+                         trackerStatus.className = 'module-status status-incomplete';
+                     }
+                     if (trackerFill) trackerFill.style.width = '0%';
+                }
+            }
+        }
+
+        // Function to mark a module as complete
+        function completeModule(moduleId) {
+            if (!courseProgress.completedModules.includes(moduleId)) {
+                courseProgress.completedModules.push(moduleId);
+                courseProgress.completedModules.sort((a, b) => a - b); // Keep the array sorted
+                saveProgress();
+                updateUI();
+                // Optional: Scroll to the next module
+                const nextModule = document.getElementById(`module-${moduleId + 1}`);
+                if (nextModule) {
+                    nextModule.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+        // Initial setup on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            updateUI();
+        });
+
     </script>
 </body>
 </html>

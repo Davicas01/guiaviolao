@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kit Força & Conforto para Violonistas Iniciantes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #8B4513; /* SaddleBrown */
-            --secondary-color: #A0522D; /* Sienna */
-            --accent-color: #D2691E;   /* Chocolate */
-            --bg-light: #FAF0E6;      /* Linen */
-            --text-dark: #3E2723;     /* Dark Brown */
-            --text-light: #795548;    /* Light Brown */
-            --border-color: #DEB887;  /* Burlywood */
-            --border-radius: 8px;
-            --card-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+            --primary-color: #8B4513;    /* Marrom sela */
+            --secondary-color: #A0522D;  /* Marrom siena */
+            --accent-color: #CD853F;     /* Marrom peru */
+            --dark-color: #3E2723;       /* Marrom escuro */
+            --light-color: #F5F5DC;      /* Bege */
+            --background: #FAF0E6;       /* Linho */
+            --shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+            --card-shadow: var(--shadow);
             --transition: all 0.3s ease;
+            --text-dark: var(--dark-color);
+            --text-light: #8B4513;
+            --bg-light: var(--background);
+            --success-color: #A0522D;
+            --warning-color: #CD853F;
+            --error-color: #8B4513;
+            --border-color: #DEB887;
         }
 
         * {
@@ -26,93 +34,194 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-light);
+            background-color: var(--background);
             color: var(--text-dark);
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 20px;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 2rem 1.5rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 2rem;
+            padding: 3rem 1.5rem;
+            margin: 0;
+            width: 100%;
             position: relative;
             box-shadow: var(--card-shadow);
         }
 
-        .back-button {
+        .guitar-decoration {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            color: white;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 8px 12px;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            bottom: -20px;
+            right: 50px;
+            font-size: 6rem;
+            opacity: 0.1;
+            transform: rotate(-15deg);
         }
 
-        .back-button:hover {
-            background-color: rgba(255, 255, 255, 0.4);
+        main {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 2rem 1rem;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .wave-separator {
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-separator svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 42px;
+        }
+
+        .wave-separator .shape-fill {
+            fill: var(--primary-color);
+        }
+
+        .back-button {
+            display: none; /* Esconder o botão original */
+        }
+
+        .home-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #964B00; /* Cor marrom alaranjado como na imagem */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(150, 75, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #7C3F00; /* Tom mais escuro para o hover */
+            transform: scale(1.05);
         }
 
         header h1 {
-            font-size: 2rem;
-            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
             margin-bottom: 0.5rem;
             text-align: center;
-            padding-top: 20px; /* Space for back button */
-        }
-
-        .rating {
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
         }
 
         .intro-text {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: var(--border-radius);
+            background-color: rgba(250, 240, 230, 0.15);
+            padding: 1.3rem;
+            border-radius: var(--border-radius-lg);
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 500;
+            max-width: 1000px;
+            margin: 1.5rem auto 0;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            line-height: 1.7;
         }
 
         .section {
-            background-color: white;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
+            background-color: var(--light-color);
+            padding: 2.5rem;
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+            width: 100%;
+            border-top: 5px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .sections-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .sections-container {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .section {
+                padding: 1.8rem;
+            }
+            .guitar-decoration {
+                display: none;
+            }
         }
 
         .section h2 {
             color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7rem;
+            margin-bottom: 1.8rem;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.8rem;
             display: flex;
             align-items: center;
+            position: relative;
         }
 
         .section h2 i {
-            margin-right: 0.8rem;
-            color: var(--accent-color);
+            margin-right: 1rem;
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            background-color: var(--bg-light);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .exercise-list {
@@ -154,129 +263,879 @@
         }
 
         .tip-box {
-            background-color: var(--bg-light);
-            border-left: 4px solid var(--accent-color);
+            background-color: var(--background);
+            border-left: 4px solid var(--text-dark);
             padding: 1rem;
             margin-top: 1.5rem;
             border-radius: 0 var(--border-radius) var(--border-radius) 0;
         }
 
         .tip-box h4 {
-            color: var(--secondary-color);
+            color: var(--text-dark);
             margin-bottom: 0.5rem;
             font-size: 1rem;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 3rem;
+        .interactive-box {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
             padding: 1.5rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
         }
 
+        .interactive-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .timer {
+            font-size: 3rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: inset 0 2px 4px rgba(139, 69, 19, 0.1);
+        }
+
+        .timer-active {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: #5D4037; /* Marrom mais escuro para os botões */
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            min-width: 120px;
+        }
+
+        .btn:hover {
+            background-color: #3E2723; /* Marrom ainda mais escuro no hover */
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--background);
+            color: #5D4037; /* Cor do texto ajustada para contrastar */
+            border: 1px solid #5D4037;
+        }
+
+        .btn-secondary:hover {
+            background-color: #EFEBE9; /* Bege mais claro no hover */
+            color: #3E2723;
+        }
+
+        .progress-container {
+            background-color: var(--light-color);
+            border-radius: 50px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(139, 69, 19, 0.1);
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            height: 100%;
+            border-radius: 50px;
+            transition: width 0.5s ease;
+            color: white;
+            text-align: center;
+            font-size: 0.8rem;
+            line-height: 20px;
+            font-weight: 600;
+            min-width: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .practice-tips {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+
+        .practice-tips ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .practice-tips li {
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .practice-tips li::before {
+            content: "🎵";
+            margin-right: 0.5rem;
+        }
+
+        .chord-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .chord-diagram {
+            background: var(--background);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .chord-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .practice-schedule {
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .schedule-day {
+            padding: 0.8rem;
+            border-bottom: 1px dashed var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .schedule-day:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-label {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            background: var(--background);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: var(--light-color);
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: var(--light-color);
+        }
+
+        .faq-answer p {
+            padding: 1rem;
+            margin: 0;
+        }
+
+        .string-box {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .guitar-string {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            gap: 1rem;
+        }
+
+        .string-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            width: 30px;
+        }
+
+        .string-note {
+            color: var(--text-dark);
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <a href="../index.html" class="back-button" title="Voltar ao Menu Principal">
-                <i class="fas fa-home"></i>
-            </a>
             <h1>Kit Força & Conforto para Violonistas Iniciantes 💪</h1>
-            <div class="rating">(19 avaliações) ⭐⭐⭐⭐☆</div>
             <div class="intro-text">
-                Supere as limitações físicas dos primeiros meses: Treino completo de Força para Dedos + Kit de Alongamentos e Exercícios para Prevenção de Lesões.
+                Supere as limitações físicas dos primeiros meses: Treino completo de Força para Dedos + Kit de Alongamentos e Exercícios para Prevenção de Lesões. Material prático e interativo para ajudar você a progredir com mais conforto e eficiência.
             </div>
+            <div class="guitar-decoration"><i class="fas fa-guitar"></i></div>
         </header>
 
         <main>
+            <div class="sections-container">
+                <section class="section">
+                    <h2><i class="fas fa-dumbbell"></i> Treino de Força para Dedos</h2>
+                    <p style="margin-bottom: 1.5rem;">Desenvolva a força necessária para pressionar as cordas com clareza e sustentar acordes sem fadiga.</p>
+                    <ul class="exercise-list">
+                        <li class="exercise-item">
+                            <div class="exercise-icon"><i class="fas fa-hand-paper"></i></div>
+                            <div class="exercise-details">
+                                <h3>Exercício de Pressão Isométrica</h3>
+                                <p>Fortaleça a ponta dos dedos pressionando contra uma superfície dura ou usando um exercitador de mão.</p>
+                            </div>
+                        </li>
+                        <li class="exercise-item">
+                            <div class="exercise-icon"><i class="fas fa-spider"></i></div>
+                            <div class="exercise-details">
+                                <h3>Exercício "Spider Walk" Lento</h3>
+                                <p>Pratique o exercício cromático (1-2-3-4) lentamente, focando na pressão firme e constante de cada dedo.</p>
+                            </div>
+                        </li>
+                        <li class="exercise-item">
+                            <div class="exercise-icon"><i class="fas fa-grip-lines"></i></div>
+                            <div class="exercise-details">
+                                <h3>Sustentação de Acordes Simples</h3>
+                                <p>Segure acordes básicos (como Em, C) por períodos crescentes (15s, 30s, 45s), focando em manter todas as notas soando.</p>
+                            </div>
+                        </li>
+                        <li class="exercise-item">
+                            <div class="exercise-icon"><i class="fas fa-hand-rock"></i></div>
+                            <div class="exercise-details">
+                                <h3>Fortalecimento dos Dedos Fracos (3 e 4)</h3>
+                                <p>Exercícios específicos para isolar e fortalecer os dedos anelar e mínimo.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> Dica Importante</h4>
+                        <p>Consistência é chave! Pratique estes exercícios por 5-10 minutos diariamente antes de tocar.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2><i class="fas fa-gamepad"></i> Exercícios Interativos</h2>
+                    <p style="margin-bottom: 1.5rem;">Pratique com estes exercícios temporizados para desenvolver consistência e controle das mãos.</p>
+                    
+                    <div class="interactive-box">
+                        <h3>Timer para Sustentação de Acordes</h3>
+                        <p>Use este timer para praticar segurar acordes por períodos específicos:</p>
+                        <div class="timer" id="exercise-timer">00:00</div>
+                        <div class="control-buttons">
+                            <button class="btn" id="start-timer">Iniciar (15s)</button>
+                            <button class="btn" id="start-timer-30">Iniciar (30s)</button>
+                            <button class="btn" id="start-timer-45">Iniciar (45s)</button>
+                            <button class="btn btn-secondary" id="reset-timer">Resetar</button>
+                        </div>
+                        <p>Sugestão: Pratique com os acordes E, A, D, C, G um de cada vez.</p>
+                    </div>
+
+                    <div class="interactive-box">
+                        <h3>Monitoramento de Progresso</h3>
+                        <p>Acompanhe seu progresso em cada exercício:</p>
+                        
+                        <div style="margin: 15px 0;">
+                            <label>Exercício de Pressão Isométrica:</label>
+                            <div class="progress-container">
+                                <div class="progress-bar" id="progress1" style="width: 0%">0%</div>
+                            </div>
+                            <button class="btn" onclick="updateProgress('progress1', 10)">+ 10%</button>
+                            <button class="btn btn-secondary" onclick="updateProgress('progress1', -10)">- 10%</button>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <label>Spider Walk:</label>
+                            <div class="progress-container">
+                                <div class="progress-bar" id="progress2" style="width: 0%">0%</div>
+                            </div>
+                            <button class="btn" onclick="updateProgress('progress2', 10)">+ 10%</button>
+                            <button class="btn btn-secondary" onclick="updateProgress('progress2', -10)">- 10%</button>
+                        </div>
+                        
+                        <p>Dica: Registre seu progresso diariamente para manter-se motivado!</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="sections-container">
+                <section class="section">
+                    <h2><i class="fas fa-running"></i> Alongamentos e Prevenção de Lesões</h2>
+                    <p style="margin-bottom: 1.5rem;">Mantenha suas mãos e pulsos saudáveis, evite dores e previna lesões comuns em violonistas.</p>
+                     <ul class="exercise-list">
+                        <li class="exercise-item">
+                            <div class="exercise-icon"><i class="fas fa-hands-helping"></i></div>
+                            <div class="exercise-details">
+                                <h3>Alongamento de Pulso (Flexão e Extensão)</h3>
+                                <p>Alongue suavemente os músculos do antebraço puxando a mão para cima e para baixo.</p>
+                            </div>
+                        </li>
+                        <li class="exercise-item">
+                            <div class="exercise-icon"><i class="fas fa-thumbs-up"></i></div>
+                            <div class="exercise-details">
+                                <h3>Alongamento Individual dos Dedos</h3>
+                                <p>Puxe cada dedo gentilmente para trás, alongando a base e os tendões.</p>
+                            </div>
+                        </li>
+                        <li class="exercise-item">
+                            <div class="exercise-icon"><i class="fas fa-sync-alt"></i></div>
+                            <div class="exercise-details">
+                                <h3>Rotação de Pulsos</h3>
+                                <p>Faça movimentos circulares lentos com os pulsos em ambas as direções para melhorar a mobilidade.</p>
+                            </div>
+                        </li>
+                        <li class="exercise-item">
+                            <div class="exercise-icon"><i class="fas fa-stopwatch"></i></div>
+                            <div class="exercise-details">
+                                <h3>Pausas Ativas Durante a Prática</h3>
+                                <p>Aprenda a importância de fazer pequenas pausas a cada 20-30 minutos para alongar e relaxar as mãos.</p>
+                            </div>
+                        </li>
+                    </ul>
+                     <div class="tip-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Atenção</h4>
+                        <p>Nunca alongue a ponto de sentir dor aguda. Se a dor persistir, procure orientação médica ou de um fisioterapeuta.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2><i class="fas fa-book-open"></i> Material Complementar</h2>
+                    <p style="margin-bottom: 1.5rem;">Informações detalhadas para aprofundar seu conhecimento sobre técnica e ergonomia no violão.</p>
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-icon"><i class="fas fa-hand-point-up"></i></div>
+                        <div class="exercise-details">
+                            <h3>Posicionamento Correto da Mão Esquerda</h3>
+                            <p>O posicionamento adequado da mão esquerda é fundamental para prevenir lesões e desenvolver técnica:</p>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>Mantenha o polegar posicionado aproximadamente no meio do braço do violão, sem apertar excessivamente</li>
+                                <li>Posicione os dedos perpendiculares às cordas, com as pontas pressionando firmemente</li>
+                                <li>Mantenha o pulso ligeiramente curvado, mas não tensionado</li>
+                                <li>Não deixe os dedos "deitar" sobre outras cordas quando não estiverem em uso</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <div class="exercise-icon"><i class="fas fa-guitar"></i></div>
+                        <div class="exercise-details">
+                            <h3>Anatomia do Braço do Violão</h3>
+                            <p>Compreender a anatomia do braço do violão ajuda a desenvolver força de forma mais eficiente:</p>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>As casas mais próximas do corpo do violão são mais largas e exigem maior abertura entre os dedos</li>
+                                <li>Cada corda tem uma tensão diferente - as cordas graves exigem mais força para serem pressionadas</li>
+                                <li>A altura da pestana e a ação das cordas afetam diretamente o esforço necessário para tocar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
             <section class="section">
-                <h2><i class="fas fa-dumbbell"></i> Treino de Força para Dedos</h2>
-                <p style="margin-bottom: 1.5rem;">Desenvolva a força necessária para pressionar as cordas com clareza e sustentar acordes sem fadiga.</p>
-                <ul class="exercise-list">
-                    <li class="exercise-item">
-                        <div class="exercise-icon"><i class="fas fa-hand-paper"></i></div>
-                        <div class="exercise-details">
-                            <h3>Exercício de Pressão Isométrica</h3>
-                            <p>Fortaleça a ponta dos dedos pressionando contra uma superfície dura ou usando um exercitador de mão.</p>
+                <h2><i class="fas fa-question-circle"></i> Perguntas Frequentes</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <i class="fas fa-caret-right"></i> Quanto tempo leva para desenvolver calosidades suficientes nos dedos?
+                            </div>
+                            <div class="faq-answer">
+                                <p>Para a maioria dos iniciantes, leva de 2 a 4 semanas de prática constante (diária) para desenvolver calosidades confortáveis. Este período varia de acordo com a frequência de prática, a pressão aplicada e características individuais da pele.</p>
+                            </div>
                         </div>
-                    </li>
-                    <li class="exercise-item">
-                        <div class="exercise-icon"><i class="fas fa-spider"></i></div>
-                        <div class="exercise-details">
-                            <h3>Exercício "Spider Walk" Lento</h3>
-                            <p>Pratique o exercício cromático (1-2-3-4) lentamente, focando na pressão firme e constante de cada dedo.</p>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <i class="fas fa-caret-right"></i> É normal sentir dor nos dedos quando se está começando?
+                            </div>
+                            <div class="faq-answer">
+                                <p>Um leve desconforto é normal nos primeiros dias, mas dor intensa ou persistente não é. Você deve sentir pressão nas pontas dos dedos, mas esta sensação deveria diminuir à medida que as calosidades se formam. Se a dor for forte ou persistir por mais de 30 minutos após parar de tocar, reduza a intensidade e duração das sessões.</p>
+                            </div>
                         </div>
-                    </li>
-                    <li class="exercise-item">
-                        <div class="exercise-icon"><i class="fas fa-grip-lines"></i></div>
-                        <div class="exercise-details">
-                            <h3>Sustentação de Acordes Simples</h3>
-                            <p>Segure acordes básicos (como Em, C) por períodos crescentes (15s, 30s, 45s), focando em manter todas as notas soando.</p>
+                    </div>
+
+                    <div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <i class="fas fa-caret-right"></i> Como saber se meu violão está bem regulado para iniciantes?
+                            </div>
+                            <div class="faq-answer">
+                                <p>Um violão bem regulado para iniciantes deve ter a "ação" (distância entre as cordas e o braço) moderada - nem muito alta (que exige muita força), nem muito baixa (que pode causar trastejamento). Verifique se consegue pressionar as cordas na 1ª casa com esforço moderado. Se a pressão necessária for excessiva, considere levar o instrumento a um luthier para regulagem.</p>
+                            </div>
                         </div>
-                    </li>
-                    <li class="exercise-item">
-                        <div class="exercise-icon"><i class="fas fa-hand-rock"></i></div>
-                        <div class="exercise-details">
-                            <h3>Fortalecimento dos Dedos Fracos (3 e 4)</h3>
-                            <p>Exercícios específicos para isolar e fortalecer os dedos anelar e mínimo.</p>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <i class="fas fa-caret-right"></i> Qual a duração ideal das sessões de prática para desenvolver força sem causar lesões?
+                            </div>
+                            <div class="faq-answer">
+                                <p>Para iniciantes, o ideal é começar com sessões de 15-20 minutos, 2-3 vezes ao dia, com pausas para descanso e alongamento a cada 10 minutos. À medida que a resistência aumenta, você pode gradualmente estender para sessões de 30-45 minutos, sempre respeitando os sinais do corpo.</p>
+                            </div>
                         </div>
-                    </li>
-                </ul>
-                <div class="tip-box">
-                    <h4><i class="fas fa-lightbulb"></i> Dica Importante</h4>
-                    <p>Consistência é chave! Pratique estes exercícios por 5-10 minutos diariamente antes de tocar.</p>
+                    </div>
                 </div>
             </section>
 
-            <section class="section">
-                <h2><i class="fas fa-running"></i> Alongamentos e Prevenção de Lesões</h2>
-                <p style="margin-bottom: 1.5rem;">Mantenha suas mãos e pulsos saudáveis, evite dores e previna lesões comuns em violonistas.</p>
-                 <ul class="exercise-list">
-                    <li class="exercise-item">
-                        <div class="exercise-icon"><i class="fas fa-hands-helping"></i></div>
+            <div class="sections-container">
+                <section class="section">
+                    <h2><i class="fas fa-music"></i> Teoria Musical Aplicada</h2>
+                    <p style="margin-bottom: 1.5rem;">Conceitos básicos de teoria musical que todo violonista iniciante deve conhecer para desenvolver força e técnica com fundamento.</p>
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-icon"><i class="fas fa-wave-square"></i></div>
                         <div class="exercise-details">
-                            <h3>Alongamento de Pulso (Flexão e Extensão)</h3>
-                            <p>Alongue suavemente os músculos do antebraço puxando a mão para cima e para baixo.</p>
+                            <h3>Afinação Padrão do Violão</h3>
+                            <p>Compreenda as notas de cada corda para melhor visualizar os exercícios:</p>
+                            
+                            <div class="string-box">
+                                <div class="guitar-string E1">
+                                    <span class="string-label">1ª</span>
+                                    <span class="string-note">Mi (E)</span>
+                                </div>
+                                <div class="guitar-string B">
+                                    <span class="string-label">2ª</span>
+                                    <span class="string-note">Si (B)</span>
+                                </div>
+                                <div class="guitar-string G">
+                                    <span class="string-label">3ª</span>
+                                    <span class="string-note">Sol (G)</span>
+                                </div>
+                                <div class="guitar-string D">
+                                    <span class="string-label">4ª</span>
+                                    <span class="string-note">Ré (D)</span>
+                                </div>
+                                <div class="guitar-string A">
+                                    <span class="string-label">5ª</span>
+                                    <span class="string-note">Lá (A)</span>
+                                </div>
+                                <div class="guitar-string E2">
+                                    <span class="string-label">6ª</span>
+                                    <span class="string-note">Mi (E)</span>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                    <li class="exercise-item">
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2><i class="fas fa-calendar-alt"></i> Programa de Treinamento</h2>
+                    <p style="margin-bottom: 1.5rem;">Um cronograma estruturado de 4 semanas para desenvolver força e resistência nos dedos.</p>
+                    
+                    <div class="practice-schedule">
+                        <h3 style="margin-bottom: 15px;">Semana 1: Fundamentos</h3>
+                        
+                        <div class="schedule-day">
+                            <span class="schedule-label">Segunda e Quinta:</span>
+                            <span>Pressão isométrica (5 min) + Spider Walk (5 min)</span>
+                        </div>
+                        
+                        <div class="schedule-day">
+                            <span class="schedule-label">Terça e Sexta:</span>
+                            <span>Sustentação de acordes Em e Am (10 min)</span>
+                        </div>
+                        
+                        <div class="schedule-day">
+                            <span class="schedule-label">Quarta e Sábado:</span>
+                            <span>Fortalecimento dos dedos 3 e 4 (10 min)</span>
+                        </div>
+                        
+                        <div class="schedule-day">
+                            <span class="schedule-label">Domingo:</span>
+                            <span>Descanso ativo - apenas alongamentos leves</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="sections-container">
+                <section class="section">
+                    <h2><i class="fas fa-grip-horizontal"></i> Acordes Básicos para Desenvolver Força</h2>
+                    <p>Acordes em ordem progressiva de dificuldade para fortalecer os dedos:</p>
+                    
+                    <div class="chord-grid-container">
+                        <div class="chord-diagram">
+                            <div class="chord-name">Acorde Em</div>
+                            <div style="font-size: 0.8rem; margin-bottom: 5px; color: var(--text-light);">Acorde mais fácil</div>
+                            <pre style="font-family: monospace; line-height: 1; margin: 10px 0;">
+E |--0--|
+B |--0--|
+G |--0--|
+D |--2--|
+A |--2--|
+E |--0--|
+                            </pre>
+                        </div>
+                        
+                        <div class="chord-diagram">
+                            <div class="chord-name">Acorde Am</div>
+                            <div style="font-size: 0.8rem; margin-bottom: 5px; color: var(--text-light);">Fácil para iniciantes</div>
+                            <pre style="font-family: monospace; line-height: 1; margin: 10px 0;">
+E |--0--|
+B |--1--|
+G |--2--|
+D |--2--|
+A |--0--|
+E |--x--|
+                            </pre>
+                        </div>
+                        
+                        <div class="chord-diagram">
+                            <div class="chord-name">Acorde C</div>
+                            <div style="font-size: 0.8rem; margin-bottom: 5px; color: var(--text-light);">Dificuldade média</div>
+                            <pre style="font-family: monospace; line-height: 1; margin: 10px 0;">
+E |--0--|
+B |--1--|
+G |--0--|
+D |--2--|
+A |--3--|
+E |--x--|
+                            </pre>
+                        </div>
+                        
+                        <div class="chord-diagram">
+                            <div class="chord-name">Acorde G</div>
+                            <div style="font-size: 0.8rem; margin-bottom: 5px; color: var(--text-light);">Desafiador para iniciantes</div>
+                            <pre style="font-family: monospace; line-height: 1; margin: 10px 0;">
+E |--3--|
+B |--0--|
+G |--0--|
+D |--0--|
+A |--2--|
+E |--3--|
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2><i class="fas fa-hand-holding"></i> Posicionamento Correto</h2>
+                    <p style="margin-bottom: 1.5rem;">Uma postura adequada é fundamental para prevenir lesões e desenvolver uma técnica sólida. Siga este guia detalhado para posicionar corretamente suas mãos.</p>
+                    
+                    <div class="exercise-item">
                         <div class="exercise-icon"><i class="fas fa-thumbs-up"></i></div>
                         <div class="exercise-details">
-                            <h3>Alongamento Individual dos Dedos</h3>
-                            <p>Puxe cada dedo gentilmente para trás, alongando a base e os tendões.</p>
+                            <h3>Posição do Polegar</h3>
+                            <p>O posicionamento correto do polegar é fundamental para uma boa técnica:</p>
+                            
+                            <div class="position-info-box" style="background-color: var(--background); border-radius: var(--border-radius); padding: 1rem; margin: 1rem 0; border: 1px solid var(--border-color);">
+                                <ul style="list-style-type: none; padding: 0;">
+                                    <li style="display: flex; align-items: center; margin-bottom: 0.8rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.8rem; font-size: 1.1rem;"></i>
+                                        <span>Posicione o polegar aproximadamente no meio das costas do braço do violão</span>
+                                    </li>
+                                    <li style="display: flex; align-items: center; margin-bottom: 0.8rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.8rem; font-size: 1.1rem;"></i>
+                                        <span>Mantenha o polegar relaxado, aplicando apenas a pressão necessária</span>
+                                    </li>
+                                    <li style="display: flex; align-items: center; margin-bottom: 0.8rem;">
+                                        <i class="fas fa-times-circle" style="color: #C62828; margin-right: 0.8rem; font-size: 1.1rem;"></i>
+                                        <span>Evite deixar o polegar aparecendo acima do braço do violão</span>
+                                    </li>
+                                    <li style="display: flex; align-items: center;">
+                                        <i class="fas fa-times-circle" style="color: #C62828; margin-right: 0.8rem; font-size: 1.1rem;"></i>
+                                        <span>Nunca aperte o braço do violão com força excessiva entre o polegar e os outros dedos</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </li>
-                    <li class="exercise-item">
-                        <div class="exercise-icon"><i class="fas fa-sync-alt"></i></div>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-icon"><i class="fas fa-hand-peace"></i></div>
                         <div class="exercise-details">
-                            <h3>Rotação de Pulsos</h3>
-                            <p>Faça movimentos circulares lentos com os pulsos em ambas as direções para melhorar a mobilidade.</p>
+                            <h3>Posição dos Dedos</h3>
+                            <p>O posicionamento correto dos dedos permite tocar com precisão e menor esforço:</p>
+                            
+                            <div class="position-guide" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                                <div style="background-color: var(--background); border-radius: var(--border-radius); padding: 1rem; border: 1px solid var(--border-color);">
+                                    <h4 style="color: var(--primary-color); font-size: 1.1rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Posição Correta</h4>
+                                    <ul style="list-style-type: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 0.5rem;">
+                                            <i class="fas fa-angle-right" style="color: var(--primary-color); margin-right: 0.5rem;"></i> Use as pontas dos dedos para pressionar as cordas
+                                        </li>
+                                        <li style="margin-bottom: 0.5rem;">
+                                            <i class="fas fa-angle-right" style="color: var(--primary-color); margin-right: 0.5rem;"></i> Mantenha os dedos curvados, como se segurasse uma bola pequena
+                                        </li>
+                                        <li style="margin-bottom: 0.5rem;">
+                                            <i class="fas fa-angle-right" style="color: var(--primary-color); margin-right: 0.5rem;"></i> Posicione os dedos perpendiculares às cordas
+                                        </li>
+                                        <li style="margin-bottom: 0.5rem;">
+                                            <i class="fas fa-angle-right" style="color: var(--primary-color); margin-right: 0.5rem;"></i> Mantenha uma pequena distância do traste (1-2mm) para melhor som
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div style="background-color: var(--background); border-radius: var(--border-radius); padding: 1rem; border: 1px solid var(--border-color);">
+                                    <h4 style="color: #C62828; font-size: 1.1rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Erros Comuns</h4>
+                                    <ul style="list-style-type: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 0.5rem;">
+                                            <i class="fas fa-exclamation-triangle" style="color: #C62828; margin-right: 0.5rem;"></i> Dedos "deitados" sobre as cordas, abafando outras notas
+                                        </li>
+                                        <li style="margin-bottom: 0.5rem;">
+                                            <i class="fas fa-exclamation-triangle" style="color: #C62828; margin-right: 0.5rem;"></i> Pressão excessiva, causando fadiga e dor
+                                        </li>
+                                        <li style="margin-bottom: 0.5rem;">
+                                            <i class="fas fa-exclamation-triangle" style="color: #C62828; margin-right: 0.5rem;"></i> Dedos muito distantes dos trastes, gerando zumbido
+                                        </li>
+                                        <li style="margin-bottom: 0.5rem;">
+                                            <i class="fas fa-exclamation-triangle" style="color: #C62828; margin-right: 0.5rem;"></i> Pulso excessivamente dobrado, aumentando o risco de lesões
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                    <li class="exercise-item">
-                        <div class="exercise-icon"><i class="fas fa-stopwatch"></i></div>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-icon"><i class="fas fa-ruler-vertical"></i></div>
                         <div class="exercise-details">
-                            <h3>Pausas Ativas Durante a Prática</h3>
-                            <p>Aprenda a importância de fazer pequenas pausas a cada 20-30 minutos para alongar e relaxar as mãos.</p>
+                            <h3>Altura e Postura</h3>
+                            <p>O posicionamento geral do instrumento e do corpo são igualmente importantes:</p>
+                            
+                            <div class="position-tips-box" style="background-color: var(--light-color); border-radius: var(--border-radius); padding: 1.2rem; margin-top: 1rem;">
+                                <h4 style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 1rem;">Dicas de Posicionamento</h4>
+                                
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                                    <div class="positioning-item">
+                                        <h5 style="font-size: 0.95rem; color: var(--text-dark); margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                            <i class="fas fa-chair" style="margin-right: 0.5rem; color: var(--primary-color);"></i> Altura do Assento
+                                        </h5>
+                                        <p style="font-size: 0.9rem; margin: 0;">Use uma cadeira que permita apoiar os pés no chão com os joelhos em ângulo de 90°. O violão deve ficar estável sem precisar ser segurado com força.</p>
+                                    </div>
+                                    
+                                    <div class="positioning-item">
+                                        <h5 style="font-size: 0.95rem; color: var(--text-dark); margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                            <i class="fas fa-arrows-alt-v" style="margin-right: 0.5rem; color: var(--primary-color);"></i> Ângulo do Instrumento
+                                        </h5>
+                                        <p style="font-size: 0.9rem; margin: 0;">O braço do violão deve estar ligeiramente inclinado para cima (cerca de 45°), permitindo acesso confortável às casas mais altas.</p>
+                                    </div>
+                                    
+                                    <div class="positioning-item">
+                                        <h5 style="font-size: 0.95rem; color: var(--text-dark); margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                            <i class="fas fa-hand-paper" style="margin-right: 0.5rem; color: var(--primary-color);"></i> Mão de Apoio
+                                        </h5>
+                                        <p style="font-size: 0.9rem; margin: 0;">A mão que toca as cordas deve estar relaxada, com o pulso ligeiramente arqueado e os dedos curvados naturalmente.</p>
+                                    </div>
+                                    
+                                    <div class="positioning-item">
+                                        <h5 style="font-size: 0.95rem; color: var(--text-dark); margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                            <i class="fas fa-arrows-alt-h" style="margin-right: 0.5rem; color: var(--primary-color);"></i> Distância do Corpo
+                                        </h5>
+                                        <p style="font-size: 0.9rem; margin: 0;">Mantenha o violão próximo ao corpo, com o braço do instrumento entre a altura do ombro e do peito para melhor acesso e conforto.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                </ul>
-                 <div class="tip-box">
-                    <h4><i class="fas fa-exclamation-triangle"></i> Atenção</h4>
-                    <p>Nunca alongue a ponto de sentir dor aguda. Se a dor persistir, procure orientação médica ou de um fisioterapeuta.</p>
-                </div>
-            </section>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> Dica para Iniciantes</h4>
+                        <p>Pratique as posições corretas em frente a um espelho para visualizar seu posicionamento. Grave-se tocando para identificar hábitos inadequados que possam passar despercebidos durante a prática.</p>
+                    </div>
+
+                    
+                </section>
+            </div>
+
         </main>
 
-        <footer>
-            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
-            <p>Pratique com segurança e conforto para uma jornada musical longa e prazerosa!</p>
-        </footer>
     </div>
 
+    <a href="../index.html" class="home-button" title="Voltar ao Menu Principal">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <script>
+        let timer;
+        let seconds = 0;
+        const timerDisplay = document.getElementById('exercise-timer');
+        
+        // Carrega o progresso salvo quando a página carrega
+        window.addEventListener('load', () => {
+            loadProgress();
+            loadTimerState();
+        });
+        
+        function loadProgress() {
+            const progress1 = localStorage.getItem('progress1') || '0';
+            const progress2 = localStorage.getItem('progress2') || '0';
+            
+            document.getElementById('progress1').style.width = progress1 + '%';
+            document.getElementById('progress1').textContent = progress1 + '%';
+            document.getElementById('progress2').style.width = progress2 + '%';
+            document.getElementById('progress2').textContent = progress2 + '%';
+        }
+        
+        function saveProgress(id, value) {
+            localStorage.setItem(id, value.toString());
+        }
+        
+        // Timer com efeitos visuais
+        function updateTimerDisplay() {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            
+            // Efeito visual quando estiver próximo do fim
+            if (seconds <= 5 && seconds > 0) {
+                timerDisplay.style.color = '#ff4444';
+                timerDisplay.style.transform = 'scale(1.1)';
+            } else {
+                timerDisplay.style.color = 'var(--primary-color)';
+                timerDisplay.style.transform = 'scale(1)';
+            }
+        }
+        
+        function startTimer(duration) {
+            resetTimer();
+            seconds = duration;
+            updateTimerDisplay();
+            
+            // Adiciona classe de animação
+            timerDisplay.classList.add('timer-active');
+            
+            timer = setInterval(function() {
+                seconds--;
+                updateTimerDisplay();
+                
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    timerDisplay.style.color = '#4CAF50';
+                    timerDisplay.classList.remove('timer-active');
+                    
+                    // Efeito de conclusão
+                    timerDisplay.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        timerDisplay.style.transform = 'scale(1)';
+                        timerDisplay.style.color = 'var(--primary-color)';
+                    }, 1000);
+                    
+                    // Toca um som suave quando termina
+                    playTimerEndSound();
+                }
+            }, 1000);
+        }
+        
+        function resetTimer() {
+            clearInterval(timer);
+            seconds = 0;
+            updateTimerDisplay();
+            timerDisplay.style.color = 'var(--primary-color)';
+            timerDisplay.classList.remove('timer-active');
+        }
+        
+        function updateProgress(id, amount) {
+            const progressBar = document.getElementById(id);
+            let currentWidth = parseInt(progressBar.style.width) || 0;
+            let newWidth = currentWidth + amount;
+            
+            newWidth = Math.max(0, Math.min(100, newWidth));
+            
+            // Animação suave da barra de progresso
+            progressBar.style.transition = 'width 0.5s ease-out';
+            progressBar.style.width = newWidth + '%';
+            progressBar.textContent = newWidth + '%';
+            
+            // Salva o progresso
+            saveProgress(id, newWidth);
+            
+            // Adiciona efeito visual quando atinge 100%
+            if (newWidth === 100) {
+                progressBar.style.backgroundColor = 'var(--success-color)';
+                setTimeout(() => {
+                    progressBar.style.backgroundColor = '';
+                }, 1000);
+            }
+        }
+        
+        function playTimerEndSound() {
+            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwIJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGH2+/7+KYRA0PVK/n77BdGAg+ltryxnYpBSl+zPLaizsIGGS57OihUBELTKXh8bllHgU2jdXzzn0vCCF1xe/glEIMFVu06OyrWBUIQ5zd8sFvJAUuhM/z1YU2Bhxsvv. // ... (base64 audio data truncated for brevity)');
+            audio.play();
+        }
+        
+        // FAQ Interativo
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                // Fecha outras respostas abertas
+                document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                    if (otherAnswer !== answer && otherAnswer.style.maxHeight) {
+                        otherAnswer.style.maxHeight = null;
+                        otherAnswer.previousElementSibling.querySelector('i').classList.replace('fa-caret-down', 'fa-caret-right');
+                    }
+                });
+                
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                    icon.classList.replace('fa-caret-down', 'fa-caret-right');
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    icon.classList.replace('fa-caret-right', 'fa-caret-down');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -398,12 +398,66 @@
             bottom: 0;
             transition: opacity 0.2s ease, height 0.3s ease;
             border-radius: 4px;
+            z-index: 1;
         }
         
         .beat-marker.accent {
             background-color: var(--accent-color);
             width: 6px;
             box-shadow: 0 0 10px rgba(205, 133, 63, 0.5);
+        }
+        
+        .beat-marker::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: inherit;
+        }
+        
+        .rhythm-visual-guide {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .rhythm-guide-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .rhythm-guide-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .rhythm-guide-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .rhythm-guide-down {
+            background-color: var(--primary-color);
+        }
+        
+        .rhythm-guide-up {
+            background-color: #CD853F;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(205, 133, 63, 0.7); }
+            50% { transform: scale(1.1); box-shadow: 0 0 10px 3px rgba(205, 133, 63, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(205, 133, 63, 0.7); }
         }
         
         .beat-counter {
@@ -418,12 +472,6 @@
         
         .beat-counter:not(.-) {
             animation: pulse 0.5s ease-in-out;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
         }
         
         .feature-list {
@@ -538,6 +586,31 @@
             border-top: 1px solid rgba(139, 69, 19, 0.1);
         }
         
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+            font-size: 1.4rem;
+        }
+        
+        .scroll-top-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+        
         @media (max-width: 768px) {
             .rhythm-controls {
                 justify-content: center;
@@ -570,13 +643,20 @@
                 text-align: center;
                 margin: 0 auto;
             }
+            
+            .scroll-top-btn {
+                width: 45px;
+                height: 45px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.2rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <a href="../../index.html" class="back-button"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
     <header>
         <div class="container">
             <h1>🔊 Modo Ritmo Guiado</h1>
@@ -654,14 +734,6 @@
                 <button class="tempo-btn" data-tempo="increase"><i class="fas fa-plus"></i></button>
                 <div class="tempo-value">80 BPM</div>
             </div>
-            
-            <div class="vibration-toggle">
-                <label class="switch">
-                    <input type="checkbox" id="vibrationToggle" checked>
-                    <span class="slider"></span>
-                </label>
-                <span>Ativar vibração (dispositivos móveis)</span>
-            </div>
         </div>
 
         <div class="card">
@@ -669,12 +741,25 @@
             
             <div class="visualization" id="rhythmVisualization">
                 <!-- Beat markers will be added dynamically -->
+                <div class="rhythm-visual-guide">
+                    <div class="rhythm-guide-item">
+                        <div class="rhythm-guide-color rhythm-guide-accent"></div>
+                        <span>Tempo forte</span>
+                    </div>
+                    <div class="rhythm-guide-item">
+                        <div class="rhythm-guide-color rhythm-guide-down"></div>
+                        <span>Batida ↓</span>
+                    </div>
+                    <div class="rhythm-guide-item">
+                        <div class="rhythm-guide-color rhythm-guide-up"></div>
+                        <span>Batida ↑</span>
+                    </div>
+                </div>
             </div>
             
             <div class="rhythm-controls">
                 <button id="playButton" class="control-btn"><i class="fas fa-play"></i> Iniciar</button>
                 <button id="stopButton" class="control-btn secondary-btn"><i class="fas fa-stop"></i> Parar</button>
-                <button id="countInButton" class="control-btn accent-btn"><i class="fas fa-stopwatch"></i> Contagem Inicial</button>
             </div>
             
             <div class="beat-counter" id="beatCounter">-</div>
@@ -707,6 +792,8 @@
         </div>
     </footer>
 
+    <a href="../../index.html" class="scroll-top-btn" id="homeBtn"><i class="fas fa-home"></i></a>
+
     <script>
         // DOM Elements
         const playButton = document.getElementById('playButton');
@@ -717,8 +804,8 @@
         const rhythmCards = document.querySelectorAll('.rhythm-card');
         const visualization = document.getElementById('rhythmVisualization');
         const beatCounter = document.getElementById('beatCounter');
-        const vibrationToggle = document.getElementById('vibrationToggle');
         const feedbackMessage = document.getElementById('feedbackMessage');
+        const homeBtn = document.getElementById('homeBtn'); // Corrigido de scrollTopBtn para homeBtn
         
         // App State
         let isPlaying = false;
@@ -726,51 +813,240 @@
         let selectedRhythm = 'pop';
         let intervalId = null;
         let currentBeat = 0;
-        let vibrationEnabled = true;
         let countInActive = false;
+        let soundsLoaded = false;
         
-        // Criando os sons diretamente na página para garantir o funcionamento
+        // Buffer de áudio para os sons
+        const audioBuffers = {
+            click: null,
+            accent: null,
+            down: null,
+            up: null
+        };
+        
+        // Criando os sons com o Web Audio API
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         
-        // Função para criar som de clique
+        // Carrega samples de áudio para melhor qualidade de som
+        async function loadSounds() {
+            try {
+                // Criar sons de alta qualidade diretamente no código
+                // Em vez de depender de arquivos externos, vamos gerar sons de melhor qualidade
+                
+                // 1. Som de clique normal (click)
+                const clickBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.1, audioContext.sampleRate);
+                const clickData = clickBuffer.getChannelData(0);
+                for (let i = 0; i < clickData.length; i++) {
+                    // Criar um som semelhante a uma batida na madeira do violão
+                    const t = i / audioContext.sampleRate;
+                    if (t < 0.005) {
+                        clickData[i] = Math.sin(2 * Math.PI * 800 * t) * 0.8;
+                    } else {
+                        clickData[i] = Math.sin(2 * Math.PI * 800 * t) * Math.exp(-15 * t);
+                    }
+                }
+                audioBuffers.click = clickBuffer;
+                
+                // 2. Som de acento (accent) - mais forte e com mais graves
+                const accentBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.2, audioContext.sampleRate);
+                const accentData = accentBuffer.getChannelData(0);
+                for (let i = 0; i < accentData.length; i++) {
+                    const t = i / audioContext.sampleRate;
+                    if (t < 0.01) {
+                        accentData[i] = Math.sin(2 * Math.PI * 500 * t) * 1.0 + Math.sin(2 * Math.PI * 250 * t) * 0.5; // Adicionado harmônico mais grave
+                    } else {
+                        accentData[i] = (Math.sin(2 * Math.PI * 500 * t) + Math.sin(2 * Math.PI * 250 * t) * 0.5) * Math.exp(-10 * t);
+                    }
+                }
+                audioBuffers.accent = accentBuffer;
+                
+                // 3. Som de batida para baixo (down) - simular batida para baixo no violão
+                const downBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.3, audioContext.sampleRate);
+                const downData = downBuffer.getChannelData(0);
+                for (let i = 0; i < downData.length; i++) {
+                    const t = i / audioContext.sampleRate;
+                    const freq = 400 - 200 * t; // Som descendente para simular batida para baixo
+                    if (t < 0.01) {
+                        downData[i] = Math.sin(2 * Math.PI * freq * t) * 0.9;
+                    } else {
+                        downData[i] = Math.sin(2 * Math.PI * freq * t) * Math.exp(-8 * t);
+                    }
+                }
+                audioBuffers.down = downBuffer;
+                
+                // 4. Som de batida para cima (up) - simular batida para cima no violão
+                const upBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.2, audioContext.sampleRate);
+                const upData = upBuffer.getChannelData(0);
+                for (let i = 0; i < upData.length; i++) {
+                    const t = i / audioContext.sampleRate;
+                    const freq = 350 + 150 * t; // Som ascendente para simular batida para cima
+                    if (t < 0.008) {
+                        upData[i] = Math.sin(2 * Math.PI * freq * t) * 0.7;
+                    } else {
+                        upData[i] = Math.sin(2 * Math.PI * freq * t) * Math.exp(-12 * t);
+                    }
+                }
+                audioBuffers.up = upBuffer;
+                
+                soundsLoaded = true;
+                console.log("Sons carregados com sucesso!");
+            } catch (error) {
+                console.error("Erro ao carregar os sons:", error);
+                // Fallback para o método anterior caso os sons não carreguem
+                createFallbackSounds();
+            }
+        }
+        
+        // Método de backup caso o carregamento dos sons falhe
+        function createFallbackSounds() {
+            soundsLoaded = true;
+            console.log("Usando sons de fallback");
+        }
+        
+        // Iniciar carregamento de sons
+        loadSounds();
+        
+        // Função para tocar som a partir do buffer
+        function playSound(soundType) {
+            if (!soundsLoaded) {
+                // Se os sons ainda não foram carregados, use o método antigo
+                createClickSound(soundType === 'accent');
+                return;
+            }
+            
+            const source = audioContext.createBufferSource();
+            const gainNode = audioContext.createGain();
+            
+            // Selecionar o buffer correto com base no tipo de som
+            switch(soundType) {
+                case 'accent':
+                    source.buffer = audioBuffers.accent;
+                    gainNode.gain.value = 1.0;
+                    break;
+                case 'down':
+                    source.buffer = audioBuffers.down;
+                    gainNode.gain.value = 0.8;
+                    break;
+                case 'up':
+                    source.buffer = audioBuffers.up;
+                    gainNode.gain.value = 0.6;
+                    break;
+                default: // 'click' ou qualquer outro
+                    source.buffer = audioBuffers.click;
+                    gainNode.gain.value = 0.7;
+            }
+            
+            // Adicionar um pouco de equalização para simular as características acústicas do violão
+            const eq = audioContext.createBiquadFilter();
+            eq.type = 'peaking';
+            eq.frequency.value = 500;
+            eq.Q.value = 1;
+            
+            if (soundType === 'down') {
+                // Batidas para baixo tem mais graves
+                eq.gain.value = 3;
+                
+                // Segundo filtro para acentuar médio-graves
+                const lowMid = audioContext.createBiquadFilter();
+                lowMid.type = 'peaking';
+                lowMid.frequency.value = 250;
+                lowMid.gain.value = 2;
+                lowMid.Q.value = 1;
+                
+                // Conectar os filtros em série
+                source.connect(gainNode);
+                gainNode.connect(eq);
+                eq.connect(lowMid);
+                lowMid.connect(audioContext.destination);
+            } else if (soundType === 'up') {
+                // Batidas para cima tem mais médio-agudos
+                eq.frequency.value = 800;
+                eq.gain.value = 2;
+                
+                // Segundo filtro para acentuar agudos
+                const highMid = audioContext.createBiquadFilter();
+                highMid.type = 'highshelf';
+                highMid.frequency.value = 2000;
+                highMid.gain.value = 3;
+                
+                // Conectar os filtros em série
+                source.connect(gainNode);
+                gainNode.connect(eq);
+                eq.connect(highMid);
+                highMid.connect(audioContext.destination);
+            } else {
+                // Para cliques e acentos, adicionar um pouco de reverberação
+                const compressor = audioContext.createDynamicsCompressor();
+                compressor.threshold.setValueAtTime(-24, audioContext.currentTime);
+                compressor.ratio.setValueAtTime(12, audioContext.currentTime);
+                
+                source.connect(gainNode);
+                gainNode.connect(eq);
+                eq.connect(compressor);
+                compressor.connect(audioContext.destination);
+            }
+            
+            // Iniciar o som com um pequeno fade-in para evitar cliques
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(gainNode.gain.value, audioContext.currentTime + 0.005);
+            
+            source.start(0);
+        }
+        
+        // Função legada para criar som de clique (caso os buffers não carreguem)
         function createClickSound(isAccent) {
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             
-            // Configurar o oscilador para som de clique ou acento
+            // Melhorar configuração do oscilador
             oscillator.type = isAccent ? 'triangle' : 'sine';
-            oscillator.frequency.setValueAtTime(isAccent ? 1400 : 1000, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(isAccent ? 900 : 700, audioContext.currentTime);
             
-            // Configurar envelope do som
+            // Melhorar envelope do som
             gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(isAccent ? 0.7 : 0.5, audioContext.currentTime + 0.001);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+            gainNode.gain.linearRampToValueAtTime(isAccent ? 0.8 : 0.6, audioContext.currentTime + 0.002);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + (isAccent ? 0.15 : 0.10));
             
-            // Conectar os nós
+            // Adicionar um filtro para som mais suave
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = isAccent ? 2000 : 1500;
+            filter.Q.value = 0.5;
+            
+            // Conectar os nós com o filtro
             oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
+            gainNode.connect(filter);
+            filter.connect(audioContext.destination);
             
             // Iniciar e parar o oscilador
             oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.1);
+            oscillator.stop(audioContext.currentTime + (isAccent ? 0.15 : 0.10));
         }
         
-        // Tocar som de clique normal
+        // Funções de reprodução de som
         function playClickSound() {
-            createClickSound(false);
+            playSound('click');
         }
         
-        // Tocar som de acento
         function playAccentSound() {
-            createClickSound(true);
+            playSound('accent');
         }
         
-        // Rhythm Patterns (1 = accent, 0 = normal beat, -1 = rest)
+        function playDownSound() {
+            playSound('down');
+        }
+        
+        function playUpSound() {
+            playSound('up');
+        }
+        
+        // Rhythm Patterns melhorados (1 = accent/batida para baixo forte, 0 = batida normal para baixo, 
+        // 0.5 = batida para cima, -1 = pausa)
         const rhythmPatterns = {
-            pop: [1, 0, 0, 0, 0, 0, 0, 0],
-            popDancing: [1, 0, 0, 1, 0, 0, 1, 0],
-            bossaNova: [1, -1, 0, 1, 0, -1, 0, 1],
-            sertanejo: [1, 0, 0, 1, 0, 0, 1, 0]
+            pop: [1, 0, 0.5, 0, 0, 0, 0.5, 0],
+            popDancing: [1, 0, 0.5, 1, 0, 0.5, 1, 0.5],
+            bossaNova: [1, -1, 0.5, 1, 0, -1, 0.5, 1],
+            sertanejo: [1, 0.5, 0, 0.5, 0, 0.5, 0, 0.5]
         };
         
         // Event Listeners
@@ -784,6 +1060,11 @@
         });
         
         playButton.addEventListener('click', () => {
+            // Iniciar o contexto de áudio se estiver suspenso (necessário em alguns navegadores)
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            
             if (!isPlaying) {
                 startPlayback();
                 playButton.innerHTML = '<i class="fas fa-pause"></i> Pausar';
@@ -801,6 +1082,11 @@
         });
         
         countInButton.addEventListener('click', () => {
+            // Iniciar o contexto de áudio se estiver suspenso
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            
             if (!isPlaying) {
                 startCountIn();
             }
@@ -815,34 +1101,51 @@
                 startPlayback();
             }
         });
-        
-        vibrationToggle.addEventListener('change', () => {
-            vibrationEnabled = vibrationToggle.checked;
-            if (vibrationEnabled) {
-                // Test vibration and show feedback
-                if ('vibrate' in navigator) {
-                    navigator.vibrate([100, 100, 100]);
-                    feedbackMessage.style.display = 'block';
-                    setTimeout(() => {
-                        feedbackMessage.style.display = 'none';
-                    }, 3000);
+
+        // Botões de tempo + e -
+        const tempoButtons = document.querySelectorAll('.tempo-btn');
+        tempoButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const action = btn.getAttribute('data-tempo');
+                if (action === 'increase' && tempo < 200) {
+                    tempo += 5;
+                } else if (action === 'decrease' && tempo > 40) {
+                    tempo -= 5;
                 }
-            }
+                tempoSlider.value = tempo;
+                tempoValue.textContent = `${tempo} BPM`;
+                
+                if (isPlaying) {
+                    stopPlayback();
+                    startPlayback();
+                }
+            });
         });
         
         // Functions
         function startPlayback() {
             isPlaying = true;
-            const beatDuration = 60000 / (tempo * 2); // Converting to milliseconds (8th notes)
+            const beatDuration = 60000 / (tempo * 2); // Convertendo para milissegundos (colcheias)
             
-            // Clear previous interval if any
+            // Limpar intervalo anterior se existir
             if (intervalId) clearInterval(intervalId);
             
-            // Start new interval
-            intervalId = setInterval(() => {
-                playBeat();
-                currentBeat = (currentBeat + 1) % rhythmPatterns[selectedRhythm].length;
-            }, beatDuration);
+            // Usar requestAnimationFrame para melhor sincronização em vez de setInterval
+            let lastTime = performance.now();
+            const tick = (currentTime) => {
+                if (!isPlaying) return;
+                
+                const elapsed = currentTime - lastTime;
+                if (elapsed >= beatDuration) {
+                    playBeat();
+                    currentBeat = (currentBeat + 1) % rhythmPatterns[selectedRhythm].length;
+                    lastTime = currentTime - (elapsed % beatDuration); // Ajuste para manter o tempo preciso
+                }
+                
+                requestAnimationFrame(tick);
+            };
+            
+            requestAnimationFrame(tick);
         }
         
         function startCountIn() {
@@ -850,29 +1153,37 @@
             currentBeat = 0;
             beatCounter.textContent = "4";
             
-            const countInDuration = 60000 / tempo; // Quarter note duration
+            const countInDuration = 60000 / tempo; // Duração de nota de um quarto
             
-            // Play 4 beats of count-in
+            // Tocar 4 batidas de contagem inicial
             let countBeats = 4;
+            let lastTime = performance.now();
             
-            const countInterval = setInterval(() => {
-                countBeats--;
+            const countTick = (currentTime) => {
+                if (!countInActive) return;
                 
-                if (countBeats > 0) {
-                    beatCounter.textContent = countBeats.toString();
-                    playAccentSound();
+                const elapsed = currentTime - lastTime;
+                if (elapsed >= countInDuration) {
+                    countBeats--;
                     
-                    if (vibrationEnabled && 'vibrate' in navigator) {
-                        navigator.vibrate([100]);
+                    if (countBeats > 0) {
+                        beatCounter.textContent = countBeats.toString();
+                        playAccentSound();
+                        createBeatMarker(true, true); // Usar true para acento na contagem
+                        lastTime = currentTime;
+                        requestAnimationFrame(countTick);
+                    } else {
+                        countInActive = false;
+                        beatCounter.textContent = "1";
+                        startPlayback();
+                        playButton.innerHTML = '<i class="fas fa-pause"></i> Pausar';
                     }
                 } else {
-                    clearInterval(countInterval);
-                    countInActive = false;
-                    beatCounter.textContent = "1";
-                    startPlayback();
-                    playButton.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+                    requestAnimationFrame(countTick);
                 }
-            }, countInDuration);
+            };
+            
+            requestAnimationFrame(countTick);
         }
         
         function stopPlayback() {
@@ -886,66 +1197,135 @@
         function playBeat() {
             const beatType = rhythmPatterns[selectedRhythm][currentBeat];
             
-            if (beatType !== -1) { // Skip rests
-                // Display current beat
+            if (beatType !== -1) { // Pular pausas
+                // Mostrar batida atual
                 updateBeatCounter();
                 
-                // Create visual marker
-                createBeatMarker(beatType === 1);
+                // Criar marcador visual
+                createBeatMarker(beatType === 1, false, beatType === 0.5);
                 
-                // Play sound
+                // Tocar som
                 if (beatType === 1) {
                     playAccentSound();
+                } else if (beatType === 0.5) {
+                    playUpSound();
                 } else {
-                    playClickSound();
-                }
-                
-                // Trigger vibration
-                if (vibrationEnabled && 'vibrate' in navigator) {
-                    navigator.vibrate(beatType === 1 ? [100] : [50]);
+                    playDownSound();
                 }
             }
         }
         
-        function createBeatMarker(isAccent) {
+        function createBeatMarker(isAccent, isCountIn = false, isUpStroke = false) {
             const marker = document.createElement('div');
             marker.classList.add('beat-marker');
-            if (isAccent) marker.classList.add('accent');
             
-            // Position marker
-            const leftPosition = Math.random() * (visualization.offsetWidth - 10);
+            // Estilização diferente para os diferentes tipos de batida
+            if (isAccent) {
+                marker.classList.add('accent');
+                marker.style.boxShadow = '0 0 15px rgba(205, 133, 63, 0.7)';
+            } else if (isUpStroke) {
+                marker.style.backgroundColor = '#CD853F';
+                marker.style.opacity = '0.8';
+                // Adicionar uma seta para indicar batida para cima
+                const arrow = document.createElement('div');
+                arrow.style.position = 'absolute';
+                arrow.style.top = '-15px';
+                arrow.style.left = '50%';
+                arrow.style.transform = 'translateX(-50%)';
+                arrow.style.fontSize = '12px';
+                arrow.style.color = '#fff';
+                arrow.innerHTML = '↑';
+                marker.appendChild(arrow);
+            } else {
+                // Para batida para baixo, adicionar uma seta
+                const arrow = document.createElement('div');
+                arrow.style.position = 'absolute';
+                arrow.style.bottom = '-15px';
+                arrow.style.left = '50%';
+                arrow.style.transform = 'translateX(-50%)';
+                arrow.style.fontSize = '12px';
+                arrow.style.color = '#fff';
+                arrow.innerHTML = '↓';
+                marker.appendChild(arrow);
+            }
+            
+            if (isCountIn) {
+                marker.style.backgroundColor = '#8B4513';
+                marker.style.boxShadow = '0 0 20px rgba(139, 69, 19, 0.9)';
+                marker.style.animation = 'pulse 0.5s infinite alternate';
+            }
+            
+            // Posicionamento do marcador - agora com movimento mais suave da esquerda para a direita
+            const totalWidth = visualization.offsetWidth;
+            const beatWidth = totalWidth / rhythmPatterns[selectedRhythm].length;
+            const leftPosition = (isCountIn) 
+                ? Math.random() * (totalWidth - 10) // Posicionamento aleatório para contagem
+                : (currentBeat * beatWidth) + (beatWidth / 2); // Posicionamento ordenado para ritmos
+            
             marker.style.left = `${leftPosition}px`;
             
-            // Add to visualization
+            // Altura aleatória para efeito visual mais dinâmico
+            const heightPercent = isAccent ? 90 + Math.random() * 10 : 40 + Math.random() * 60;
+            marker.style.height = `${heightPercent}%`;
+            marker.style.top = `${100 - heightPercent}%`;
+            
+            // Adicionar ao elemento de visualização
             visualization.appendChild(marker);
             
-            // Animate and remove marker
+            // Vibração no dispositivo se suportado (apenas para batidas acentuadas)
+            if (isAccent && 'vibrate' in navigator) {
+                try {
+                    navigator.vibrate(50); // Vibração curta
+                } catch (e) {
+                    // Alguns navegadores podem gerar erro mesmo com suporte
+                    console.log("Vibração não suportada ou permissão negada");
+                }
+            }
+            
+            // Animar e remover marcador com transição mais suave
             setTimeout(() => {
+                marker.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                 marker.style.opacity = '0';
+                marker.style.transform = 'translateY(-20px)';
                 setTimeout(() => {
-                    visualization.removeChild(marker);
-                }, 300);
+                    if (visualization.contains(marker)) {
+                        visualization.removeChild(marker);
+                    }
+                }, 500);
             }, 300);
         }
         
         function updateBeatCounter() {
-            // Calculate the beat number (1-based)
+            // Calcular o número da batida (baseado em 1)
             const beatNumber = Math.floor(currentBeat / 2) + 1;
             beatCounter.textContent = beatNumber.toString();
+            
+            // Adicionar uma pequena animação ao contador de batida
+            beatCounter.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                beatCounter.style.transform = 'scale(1)';
+            }, 100);
         }
         
         function resetVisualization() {
             currentBeat = 0;
             beatCounter.textContent = '-';
             
-            // Clear all markers
+            // Limpar todos os marcadores
             while (visualization.firstChild) {
                 visualization.removeChild(visualization.firstChild);
             }
         }
         
-        // Initialize with the first rhythm selected
+        // Inicializar com o primeiro ritmo selecionado
         rhythmCards[0].classList.add('selected');
+        
+        // Iniciar o AudioContext quando a página for interagida pelo usuário
+        document.addEventListener('click', () => {
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }, { once: true });
     </script>
 </body>
 </html>

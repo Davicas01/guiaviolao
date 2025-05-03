@@ -2,19 +2,23 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kit Acordes do Violonista Iniciante</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=width=device-width, initial-scale=1.0">
+    <title>Kit Acordes do Violonista Iniciante | Guia Completo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #8B4513;
             --secondary-color: #A0522D;
-            --accent-color: #D2691E;
+            --accent-color: #CD853F;
             --dark-color: #3E2723;
             --light-color: #F5F5DC;
-            --text-color: #333;
-            --background-color: #FFF8DC;
+            --text-color: #3E2723;
+            --background-color: #FAF0E6;
+            --success-color: #5D8C51;
+            --shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -24,10 +28,10 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--background-color);
+            background-color: white; /* Fundo branco */
         }
 
         .container {
@@ -37,214 +41,332 @@
         }
 
         header {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 40px 0;
+            padding: 50px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1556449895-a33c9dba33dd?auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
         }
 
         .main-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
         }
 
         .content-section {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             margin: 30px 0;
-            padding: 30px;
+            padding: 35px;
+            transition: var(--transition);
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
         .section-title {
             color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color) 0%, var(--primary-color) 100%);
+            border-radius: 3px;
         }
 
         .chord-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
         }
 
         .chord-card {
             background: var(--light-color);
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: var(--border-radius);
+            padding: 25px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: var(--transition);
             cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chord-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .chord-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .chord-card:hover::before {
+            opacity: 1;
         }
 
         .chord-diagram {
             width: 200px;
-            height: 250px;
-            margin: 0 auto;
+            height: 240px;
+            margin: 0 auto 20px;
             position: relative;
             background: white;
-            border: 1px solid var(--dark-color);
-            border-radius: 5px;
-            margin-bottom: 15px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            padding: 10px;
         }
 
         .chord-details {
-            margin-top: 15px;
+            margin-top: 20px;
             padding-top: 15px;
-            border-top: 1px dashed var(--accent-color);
+            border-top: 1px dashed rgba(0,0,0,0.1);
         }
 
         .chord-tips {
             font-size: 0.9rem;
             color: var(--secondary-color);
-            margin-top: 10px;
+            margin-top: 12px;
+            font-style: italic;
         }
 
         .transition-tips {
-            background: var(--secondary-color);
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 25px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .transition-tips h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .transition-tips h3 i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .transition-tips ul {
+            margin-left: 30px;
+        }
+
+        .transition-tips li {
+            margin-bottom: 8px;
         }
 
         .rhythm-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
 
         .rhythm-card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .rhythm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .rhythm-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
         .progression-box {
             background: var(--light-color);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            transition: var(--transition);
+            border-left: 4px solid var(--accent-color);
         }
 
-        .tip-box {
-            background: var(--accent-color);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
+        .progression-box:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+
+        .progression-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
         }
 
         footer {
             background: var(--dark-color);
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
+            padding: 30px;
+            margin-top: 70px;
         }
 
-        /* Botão de Voltar - Melhorado e mais visível */
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: var(--accent-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        /* Botão de Home - Tamanho aumentado e sombra removida */
+        .home-button {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 100;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            border: 2px solid white;
-            font-size: 1.1rem;
-        }
-
-        .back-button:hover {
-            background-color: var(--primary-color);
+            bottom: 30px;
+            right: 30px;
+            width: 70px;  /* Aumentado de 50px para 70px */
+            height: 70px;  /* Aumentado de 50px para 70px */
+            border-radius: 50%;
+            background: #8B4513;
             color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+            border: none;
+            cursor: pointer;
+            box-shadow: none;  /* Removida a sombra */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;  /* Aumentado o tamanho do ícone */
+            transition: var(--transition);
+            z-index: 100;
         }
 
-        .back-button i {
-            margin-right: 8px;
-            font-size: 1.2rem;
+        .home-button:hover {
+            background: #A0522D;
+            box-shadow: none;
         }
-        
-        /* Menu de navegação interna */
+
+        /* Removendo estilo do botão Menu Principal */
+        .back-button {
+            display: none;
+        }
+
+        /* Menu de navegação interna - Redesenhado */
         .nav-tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 30px;
             position: sticky;
             top: 20px;
             background: var(--background-color);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: var(--border-radius);
             z-index: 50;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
         
         .nav-tab {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: white;
-            border: 2px solid var(--primary-color);
-            border-radius: 30px;
-            color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            color: var(--secondary-color);
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
-        .nav-tab:hover, .nav-tab.active {
+        .nav-tab:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
             background: var(--primary-color);
             color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         
-        /* Diagrama de acordes detalhado */
+        /* Diagrama de acordes redesenhado */
         .chord-fretboard {
             width: 180px;
             height: 200px;
             margin: 0 auto;
             position: relative;
-            background-image: linear-gradient(to bottom, #f9f9f9 0%, #f9f9f9 100%);
-            border: 1px solid #333;
-            border-radius: 5px;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.2);
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
         }
         
         .chord-string {
             width: 100%;
-            height: 1px;
-            background: #666;
+            height: 1.5px;
+            background: #999;
             position: absolute;
         }
         
         .chord-fret {
             width: 100%;
             height: 1px;
-            background: #999;
+            background: #bbb;
             position: absolute;
         }
         
         .finger-dot {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: var(--secondary-color);
+            background: var(--accent-color);
             color: white;
             position: absolute;
             display: flex;
@@ -252,20 +374,31 @@
             justify-content: center;
             font-weight: bold;
             font-size: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
         .open-string, .muted-string {
             position: absolute;
-            top: -20px;
+            top: -25px;
             font-size: 18px;
-            width: 20px;
+            width: 24px;
             text-align: center;
+            font-weight: 600;
+        }
+        
+        .open-string {
+            color: var(--success-color);
+        }
+        
+        .muted-string {
+            color: #D32F2F;
         }
         
         .chord-name {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
             color: var(--primary-color);
+            font-weight: 600;
         }
         
         /* Seção de músicas para praticar */
@@ -275,84 +408,111 @@
         
         .song-card {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.03);
         }
         
         .song-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
         .song-title {
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--primary-color);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .song-chords {
-            margin: 10px 0;
-            padding: 10px;
+            margin: 15px 0;
+            padding: 15px;
             background: var(--light-color);
-            border-radius: 5px;
-            font-family: monospace;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
             font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-align: center;
+            letter-spacing: 1px;
         }
         
         /* Melhorias visuais gerais */
         .section-header {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .section-icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-right: 15px;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-right: 20px;
+            background: var(--light-color);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
         
         @media (max-width: 768px) {
             .back-button {
-                padding: 8px 16px;
-                font-size: 1rem;
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
             
             .nav-tabs {
                 overflow-x: auto;
-                padding-bottom: 5px;
+                padding-bottom: 10px;
+                flex-wrap: nowrap;
             }
             
             .nav-tab {
-                padding: 6px 12px;
+                padding: 8px 16px;
                 font-size: 0.9rem;
+                white-space: nowrap;
+            }
+
+            .main-title {
+                font-size: 2.2rem;
+            }
+
+            .section-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
             }
         }
         
-        /* Indicador de prática */
+        /* Indicador de prática redesenhado */
         .practice-tracker {
             display: flex;
             align-items: center;
-            margin-top: 15px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
         }
         
         .practice-checkbox {
-            width: 22px;
-            height: 22px;
-            border: 2px solid var(--secondary-color);
-            border-radius: 4px;
-            margin-right: 10px;
+            width: 26px;
+            height: 26px;
+            border: 2px solid var(--accent-color);
+            border-radius: 6px;
+            margin-right: 12px;
             cursor: pointer;
             position: relative;
             transition: all 0.2s ease;
+            background: white;
         }
         
         .practice-checkbox.checked {
-            background-color: var(--secondary-color);
+            background-color: var(--accent-color);
         }
         
         .practice-checkbox.checked::after {
@@ -362,37 +522,12 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: bold;
         }
         
-        /* Tooltip para dicas */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-            margin-left: 5px;
-        }
-        
-        .tooltip .tooltip-text {
-            visibility: hidden;
-            width: 200px;
-            background-color: var(--dark-color);
-            color: white;
-            text-align: center;
-            border-radius: 6px;
-            padding: 10px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
+        .practice-checkbox:hover {
+            transform: scale(1.1);
         }
 
         /* Animações melhoradas */
@@ -405,29 +540,442 @@
         .highlight-pulse {
             animation: pulse 2s infinite;
         }
+
+        /* Navegação rápida redesenhada */
+        .quick-nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .quick-nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .quick-nav-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        /* Etiqueta de nível de dificuldade */
+        .difficulty-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .difficulty-easy {
+            background-color: #5D8C51;
+        }
+
+        .difficulty-medium {
+            background-color: #FF9800;
+        }
+
+        .difficulty-hard {
+            background-color: #F44336;
+        }
+
+        /* Contador de progresso */
+        .progress-counter {
+            background: var(--light-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color) 0%, var(--success-color) 100%);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        /* Estilos para o afinador de violão */
+        .tuner-section {
+            background: var(--light-color);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin: 25px 0;
+        }
+        
+        .string-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .guitar-string {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin: 10px;
+            min-width: 80px;
+        }
+        
+        .string-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .play-string {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .play-string:hover {
+            transform: scale(1.1);
+            background: var(--primary-color);
+        }
+        
+        /* Estilos para exercícios práticos */
+        .exercise-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .exercise-title {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .exercise-title i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .exercise-steps {
+            padding-left: 20px;
+        }
+        
+        .exercise-steps li {
+            margin-bottom: 10px;
+        }
+        
+        .timer-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .timer-control {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .timer-control:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Seção de vídeos demonstrativos */
+        .video-container {
+            margin: 25px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .responsive-iframe {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .responsive-iframe iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Estilo para aba de acordes extras */
+        .tab-content-section {
+            display: none;
+        }
+        
+        .tab-content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilo para botão de fixação de acordes */
+        .chord-practice-helper {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 15px;
+            z-index: 100;
+            width: 280px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .chord-practice-helper .helper-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+            border-bottom: 1px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chord-practice-helper .helper-header h3 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .chord-practice-helper .helper-header button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            transition: transform 0.2s ease;
+        }
+
+        .chord-practice-helper .helper-header button:hover {
+            transform: rotate(90deg);
+        }
+
+        .chord-practice-helper .helper-content {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .chord-practice-helper .helper-chord-select {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .chord-practice-helper .helper-chord-select select {
+            width: 70%;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--accent-color);
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .chord-practice-helper .helper-chord-select button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .chord-practice-helper .helper-chord-select button:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .chord-practice-helper .practice-chords-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 5px;
+            margin-top: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .chord-practice-helper .practice-chords-container .chord-diagram {
+            width: 120px;
+            height: 140px;
+            margin: 0;
+        }
+
+        .chord-practice-helper .toggle-helper-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+
+        .chord-practice-helper .toggle-helper-btn i {
+            margin-right: 8px;
+        }
+
+        .chord-practice-helper .toggle-helper-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .chord-item {
+            position: relative;
+        }
+
+        .remove-chord {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <!-- Botão de Voltar - Melhorado -->
-    <a href="../index.html" class="back-button highlight-pulse">
-        <i class="fas fa-home"></i> Voltar ao Menu Principal
-    </a>
-
     <header>
         <div class="container">
             <h1 class="main-title">Kit Acordes do Violonista Iniciante</h1>
-            <p>Seu guia completo para dominar os acordes e ritmos essenciais no violão</p>
+            <p class="subtitle">Aprenda os principais acordes, ritmos e progressões para tocar suas músicas favoritas</p>
         </div>
     </header>
 
     <main class="container">
         <!-- Menu de navegação interna -->
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="scrollToSection('acordes')">Acordes</button>
-            <button class="nav-tab" onclick="scrollToSection('trocas')">Trocas</button>
-            <button class="nav-tab" onclick="scrollToSection('ritmos')">Ritmos</button>
-            <button class="nav-tab" onclick="scrollToSection('musicas')">Músicas Fáceis</button>
-            <button class="nav-tab" onclick="scrollToSection('dicas')">Dicas</button>
+            <button class="nav-tab active" onclick="scrollToSection('acordes')">
+                <i class="fas fa-guitar"></i> Acordes
+            </button>
+            <button class="nav-tab" onclick="scrollToSection('trocas')">
+                <i class="fas fa-exchange-alt"></i> Trocas
+            </button>
+            <button class="nav-tab" onclick="scrollToSection('ritmos')">
+                <i class="fas fa-drum"></i> Ritmos
+            </button>
+            <button class="nav-tab" onclick="scrollToSection('musicas')">
+                <i class="fas fa-music"></i> Músicas
+            </button>
+            <button class="nav-tab" onclick="scrollToSection('afinador')">
+                <i class="fas fa-sliders-h"></i> Afinador
+            </button>
+            <button class="nav-tab" onclick="scrollToSection('exercicios')">
+                <i class="fas fa-dumbbell"></i> Exercícios
+            </button>
+            <button class="nav-tab" onclick="scrollToSection('manutencao')">
+                <i class="fas fa-tools"></i> Manutenção
+            </button>
+        </div>
+
+        <!-- Contador de progresso global -->
+        <div class="progress-counter">
+            <h3>Seu progresso</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-bar-fill"></div>
+            </div>
+            <p><span id="progress-percentage">0%</span> completo</p>
         </div>
 
         <section id="acordes" class="content-section">
@@ -435,82 +983,142 @@
                 <div class="section-icon"><i class="fas fa-guitar"></i></div>
                 <h2 class="section-title">Acordes Fundamentais</h2>
             </div>
+            <p>Domine estes acordes essenciais para tocar milhares de músicas populares.</p>
+            
             <div class="chord-grid">
                 <div class="chord-card" onclick="showChordDetails('Em')">
+                    <span class="difficulty-tag difficulty-easy">Fácil</span>
                     <h3 class="chord-name">Em (Mi menor)</h3>
                     <div class="chord-diagram">
                         <!-- Diagrama será inserido pelo JS -->
                     </div>
                     <p>Dedilhado: 022000</p>
-                    <p class="chord-tips">Um dos acordes mais fáceis para iniciar</p>
+                    <p class="chord-tips">Perfeito para começar - use os dedos 2 e 3</p>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
-                        <span>Pratiquei este acorde</span>
+                        <span>Dominei este acorde</span>
                     </div>
                 </div>
                 
                 <div class="chord-card" onclick="showChordDetails('C')">
+                    <span class="difficulty-tag difficulty-easy">Fácil</span>
                     <h3 class="chord-name">C (Dó maior)</h3>
                     <div class="chord-diagram">
                         <!-- Diagrama será inserido pelo JS -->
                     </div>
                     <p>Dedilhado: 032010</p>
-                    <p class="chord-tips">Acorde fundamental para músicas pop</p>
+                    <p class="chord-tips">Acorde essencial para músicas pop</p>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
-                        <span>Pratiquei este acorde</span>
+                        <span>Dominei este acorde</span>
                     </div>
                 </div>
                 
                 <div class="chord-card" onclick="showChordDetails('G')">
+                    <span class="difficulty-tag difficulty-medium">Médio</span>
                     <h3 class="chord-name">G (Sol maior)</h3>
                     <div class="chord-diagram">
                         <!-- Diagrama será inserido pelo JS -->
                     </div>
                     <p>Dedilhado: 320003</p>
-                    <p class="chord-tips">Muito usado em progressões com C e D</p>
+                    <p class="chord-tips">Completa a progressão básica com C e D</p>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
-                        <span>Pratiquei este acorde</span>
+                        <span>Dominei este acorde</span>
                     </div>
                 </div>
                 
                 <div class="chord-card" onclick="showChordDetails('D')">
+                    <span class="difficulty-tag difficulty-medium">Médio</span>
                     <h3 class="chord-name">D (Ré maior)</h3>
                     <div class="chord-diagram">
                         <!-- Diagrama será inserido pelo JS -->
                     </div>
                     <p>Dedilhado: xx0232</p>
-                    <p class="chord-tips">Completa a tríade básica C-G-D</p>
+                    <p class="chord-tips">Posicione os dedos em formato triangular</p>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
-                        <span>Pratiquei este acorde</span>
+                        <span>Dominei este acorde</span>
                     </div>
                 </div>
                 
                 <div class="chord-card" onclick="showChordDetails('Am')">
+                    <span class="difficulty-tag difficulty-easy">Fácil</span>
                     <h3 class="chord-name">Am (Lá menor)</h3>
                     <div class="chord-diagram">
                         <!-- Diagrama será inserido pelo JS -->
                     </div>
                     <p>Dedilhado: x02210</p>
-                    <p class="chord-tips">Acorde menor mais usado</p>
+                    <p class="chord-tips">Acorde menor mais comum em músicas</p>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
-                        <span>Pratiquei este acorde</span>
+                        <span>Dominei este acorde</span>
                     </div>
                 </div>
                 
                 <div class="chord-card" onclick="showChordDetails('F')">
+                    <span class="difficulty-tag difficulty-hard">Avançado</span>
                     <h3 class="chord-name">F (Fá maior)</h3>
                     <div class="chord-diagram">
                         <!-- Diagrama será inserido pelo JS -->
                     </div>
                     <p>Dedilhado: 133211</p>
-                    <p class="chord-tips">Primeiro acorde com pestana</p>
+                    <p class="chord-tips">Seu primeiro acorde com pestana</p>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
-                        <span>Pratiquei este acorde</span>
+                        <span>Dominei este acorde</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="acordes-extras" class="content-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-guitar"></i></div>
+                <h2 class="section-title">Acordes Extras</h2>
+            </div>
+            <p>Aprenda estas variações para enriquecer suas progressões e tocar mais músicas.</p>
+            
+            <div class="chord-grid">
+                <div class="chord-card" onclick="showChordDetails('A')">
+                    <span class="difficulty-tag difficulty-medium">Médio</span>
+                    <h3 class="chord-name">A (Lá maior)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: x02220</p>
+                    <p class="chord-tips">Muito usado com D e E</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Dominei este acorde</span>
+                    </div>
+                </div>
+                
+                <div class="chord-card" onclick="showChordDetails('E')">
+                    <span class="difficulty-tag difficulty-medium">Médio</span>
+                    <h3 class="chord-name">E (Mi maior)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: 022100</p>
+                    <p class="chord-tips">Complementa bem o acorde Am</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Dominei este acorde</span>
+                    </div>
+                </div>
+                
+                <div class="chord-card" onclick="showChordDetails('Dm')">
+                    <span class="difficulty-tag difficulty-medium">Médio</span>
+                    <h3 class="chord-name">Dm (Ré menor)</h3>
+                    <div class="chord-diagram">
+                        <!-- Diagrama será inserido pelo JS -->
+                    </div>
+                    <p>Dedilhado: xx0231</p>
+                    <p class="chord-tips">Versão menor do acorde D</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Dominei este acorde</span>
                     </div>
                 </div>
             </div>
@@ -521,23 +1129,25 @@
                 <div class="section-icon"><i class="fas fa-exchange-alt"></i></div>
                 <h2 class="section-title">Trocas de Acordes</h2>
             </div>
+            <p>Domine estas transições para manter o fluxo da música sem interrupções.</p>
+            
             <div class="transition-tips">
-                <h3><i class="fas fa-lightbulb"></i> Dicas para Transições Suaves</h3>
+                <h3><i class="fas fa-lightbulb"></i> Segredos para Transições Suaves</h3>
                 <ul>
-                    <li>Pratique lentamente no início, aumente a velocidade gradualmente</li>
+                    <li>Pratique lentamente e aumente a velocidade gradativamente</li>
                     <li>Foque na precisão antes da velocidade</li>
-                    <li>Visualize o próximo acorde antes da troca</li>
-                    <li>Tente mover todos os dedos ao mesmo tempo</li>
-                    <li>Use um metrônomo para manter o ritmo consistente</li>
+                    <li>Visualize mentalmente o próximo acorde antes da troca</li>
+                    <li>Treine o movimento de todos os dedos simultaneamente</li>
+                    <li>Use um metrônomo para manter o tempo constante</li>
                 </ul>
             </div>
             
             <h3>Exercícios de Transição:</h3>
             
             <div class="progression-box">
-                <h3>Progressão Iniciante #1</h3>
+                <h3>Progressão Pop #1</h3>
                 <p><strong>Em → G → C → D</strong></p>
-                <p>Use esta progressão para praticar as trocas básicas (4 tempos por acorde)</p>
+                <p>Progressão versátil usada em rock e pop (4 tempos por acorde)</p>
                 <div class="practice-tracker">
                     <div class="practice-checkbox" onclick="togglePractice(this)"></div>
                     <span>Dominei esta progressão</span>
@@ -545,9 +1155,9 @@
             </div>
             
             <div class="progression-box">
-                <h3>Progressão Iniciante #2</h3>
+                <h3>Progressão Pop #2</h3>
                 <p><strong>C → Am → F → G</strong></p>
-                <p>Progressão pop clássica, excelente para praticar o F com pestana (4 tempos por acorde)</p>
+                <p>A famosa progressão "I-vi-IV-V", base de centenas de hits (4 tempos por acorde)</p>
                 <div class="practice-tracker">
                     <div class="practice-checkbox" onclick="togglePractice(this)"></div>
                     <span>Dominei esta progressão</span>
@@ -555,9 +1165,9 @@
             </div>
             
             <div class="progression-box">
-                <h3>Exercício de Transição Rápida</h3>
+                <h3>Transição Rápida</h3>
                 <p><strong>C → G (alternando)</strong></p>
-                <p>Troque rapidamente entre C e G, 2 tempos por acorde. Aumente a velocidade gradualmente.</p>
+                <p>Troca básica e essencial. Comece com 4 tempos, reduza para 2 e depois 1 tempo por acorde.</p>
                 <div class="practice-tracker">
                     <div class="practice-checkbox" onclick="togglePractice(this)"></div>
                     <span>Dominei esta transição</span>
@@ -574,12 +1184,12 @@
             
             <div class="rhythm-section">
                 <div class="rhythm-card">
-                    <h3>Batida Pop Básica</h3>
+                    <h3>Batida Pop/Rock Universal</h3>
                     <p class="song-chords">↓ ↓ ↑ ↓ ↑</p>
                     <ul>
-                        <li>Perfeita para pop e MPB</li>
-                        <li>Velocidade inicial: 80 BPM</li>
-                        <li>Usada em músicas como "Knockin' on Heaven's Door"</li>
+                        <li>Funciona em quase todos os estilos musicais</li>
+                        <li>Velocidade recomendada: 80-100 BPM</li>
+                        <li>Exemplo: "Knockin' on Heaven's Door"</li>
                     </ul>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
@@ -591,9 +1201,9 @@
                     <h3>Batida Balada</h3>
                     <p class="song-chords">↓ ↓ ↑ ↑</p>
                     <ul>
-                        <li>Ideal para baladas e músicas lentas</li>
-                        <li>Velocidade inicial: 60-70 BPM</li>
-                        <li>Usada em músicas como "Wonderwall" (Oasis)</li>
+                        <li>Ideal para músicas lentas e emotivas</li>
+                        <li>Velocidade recomendada: 60-75 BPM</li>
+                        <li>Exemplo: "Wonderwall" (Oasis)</li>
                     </ul>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
@@ -605,9 +1215,9 @@
                     <h3>Batida Reggae</h3>
                     <p class="song-chords">↑ ↓ ↑ ↓</p>
                     <ul>
-                        <li>Enfatiza o contratempo (upbeat)</li>
-                        <li>Velocidade inicial: 70-80 BPM</li>
-                        <li>Use um pouco de palm muting (abafamento)</li>
+                        <li>Destaque para o contratempo</li>
+                        <li>Velocidade recomendada: 70-90 BPM</li>
+                        <li>Utilize abafamento parcial das cordas</li>
                     </ul>
                     <div class="practice-tracker">
                         <div class="practice-checkbox" onclick="togglePractice(this)"></div>
@@ -620,51 +1230,217 @@
         <section id="musicas" class="content-section">
             <div class="section-header">
                 <div class="section-icon"><i class="fas fa-music"></i></div>
-                <h2 class="section-title">Músicas Fáceis para Praticar</h2>
+                <h2 class="section-title">Músicas para Praticar</h2>
             </div>
+            <p>Estas músicas são perfeitas para consolidar seu aprendizado com acordes simples.</p>
+            
             <div class="song-section">
                 <div class="song-card">
                     <h3 class="song-title">Knockin' on Heaven's Door (Bob Dylan)</h3>
-                    <p>Progressão simples de 4 acordes repetidos</p>
+                    <p>Música clássica com apenas 4 acordes básicos</p>
                     <div class="song-chords">G - D - Am - Am - G - D - C - C</div>
-                    <p><strong>Ritmo:</strong> Batida Pop Básica (↓ ↓ ↑ ↓ ↑)</p>
+                    <p><strong>Ritmo:</strong> Batida Pop Universal (↓ ↓ ↑ ↓ ↑)</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Aprendi esta música</span>
+                    </div>
                 </div>
                 
                 <div class="song-card">
                     <h3 class="song-title">Love Me Do (The Beatles)</h3>
-                    <p>Apenas 2 acordes principais - perfeita para iniciantes</p>
+                    <p>Clássico dos Beatles com apenas 2 acordes principais</p>
                     <div class="song-chords">G - C (repetir)</div>
                     <p><strong>Ritmo:</strong> ↓ ↑ ↓ ↑</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Aprendi esta música</span>
+                    </div>
                 </div>
                 
                 <div class="song-card">
                     <h3 class="song-title">Pra Não Dizer Que Não Falei das Flores (Geraldo Vandré)</h3>
-                    <p>Clássico da MPB com acordes simples</p>
+                    <p>MPB clássica com progressão acessível</p>
                     <div class="song-chords">Am - D - Am - G - F - Em - Am</div>
                     <p><strong>Ritmo:</strong> Batida Balada adaptada</p>
+                    <div class="practice-tracker">
+                        <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                        <span>Aprendi esta música</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="dicas" class="content-section">
+        <section id="afinador" class="content-section">
             <div class="section-header">
-                <div class="section-icon"><i class="fas fa-star"></i></div>
-                <h2 class="section-title">Dicas do Professor</h2>
+                <div class="section-icon"><i class="fas fa-sliders-h"></i></div>
+                <h2 class="section-title">Afinador de Violão</h2>
+            </div>
+            <p>Use este afinador para ajustar as cordas do seu violão à afinação padrão (EADGBe).</p>
+            
+            <div class="tuner-section">
+                <h3>Clique nos botões abaixo para ouvir o som de cada corda:</h3>
+                
+                <div class="string-container">
+                    <div class="guitar-string">
+                        <span class="string-name">E</span>
+                        <p>1ª corda</p>
+                        <button class="play-string" onclick="playStringSound('E')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="guitar-string">
+                        <span class="string-name">B</span>
+                        <p>2ª corda</p>
+                        <button class="play-string" onclick="playStringSound('B')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="guitar-string">
+                        <span class="string-name">G</span>
+                        <p>3ª corda</p>
+                        <button class="play-string" onclick="playStringSound('G')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="guitar-string">
+                        <span class="string-name">D</span>
+                        <p>4ª corda</p>
+                        <button class="play-string" onclick="playStringSound('D')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="guitar-string">
+                        <span class="string-name">A</span>
+                        <p>5ª corda</p>
+                        <button class="play-string" onclick="playStringSound('A')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="guitar-string">
+                        <span class="string-name">E</span>
+                        <p>6ª corda</p>
+                        <button class="play-string" onclick="playStringSound('E_low')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tuner-instructions">
+                    <h3>Como afinar seu violão:</h3>
+                    <ol>
+                        <li>Toque o botão da corda que deseja afinar</li>
+                        <li>Toque a mesma corda no seu violão</li>
+                        <li>Ajuste a tensão até que os sons coincidam</li>
+                        <li>Repita para cada corda</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="exercicios" class="content-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-dumbbell"></i></div>
+                <h2 class="section-title">Exercícios Práticos</h2>
+            </div>
+            <p>Pratique estes exercícios diariamente para melhorar sua técnica e agilidade.</p>
+            
+            <div class="exercise-card">
+                <h3 class="exercise-title"><i class="fas fa-hand-paper"></i> Exercício de Independência dos Dedos</h3>
+                <ol class="exercise-steps">
+                    <li>Posicione os dedos nas casas 1, 2, 3 e 4 na sexta corda</li>
+                    <li>Pressione e solte cada dedo individualmente, mantendo os outros firmes</li>
+                    <li>Repita 10 vezes para cada dedo</li>
+                    <li>Avance para a próxima corda e repita</li>
+                </ol>
+                <div class="timer-container">
+                    <span id="independencia-timer">5:00</span>
+                    <button class="timer-control" onclick="startTimer('independencia-timer', 5)">Iniciar Prática (5 min)</button>
+                </div>
+                <div class="practice-tracker">
+                    <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                    <span>Pratiquei hoje</span>
+                </div>
             </div>
             
-            <div class="tip-box">
-                <h3><i class="fas fa-clock"></i> Rotina de Prática</h3>
-                <p>Pratique 15 minutos por dia consistentemente em vez de sessões longas e esporádicas. A regularidade é mais importante que a duração.</p>
+            <div class="exercise-card">
+                <h3 class="exercise-title"><i class="fas fa-exchange-alt"></i> Troca Rápida de Acordes</h3>
+                <ol class="exercise-steps">
+                    <li>Escolha dois acordes que você deseja praticar (ex: G e C)</li>
+                    <li>Troque entre eles lentamente, garantindo posicionamento correto</li>
+                    <li>Gradualmente aumente a velocidade com ajuda de um metrônomo</li>
+                    <li>Tente trocar a cada batida, mantendo o ritmo</li>
+                </ol>
+                <div class="timer-container">
+                    <span id="troca-timer">3:00</span>
+                    <button class="timer-control" onclick="startTimer('troca-timer', 3)">Iniciar Prática (3 min)</button>
+                </div>
+                <div class="practice-tracker">
+                    <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                    <span>Pratiquei hoje</span>
+                </div>
             </div>
             
-            <div class="tip-box">
-                <h3><i class="fas fa-hand-paper"></i> Posição Correta das Mãos</h3>
-                <p>Mantenha o polegar aproximadamente no meio da parte de trás do braço do violão. Pressione as cordas com as pontas dos dedos, mantendo-os curvados.</p>
+            <div class="exercise-card">
+                <h3 class="exercise-title"><i class="fas fa-drum"></i> Exercício de Ritmo</h3>
+                <ol class="exercise-steps">
+                    <li>Escolha um acorde simples como Em ou C</li>
+                    <li>Pratique a batida ↓ ↓ ↑ ↓ ↑ com um metrônomo lento</li>
+                    <li>Concentre-se na consistência e na força das batidas</li>
+                    <li>Aumente gradualmente a velocidade do metrônomo</li>
+                </ol>
+                <div class="timer-container">
+                    <span id="ritmo-timer">4:00</span>
+                    <button class="timer-control" onclick="startTimer('ritmo-timer', 4)">Iniciar Prática (4 min)</button>
+                </div>
+                <div class="practice-tracker">
+                    <div class="practice-checkbox" onclick="togglePractice(this)"></div>
+                    <span>Pratiquei hoje</span>
+                </div>
             </div>
+        </section>
+
+        <section id="manutencao" class="content-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-tools"></i></div>
+                <h2 class="section-title">Cuidados com o Violão</h2>
+            </div>
+            <p>Manter seu instrumento em boas condições garante melhor sonoridade e durabilidade.</p>
             
-            <div class="tip-box">
-                <h3><i class="fas fa-chart-line"></i> Acompanhe seu Progresso</h3>
-                <p>Grave-se tocando a cada semana e compare os vídeos para ver sua evolução. Isso é motivador e ajuda a identificar pontos a melhorar.</p>
+            <div class="chord-grid">
+                <div class="chord-card">
+                    <h3 style="color: var(--primary-color);"><i class="fas fa-temperature-low"></i> Temperatura e Umidade</h3>
+                    <p>Mantenha seu violão em local com umidade entre 45% e 55% e temperatura estável.</p>
+                    <ul style="text-align: left; padding-left: 20px; margin-top: 15px;">
+                        <li>Evite exposição direta ao sol</li>
+                        <li>Não deixe no porta-malas do carro</li>
+                        <li>Em climas muito secos, use umidificador</li>
+                    </ul>
+                </div>
+                
+                <div class="chord-card">
+                    <h3 style="color: var(--primary-color);"><i class="fas fa-hand-sparkles"></i> Limpeza Regular</h3>
+                    <p>Limpe o violão após cada uso para evitar acúmulo de suor e sujeira.</p>
+                    <ul style="text-align: left; padding-left: 20px; margin-top: 15px;">
+                        <li>Use flanela macia e seca para o corpo</li>
+                        <li>Limpe as cordas com pano de algodão</li>
+                        <li>Use produto específico para escala (semestral)</li>
+                    </ul>
+                </div>
+                
+                <div class="chord-card">
+                    <h3 style="color: var(--primary-color);"><i class="fas fa-exchange-alt"></i> Troca de Cordas</h3>
+                    <p>Cordas novas melhoram a sonoridade e facilitam o aprendizado.</p>
+                    <ul style="text-align: left; padding-left: 20px; margin-top: 15px;">
+                        <li>Troque a cada 2-3 meses se tocar frequentemente</li>
+                        <li>Troque todas as cordas de uma vez</li>
+                        <li>Corte as pontas e estique bem as cordas novas</li>
+                    </ul>
+                </div>
             </div>
         </section>
     </main>
@@ -676,10 +1452,46 @@
         </button>
     </div>
 
+    <!-- Botão para fixar acordes na tela durante a prática -->
+    <div class="chord-practice-helper" id="chordHelper">
+        <div class="helper-header">
+            <h3>Acordes para Prática</h3>
+            <button id="closeHelper"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="helper-content">
+            <div class="helper-chord-select">
+                <select id="chordSelect">
+                    <option value="">Selecione um acorde</option>
+                    <option value="Em">Mi menor (Em)</option>
+                    <option value="C">Dó maior (C)</option>
+                    <option value="G">Sol maior (G)</option>
+                    <option value="D">Ré maior (D)</option>
+                    <option value="Am">Lá menor (Am)</option>
+                    <option value="F">Fá maior (F)</option>
+                    <option value="A">Lá maior (A)</option>
+                    <option value="E">Mi maior (E)</option>
+                    <option value="Dm">Ré menor (Dm)</option>
+                </select>
+                <button id="addChordBtn">Adicionar</button>
+            </div>
+            <div id="practiceChords" class="practice-chords-container">
+                <!-- Acordes adicionados aparecerão aqui -->
+            </div>
+        </div>
+        <button id="toggleHelper" class="toggle-helper-btn">
+            <i class="fas fa-guitar"></i> Praticar Acordes
+        </button>
+    </div>
+
+    <!-- Botão Home -->
+    <a href="../index.html" class="home-button">
+        <i class="fas fa-home"></i>
+    </a>
+
     <footer>
         <div class="container">
-            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
-            <p>© 2024 - Todos os direitos reservados</p>
+            <p>Domine o Violão - Material exclusivo para estudo</p>
+            <p>© 2025 - Todos os direitos reservados</p>
         </div>
     </footer>
 
@@ -701,7 +1513,7 @@
             document.querySelector(`.nav-tab[onclick="scrollToSection('${sectionId}')"]`).classList.add('active');
             
             const section = document.getElementById(sectionId);
-            const yOffset = -80; 
+            const yOffset = -100; 
             const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
             
             window.scrollTo({
@@ -725,18 +1537,35 @@
                 progressData[`item-${index}`] = checkbox.classList.contains('checked');
             });
             
-            localStorage.setItem('kitAcordesProgress', JSON.stringify(progressData));
+            localStorage.setItem('domineoViolaoProgress', JSON.stringify(progressData));
+            
+            // Atualizar barra de progresso
+            updateProgressBar();
+        }
+        
+        // Atualizar a barra de progresso
+        function updateProgressBar() {
+            const totalCheckboxes = document.querySelectorAll('.practice-checkbox').length;
+            const checkedCheckboxes = document.querySelectorAll('.practice-checkbox.checked').length;
+            
+            const percentage = Math.round((checkedCheckboxes / totalCheckboxes) * 100);
+            
+            document.getElementById('progress-percentage').textContent = `${percentage}%`;
+            document.getElementById('progress-bar-fill').style.width = `${percentage}%`;
         }
         
         // Carregar progresso salvo
         function loadProgress() {
-            const progressData = JSON.parse(localStorage.getItem('kitAcordesProgress') || '{}');
+            const progressData = JSON.parse(localStorage.getItem('domineoViolaoProgress') || '{}');
             
             document.querySelectorAll('.practice-checkbox').forEach((checkbox, index) => {
                 if (progressData[`item-${index}`]) {
                     checkbox.classList.add('checked');
                 }
             });
+            
+            // Atualizar barra de progresso
+            updateProgressBar();
         }
 
         // Renderizar diagrama de acordes
@@ -766,6 +1595,18 @@
                 'F': {
                     frets: [1, 3, 3, 2, 1, 1],
                     fingers: [1, 4, 3, 2, 1, 1]
+                },
+                'A': {
+                    frets: [-1, 0, 2, 2, 2, 0],
+                    fingers: [0, 0, 1, 2, 3, 0]
+                },
+                'E': {
+                    frets: [0, 2, 2, 1, 0, 0],
+                    fingers: [0, 2, 3, 1, 0, 0]
+                },
+                'Dm': {
+                    frets: [-1, -1, 0, 2, 3, 1],
+                    fingers: [0, 0, 0, 2, 3, 1]
                 }
             };
             
@@ -832,9 +1673,202 @@
             });
         }
         
-        // Mostrar detalhes do acorde em um modal ou expandir o card
+        // Mostrar detalhes do acorde com melhor interface
         function showChordDetails(chord) {
-            alert(`Dicas para o acorde ${chord}:\n\n- Certifique-se de que todas as notas soam claramente\n- Verifique se nenhuma corda está sendo abafada acidentalmente\n- Pressione as cordas com as pontas dos dedos\n- Mantenha o pulso relaxado`);
+            // Versão aprimorada com dicas específicas por acorde
+            const tips = {
+                'Em': [
+                    "Mantenha as cordas 1, 4, 5 e 6 soltas",
+                    "Posicione os dedos 2 e 3 nas cordas 2 e 3 na segunda casa",
+                    "Ideal para começar por ter apenas dois dedos"
+                ],
+                'C': [
+                    "Deixe a corda 6 muda (não toque)",
+                    "Use o dedo 3 na segunda corda, casa 1 para pressionar firme",
+                    "Mantenha espaço entre os dedos 1, 2 e 3"
+                ],
+                'G': [
+                    "Use os dedos 1, 2 e 4 (ou 3)",
+                    "Forme um 'triângulo' com os dedos no braço do violão",
+                    "Toque todas as cordas para um som completo"
+                ],
+                'D': [
+                    "Não toque as cordas 5 e 6",
+                    "Forme um triângulo com os dedos 1, 2 e 3",
+                    "Mantenha a corda 4 solta"
+                ],
+                'Am': [
+                    "Não toque a corda 6",
+                    "Mantenha os dedos próximos aos trastes",
+                    "Muito similar ao E menor, mas com uma forma diferente"
+                ],
+                'F': [
+                    "Use o dedo 1 para fazer a pestana na primeira casa",
+                    "Pressione firmemente com a lateral do dedo indicador",
+                    "Comece praticando apenas as primeiras 4 cordas"
+                ],
+                'A': [
+                    "Mantenha as cordas 1 e 6 soltas",
+                    "Posicione os dedos 1, 2 e 3 nas cordas 2, 3 e 4 na segunda casa",
+                    "Ideal para progressões com D e E"
+                ],
+                'E': [
+                    "Mantenha as cordas 1 e 6 soltas",
+                    "Posicione os dedos 1, 2 e 3 nas cordas 3, 4 e 5",
+                    "Complementa bem o acorde Am"
+                ],
+                'Dm': [
+                    "Não toque as cordas 5 e 6",
+                    "Posicione os dedos 1, 2 e 3 nas cordas 1, 3 e 4",
+                    "Versão menor do acorde D"
+                ]
+            };
+            
+            // Criar modal com HTML para melhor apresentação
+            const tipsList = tips[chord].map(tip => `<li>${tip}</li>`).join('');
+            
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.7)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '1000';
+            
+            modal.innerHTML = `
+                <div style="background: white; max-width: 500px; width: 90%; border-radius: 12px; padding: 25px; position: relative;">
+                    <button style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>
+                    <h2 style="color: var(--primary-color); margin-bottom: 15px; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px;">Acorde ${chord} - Dicas</h2>
+                    <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: center;">
+                        <div style="width: 180px; height: 200px;" id="modal-chord-diagram"></div>
+                    </div>
+                    <h3 style="margin: 15px 0 10px;">Como tocar corretamente:</h3>
+                    <ul style="margin-left: 20px;">
+                        ${tipsList}
+                    </ul>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Adicionar o diagrama de acorde
+            renderChordDiagram(modal.querySelector('#modal-chord-diagram'), chord);
+            
+            // Fechar modal
+            modal.querySelector('button').addEventListener('click', function() {
+                document.body.removeChild(modal);
+            });
+            
+            // Fechar o modal ao clicar fora
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        }
+        
+        // Afinador de violão - tocar som da corda 
+        function playStringSound(string) {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Frequências das cordas do violão em afinação padrão (Hz)
+            const stringFrequencies = {
+                'E': 329.63, // Mi (1ª corda)
+                'B': 246.94, // Si (2ª corda)
+                'G': 196.00, // Sol (3ª corda)
+                'D': 146.83, // Ré (4ª corda)
+                'A': 110.00, // Lá (5ª corda)
+                'E_low': 82.41  // Mi (6ª corda)
+            };
+            
+            // Criar oscilador e configurar frequência
+            const oscillator = audioContext.createOscillator();
+            oscillator.type = 'triangle'; // Tipo de onda que soa mais como uma corda
+            oscillator.frequency.setValueAtTime(stringFrequencies[string], audioContext.currentTime);
+            
+            // Criar envelope de amplitude para simular decaimento da corda
+            const gainNode = audioContext.createGain();
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 3);
+            
+            // Conectar os nós de áudio
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Tocar o som
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 3); // Tocar por 3 segundos
+            
+            // Efeito visual no botão
+            const button = document.querySelector(`button[onclick="playStringSound('${string}')"]`);
+            button.classList.add('playing');
+            button.innerHTML = '<i class="fas fa-volume-up"></i>';
+            
+            setTimeout(() => {
+                button.classList.remove('playing');
+                button.innerHTML = '<i class="fas fa-play"></i>';
+            }, 3000);
+        }
+        
+        // Iniciar timer para exercício
+        function startTimer(timerId, minutes) {
+            const timerDisplay = document.getElementById(timerId);
+            const startButton = timerDisplay.nextElementSibling;
+            let totalSeconds = minutes * 60;
+            let intervalId;
+            
+            // Mudar texto do botão
+            startButton.textContent = "Pausar";
+            startButton.onclick = function() {
+                clearInterval(intervalId);
+                startButton.textContent = `Iniciar Prática (${minutes} min)`;
+                startButton.onclick = function() { startTimer(timerId, minutes); };
+                timerDisplay.textContent = `${minutes}:00`;
+            };
+            
+            // Função para atualizar o timer
+            function updateTimer() {
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = totalSeconds % 60;
+                
+                // Formatar a exibição (mm:ss)
+                timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+                
+                if (totalSeconds === 0) {
+                    // Temporizador concluído
+                    clearInterval(intervalId);
+                    timerDisplay.textContent = "Concluído!";
+                    startButton.textContent = "Recomeçar";
+                    startButton.onclick = function() { startTimer(timerId, minutes); };
+                    
+                    // Alerta sonoro
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+                    
+                    const gainNode = audioContext.createGain();
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+                    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+                    
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                } else {
+                    totalSeconds--;
+                }
+            }
+            
+            // Atualizar imediatamente e então a cada segundo
+            updateTimer();
+            intervalId = setInterval(updateTimer, 1000);
         }
         
         // Inicializar quando o DOM estiver pronto
@@ -848,7 +1882,7 @@
                 
                 // Verificar qual seção está visível
                 document.querySelectorAll('section[id]').forEach(section => {
-                    const sectionTop = section.offsetTop - 100;
+                    const sectionTop = section.offsetTop - 150;
                     const sectionHeight = section.offsetHeight;
                     
                     if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
@@ -856,16 +1890,45 @@
                             tab.classList.remove('active');
                         });
                         
-                        document.querySelector(`.nav-tab[onclick="scrollToSection('${section.id}')"]`).classList.add('active');
+                        const tabElement = document.querySelector(`.nav-tab[onclick="scrollToSection('${section.id}')"]`);
+                        if (tabElement) {
+                            tabElement.classList.add('active');
+                        }
                     }
                 });
                 
                 // Mostrar/ocultar botão de navegação rápida
                 const quickNav = document.querySelector('.quick-nav');
-                if (scrollPosition > 300) {
+                if (scrollPosition > 400) {
                     quickNav.style.opacity = '1';
                 } else {
                     quickNav.style.opacity = '0';
+                }
+            });
+
+            // Botão de fixação de acordes
+            const toggleHelper = document.getElementById('toggleHelper');
+            const chordHelper = document.getElementById('chordHelper');
+            const closeHelper = document.getElementById('closeHelper');
+            const addChordBtn = document.getElementById('addChordBtn');
+            const chordSelect = document.getElementById('chordSelect');
+            const practiceChords = document.getElementById('practiceChords');
+
+            toggleHelper.addEventListener('click', () => {
+                chordHelper.style.display = chordHelper.style.display === 'flex' ? 'none' : 'flex';
+            });
+
+            closeHelper.addEventListener('click', () => {
+                chordHelper.style.display = 'none';
+            });
+
+            addChordBtn.addEventListener('click', () => {
+                const selectedChord = chordSelect.value;
+                if (selectedChord) {
+                    const chordElement = document.createElement('div');
+                    chordElement.className = 'chord-diagram';
+                    renderChordDiagram(chordElement, selectedChord);
+                    practiceChords.appendChild(chordElement);
                 }
             });
         });

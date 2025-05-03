@@ -381,7 +381,7 @@ Para voltar para casa
 
 [Verso 2]
        G                     Em
-Amando pode curar, amando pode costurar sua alma
+Amando pode curar, amando pode costurar sua soul
          C                    D             Em
 É a única coisa que eu sei, eu juro que é verdade
              G            Em
@@ -523,6 +523,117 @@ Em/D:  020000`
                 "Comece cantarolando apenas o refrão enquanto toca",
                 "Pratique versos curtos, um de cada vez",
                 "Tente juntar tudo, mantendo o ritmo constante"
+            ],
+            timeInMinutes: 25
+        },
+        // Novos desafios adicionados
+        {
+            title: "Palhetada Alternada",
+            description: "Desenvolva a técnica de palhetada alternada (para baixo e para cima) para melhorar a velocidade e precisão da mão direita, uma técnica essencial para diversos estilos musicais.",
+            steps: [
+                "Pratique a palhetada alternada (↓↑) em uma única corda com tempo lento",
+                "Aumente gradualmente a velocidade mantendo a precisão rítmica",
+                "Experimente aplicar a técnica em escalas simples",
+                "Integre a palhetada alternada no ritmo da música escolhida"
+            ],
+            timeInMinutes: 18
+        },
+        {
+            title: "Acordes com Pestana",
+            description: "Trabalhe especificamente nos acordes com pestana, melhorando a força e posição do dedo indicador para conseguir pressionar todas as cordas de forma clara e limpa.",
+            steps: [
+                "Pratique a posição da pestana isoladamente, sem formar acordes completos",
+                "Adicione os outros dedos para formar o acorde completo",
+                "Verifique cada corda individualmente para garantir que todas soem claramente",
+                "Pratique a transição entre acordes com pestana e acordes abertos"
+            ],
+            timeInMinutes: 20
+        },
+        {
+            title: "Melodia e Harmonia",
+            description: "Trabalhe na técnica de tocar a melodia da música enquanto mantém a harmonia, combinando notas individuais com acordes para criar um arranjo mais completo.",
+            steps: [
+                "Identifique as notas principais da melodia da música",
+                "Pratique tocar essas notas isoladamente",
+                "Adicione acordes básicos nos tempos fortes enquanto mantém a melodia",
+                "Una tudo em um arranjo fluido, alternando entre melodia e acordes"
+            ],
+            timeInMinutes: 25
+        },
+        {
+            title: "Staccato e Ligado",
+            description: "Desenvolva as técnicas de staccato (notas curtas e destacadas) e ligado (notas conectadas) para adicionar expressão e dinâmica à sua execução.",
+            steps: [
+                "Pratique tocar notas em staccato, cortando o som logo após tocar",
+                "Experimente a técnica de ligado (hammer-on e pull-off)",
+                "Alterne entre as duas técnicas em uma sequência simples",
+                "Aplique estas técnicas em trechos da música escolhida para criar contraste"
+            ],
+            timeInMinutes: 15
+        },
+        {
+            title: "Treino com Metrônomo",
+            description: "Aperfeiçoe sua precisão rítmica praticando com o metrônomo em diferentes velocidades e configurações, essencial para desenvolver um senso rítmico sólido.",
+            steps: [
+                "Inicie com um andamento confortável, tocando exatamente no tempo do metrônomo",
+                "Pratique tocar entre as batidas (subdivisão do tempo)",
+                "Experimente configurar o metrônomo apenas nos tempos 2 e 4 do compasso",
+                "Gradualmente diminua o volume do metrônomo mantendo o mesmo andamento"
+            ],
+            timeInMinutes: 15
+        },
+        {
+            title: "Variações de Dinâmica",
+            description: "Trabalhe nas variações de dinâmica (forte/piano) para dar mais expressividade à sua execução, destacando diferentes partes da música.",
+            steps: [
+                "Toque a mesma sequência de acordes alternando entre forte e suave",
+                "Crie crescendos (aumentando gradualmente a intensidade) e diminuendos (reduzindo)",
+                "Aplique dinâmicas específicas para diferentes partes da música (verso/refrão)",
+                "Combine variações de dinâmica com mudanças de ritmo"
+            ],
+            timeInMinutes: 15
+        },
+        {
+            title: "Percussão no Violão",
+            description: "Aprenda técnicas de percussão no tampo e nas cordas do violão para enriquecer seu acompanhamento com elementos rítmicos adicionais.",
+            steps: [
+                "Pratique batidas simples no tampo do violão com diferentes partes da mão",
+                "Experimente combinar percussão com abafamentos de cordas",
+                "Integre pequenos toques percussivos entre as batidas principais",
+                "Crie um padrão rítmico que combine batidas nas cordas e percussão no tampo"
+            ],
+            timeInMinutes: 20
+        },
+        {
+            title: "Precisão Harmônica",
+            description: "Foque na precisão harmônica, garantindo que todos os acordes soem limpos e definidos, sem cordas abafadas ou notas indesejadas.",
+            steps: [
+                "Toque cada acorde lentamente, verificando a clareza de cada nota",
+                "Ajuste a posição dos dedos para evitar interferências em outras cordas",
+                "Pratique a pressão ideal - nem muita força, nem muito leve",
+                "Grave sua execução e ouça criticamente para identificar imperfeições"
+            ],
+            timeInMinutes: 18
+        },
+        {
+            title: "Estudo de Escalas",
+            description: "Trabalhe com escalas musicais relacionadas à tonalidade da música para desenvolver agilidade nos dedos e compreensão harmônica.",
+            steps: [
+                "Identifique a escala correspondente à tonalidade da música",
+                "Pratique a escala ascendente e descendente em posição fixa",
+                "Experimente padrões rítmicos diferentes ao tocar a escala",
+                "Use notas da escala para criar pequenos solos ou ornamentos"
+            ],
+            timeInMinutes: 20
+        },
+        {
+            title: "Treino de Ouvido",
+            description: "Desenvolva seu ouvido musical tentando tirar trechos da música sem olhar para a cifra, um exercício valioso para qualquer músico.",
+            steps: [
+                "Escolha um trecho simples da música e ouça várias vezes com atenção",
+                "Tente encontrar a nota inicial no violão",
+                "Experimente diferentes acordes até encontrar os que combinam com o trecho",
+                "Compare sua versão com a cifra original e faça ajustes"
             ],
             timeInMinutes: 25
         }
@@ -768,98 +879,33 @@ function getFromLocalStorage(key) {
     }
 }
 
+// Função para abrir modal
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block';
+    }
+}
+
+// Função para fechar modal
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
 // Gerenciamento de Estatísticas
 const stats = {
-    load() {
-        const savedStats = getFromLocalStorage('tocaAgoraStats') || {
-            practiceStreak: 0,
-            totalTimeMinutes: 0,
-            completedMissions: 0,
-            songsLearned: 0,
-            lastPractice: null,
-            weeklyProgress: [0, 0, 0, 0, 0, 0, 0]
-        };
-        
-        return savedStats;
-    },
-    
+    // Função simplificada, sem estatísticas reais
     update(type, value = 1) {
-        const currentStats = this.load();
-        const today = new Date();
-        
-        // Atualizar streak
-        if (currentStats.lastPractice) {
-            const lastDate = new Date(currentStats.lastPractice);
-            const diffTime = Math.abs(today - lastDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            if (diffDays > 1) {
-                currentStats.practiceStreak = 1; // Reinicia se passou mais de um dia
-            } else if (diffDays === 1) {
-                currentStats.practiceStreak += 1; // Incrementa se for dia consecutivo
-            }
-        } else {
-            currentStats.practiceStreak = 1; // Primeiro dia
-        }
-        
-        // Atualizar progresso da semana
-        const dayOfWeek = today.getDay();
-        currentStats.weeklyProgress[dayOfWeek] += 1;
-        
-        // Atualizar estatística específica
-        switch (type) {
-            case 'time':
-                currentStats.totalTimeMinutes += value;
-                break;
-            case 'mission':
-                currentStats.completedMissions += value;
-                break;
-            case 'song':
-                currentStats.songsLearned += value;
-                break;
-        }
-        
-        currentStats.lastPractice = today.toISOString();
-        
-        // Salvar estatísticas atualizadas
-        saveToLocalStorage('tocaAgoraStats', currentStats);
-        return currentStats;
+        // Apenas para manter a compatibilidade com o código existente
+        return {};
     },
     
+    // Função vazia já que removemos a seção de estatísticas
     display() {
-        const currentStats = this.load();
-        
-        // Atualizar valores na interface
-        document.getElementById('practiceStreak').textContent = currentStats.practiceStreak;
-        
-        const hours = Math.floor(currentStats.totalTimeMinutes / 60);
-        const minutes = currentStats.totalTimeMinutes % 60;
-        document.getElementById('totalTime').textContent = hours > 0 ? 
-            `${hours}h${minutes > 0 ? minutes + 'm' : ''}` : 
-            `${minutes}m`;
-            
-        document.getElementById('completedMissions').textContent = currentStats.completedMissions;
-        document.getElementById('songsLearned').textContent = currentStats.songsLearned;
-        
-        // Atualizar o gráfico de progresso
-        const chartColumns = document.querySelectorAll('.chart-column');
-        currentStats.weeklyProgress.forEach((value, index) => {
-            if (chartColumns[index]) {
-                // Calcular altura proporcional (mínimo 10%, máximo 90%)
-                const maxValue = Math.max(...currentStats.weeklyProgress);
-                const height = maxValue > 0 ? 
-                    10 + (value / maxValue) * 80 : 10;
-                    
-                chartColumns[index].style.height = `${height}%`;
-                
-                // Marcar o dia atual como ativo
-                if (index === new Date().getDay()) {
-                    chartColumns[index].classList.add('active');
-                } else {
-                    chartColumns[index].classList.remove('active');
-                }
-            }
-        });
+        // Não faz nada
     }
 };
 
@@ -1251,27 +1297,9 @@ function openChordViewer(chord) {
         const position = chord.positions[i];
         const finger = chord.fingers[i];
         
-        // Pular cordas que não são tocadas
-        if (position === -1) {
-            const mute = document.createElement('div');
-            mute.className = 'mute';
-            mute.textContent = 'x';
-            mute.style.left = `${i * 10 + 5}px`;
-            grid.appendChild(mute);
-            continue;
-        }
+        // Pular cordas que não são tocadas ou soltas
+        if (position === -1) continue;
         
-        // Corda tocada solta
-        if (position === 0) {
-            const open = document.createElement('div');
-            open.className = 'open';
-            open.textContent = 'o';
-            open.style.left = `${i * 10 + 5}px`;
-            grid.appendChild(open);
-            continue;
-        }
-        
-        // Posição normal do dedo
         const dot = document.createElement('div');
         dot.className = 'dot';
         dot.style.left = `${i * 10 + 5}px`;
@@ -1360,8 +1388,194 @@ function showCompletionBadge(show = true) {
     }
 }
 
+// Também precisamos definir o objeto shareChallenge, que é usado nos botões de compartilhamento
+function shareChallenge() {
+    const currentChallenge = getFromLocalStorage('currentChallenge');
+    if (!currentChallenge) return 'Desafio de Violão';
+    
+    return `🎸 Meu desafio de violão de hoje:\n\nMúsica: ${currentChallenge.cifra.title} - ${currentChallenge.cifra.artist}\nRitmo: ${currentChallenge.ritmo.name}\nMissão: ${currentChallenge.missao.title}\n\nAprendendo violão com o Kit Violão Profissional!`;
+}
+
+// Objetos para metrônomo e temporizador
+const metronome = {
+    interval: null,
+    isPlaying: false,
+    audioContext: null,
+    tempo: 80,
+    clickBuffers: {}, // Para armazenar sons pré-carregados
+    
+    initAudio() {
+        if (!this.audioContext) {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            // Pré-carregar os sons de clique do violão
+            this.loadSounds();
+        }
+    },
+    
+    loadSounds() {
+        // Carregar som de corda de violão para tempo forte
+        this.createGuitarSound('high', 330); // Mi (E4)
+        // Carregar som para tempo fraco
+        this.createGuitarSound('low', 196); // Sol (G3)
+    },
+    
+    createGuitarSound(type, frequency) {
+        const buffer = this.audioContext.createBuffer(1, this.audioContext.sampleRate * 0.2, this.audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        // Parâmetros que fazem o som parecer com cordas de violão
+        const decay = type === 'high' ? 0.9995 : 0.9993; // Decaimento mais lento para som mais natural
+        const attackTime = type === 'high' ? 0.002 : 0.003; // Ataque mais rápido para som agudo
+        
+        // Gerar uma forma de onda que simula uma corda de violão
+        for (let i = 0; i < buffer.length; i++) {
+            // Ataque inicial da corda
+            const attack = i < attackTime * this.audioContext.sampleRate ? 
+                i / (attackTime * this.audioContext.sampleRate) : 1;
+                
+            // Componentes harmônicos da corda de violão
+            const fundamental = Math.sin(2 * Math.PI * frequency * i / this.audioContext.sampleRate);
+            const harmonic1 = 0.5 * Math.sin(2 * Math.PI * frequency * 2 * i / this.audioContext.sampleRate); // Oitava
+            const harmonic2 = 0.3 * Math.sin(2 * Math.PI * frequency * 3 * i / this.audioContext.sampleRate); // Quinta
+            const harmonic3 = 0.1 * Math.sin(2 * Math.PI * frequency * 4 * i / this.audioContext.sampleRate); // Oitava alta
+            
+            // Combinar os harmônicos
+            const sum = fundamental + harmonic1 + harmonic2 + harmonic3;
+            
+            // Aplicar envelope ADSR simplificado (ataque-decaimento)
+            data[i] = sum * attack * Math.pow(decay, i);
+        }
+        
+        this.clickBuffers[type] = buffer;
+    },
+    
+    playClick(isAccent = false) {
+        if (!this.audioContext) return;
+        
+        // Usar som diferente para tempo forte vs tempo fraco
+        const bufferType = isAccent ? 'high' : 'low';
+        const buffer = this.clickBuffers[bufferType];
+        
+        if (!buffer) return; // Se o som ainda não foi carregado
+        
+        const source = this.audioContext.createBufferSource();
+        const gainNode = this.audioContext.createGain();
+        
+        source.buffer = buffer;
+        source.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        // Volume um pouco mais alto para o tempo forte
+        gainNode.gain.value = isAccent ? 0.7 : 0.5;
+        
+        source.start();
+    },
+    
+    start(bpm) {
+        this.initAudio();
+        this.tempo = bpm;
+        
+        if (this.isPlaying) {
+            this.stop();
+            return;
+        }
+        
+        this.isPlaying = true;
+        document.getElementById('toggleMetronome').innerHTML = '<i class="fas fa-stop"></i>';
+        
+        let beat = 0;
+        this.playClick(true); // Primeira batida é sempre acentuada
+        
+        const intervalTime = 60000 / this.tempo;
+        
+        this.interval = setInterval(() => {
+            beat = (beat + 1) % 4;
+            this.playClick(beat === 0); // Acentuar apenas o primeiro tempo de cada compasso
+        }, intervalTime);
+    },
+    
+    stop() {
+        this.isPlaying = false;
+        document.getElementById('toggleMetronome').innerHTML = '<i class="fas fa-play"></i>';
+        
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+    },
+    
+    updateTempo(bpm) {
+        this.tempo = bpm;
+        document.getElementById('tempoValue').textContent = bpm;
+        
+        if (this.isPlaying) {
+            this.stop();
+            this.start(bpm);
+        }
+    }
+};
+
+const timer = {
+    interval: null,
+    totalSeconds: 0,
+    initialSeconds: 0,
+    isRunning: false,
+    
+    start(minutes) {
+        if (this.isRunning) {
+            return;
+        }
+        
+        this.initialSeconds = minutes * 60;
+        this.totalSeconds = this.initialSeconds;
+        
+        const timerDisplay = document.querySelector('.timer-display');
+        timerDisplay.classList.remove('hidden');
+        
+        this.isRunning = true;
+        this.updateDisplay();
+        
+        this.interval = setInterval(() => {
+            this.totalSeconds--;
+            
+            if (this.totalSeconds <= 0) {
+                this.stop();
+                alert('Tempo da missão concluído!');
+                return;
+            }
+            
+            this.updateDisplay();
+        }, 1000);
+    },
+    
+    pause() {
+        if (!this.isRunning) {
+            return;
+        }
+        
+        this.isRunning = false;
+        clearInterval(this.interval);
+    },
+    
+    reset() {
+        this.pause();
+        this.totalSeconds = this.initialSeconds;
+        this.updateDisplay();
+    },
+    
+    updateDisplay() {
+        const minutes = Math.floor(this.totalSeconds / 60);
+        const seconds = this.totalSeconds % 60;
+        const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        document.getElementById('timerValue').textContent = display;
+    }
+};
+
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM carregado, inicializando aplicação...');
+    
     // Carregar e exibir estatísticas
     stats.display();
     
@@ -1371,28 +1585,53 @@ document.addEventListener('DOMContentLoaded', function() {
         loadChallenge(currentChallenge);
     }
     
-    // Event Listeners
+    // --- Event Listeners ---
     
     // Gerar novo desafio
-    document.getElementById('generateBtn').addEventListener('click', function() {
-        const newChallenge = generateChallenge();
-        loadChallenge(newChallenge);
-    });
+    const generateBtn = document.getElementById('generateBtn');
+    if (generateBtn) {
+        generateBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Gerando novo desafio...');
+            const newChallenge = generateChallenge();
+            loadChallenge(newChallenge);
+        });
+    }
     
-    // Abrir modal de histórico
-    document.getElementById('historyBtn').addEventListener('click', function() {
-        openModal('historyModal');
-    });
+    // Abrir modal de histórico (verificando se o botão existe)
+    const historyBtn = document.getElementById('historyBtn');
+    if (historyBtn) {
+        historyBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Abrindo histórico...');
+            history.display(); // Atualizar a lista antes de mostrar
+            openModal('historyModal');
+        });
+    }
     
     // Ver cifra completa
-    document.getElementById('viewFullCifraBtn').addEventListener('click', function() {
-        openModal('cifraModal');
-    });
+    const viewFullCifraBtn = document.getElementById('viewFullCifraBtn');
+    if (viewFullCifraBtn) {
+        viewFullCifraBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Abrindo cifra completa...');
+            openModal('cifraModal');
+        });
+    }
     
     // Fechar modais ao clicar no botão de fechar
     document.querySelectorAll('.modal-close').forEach(button => {
-        button.addEventListener('click', function() {
-            this.closest('.modal').style.display = 'none';
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Fechando modal...');
+            const modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
         });
     });
     
@@ -1406,59 +1645,113 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Metrônomo
-    document.getElementById('toggleMetronome').addEventListener('click', function() {
-        const bpm = parseInt(document.getElementById('tempoSlider').value);
-        metronome.start(bpm);
-    });
+    const toggleMetronome = document.getElementById('toggleMetronome');
+    if (toggleMetronome) {
+        toggleMetronome.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Toggle metrônomo...');
+            const bpm = parseInt(document.getElementById('tempoSlider').value);
+            metronome.start(bpm);
+        });
+    }
     
-    document.getElementById('tempoSlider').addEventListener('input', function() {
-        const bpm = parseInt(this.value);
-        metronome.updateTempo(bpm);
-    });
+    const tempoSlider = document.getElementById('tempoSlider');
+    if (tempoSlider) {
+        tempoSlider.addEventListener('input', function() {
+            const bpm = parseInt(this.value);
+            metronome.updateTempo(bpm);
+        });
+    }
     
     // Temporizador
-    document.getElementById('startTimer').addEventListener('click', function() {
-        const currentChallenge = getFromLocalStorage('currentChallenge');
-        if (currentChallenge) {
-            timer.start(currentChallenge.missao.timeInMinutes);
-        }
-    });
+    const startTimer = document.getElementById('startTimer');
+    if (startTimer) {
+        startTimer.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Iniciando temporizador...');
+            const currentChallenge = getFromLocalStorage('currentChallenge');
+            if (currentChallenge) {
+                timer.start(currentChallenge.missao.timeInMinutes);
+            }
+        });
+    }
     
-    document.getElementById('pauseTimer').addEventListener('click', function() {
-        timer.pause();
-    });
+    const pauseTimer = document.getElementById('pauseTimer');
+    if (pauseTimer) {
+        pauseTimer.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Pausando temporizador...');
+            timer.pause();
+        });
+    }
     
-    document.getElementById('resetTimer').addEventListener('click', function() {
-        timer.reset();
-    });
+    const resetTimer = document.getElementById('resetTimer');
+    if (resetTimer) {
+        resetTimer.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Resetando temporizador...');
+            timer.reset();
+        });
+    }
     
     // Tutorial de ritmo
-    document.getElementById('viewRhythmTutorial').addEventListener('click', function() {
-        openModal('rhythmTutorialModal');
-    });
+    const viewRhythmTutorial = document.getElementById('viewRhythmTutorial');
+    if (viewRhythmTutorial) {
+        viewRhythmTutorial.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Abrindo tutorial de ritmo...');
+            openModal('rhythmTutorialModal');
+        });
+    }
     
     // Marcar missão como concluída
-    document.getElementById('missionComplete').addEventListener('change', function() {
-        if (this.checked) {
-            stats.update('mission');
-            stats.display();
-            showCompletionBadge(true);
-            
-            // Remover a exibição do badge após 5 segundos
-            setTimeout(() => {
+    const missionComplete = document.getElementById('missionComplete');
+    if (missionComplete) {
+        missionComplete.addEventListener('change', function() {
+            if (this.checked) {
+                console.log('Missão completada!');
+                stats.update('mission');
+                stats.display();
+                showCompletionBadge(true);
+                
+                // Remover a exibição do badge após 5 segundos
+                setTimeout(() => {
+                    showCompletionBadge(false);
+                }, 5000);
+                
+                // Feedback visual e sonoro
+                alert('Parabéns por completar a missão! Suas estatísticas foram atualizadas.');
+            } else {
                 showCompletionBadge(false);
-            }, 5000);
-            
-            // Feedback visual e sonoro
-            alert('Parabéns por completar a missão! Suas estatísticas foram atualizadas.');
-        } else {
-            showCompletionBadge(false);
-        }
-    });
+            }
+        });
+    }
     
-    // Compartilhar
+    // Delegação de eventos para botões de restaurar no histórico
+    const historyList = document.querySelector('.history-list');
+    if (historyList) {
+        historyList.addEventListener('click', function(e) {
+            if (e.target && e.target.matches('.restore-btn')) {
+                e.preventDefault();
+                const index = parseInt(e.target.dataset.index);
+                const currentHistory = history.load();
+                const challenge = currentHistory[index];
+                loadChallenge(challenge);
+                closeModal('historyModal');
+            }
+        });
+    }
+
+    // Atualizar os event listeners para os botões de compartilhamento
     document.querySelectorAll('.share-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const platform = this.dataset.platform;
             const text = shareChallenge();
             

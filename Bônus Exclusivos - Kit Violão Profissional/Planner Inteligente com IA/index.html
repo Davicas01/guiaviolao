@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,20 +19,20 @@
             --radius: 10px;
             --transition: all 0.3s ease;
         }
-        
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             color: var(--dark-color);
             background-color: var(--light-bg);
             line-height: 1.7;
         }
-        
+
         header {
             background: linear-gradient(135deg, var(--primary-color), #614126);
             color: #fff;
@@ -39,9 +40,9 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         header::after {
             content: '';
             position: absolute;
@@ -52,27 +53,27 @@
             background: linear-gradient(135deg, transparent 25%, var(--light-bg) 25%, var(--light-bg) 50%, transparent 50%, transparent 75%, var(--light-bg) 75%);
             background-size: 20px 20px;
         }
-        
+
         h1 {
             font-size: 2.5rem;
             margin-bottom: 0.8rem;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-        
+
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 1.5rem;
             font-weight: 500;
         }
-        
+
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 2rem 1.5rem;
         }
-        
+
         .intro-card {
             background-color: #fff;
             border-radius: var(--radius);
@@ -82,7 +83,7 @@
             border-left: 5px solid var(--primary-color);
             transform: translateY(-20px);
         }
-        
+
         .card {
             background-color: #fff;
             border-radius: var(--radius);
@@ -90,7 +91,7 @@
             margin-bottom: 2.5rem;
             box-shadow: var(--shadow);
         }
-        
+
         h2 {
             font-size: 1.8rem;
             color: var(--primary-color);
@@ -98,30 +99,32 @@
             padding-bottom: 0.8rem;
             border-bottom: 2px solid rgba(139, 69, 19, 0.1);
         }
-        
+
         h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--secondary-color);
         }
-        
+
         p {
             margin-bottom: 1.5rem;
             color: #5D4037;
         }
-        
+
         .form-group {
             margin-bottom: 1.8rem;
         }
-        
+
         label {
             display: block;
             font-weight: 600;
             margin-bottom: 0.7rem;
             color: var(--primary-color);
         }
-        
-        input, select, textarea {
+
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 1rem 1.2rem;
             border: 1px solid rgba(139, 69, 19, 0.2);
@@ -131,28 +134,37 @@
             background-color: #FFFDF9;
             transition: all 0.2s ease;
         }
-        
-        input:focus, select:focus, textarea:focus {
+
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
             background-color: white;
         }
-        
+
         .step {
             display: none;
         }
-        
+
         .step.active {
             display: block;
             animation: fadeIn 0.5s ease-in-out;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -169,34 +181,34 @@
             letter-spacing: 0.5px;
             box-shadow: 0 4px 6px rgba(139, 69, 19, 0.25);
         }
-        
+
         .btn:hover {
             background-color: #6B3610;
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(139, 69, 19, 0.3);
         }
-        
+
         .btn.btn-secondary {
             background-color: var(--accent-color);
         }
-        
+
         .btn.btn-secondary:hover {
             background-color: #B76E2E;
         }
-        
+
         .btn-row {
             display: flex;
             gap: 1.2rem;
             margin-top: 2rem;
         }
-        
+
         .checkbox-group {
             margin: 1.5rem 0;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 0.8rem;
         }
-        
+
         .checkbox-item {
             display: flex;
             align-items: center;
@@ -205,31 +217,31 @@
             transition: var(--transition);
             background-color: #FFFDF9;
         }
-        
+
         .checkbox-item:hover {
             background-color: rgba(205, 133, 63, 0.1);
         }
-        
+
         .checkbox-item input[type="checkbox"] {
             width: auto;
             margin-right: 0.8rem;
             accent-color: var(--primary-color);
             transform: scale(1.2);
         }
-        
+
         .time-block-container {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 0.8rem;
             margin: 1.5rem 0;
         }
-        
+
         .day-column {
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
         }
-        
+
         .day-header {
             text-align: center;
             font-weight: 600;
@@ -238,7 +250,7 @@
             border-radius: var(--radius);
             color: var(--primary-color);
         }
-        
+
         .time-block {
             padding: 0.8rem;
             background-color: #FFFDF9;
@@ -249,20 +261,20 @@
             text-align: center;
             font-weight: 500;
         }
-        
+
         .time-block:hover {
             background-color: rgba(205, 133, 63, 0.1);
             transform: translateY(-2px);
             box-shadow: 0 2px 6px rgba(139, 69, 19, 0.1);
         }
-        
+
         .time-block.selected {
             background-color: rgba(139, 69, 19, 0.15);
             border-color: var(--primary-color);
             font-weight: 600;
             box-shadow: 0 2px 8px rgba(139, 69, 19, 0.15);
         }
-        
+
         .progress-bar-container {
             background-color: rgba(139, 69, 19, 0.1);
             border-radius: 50px;
@@ -271,21 +283,21 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .progress-bar {
             background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
             height: 100%;
             border-radius: 50px;
             transition: width 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
-        
+
         .step-indicators {
             display: flex;
             justify-content: space-between;
             margin-bottom: 1rem;
             position: relative;
         }
-        
+
         .step-indicators::after {
             content: '';
             position: absolute;
@@ -296,7 +308,7 @@
             background-color: rgba(139, 69, 19, 0.1);
             z-index: 0;
         }
-        
+
         .step-indicator {
             width: 24px;
             height: 24px;
@@ -313,40 +325,45 @@
             transition: all 0.3s ease;
             box-shadow: 0 0 0 4px #fff;
         }
-        
+
         .step-indicator.active {
             background-color: var(--primary-color);
             transform: scale(1.2);
             box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(139, 69, 19, 0.2);
         }
-        
+
         .step-indicator.completed {
             background-color: var(--secondary-color);
         }
-        
+
         .progress-container {
             margin-bottom: 2.5rem;
             padding: 1rem 0;
         }
-        
+
         .loading-animation {
             display: none;
             text-align: center;
             padding: 3rem;
         }
-        
+
         .loading-animation i {
             animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
             font-size: 3.5rem;
             color: var(--primary-color);
             opacity: 0.8;
         }
-        
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .ai-result {
             margin-top: 2.5rem;
             padding: 2rem;
@@ -355,7 +372,7 @@
             border-left: 5px solid var(--secondary-color);
             box-shadow: 0 4px 15px rgba(139, 69, 19, 0.08);
         }
-        
+
         .ai-avatar {
             width: 90px;
             height: 90px;
@@ -369,7 +386,7 @@
             font-size: 2.5rem;
             box-shadow: 0 8px 16px rgba(139, 69, 19, 0.25);
         }
-        
+
         .ai-message {
             margin-bottom: 1.8rem;
             padding: 1.5rem;
@@ -378,7 +395,7 @@
             box-shadow: 0 3px 10px rgba(139, 69, 19, 0.08);
             position: relative;
         }
-        
+
         .ai-message::before {
             content: '';
             position: absolute;
@@ -388,18 +405,46 @@
             border-right: 10px solid transparent;
             border-bottom: 10px solid white;
         }
-        
+
+        .progress-overview {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .mini-progress-bar {
+            background-color: rgba(139, 69, 19, 0.1);
+            border-radius: 50px;
+            height: 8px;
+            margin: 0.5rem auto;
+            width: 80%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mini-progress-fill {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            height: 100%;
+            border-radius: 50px;
+            transition: width 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--dark-color);
+            margin-top: 0.5rem;
+        }
+
         .schedule {
             margin-top: 2rem;
         }
-        
+
         .schedule-day {
             margin-bottom: 2rem;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
         }
-        
+
         .schedule-day-header {
             background: linear-gradient(90deg, var(--primary-color), #6B3610);
             color: white;
@@ -407,14 +452,14 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-        
+
         .practice-session {
             background-color: white;
             border: 1px solid rgba(139, 69, 19, 0.1);
             border-top: none;
             padding: 1.5rem;
         }
-        
+
         .session-time {
             font-weight: 600;
             color: var(--primary-color);
@@ -425,13 +470,13 @@
             margin-bottom: 1rem;
             font-size: 0.9rem;
         }
-        
+
         .session-focus {
             margin-top: 0.8rem;
             padding-left: 1.2rem;
             border-left: 3px solid var(--accent-color);
         }
-        
+
         .difficulty-indicator {
             display: inline-block;
             margin-left: 0.7rem;
@@ -439,13 +484,38 @@
             vertical-align: middle;
             color: var(--accent-color);
         }
-        
-        .download-btn {
-            display: flex;
+
+        .complete-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .complete-btn.completed {
+            background-color: var(--secondary-color);
+        }
+
+        .bottom-nav {
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .home-btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 0.8rem;
-            margin: 2.5rem auto;
             padding: 1rem 2rem;
             background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
             color: white;
@@ -457,88 +527,74 @@
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
             letter-spacing: 0.5px;
             font-size: 1.05rem;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
         }
-        
-        .download-btn:hover {
+
+        .home-btn:hover {
             background: linear-gradient(90deg, #8E4011, var(--accent-color));
             transform: translateY(-3px);
             box-shadow: 0 6px 18px rgba(139, 69, 19, 0.3);
         }
-        
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(135deg, var(--primary-color), #614126);
-            color: #fff;
-            margin-top: 3rem;
-            position: relative;
-        }
-        
-        footer::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: 0;
-            right: 0;
-            height: 15px;
-            background: linear-gradient(135deg, transparent 25%, var(--primary-color) 25%, var(--primary-color) 50%, transparent 50%, transparent 75%, var(--primary-color) 75%);
-            background-size: 30px 30px;
-        }
-        
-        footer p {
-            font-size: 1rem;
-            opacity: 0.95;
-            color: white;
-            margin-bottom: 0.5rem;
-        }
-        
+
         @media (max-width: 768px) {
             .time-block-container {
                 grid-template-columns: repeat(3, 1fr);
             }
-            
+
             .step-indicators {
                 display: flex;
                 justify-content: center;
                 gap: 1rem;
             }
-            
+
             .step-indicators::after {
                 display: none;
             }
-            
+
             .btn-row {
                 flex-direction: column;
             }
-            
+
             .btn {
                 width: 100%;
             }
+
+            .home-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+                bottom: 20px;
+                right: 20px;
+            }
         }
-        
+
         @media (max-width: 480px) {
             .checkbox-group {
                 grid-template-columns: 1fr;
             }
-            
+
             .time-block-container {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             h1 {
                 font-size: 2rem;
             }
-            
+
             .container {
                 padding: 1.5rem 1rem;
             }
-            
-            .intro-card, .card {
+
+            .intro-card,
+            .card {
                 padding: 1.5rem;
             }
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -550,9 +606,18 @@
     <div class="container">
         <div class="intro-card">
             <h2>Crie sua rotina de estudos personalizada</h2>
-            <p>Este planner inteligente vai criar um plano de estudos semanal adaptado às suas necessidades, metas e tempo disponível. Basta responder algumas perguntas e deixar nossa IA trabalhar para você!</p>
-            <p><strong>Como funciona:</strong> Informe suas metas de aprendizado, tempo disponível e nível atual. O sistema analisará essas informações e criará um plano de estudos personalizado com atividades específicas para cada dia da semana.</p>
+            <p>Este planner inteligente vai criar um plano de estudos semanal adaptado às suas necessidades, metas e
+                tempo disponível. Basta responder algumas perguntas e deixar nossa IA trabalhar para você!</p>
+            <p><strong>Como funciona:</strong> Informe suas metas de aprendizado, tempo disponível e nível atual. O
+                sistema analisará essas informações e criará um plano de estudos personalizado com atividades
+                específicas para cada dia da semana.</p>
         </div>
+
+        <!-- Botão de voltar para tela inicial fixo -->
+        <button id="floating-home-btn" class="home-btn" onclick="resetToHome()"
+            style="display: flex; position: fixed; bottom: 30px; right: 30px; z-index: 1000; padding: 18px; border-radius: 50%; background-color: #8B4513; box-shadow: 0 4px 8px rgba(0,0,0,0.2); border: none; align-items: center; justify-content: center; width: 60px; height: 60px;">
+            <i class="fas fa-home" style="font-size: 24px; color: white;"></i>
+        </button>
 
         <div class="card">
             <div class="progress-container">
@@ -572,11 +637,35 @@
                 <h3>1. Qual é o seu nível atual no violão?</h3>
                 <div class="form-group">
                     <select id="level">
-                        <option value="iniciante">Iniciante (nunca toquei ou toco há menos de 3 meses)</option>
-                        <option value="iniciante-intermediario">Iniciante+ (sei alguns acordes básicos e toco há 3-6 meses)</option>
-                        <option value="intermediario">Intermediário (toco há 6-12 meses, sei vários acordes e algumas músicas)</option>
-                        <option value="intermediario-avancado">Intermediário+ (toco há mais de 1 ano, domino acordes com pestana)</option>
-                        <option value="avancado">Avançado (toco há anos e quero aprimorar técnicas específicas)</option>
+                        <option value="iniciante">Iniciante (comecei há pouco tempo)</option>
+                        <option value="iniciante-intermediario">Iniciante-Intermediário (sei alguns acordes básicos)
+                        </option>
+                        <option value="intermediario">Intermediário (toco algumas músicas completas)</option>
+                        <option value="intermediario-avancado">Intermediário-Avançado (domino técnicas específicas)
+                        </option>
+                        <option value="avancado">Avançado (toco há anos, busco aperfeiçoamento)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="instrument-type">Qual violão você utiliza?</label>
+                    <select id="instrument-type">
+                        <option value="violao-nylon">Violão com cordas de nylon</option>
+                        <option value="violao-aco">Violão com cordas de aço</option>
+                        <option value="violao-12-cordas">Violão de 12 cordas</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="musical-style">Qual estilo musical você mais gosta/pretende tocar?</label>
+                    <select id="musical-style">
+                        <option value="mpb">MPB</option>
+                        <option value="rock">Rock</option>
+                        <option value="pop">Pop</option>
+                        <option value="sertanejo">Sertanejo</option>
+                        <option value="bossa-nova">Bossa Nova</option>
+                        <option value="fingerstyle">Fingerstyle/Instrumental</option>
+                        <option value="classico">Clássico</option>
+                        <option value="outros">Outros estilos</option>
                     </select>
                 </div>
                 <div class="btn-row">
@@ -620,9 +709,26 @@
                         <input type="checkbox" id="goal8" name="goals" value="repertorio">
                         <label for="goal8">Expandir meu repertório de músicas</label>
                     </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal9" name="goals" value="solo">
+                        <label for="goal9">Aprender a fazer solos e improvisação</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal10" name="goals" value="leitura">
+                        <label for="goal10">Desenvolver leitura de tablaturas/partituras</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal11" name="goals" value="tecnica-avancada">
+                        <label for="goal11">Técnicas avançadas (tapping, sweep picking)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="goal12" name="goals" value="composicao">
+                        <label for="goal12">Compor músicas próprias</label>
+                    </div>
                 </div>
                 <div class="btn-row">
-                    <button class="btn btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i>
+                        Anterior</button>
                     <button class="btn" onclick="nextStep(2)">Próximo <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
@@ -639,7 +745,8 @@
                     </select>
                 </div>
                 <div class="btn-row">
-                    <button class="btn btn-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn btn-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i>
+                        Anterior</button>
                     <button class="btn" onclick="nextStep(3)">Próximo <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
@@ -647,7 +754,7 @@
             <div class="step" id="step4">
                 <h3>4. Selecione seus horários disponíveis para prática</h3>
                 <p>Clique nos blocos de tempo em que você normalmente está disponível para praticar:</p>
-                
+
                 <div class="time-block-container">
                     <div class="day-column">
                         <div class="day-header">Segunda</div>
@@ -692,20 +799,45 @@
                         <div class="time-block" data-day="domingo" data-time="noite">Noite</div>
                     </div>
                 </div>
-                
+
                 <div class="btn-row">
-                    <button class="btn btn-secondary" onclick="prevStep(4)"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn btn-secondary" onclick="prevStep(4)"><i class="fas fa-arrow-left"></i>
+                        Anterior</button>
                     <button class="btn" onclick="nextStep(4)">Próximo <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
             <div class="step" id="step5">
-                <h3>5. Alguma informação adicional que gostaria de compartilhar?</h3>
+                <h3>5. Detalhes para personalizar seu plano</h3>
+
                 <div class="form-group">
-                    <textarea id="additional-info" rows="4" placeholder="Ex.: Tenho dificuldade em fazer pestanas, prefiro músicas de MPB, etc..."></textarea>
+                    <label for="learning-style">Como você prefere aprender?</label>
+                    <select id="learning-style">
+                        <option value="visual">Visual - aprendo melhor assistindo vídeos e demonstrações</option>
+                        <option value="auditivo">Auditivo - aprendo melhor ouvindo explicações</option>
+                        <option value="pratico">Prático - aprendo melhor fazendo exercícios repetidos</option>
+                        <option value="teorico">Teórico - gosto de entender os conceitos antes de praticar</option>
+                    </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="challenge-level">Qual nível de desafio você prefere?</label>
+                    <select id="challenge-level">
+                        <option value="leve">Leve - prefiro avançar devagar e consolidar o aprendizado</option>
+                        <option value="moderado" selected>Moderado - desafios equilibrados com meu nível atual</option>
+                        <option value="intenso">Intenso - gosto de ser desafiado além do meu nível atual</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="additional-info">Informações adicionais importantes:</label>
+                    <textarea id="additional-info" rows="4"
+                        placeholder="Ex.: Tenho dificuldade em fazer pestanas, prefiro músicas de MPB, tenho lesão no dedo indicador, etc..."></textarea>
+                </div>
+
                 <div class="btn-row">
-                    <button class="btn btn-secondary" onclick="prevStep(5)"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn btn-secondary" onclick="prevStep(5)"><i class="fas fa-arrow-left"></i>
+                        Anterior</button>
                     <button class="btn" onclick="generatePlan()">Gerar Meu Plano <i class="fas fa-magic"></i></button>
                 </div>
             </div>
@@ -721,75 +853,21 @@
                         <i class="fas fa-robot"></i>
                     </div>
                     <div class="ai-message">
-                        <p>Olá! Analisei suas informações e criei um plano de estudos personalizado para ajudar você a alcançar seus objetivos. Este plano foi estruturado com base no seu nível atual, metas e disponibilidade de tempo.</p>
-                        <p>Lembre-se: consistência é mais importante que longas sessões de prática. Mesmo 15 minutos diários podem trazer grandes resultados ao longo do tempo!</p>
-                    </div>
-
-                    <div class="schedule">
-                        <div class="schedule-day">
-                            <div class="schedule-day-header">Segunda-feira</div>
-                            <div class="practice-session">
-                                <div class="session-time">Noite - 30 minutos</div>
-                                <div class="session-focus">
-                                    <h4>Fundamentos de acordes <span class="difficulty-indicator">⭐⭐</span></h4>
-                                    <p>Praticar transições entre os acordes G, C, D e Em. Começar devagar e aumentar gradualmente a velocidade.</p>
-                                    <p><strong>Material recomendado:</strong> Video tutorial "Transições fluidas entre acordes" (Módulo 2)</p>
-                                </div>
+                        <p>Olá! Analisei suas informações e criei um plano de estudos personalizado para ajudar você a
+                            alcançar seus objetivos. Este plano foi estruturado com base no seu nível atual, metas e
+                            disponibilidade de tempo.</p>
+                        <p>Lembre-se: consistência é mais importante que longas sessões de prática. Mesmo 15 minutos
+                            diários podem trazer grandes resultados ao longo do tempo!</p>
+                        <div class="progress-overview">
+                            <h4>Progresso Semanal Estimado</h4>
+                            <div class="mini-progress-bar">
+                                <div class="mini-progress-fill" style="width: 0%"></div>
                             </div>
-                        </div>
-
-                        <div class="schedule-day">
-                            <div class="schedule-day-header">Quarta-feira</div>
-                            <div class="practice-session">
-                                <div class="session-time">Tarde - 45 minutos</div>
-                                <div class="session-focus">
-                                    <h4>Prática de ritmos <span class="difficulty-indicator">⭐⭐⭐</span></h4>
-                                    <p>Treinar batida de pop/rock básico aplicando aos acordes já aprendidos. Foco na regularidade do movimento de pulso.</p>
-                                    <p><strong>Material recomendado:</strong> Exercício "Batida versátil para diversos gêneros" (Módulo 3)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="schedule-day">
-                            <div class="schedule-day-header">Sexta-feira</div>
-                            <div class="practice-session">
-                                <div class="session-time">Noite - 30 minutos</div>
-                                <div class="session-focus">
-                                    <h4>Técnica de mão direita <span class="difficulty-indicator">⭐⭐</span></h4>
-                                    <p>Exercícios de dedilhado simples para melhorar a independência dos dedos. Começar com padrões p-i-m-a em cordas soltas.</p>
-                                    <p><strong>Material recomendado:</strong> Exercícios de aquecimento do módulo "Destravando os Dedos"</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="schedule-day">
-                            <div class="schedule-day-header">Sábado</div>
-                            <div class="practice-session">
-                                <div class="session-time">Tarde - 60 minutos</div>
-                                <div class="session-focus">
-                                    <h4>Repertório e prática <span class="difficulty-indicator">⭐⭐⭐</span></h4>
-                                    <p>Aplicar o conteúdo da semana em uma música completa. Sugestão: "Trem-Bala" (Ana Vilela) ou "Viva La Vida" (Coldplay).</p>
-                                    <p><strong>Material recomendado:</strong> Pack de cifras simplificadas para iniciantes (filtrar por dificuldade)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="schedule-day">
-                            <div class="schedule-day-header">Domingo</div>
-                            <div class="practice-session">
-                                <div class="session-time">Manhã - 20 minutos</div>
-                                <div class="session-focus">
-                                    <h4>Revisão e consolidação <span class="difficulty-indicator">⭐</span></h4>
-                                    <p>Revisar todo o conteúdo praticado durante a semana. Identificar pontos fortes e áreas que precisam de mais atenção.</p>
-                                    <p><strong>Dica:</strong> Grave um vídeo curto tocando o que aprendeu para acompanhar seu progresso ao longo do tempo.</p>
-                                </div>
-                            </div>
+                            <p class="progress-text">Comece hoje e acompanhe seu desenvolvimento!</p>
                         </div>
                     </div>
 
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Baixar Plano em PDF
-                    </button>
+                    <div class="schedule"></div>
                 </div>
             </div>
         </div>
@@ -797,7 +875,7 @@
 
     <footer>
         <div class="container">
-            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+            <p>Domine o Violão - Material exclusivo para uso educacional</p>
             <p>Use este planner para acelerar seus resultados e manter a consistência nos estudos!</p>
         </div>
     </footer>
@@ -806,14 +884,14 @@
         // Global variables
         let currentStep = 1;
         const totalSteps = 5;
-        
+
         // Time blocks selection
         document.querySelectorAll('.time-block').forEach(block => {
-            block.addEventListener('click', function() {
+            block.addEventListener('click', function () {
                 this.classList.toggle('selected');
             });
         });
-        
+
         // Navigation between steps
         function nextStep(step) {
             // Validation
@@ -828,7 +906,7 @@
                     return;
                 }
             }
-            
+
             if (step === 4) {
                 const selectedTimeBlocks = document.querySelectorAll('.time-block.selected');
                 if (selectedTimeBlocks.length === 0) {
@@ -836,15 +914,15 @@
                     return;
                 }
             }
-            
+
             // Hide current step
             document.getElementById(`step${step}`).classList.remove('active');
-            
+
             // Update progress bar
             currentStep = step + 1;
             const progressPercentage = (currentStep / totalSteps) * 100;
             document.querySelector('.progress-bar').style.width = `${progressPercentage}%`;
-            
+
             // Update step indicators
             document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
                 if (index < currentStep) {
@@ -856,20 +934,25 @@
                     indicator.classList.remove('active');
                 }
             });
-            
+
             // Show next step
             document.getElementById(`step${currentStep}`).classList.add('active');
+
+            // Show floating home button when not on step 1
+            if (currentStep > 1) {
+                document.getElementById('floating-home-btn').style.display = 'flex';
+            }
         }
-        
+
         function prevStep(step) {
             // Hide current step
             document.getElementById(`step${step}`).classList.remove('active');
-            
+
             // Update progress bar
             currentStep = step - 1;
             const progressPercentage = (currentStep / totalSteps) * 100;
             document.querySelector('.progress-bar').style.width = `${progressPercentage}%`;
-            
+
             // Update step indicators
             document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
                 if (index === currentStep - 1) {
@@ -878,38 +961,1049 @@
                     indicator.classList.remove('active');
                 }
             });
-            
+
             // Show previous step
             document.getElementById(`step${currentStep}`).classList.add('active');
+
+            // Hide floating home button when on step 1
+            document.getElementById('floating-home-btn').style.display = currentStep > 1 ? 'flex' : 'none';
         }
-        
+
         function generatePlan() {
             // Hide the current step
             document.getElementById('step5').classList.remove('active');
-            
+
             // Show loading animation
             document.getElementById('loading').style.display = 'block';
-            
+
+            // Collect all user inputs
+            const userProfile = {
+                level: document.getElementById('level').value,
+                instrumentType: document.getElementById('instrument-type').value,
+                musicalStyle: document.getElementById('musical-style').value,
+                goals: Array.from(document.querySelectorAll('input[name="goals"]:checked')).map(cb => cb.value),
+                timeCommitment: document.getElementById('time-commitment').value,
+                availableTimes: Array.from(document.querySelectorAll('.time-block.selected')).map(block => {
+                    return {
+                        day: block.getAttribute('data-day'),
+                        time: block.getAttribute('data-time')
+                    };
+                }),
+                learningStyle: document.getElementById('learning-style').value,
+                challengeLevel: document.getElementById('challenge-level').value,
+                additionalInfo: document.getElementById('additional-info').value
+            };
+
             // Simulate AI processing time
             setTimeout(() => {
+                // Generate personalized plan based on user inputs
+                const personalizedPlan = createPersonalizedPlan(userProfile);
+
+                // Update the result section with the personalized plan
+                updateResultView(personalizedPlan, userProfile);
+
                 // Hide loading animation
                 document.getElementById('loading').style.display = 'none';
-                
+
                 // Show results
                 document.getElementById('result').classList.add('active');
-                
+
                 // Collapse the progress bar container
                 document.querySelector('.progress-container').style.display = 'none';
             }, 3000);
         }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // PDF download simulation
-            document.querySelector('.download-btn').addEventListener('click', function() {
-                alert('Plano de estudos baixado! Você pode acessá-lo offline a qualquer momento.');
+
+        // Function to create a personalized plan based on user profile
+        function createPersonalizedPlan(profile) {
+            // Base structure for the plan
+            const plan = {
+                message: '',
+                dailySessions: []
+            };
+
+            // Personalize welcome message
+            plan.message = createPersonalizedMessage(profile);
+
+            // Get available days from user selection
+            const availableDays = [...new Set(profile.availableTimes.map(time => time.day))];
+
+            // Define practice sessions based on level and goals
+            const recommendedSessions = generateRecommendedSessions(profile);
+
+            // Distribute sessions across available days
+            plan.dailySessions = distributeSessions(recommendedSessions, availableDays, profile);
+
+            return plan;
+        }
+
+        // Create a personalized welcome message
+        function createPersonalizedMessage(profile) {
+            let message = `Olá! Analisei suas informações e criei um plano de estudos personalizado para ajudar você a `;
+
+            // Add goals to message
+            if (profile.goals.includes('acordes-basicos')) {
+                message += 'dominar os acordes básicos';
+            } else if (profile.goals.includes('acordes-pestana')) {
+                message += 'aprender acordes com pestana';
+            } else if (profile.goals.includes('trocar-acordes')) {
+                message += 'aprimorar a troca de acordes';
+            } else {
+                message += 'alcançar seus objetivos no violão';
+            }
+
+            message += '. ';
+
+            // Add personalization based on level
+            if (profile.level === 'iniciante') {
+                message += 'Como iniciante, foquei em estabelecer uma base sólida com exercícios fundamentais. ';
+            } else if (profile.level === 'iniciante-intermediario') {
+                message += 'Como você já conhece alguns acordes básicos, vamos avançar gradualmente para consolidar conceitos importantes. ';
+            } else if (profile.level === 'intermediario') {
+                message += 'Com seu nível intermediário, incluí exercícios para expandir suas habilidades técnicas e musicais. ';
+            } else if (profile.level === 'intermediario-avancado' || profile.level === 'avancado') {
+                message += 'Com seu nível mais avançado, desenvolvi um plano com técnicas específicas e conceitos mais complexos. ';
+            }
+
+            // Add personalization based on instrument
+            if (profile.instrumentType === 'violao-nylon') {
+                message += 'Os exercícios são adaptados para cordas de nylon, aproveitando a maciez das cordas para técnicas específicas. ';
+            } else if (profile.instrumentType === 'violao-aco') {
+                message += 'Para seu violão de aço, incluí técnicas que valorizam a projeção e brilho característicos desse instrumento. ';
+            }
+
+            // Add message about consistency
+            if (profile.timeCommitment === 'muito-pouco' || profile.timeCommitment === 'pouco') {
+                message += 'Lembre-se: mesmo com pouco tempo disponível, a consistência é mais importante que longas sessões de prática. ';
+                message += 'Este plano foi otimizado para sessões curtas e eficientes, garantindo progresso constante. ';
+            } else {
+                message += 'Lembre-se: consistência é mais importante que longas sessões de prática. ';
+                message += 'Mantenha a regularidade nos estudos para ver resultados sólidos ao longo do tempo. ';
+            }
+
+            // Add message about style
+            if (profile.musicalStyle) {
+                message += `Incluí sugestões de repertório e exercícios voltados para o estilo ${getStyleName(profile.musicalStyle)} que você prefere. `;
+            }
+
+            return message;
+        }
+
+        // Helper function to get style name from value
+        function getStyleName(styleValue) {
+            const styleMap = {
+                'mpb': 'MPB',
+                'rock': 'Rock',
+                'pop': 'Pop',
+                'sertanejo': 'Sertanejo',
+                'bossa-nova': 'Bossa Nova',
+                'fingerstyle': 'Fingerstyle',
+                'classico': 'Clássico',
+                'outros': 'que você selecionou'
+            };
+            return styleMap[styleValue] || 'selecionado';
+        }
+
+        // Generate recommended practice sessions based on user goals and level
+        function generateRecommendedSessions(profile) {
+            const sessions = [];
+
+            // Define difficulty based on challenge level
+            const difficultyBase = profile.challengeLevel === 'leve' ? 1 :
+                profile.challengeLevel === 'moderado' ? 2 : 3;
+
+            // Handle goals
+            if (profile.goals.includes('acordes-basicos')) {
+                sessions.push({
+                    title: 'Fundamentos de acordes',
+                    description: getFundamentalAcordsDescription(profile),
+                    difficulty: Math.min(difficultyBase + 1, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'acordes-basicos'),
+                    material: getMaterialRecommendation(profile, 'acordes-basicos')
+                });
+            }
+
+            if (profile.goals.includes('batidas-ritmos')) {
+                sessions.push({
+                    title: 'Prática de ritmos',
+                    description: getRhythmDescription(profile),
+                    difficulty: Math.min(difficultyBase + 1, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'batidas-ritmos'),
+                    material: getMaterialRecommendation(profile, 'batidas-ritmos')
+                });
+            }
+
+            if (profile.goals.includes('dedilhado')) {
+                sessions.push({
+                    title: 'Técnica de mão direita',
+                    description: getFingerPickingDescription(profile),
+                    difficulty: Math.min(difficultyBase + 1, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'dedilhado'),
+                    material: getMaterialRecommendation(profile, 'dedilhado')
+                });
+            }
+
+            if (profile.goals.includes('acordes-pestana')) {
+                sessions.push({
+                    title: 'Acordes com pestana',
+                    description: getBarChordDescription(profile),
+                    difficulty: Math.min(difficultyBase + 2, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'acordes-pestana'),
+                    material: getMaterialRecommendation(profile, 'acordes-pestana')
+                });
+            }
+
+            if (profile.goals.includes('trocar-acordes')) {
+                sessions.push({
+                    title: 'Transição entre acordes',
+                    description: getChordTransitionDescription(profile),
+                    difficulty: Math.min(difficultyBase + 1, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'trocar-acordes'),
+                    material: getMaterialRecommendation(profile, 'trocar-acordes')
+                });
+            }
+
+            if (profile.goals.includes('cantar-tocar')) {
+                sessions.push({
+                    title: 'Cantar e tocar',
+                    description: getSingAndPlayDescription(profile),
+                    difficulty: Math.min(difficultyBase + 2, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'cantar-tocar'),
+                    material: getMaterialRecommendation(profile, 'cantar-tocar')
+                });
+            }
+
+            if (profile.goals.includes('teoria-musical')) {
+                sessions.push({
+                    title: 'Teoria musical aplicada',
+                    description: getMusicTheoryDescription(profile),
+                    difficulty: Math.min(difficultyBase + 1, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'teoria-musical'),
+                    material: getMaterialRecommendation(profile, 'teoria-musical')
+                });
+            }
+
+            if (profile.goals.includes('repertorio')) {
+                sessions.push({
+                    title: 'Repertório e prática',
+                    description: getRepertoireDescription(profile),
+                    difficulty: Math.min(difficultyBase + 1, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'repertorio'),
+                    material: getMaterialRecommendation(profile, 'repertorio')
+                });
+            }
+
+            if (profile.goals.includes('solo')) {
+                sessions.push({
+                    title: 'Técnicas de solo e improvisação',
+                    description: getSoloDescription(profile),
+                    difficulty: Math.min(difficultyBase + 2, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'solo'),
+                    material: getMaterialRecommendation(profile, 'solo')
+                });
+            }
+
+            if (profile.goals.includes('leitura')) {
+                sessions.push({
+                    title: 'Leitura musical',
+                    description: getReadingDescription(profile),
+                    difficulty: Math.min(difficultyBase + 1, 5),
+                    duration: getDurationForLevel(profile.timeCommitment, 'leitura'),
+                    material: getMaterialRecommendation(profile, 'leitura')
+                });
+            }
+
+            // Always add a review session at the end of the week
+            sessions.push({
+                title: 'Revisão e consolidação',
+                description: 'Revisar todo o conteúdo praticado durante a semana. Identificar pontos fortes e áreas que precisam de mais atenção.',
+                difficulty: 1,
+                duration: 20,
+                material: 'Dica: Grave um vídeo curto tocando o que aprendeu para acompanhar seu progresso ao longo do tempo.'
             });
+
+            return sessions;
+        }
+
+        // Distribute sessions across available days
+        function distributeSessions(sessions, availableDays, profile) {
+            const dailySessions = [];
+            const dayTranslation = {
+                'segunda': 'Segunda-feira',
+                'terca': 'Terça-feira',
+                'quarta': 'Quarta-feira',
+                'quinta': 'Quinta-feira',
+                'sexta': 'Sexta-feira',
+                'sabado': 'Sábado',
+                'domingo': 'Domingo'
+            };
+
+            // Sort days in order: Monday to Sunday
+            const dayOrder = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+            availableDays.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
+
+            // For few available days, combine exercises
+            if (availableDays.length < sessions.length) {
+                // Combine some sessions
+                const combinedSessions = [];
+                for (let i = 0; i < availableDays.length; i++) {
+                    const sessionsPerDay = Math.ceil(sessions.length / availableDays.length);
+                    const startIdx = i * sessionsPerDay;
+                    const endIdx = Math.min(startIdx + sessionsPerDay, sessions.length);
+
+                    if (startIdx < sessions.length) {
+                        const daySessions = sessions.slice(startIdx, endIdx);
+
+                        // Get available times for this day
+                        const dayTimes = profile.availableTimes
+                            .filter(time => time.day === availableDays[i])
+                            .map(time => time.time);
+
+                        // Choose appropriate time (prefer evening for weekdays, afternoon for weekends)
+                        let preferredTime = 'noite';
+                        if ((availableDays[i] === 'sabado' || availableDays[i] === 'domingo') && dayTimes.includes('tarde')) {
+                            preferredTime = 'tarde';
+                        } else if (dayTimes.includes('noite')) {
+                            preferredTime = 'noite';
+                        } else {
+                            preferredTime = dayTimes[0]; // Default to first available time
+                        }
+
+                        // Calculate total duration
+                        const totalDuration = daySessions.reduce((sum, session) => sum + session.duration, 0);
+
+                        combinedSessions.push({
+                            day: dayTranslation[availableDays[i]],
+                            time: preferredTime,
+                            duration: totalDuration,
+                            sessions: daySessions
+                        });
+                    }
+                }
+
+                return combinedSessions;
+            } else {
+                // Distribute sessions one per available day
+                for (let i = 0; i < sessions.length; i++) {
+                    if (i < availableDays.length) {
+                        const dayIndex = i % availableDays.length;
+                        const dayTimes = profile.availableTimes
+                            .filter(time => time.day === availableDays[dayIndex])
+                            .map(time => time.time);
+
+                        // Choose appropriate time
+                        let preferredTime = 'noite';
+                        if ((availableDays[dayIndex] === 'sabado' || availableDays[dayIndex] === 'domingo') && dayTimes.includes('tarde')) {
+                            preferredTime = 'tarde';
+                        } else if (dayTimes.includes('noite')) {
+                            preferredTime = 'noite';
+                        } else {
+                            preferredTime = dayTimes[0]; // Default to first available time
+                        }
+
+                        dailySessions.push({
+                            day: dayTranslation[availableDays[dayIndex]],
+                            time: preferredTime,
+                            duration: sessions[i].duration,
+                            sessions: [sessions[i]]
+                        });
+                    }
+                }
+
+                return dailySessions;
+            }
+        }
+
+        // Helper functions for descriptions and materials
+        function getFundamentalAcordsDescription(profile) {
+            if (profile.level === 'iniciante') {
+                return 'Aprender os acordes maiores básicos: C, G, D, A e E. Praticar a formação de cada acorde separadamente por 2 minutos cada, garantindo que todas as notas soem claramente. Exercício sugerido: posicionar o acorde, tocar cada corda separadamente, certificando-se de que todas soam limpas.';
+            } else if (profile.level === 'iniciante-intermediario') {
+                return 'Praticar transições fluidas entre os acordes G, C, D, Em e Am. Começar devagar (40 BPM) e aumentar gradualmente a velocidade (+5 BPM a cada série), focando em movimentos econômicos dos dedos e na sonoridade limpa. Trabalhar especialmente nas transições C→G e Em→Am.';
+            } else {
+                return 'Revisar acordes com formas alternativas (inversões) e combinar em progressões mais complexas. Foco nas progressões ii-V-I (por exemplo: Dm7-G7-Cmaj7) em diferentes tonalidades. Trabalhar em transições rápidas e precisas, mantendo o fluxo rítmico constante durante as mudanças.';
+            }
+        }
+
+        function getRhythmDescription(profile) {
+            if (profile.musicalStyle === 'mpb' || profile.musicalStyle === 'bossa-nova') {
+                return 'Treinar padrões rítmicos de MPB/Bossa Nova: comece com batida de 2 tempos (BAIXO-ACORDE-BAIXO-ACORDE) a 60 BPM. Use acordes simples como C e G. Depois, avance para o padrão sincopado: BAIXO-(pausa)-ACORDE-BAIXO-(pausa)-ACORDE, característico destes estilos. Pratique com progressões Am-D7-G-C ou Bm7-E7-AM7.';
+            } else if (profile.musicalStyle === 'rock') {
+                return 'Treinar batidas de rock: comece com o padrão BAIXO (semínima) + 3 BATIDAS PARA BAIXO (colcheias) usando acordes power chords. Trabalhe a intensidade e acentuação nas batidas para baixo alternando entre palhetadas suaves e fortes. Pratique com a progressão E5-G5-A5 ou G5-C5-D5 aumentando gradualmente o tempo de 70 para 120 BPM.';
+            } else if (profile.musicalStyle === 'sertanejo') {
+                return 'Praticar batidas características do sertanejo: comece com a batida básica de 4 tempos (BAIXO-CIMA-BAIXO-BAIXO-CIMA-BAIXO) aplicada aos acordes G, C e D. Trabalhe na variação de dinâmica entre os toques para baixo (mais acentuados) e para cima (mais suaves). Aprenda o padrão "vaneirão" usado em modões: BAIXO-BAIXO-CIMA-BAIXO-CIMA.';
+            } else if (profile.musicalStyle === 'pop') {
+                return 'Treinar batida básica de pop: pratique o padrão BAIXO-BAIXO-CIMA-BAIXO-CIMA-BAIXO com acordes como C, G, Am e F. Mantenha o pulso constante a 80 BPM, focando na regularidade do movimento de pulso. Depois, experimente a variação BAIXO-BAIXO-CIMA-CIMA-BAIXO-CIMA para criar mais dinâmica.';
+            } else {
+                return 'Treinar batida básica universal de 6 batidas (BAIXO-BAIXO-CIMA-BAIXO-CIMA-BAIXO) aplicando aos acordes C, G, Am e F. Mantenha um tempo constante de 70 BPM, focando na regularidade do movimento de pulso e na limpeza do som. Aumente gradualmente a velocidade em incrementos de 5 BPM quando estiver confortável.';
+            }
+        }
+
+        function getFingerPickingDescription(profile) {
+            if (profile.level === 'iniciante' || profile.level === 'iniciante-intermediario') {
+                return 'Exercícios de dedilhado simples para desenvolver independência dos dedos. Comece com sequência p-i-m-a em cordas soltas (60 BPM), mantendo o polegar na 6ª, 5ª e 4ª cordas enquanto os dedos i-m-a tocam as cordas 3-2-1 respectivamente. Pratique por 5 minutos, depois tente o padrão p-a-m-i por mais 5 minutos. Finalize aplicando em um arpejo simples com os acordes C e G.';
+            } else if (profile.musicalStyle === 'classico' || profile.musicalStyle === 'fingerstyle') {
+                return 'Pratique arpejos mais complexos como p-i-m-a-m-i e p-a-m-i-m-a alternando entre as tonalidades de Dó e Sol maior. Trabalhe o arpejo de "Romance Anônimo" aplicando dinâmica (variação de intensidade) para destacar a melodia. Adicione exercícios que combinam dedilhado na mão direita com ligados na mão esquerda. Mantenha o metrônomo a 70 BPM e aumente gradualmente até 90 BPM.';
+            } else {
+                return 'Exercícios de dedilhado intermediários com foco na técnica de polegar alternado com outros dedos: p-i-p-m-p-a. Aplique em progressões como C-G-Am-F, destacando notas da melodia com o dedo a enquanto mantém um baixo constante com o polegar. Treine separar linhas melódicas do acompanhamento variando a dinâmica entre os dedos. Comece em 60 BPM e aumente gradualmente a velocidade mantendo a precisão.';
+            }
+        }
+
+        function getBarChordDescription(profile) {
+            if (profile.level === 'iniciante' || profile.level === 'iniciante-intermediario') {
+                return 'Introdução básica aos acordes com pestana, começando com F maior na primeira casa. Trabalhe o posicionamento correto do dedo indicador (paralelo à pestana) e o apoio do polegar atrás do braço. Exercício: pressione apenas o indicador em todas as cordas na 1ª casa por 10 segundos, descanse 10 segundos e repita 5 vezes. Depois tente formar o acorde F completo, tocando uma corda de cada vez para verificar se todas estão soando claramente.';
+            } else {
+                return 'Pratique transições entre acordes com pestana em diferentes posições do braço. Exercício 1: mudança entre B7 (2ª casa) e F (1ª casa) contando 4 tempos para cada acorde. Exercício 2: progressão Am - F - C - G7. Exercício 3: pratique a forma da pestana "móvel", tocando Fm na 1ª casa, depois deslizando a mesma forma para F#m (2ª casa), Gm (3ª casa) e assim por diante. Foque em manter a sonoridade limpa e consistente.';
+            }
+        }
+
+        function getChordTransitionDescription(profile) {
+            if (profile.level === 'iniciante') {
+                return 'Exercícios para transições suaves entre acordes básicos (C, G, D, A, E). Praticar a mudança lenta, focando em movimentar todos os dedos simultaneamente.';
+            } else if (profile.level === 'iniciante-intermediario') {
+                return 'Praticar transições entre acordes com formas semelhantes, identificando dedos "âncora" que podem permanecer no mesmo lugar durante a mudança.';
+            } else {
+                return 'Trabalhar em transições rápidas entre acordes distantes no braço do violão. Praticar progressões completas com metrônomo, aumentando gradualmente a velocidade.';
+            }
+        }
+
+        function getSingAndPlayDescription(profile) {
+            return 'Exercícios para desenvolver a independência entre voz e mãos. Começar com progressões simples e melodias fáceis, mantendo o foco na regularidade do acompanhamento enquanto canta.';
+        }
+
+        function getMusicTheoryDescription(profile) {
+            if (profile.level === 'iniciante' || profile.level === 'iniciante-intermediario') {
+                return 'Estudo básico do círculo das quintas e formação de acordes maiores e menores. Compreender a relação entre notas e como identificar os acordes no braço do violão.';
+            } else {
+                return 'Estudo de formação de escalas e sua aplicação prática no braço do violão. Compreender campos harmônicos e progressões de acordes comuns em diferentes estilos musicais.';
+            }
+        }
+
+        function getRepertoireDescription(profile) {
+            let description = 'Aplicar o conteúdo da semana em uma música completa';
+
+            // Recomendações específicas por estilo musical e nível
+            const repertoireSuggestions = {
+                'mpb': {
+                    'iniciante': ['"Trem-Bala" (Ana Vilela)', '"Essa Tal Liberdade" (João Gomes)', '"Velha Infância" (Tribalistas)'],
+                    'intermediario': ['"Onde Quer Que Eu Vá" (Paralamas)', '"Gostava Tanto de Você" (Tim Maia)', '"Oceano" (Djavan)'],
+                    'avancado': ['"Sampa" (Caetano Veloso)', '"Águas de Março" (Tom Jobim)', '"Timoneiro" (Paulinho da Viola)']
+                },
+                'rock': {
+                    'iniciante': ['"Love Me Do" (Beatles)', '"Patience" (Guns N\' Roses)', '"About a Girl" (Nirvana)'],
+                    'intermediario': ['"Wish You Were Here" (Pink Floyd)', '"Wonderwall" (Oasis)', '"Sweet Child O\' Mine" (riff inicial)'],
+                    'avancado': ['"Nothing Else Matters" (Metallica)', '"Stairway to Heaven" (Led Zeppelin)', '"Hotel California" (Eagles)']
+                },
+                'pop': {
+                    'iniciante': ['"Viva La Vida" (Coldplay)', '"Let It Be" (Beatles)', '"Stand By Me" (Ben E. King)'],
+                    'intermediario': ['"Perfect" (Ed Sheeran)', '"Yellow" (Coldplay)', '"Hallelujah" (Leonard Cohen)'],
+                    'avancado': ['"Someone Like You" (Adele)', '"Thinking Out Loud" (Ed Sheeran)', '"Bad Guy" (Billie Eilish)']
+                },
+                'sertanejo': {
+                    'iniciante': ['"Evidências" (Chitãozinho e Xororó)', '"Saudade da Minha Terra" (Chitãozinho e Xororó)', '"Boate Azul" (Bruno e Marrone)'],
+                    'intermediario': ['"Todo Mundo Vai Sofrer" (Marília Mendonça)', '"Sino de Paz" (Chitãozinho e Xororó)', '"Cheia de Manias" (Raça Negra)'],
+                    'avancado': ['"Romaria" (Renato Teixeira)', '"60 Dias Apaixonado" (Edson e Hudson)', '"Ainda Ontem Chorei de Saudade" (João Mineiro e Marciano)']
+                },
+                'bossa-nova': {
+                    'iniciante': ['"Garota de Ipanema" (versão simplificada)', '"Samba de Verão" (versão simplificada)', '"O Barquinho" (versão básica)'],
+                    'intermediario': ['"Chega de Saudade" (Tom Jobim)', '"Desafinado" (Tom Jobim)', '"Wave" (Tom Jobim)'],
+                    'avancado': ['"Samba de Uma Nota Só" (Tom Jobim)', '"Corcovado" (Tom Jobim)', '"Insensatez" (Tom Jobim)']
+                },
+                'fingerstyle': {
+                    'iniciante': ['"Romance Anônimo" (versão simplificada)', '"Greensleeves" (tradicional)', '"Amazing Grace" (arranjo simples)'],
+                    'intermediario': ['"Dust in the Wind" (Kansas)', '"Blackbird" (Beatles)', '"Tears in Heaven" (Eric Clapton)'],
+                    'avancado': ['"Canon in D" (Pachelbel)', '"Classical Gas" (Mason Williams)', '"Asturias" (Isaac Albéniz)']
+                },
+                'classico': {
+                    'iniciante': ['"Spanish Romance" (Anônimo)', '"Estudo Op. 60, No. 1" (Matteo Carcassi)', '"Lágrima" (Francisco Tárrega)'],
+                    'intermediario': ['"Adelita" (Francisco Tárrega)', '"Estudo Op. 35, No. 13" (Fernando Sor)', '"Capricho Árabe" (Francisco Tárrega)'],
+                    'avancado': ['"Recuerdos de la Alhambra" (Francisco Tárrega)', '"Asturias" (Isaac Albéniz)', '"Concierto de Aranjuez" (Joaquín Rodrigo)']
+                }
+            };
+
+            // Determinar categoria de nível
+            let levelCategory = 'iniciante';
+            if (profile.level === 'intermediario' || profile.level === 'iniciante-intermediario') {
+                levelCategory = 'intermediario';
+            } else if (profile.level === 'intermediario-avancado' || profile.level === 'avancado') {
+                levelCategory = 'avancado';
+            }
+
+            // Adicionar sugestão de repertório personalizada
+            if (repertoireSuggestions[profile.musicalStyle] &&
+                repertoireSuggestions[profile.musicalStyle][levelCategory]) {
+
+                const suggestions = repertoireSuggestions[profile.musicalStyle][levelCategory];
+                description += '. Sugestões: ' + suggestions.join(', ');
+            } else {
+                description += `. Sugestão: ${levelCategory === 'iniciante' ? '"Trem-Bala" (Ana Vilela) ou "Viva La Vida" (Coldplay)' : 'uma música de sua preferência que utilize os conceitos trabalhados'}`;
+            }
+
+            // Personalizar por instrumento se aplicável
+            if (profile.instrumentType === 'violao-aco' && (profile.musicalStyle === 'sertanejo' || profile.musicalStyle === 'rock')) {
+                description += '. Seu violão de aço é ideal para este estilo!';
+            } else if (profile.instrumentType === 'violao-nylon' && (profile.musicalStyle === 'classico' || profile.musicalStyle === 'bossa-nova')) {
+                description += '. Seu violão de nylon é perfeito para este gênero!';
+            }
+
+            return description + '.';
+        }
+
+        function getSoloDescription(profile) {
+            if (profile.level === 'iniciante' || profile.level === 'iniciante-intermediario') {
+                return 'Introdução aos solos simples usando a escala pentatônica maior. Praticar frases curtas sobre progressões básicas, focando na precisão das notas.';
+            } else {
+                return 'Desenvolvimento de solos improvisados usando escalas maiores e menores. Trabalhar técnicas de expressão como bends, slides e hammer-ons para criar frases mais musicais.';
+            }
+        }
+
+        function getReadingDescription(profile) {
+            if (profile.level === 'iniciante' || profile.level === 'iniciante-intermediario') {
+                return 'Estudo básico de tablatura, identificando cordas, casas e técnicas simples. Praticar leitura de trechos curtos, focando na precisão da execução.';
+            } else {
+                return 'Desenvolvimento da leitura de partituras e tablaturas mais complexas. Trabalhar a capacidade de ler e executar em tempo real, com atenção a dinâmicas e expressão.';
+            }
+        }
+
+        // Get appropriate duration based on user's time commitment
+        function getDurationForLevel(timeCommitment, goal) {
+            const baseMap = {
+                'muito-pouco': 15,
+                'pouco': 20,
+                'medio': 30,
+                'alto': 45,
+                'muito-alto': 60
+            };
+
+            let base = baseMap[timeCommitment] || 30;
+
+            // Adjust for specific goals that podem need more time
+            if (goal === 'repertorio') {
+                base = Math.min(base * 1.5, 60);
+            }
+
+            return base;
+        }
+
+        // Get material recommendation based on goal and profile
+        function getMaterialRecommendation(profile, goal) {
+            const materials = {
+                'acordes-basicos': {
+                    iniciante: 'Video tutorial "Primeiros Acordes no Violão" (Módulo 1)',
+                    intermediario: 'Video tutorial "Transições fluidas entre acordes" (Módulo 2)',
+                    avancado: 'Guia de acordes com inversões e voicings alternativos'
+                },
+                'batidas-ritmos': {
+                    iniciante: 'Video tutorial "Batidas Iniciais Para Violão" (Módulo 1)',
+                    intermediario: 'Exercício "Batida versátil para diversos gêneros" (Módulo 3)',
+                    avancado: 'Workshop "Ritmos Avançados e Síncopes" (Seção Especializada)'
+                },
+                'dedilhado': {
+                    iniciante: 'Exercícios de aquecimento do módulo "Primeiros Dedilhados"',
+                    intermediario: 'Exercícios de aquecimento do módulo "Destravando os Dedos"',
+                    avancado: 'Livro digital "Técnicas de Fingerstyle: Do Básico ao Avançado"'
+                }
+            };
+
+            // Map user level to simplified categories
+            let levelCategory = 'iniciante';
+            if (profile.level === 'intermediario' || profile.level === 'iniciante-intermediario') {
+                levelCategory = 'intermediario';
+            } else if (profile.level === 'intermediario-avancado' || profile.level === 'avancado') {
+                levelCategory = 'avancado';
+            }
+
+            // Return specific recommendation if available
+            if (materials[goal] && materials[goal][levelCategory]) {
+                return materials[goal][levelCategory];
+            }
+
+            // Generic recommendations for other goals
+            if (levelCategory === 'iniciante') {
+                return `Aula "${goal}" da seção para iniciantes do curso`;
+            } else if (levelCategory === 'intermediario') {
+                return `Tutorial interativo sobre "${goal}" do Módulo Intermediário`;
+            } else {
+                return `Workshop especializado sobre "${goal}" na Área Avançada`;
+            }
+        }
+
+        // Adicionar personalização específica por tipo de instrumento
+        function customizeByInstrument(description, profile) {
+            // Adicionar dicas específicas com base no tipo de violão
+            let customized = description;
+
+            if (profile.instrumentType === 'violao-nylon') {
+                // Adicionar dicas para violão de nylon
+                if (profile.goals.includes('dedilhado')) {
+                    customized += ' Com violão de nylon, trabalhe na postura clássica (ângulo de 45° na perna esquerda) para melhor acesso às cordas.';
+                } else if (profile.goals.includes('batidas-ritmos')) {
+                    customized += ' Nas batidas, com violão de nylon pode-se usar menos força, focando mais na precisão dos ataques.';
+                }
+            } else if (profile.instrumentType === 'violao-aco') {
+                // Adicionar dicas para violão de aço
+                if (profile.goals.includes('dedilhado')) {
+                    customized += ' Para violão de aço, considere usar dedeiras (finger picks) para um ataque mais presente nos dedilhados.';
+                } else if (profile.goals.includes('batidas-ritmos')) {
+                    customized += ' Com cordas de aço, trabalhe a dinâmica nas batidas alternando entre toques suaves e mais presentes para maior expressividade.';
+                } else if (profile.goals.includes('acordes-pestana')) {
+                    customized += ' Em violões de aço, aplique mais pressão na pestana e posicione o polegar mais alto no braço para maior alavancagem.';
+                }
+            } else if (profile.instrumentType === 'violao-12-cordas') {
+                // Adicionar dicas para violão de 12 cordas
+                customized += ' Com 12 cordas, dedique mais tempo para afinar corretamente o instrumento antes de cada sessão e use um pouco mais de pressão nos acordes.';
+            }
+
+            return customized;
+        }
+
+        // Update the result view with the personalized plan
+        function updateResultView(plan, profile) {
+            // Update welcome message
+            document.querySelector('.ai-message p:first-child').textContent = plan.message;
+
+            // Inicializa barra de progresso semanal
+            const progressFill = document.querySelector('.mini-progress-fill');
+            progressFill.style.width = '0%';
+
+            // Animação de progresso após 1 segundo
+            setTimeout(() => {
+                progressFill.style.width = '15%';
+                document.querySelector('.progress-text').textContent = 'Semana 1: Construindo fundamentos';
+            }, 1000);
+
+            // Clear existing schedule
+            const scheduleContainer = document.querySelector('.schedule');
+            scheduleContainer.innerHTML = '';
+
+            // Add each day's session to the schedule
+            plan.dailySessions.forEach((daySession, index) => {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'schedule-day';
+
+                // Create day header
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'schedule-day-header';
+                dayHeader.textContent = daySession.day;
+                dayElement.appendChild(dayHeader);
+
+                // Create practice session
+                const practiceSession = document.createElement('div');
+                practiceSession.className = 'practice-session';
+
+                // Time display
+                const timeDisplay = document.createElement('div');
+                timeDisplay.className = 'session-time';
+                timeDisplay.textContent = `${translateTime(daySession.time)} - ${daySession.duration} minutos`;
+                practiceSession.appendChild(timeDisplay);
+
+                // Add each focus area for the day
+                daySession.sessions.forEach(session => {
+                    const focusArea = document.createElement('div');
+                    focusArea.className = 'session-focus';
+
+                    // Session title with difficulty
+                    const titleEl = document.createElement('h4');
+                    titleEl.innerHTML = `${session.title} <span class="difficulty-indicator">${getStarRating(session.difficulty)}</span>`;
+                    focusArea.appendChild(titleEl);
+
+                    // Session description
+                    const descEl = document.createElement('p');
+                    descEl.textContent = session.description;
+                    focusArea.appendChild(descEl);
+
+                    // Material recommendation
+                    const materialEl = document.createElement('p');
+                    materialEl.innerHTML = `<strong>Material recomendado:</strong> ${session.material}`;
+                    focusArea.appendChild(materialEl);
+
+                    // Adicionar botão de concluído
+                    const completeBtn = document.createElement('button');
+                    completeBtn.className = 'complete-btn';
+                    completeBtn.innerHTML = '<i class="fas fa-check"></i> Marcar como concluído';
+                    completeBtn.onclick = function () {
+                        this.classList.toggle('completed');
+                        if (this.classList.contains('completed')) {
+                            this.innerHTML = '<i class="fas fa-check-double"></i> Concluído!';
+                            // Atualizar progresso
+                            const currentProgress = parseInt(progressFill.style.width) || 15;
+                            const newProgress = Math.min(currentProgress + 5, 100);
+                            progressFill.style.width = `${newProgress}%`;
+                        } else {
+                            this.innerHTML = '<i class="fas fa-check"></i> Marcar como concluído';
+                        }
+                        updateProgressStats();
+                    };
+                    focusArea.appendChild(completeBtn);
+
+                    practiceSession.appendChild(focusArea);
+                });
+
+                dayElement.appendChild(practiceSession);
+                scheduleContainer.appendChild(dayElement);
+            });
+
+            // Adicionar resumo de estatísticas ao final
+            addStatisticsSummary(plan, profile);
+        }
+
+        // Helper function to convert time period to display text
+        function translateTime(timePeriod) {
+            const timeMap = {
+                'manha': 'Manhã',
+                'tarde': 'Tarde',
+                'noite': 'Noite'
+            };
+            return timeMap[timePeriod] || timePeriod;
+        }
+
+        // Helper function to generate star rating based on difficulty
+        function getStarRating(difficulty) {
+            const fullStar = '<i class="fas fa-star"></i>';
+            const halfStar = '<i class="fas fa-star-half-alt"></i>';
+            const emptyStar = '<i class="far fa-star"></i>';
+
+            let stars = '';
+
+            // Convert numeric difficulty to visual representation
+            if (difficulty >= 5) {
+                // Muito difícil
+                stars = fullStar.repeat(5);
+            } else if (difficulty >= 4.5) {
+                stars = fullStar.repeat(4) + halfStar;
+            } else if (difficulty >= 4) {
+                stars = fullStar.repeat(4) + emptyStar;
+            } else if (difficulty >= 3.5) {
+                stars = fullStar.repeat(3) + halfStar + emptyStar;
+            } else if (difficulty >= 3) {
+                stars = fullStar.repeat(3) + emptyStar.repeat(2);
+            } else if (difficulty >= 2.5) {
+                stars = fullStar.repeat(2) + halfStar + emptyStar.repeat(2);
+            } else if (difficulty >= 2) {
+                stars = fullStar.repeat(2) + emptyStar.repeat(3);
+            } else if (difficulty >= 1.5) {
+                stars = fullStar + halfStar + emptyStar.repeat(3);
+            } else if (difficulty >= 1) {
+                stars = fullStar + emptyStar.repeat(4);
+            } else if (difficulty >= 0.5) {
+                stars = halfStar + emptyStar.repeat(4);
+            } else {
+                stars = emptyStar.repeat(5);
+            }
+
+            return stars;
+        }
+
+        function resetToHome() {
+            // Hide results
+            document.getElementById('result').classList.remove('active');
+
+            // Reset to step 1
+            currentStep = 1;
+
+            // Show progress container again
+            document.querySelector('.progress-container').style.display = 'block';
+
+            // Reset progress bar
+            document.querySelector('.progress-bar').style.width = '20%';
+
+            // Reset step indicators
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                indicator.classList.remove('active');
+                indicator.classList.remove('completed');
+                if (index === 0) {
+                    indicator.classList.add('active');
+                }
+            });
+
+            // Show first step
+            document.getElementById('step1').classList.add('active');
+
+            // Reset form fields (optional)
+            document.getElementById('level').selectedIndex = 0;
+            document.querySelectorAll('input[name="goals"]:checked').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.getElementById('time-commitment').selectedIndex = 2;
+            document.querySelectorAll('.time-block.selected').forEach(block => {
+                block.classList.remove('selected');
+            });
+            document.getElementById('additional-info').value = '';
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Função para adicionar estatísticas no final do plano
+        function addStatisticsSummary(plan, profile) {
+            const scheduleContainer = document.querySelector('.schedule');
+
+            // Criar seção de estatísticas e tempo estimado
+            const statsSection = document.createElement('div');
+            statsSection.className = 'stats-summary';
+            statsSection.style.marginTop = '2rem';
+            statsSection.style.padding = '1.5rem';
+            statsSection.style.backgroundColor = '#FFF8E1';
+            statsSection.style.borderRadius = '10px';
+            statsSection.style.boxShadow = '0 3px 10px rgba(139, 69, 19, 0.08)';
+
+            // Título
+            const statsTitle = document.createElement('h3');
+            statsTitle.textContent = 'Estatísticas do Seu Plano';
+            statsTitle.style.marginBottom = '1rem';
+            statsTitle.style.color = 'var(--primary-color)';
+            statsSection.appendChild(statsTitle);
+
+            // Calcular tempo total de prática
+            const totalMinutes = plan.dailySessions.reduce((sum, day) => sum + day.duration, 0);
+            const hoursPerWeek = Math.floor(totalMinutes / 60);
+            const minutesPerWeek = totalMinutes % 60;
+
+            // Tempo total
+            const timeStats = document.createElement('p');
+            timeStats.innerHTML = `<strong>Tempo total de prática semanal:</strong> ${hoursPerWeek > 0 ? hoursPerWeek + ' hora(s) e ' : ''}${minutesPerWeek} minutos`;
+            statsSection.appendChild(timeStats);
+
+            // Dias de prática
+            const daysStats = document.createElement('p');
+            daysStats.innerHTML = `<strong>Dias de prática por semana:</strong> ${plan.dailySessions.length}`;
+            statsSection.appendChild(daysStats);
+
+            // Estimativa de progresso
+            const progressEstimate = document.createElement('p');
+            progressEstimate.innerHTML = `<strong>Tempo para resultados visíveis:</strong> ${getProgressEstimate(profile)}`;
+            statsSection.appendChild(progressEstimate);
+
+            // Dica personalizada baseada no perfil
+            const personalTip = document.createElement('div');
+            personalTip.className = 'personal-tip';
+            personalTip.style.marginTop = '1rem';
+            personalTip.style.padding = '1rem';
+            personalTip.style.backgroundColor = 'white';
+            personalTip.style.borderLeft = '4px solid var(--accent-color)';
+            personalTip.style.borderRadius = '4px';
+
+            personalTip.innerHTML = `<strong>💡 Dica personalizada:</strong> ${getPersonalizedTip(profile)}`;
+            statsSection.appendChild(personalTip);
+
+            // Adicionar ao container
+            scheduleContainer.appendChild(statsSection);
+        }
+
+        // Função para obter estimativa de progresso com base no perfil
+        function getProgressEstimate(profile) {
+            if (profile.timeCommitment === 'muito-pouco') {
+                return 'Cerca de 10-12 semanas para resultados notáveis';
+            } else if (profile.timeCommitment === 'pouco') {
+                return 'Aproximadamente 8 semanas para resultados significativos';
+            } else if (profile.timeCommitment === 'medio') {
+                return 'Cerca de 6 semanas para resultados consistentes';
+            } else if (profile.timeCommitment === 'alto') {
+                return 'Entre 3-4 semanas para resultados visíveis';
+            } else {
+                return 'Aproximadamente 2-3 semanas para melhorias notáveis';
+            }
+        }
+
+        // Função para obter dica personalizada com base no perfil
+        function getPersonalizedTip(profile) {
+            if (profile.instrumentType === 'violao-nylon') {
+                return 'Com seu violão de nylon, trabalhe na postura clássica para obter melhor projeção sonora. Posicione o violão com o pé esquerdo levemente elevado (use um apoio de pé ou um livro grosso) para melhor ergonomia.';
+            } else if (profile.instrumentType === 'violao-aco') {
+                return 'Violões de aço exigem mais força nos dedos. Faça pausas frequentes no início para não sobrecarregar os dedos e considere cordas de tensão mais leve se sentir desconforto. A palhetada alternada pode ajudar a economizar energia nos ritmos mais intensos.';
+            } else if (profile.goals.includes('acordes-pestana')) {
+                return 'Para dominar as pestanas mais rapidamente, trabalhe primeiro no posicionamento correto do polegar (atrás do braço) e tente usar o lado do dedo indicador, não a ponta. Comece praticando apenas a pestana, sem os outros dedos, até conseguir um som limpo.';
+            } else if (profile.level === 'iniciante') {
+                return 'Nos primeiros meses, foque em desenvolver calos nas pontas dos dedos e na força básica. Pare antes de sentir dor e aumente gradualmente o tempo de prática. Grave-se tocando no início e compare após um mês - você ficará surpreso com seu progresso!';
+            } else {
+                return 'Alterne entre prática técnica focada e prática musical divertida. Isolamento de técnicas é importante, mas tocar músicas completas traz satisfação e motivação. Tente dedicar ao menos 20% do seu tempo para simplesmente tocar o que você gosta.';
+            }
+        }
+
+        // Função para atualizar estatísticas de progresso
+        function updateProgressStats() {
+            // Contar itens completos
+            const completeButtons = document.querySelectorAll('.complete-btn.completed');
+            const totalButtons = document.querySelectorAll('.complete-btn');
+            const percentComplete = Math.round((completeButtons.length / totalButtons.length) * 100);
+
+            // Atualizar texto de progresso baseado no percentual completado
+            const progressText = document.querySelector('.progress-text');
+
+            if (percentComplete >= 75) {
+                progressText.textContent = 'Excelente progresso! Continue assim!';
+            } else if (percentComplete >= 50) {
+                progressText.textContent = 'Ótimo trabalho! Mais da metade concluída.';
+            } else if (percentComplete >= 25) {
+                progressText.textContent = 'Bom progresso! Continue praticando regularmente.';
+            } else if (percentComplete > 0) {
+                progressText.textContent = 'Você começou! Mantenha a consistência.';
+            }
+
+            // Salvar progresso no armazenamento local
+            localStorage.setItem('plannerProgress', percentComplete.toString());
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            // Carregar progresso anterior se existir
+            const savedProgress = localStorage.getItem('plannerProgress');
+            if (savedProgress) {
+                const progressFill = document.querySelector('.mini-progress-fill');
+                if (progressFill) {
+                    progressFill.style.width = `${savedProgress}%`;
+
+                    // Atualizar texto com base no progresso
+                    const progressText = document.querySelector('.progress-text');
+                    if (progressText) {
+                        if (parseInt(savedProgress) >= 75) {
+                            progressText.textContent = 'Excelente progresso! Continue assim!';
+                        } else if (parseInt(savedProgress) >= 50) {
+                            progressText.textContent = 'Ótimo trabalho! Mais da metade concluída.';
+                        } else if (parseInt(savedProgress) >= 25) {
+                            progressText.textContent = 'Bom progresso! Continue praticando regularmente.';
+                        } else {
+                            progressText.textContent = 'Continue praticando! Você está no caminho certo.';
+                        }
+                    }
+                }
+            }
+
+            // Configurar lembretes de prática
+            const reminderBtn = document.createElement('button');
+            reminderBtn.className = 'btn';
+            reminderBtn.style.marginTop = '1.5rem';
+            reminderBtn.style.width = '100%';
+            reminderBtn.style.display = 'flex';
+            reminderBtn.style.justifyContent = 'center';
+            reminderBtn.style.alignItems = 'center';
+            reminderBtn.style.gap = '10px';
+            reminderBtn.innerHTML = '<i class="fas fa-bell"></i> Ativar lembretes de prática';
+
+            // Adicionar o botão após o resultado da IA ser mostrado
+            reminderBtn.addEventListener('click', function () {
+                if (Notification.permission !== 'granted') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            setupReminders();
+                            this.innerHTML = '<i class="fas fa-bell"></i> Lembretes ativados!';
+                            this.disabled = true;
+                        }
+                    });
+                } else {
+                    setupReminders();
+                    this.innerHTML = '<i class="fas fa-bell"></i> Lembretes ativados!';
+                    this.disabled = true;
+                }
+            });
+
+            // Verificar e adicionar botão quando o resultado é mostrado
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' &&
+                        mutation.attributeName === 'class' &&
+                        document.getElementById('result').classList.contains('active')) {
+
+                        const scheduleContainer = document.querySelector('.schedule');
+                        if (scheduleContainer && !document.querySelector('.reminder-btn')) {
+                            reminderBtn.classList.add('reminder-btn');
+                            scheduleContainer.appendChild(reminderBtn);
+                        }
+                    }
+                });
+            });
+
+            observer.observe(document.getElementById('result'), { attributes: true });
         });
+
+        // Função para configurar lembretes de prática
+        function setupReminders() {
+            // Obter dias da semana do plano
+            const scheduleDays = document.querySelectorAll('.schedule-day-header');
+            const days = Array.from(scheduleDays).map(day => day.textContent.trim());
+
+            // Mapear dias para números (0 = Domingo, 6 = Sábado)
+            const dayMapping = {
+                'Segunda-feira': 1,
+                'Terça-feira': 2,
+                'Quarta-feira': 3,
+                'Quinta-feira': 4,
+                'Sexta-feira': 5,
+                'Sábado': 6,
+                'Domingo': 0
+            };
+
+            // Configurar lembretes para cada dia do plano
+            days.forEach(day => {
+                const dayNumber = dayMapping[day];
+                if (dayNumber !== undefined) {
+                    const timeBlock = document.querySelector(`.schedule-day:nth-child(${days.indexOf(day) + 1}) .session-time`);
+                    let timeOfDay = 'noite'; // padrão
+
+                    if (timeBlock) {
+                        if (timeBlock.textContent.includes('Manhã')) {
+                            timeOfDay = 'manhã';
+                        } else if (timeBlock.textContent.includes('Tarde')) {
+                            timeOfDay = 'tarde';
+                        }
+                    }
+
+                    scheduleNotification(day, dayNumber, timeOfDay);
+                }
+            });
+
+            // Fornecer feedback ao usuário
+            alert('Lembretes configurados para seus dias de prática! Você receberá notificações nos dias e horários programados.');
+        }
+
+        // Função para agendar notificações
+        function scheduleNotification(dayName, dayNumber, timeOfDay) {
+            // Determinar hora da notificação com base no período do dia
+            let hour;
+            if (timeOfDay === 'manhã') {
+                hour = 9;
+            } else if (timeOfDay === 'tarde') {
+                hour = 15;
+            } else {
+                hour = 19;
+            }
+
+            // Calcular próxima ocorrência deste dia da semana
+            const now = new Date();
+            const currentDay = now.getDay();
+            let daysUntilNext = dayNumber - currentDay;
+            if (daysUntilNext <= 0) {
+                daysUntilNext += 7;
+            }
+
+            const notificationDate = new Date();
+            notificationDate.setDate(now.getDate() + daysUntilNext);
+            notificationDate.setHours(hour, 0, 0, 0);
+
+            // Armazenar no localStorage para recriar após página recarregada
+            const reminderKey = `reminder_${dayName}`;
+            localStorage.setItem(reminderKey, JSON.stringify({
+                day: dayName,
+                timeOfDay: timeOfDay,
+                nextNotification: notificationDate.toISOString()
+            }));
+
+            // Disparar notificação quando for a hora (em uma aplicação real, isso precisaria de um service worker)
+            const timeUntilNotification = notificationDate.getTime() - now.getTime();
+            if (timeUntilNotification > 0) {
+                setTimeout(() => {
+                    if (Notification.permission === 'granted') {
+                        const notification = new Notification('Lembrete de Prática de Violão', {
+                            body: `Hora de praticar violão! Seu plano para ${dayName} está esperando por você.`,
+                            icon: '/img/icon-192.svg'
+                        });
+
+                        // Reagendar para próxima semana
+                        scheduleNotification(dayName, dayNumber, timeOfDay);
+                    }
+                }, timeUntilNotification);
+            }
+        }
     </script>
 </body>
+
 </html>

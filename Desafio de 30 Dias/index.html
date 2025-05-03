@@ -2,20 +2,23 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=width=device-width, initial-scale=1.0">
     <title>🎸 Desafio de 30 Dias: Toque 10 Músicas Completas</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #5D4037;
-            --secondary-color: #8D6E63;
-            --accent-color: #D7CCC8;
-            --text-color: #3E2723;
-            --light-bg: #EFEBE9;
-            --section-bg: #ffffff;
-            --border-color: #BCAAA4;
-            --footer-color: #6D4C41;
+            --primary-color: #8B4513; /* Marrom SaddleBrown */
+            --secondary-color: #A0522D; /* Marrom Sienna */
+            --accent-color: #D2691E; /* Marrom Chocolate */
+            --background-light: #F5F5DC; /* Bege */
+            --background-dark: #DEB887; /* BurlyWood */
+            --text-color: #333;
+            --text-light: #555;
+            --white: #fff;
+            --border-color: #CD853F; /* Marrom Peru */
+            --shadow-color: rgba(139, 69, 19, 0.2);
+            --transition: all 0.3s ease;
             --success-color: #4CAF50;
             --locked-color: #BCAAA4;
         }
@@ -26,60 +29,99 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--light-bg);
-            padding: 20px;
+            background-color: var(--background-light);
+            padding: 0;
         }
 
         header {
             background-color: var(--primary-color);
-            color: white;
+            color: var(--white);
             padding: 40px 20px;
             text-align: center;
-            border-radius: 12px;
+            border-radius: 0;
             margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.2);
+            box-shadow: 0 8px 20px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(210, 105, 30, 0.3) 0%, rgba(139, 69, 19, 0) 70%);
+            z-index: 0;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         header .subtitle {
             font-size: 1.1rem;
             opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 15px;
+            width: 100%;
+            max-width: 100%;
+            padding: 0 30px;
+            margin: 0;
         }
 
         section {
-            background-color: var(--section-bg);
-            padding: 25px;
-            border-radius: 8px;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 16px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
         }
 
         h2 {
             color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-size: 2rem;
             border-bottom: 2px solid var(--secondary-color);
             padding-bottom: 10px;
+            font-weight: 600;
         }
 
         h3 {
             color: var(--secondary-color);
             margin-bottom: 15px;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+            font-weight: 500;
         }
 
         ul, ol {
@@ -92,28 +134,45 @@
         }
 
         .progress-section h2 {
-             border-bottom: none;
-             text-align: center;
-             margin-bottom: 25px;
+            border-bottom: none;
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         .progress-tracker {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 10px;
             margin-bottom: 20px;
         }
 
         .progress-step {
             text-align: center;
-            padding: 10px 5px;
-            background-color: var(--light-bg);
+            padding: 12px 5px;
+            background-color: var(--background-light);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 10px;
             font-weight: 500;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .progress-step:hover::before {
+            width: 100%;
         }
 
         .progress-step.completed {
@@ -127,41 +186,58 @@
             color: white;
             border-color: var(--secondary-color);
             font-weight: bold;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px var(--shadow-color);
         }
 
         .days-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
+            width: 100%;
         }
 
         .day-card {
-            background-color: var(--section-bg);
+            background-color: var(--white);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 25px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(93, 64, 55, 0.1);
+            transition: var(--transition);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, transparent, rgba(210, 105, 30, 0.1));
+            border-radius: 0 0 0 100%;
+            z-index: 0;
         }
 
         .day-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow-color);
         }
 
         .day-header {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--background-light);
         }
 
         .day-number {
-            background-color: var(--primary-color);
-            color: white;
-            width: 40px;
-            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -169,11 +245,11 @@
             font-weight: bold;
             margin-right: 15px;
             flex-shrink: 0;
-            box-shadow: 0 2px 4px rgba(93, 64, 55, 0.2);
+            box-shadow: 0 4px 8px var(--shadow-color);
         }
 
         .day-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--primary-color);
             font-weight: 600;
         }
@@ -181,8 +257,9 @@
         .day-card h4 {
             color: var(--secondary-color);
             margin-top: 15px;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 500;
         }
 
         .day-card ul {
@@ -190,32 +267,43 @@
             margin-left: 0;
             padding-left: 0;
         }
-         .day-card li {
-             padding-left: 20px;
-             position: relative;
-             font-size: 0.95rem;
-         }
-         .day-card li::before {
-             content: "\f00c"; /* FontAwesome check icon */
-             font-family: "Font Awesome 6 Free";
-             font-weight: 900;
-             position: absolute;
-             left: 0;
-             color: var(--success-color);
-             opacity: 0.7;
-         }
+         
+        .day-card li {
+            padding-left: 30px;
+            position: relative;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+         
+        .day-card li::before {
+            content: "\f00c"; /* FontAwesome check icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
 
         .song-focus {
-            background-color: var(--light-bg);
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-top: 20px;
+            background-color: var(--background-light);
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin-top: 25px;
             font-size: 1rem;
-            border-left: 4px solid var(--primary-color);
-            box-shadow: 0 2px 4px rgba(93, 64, 55, 0.1);
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 3px 6px var(--shadow-color);
+            transition: var(--transition);
         }
+        
+        .song-focus:hover {
+            transform: translateX(5px);
+        }
+        
         .song-focus strong {
             color: var(--primary-color);
+            font-weight: 600;
         }
 
         .songs-list ul {
@@ -225,12 +313,14 @@
             -webkit-columns: 2;
             -moz-columns: 2;
         }
+        
         .songs-list li {
-            margin-bottom: 8px;
-            font-size: 1rem;
-            padding-left: 25px;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-left: 35px;
             position: relative;
         }
+        
         .songs-list li::before {
             content: "\f001"; /* FontAwesome music icon */
             font-family: "Font Awesome 6 Free";
@@ -238,107 +328,188 @@
             position: absolute;
             left: 0;
             color: var(--accent-color);
+            font-size: 1.2em;
         }
 
         .motivation {
-            background-color: var(--accent-color);
-            padding: 25px;
-            border-radius: 12px;
-            margin: 40px 0;
+            background: linear-gradient(135deg, var(--background-dark), var(--background-light));
+            padding: 35px;
+            border-radius: 16px;
+            margin: 50px 0;
             text-align: center;
             font-style: italic;
             color: var(--text-color);
             border-left: 6px solid var(--primary-color);
-            box-shadow: 0 2px 8px rgba(93, 64, 55, 0.1);
+            box-shadow: 0 6px 12px var(--shadow-color);
+            position: relative;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .motivation::before {
+            content: '"';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            font-size: 72px;
+            color: rgba(139, 69, 19, 0.1);
+            font-family: Georgia, serif;
+        }
+
+        .motivation::after {
+            content: '"';
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+            font-size: 72px;
+            color: rgba(139, 69, 19, 0.1);
+            font-family: Georgia, serif;
         }
 
         .notes-section {
-            background-color: var(--light-bg);
-            border: 1px dashed var(--border-color);
-            padding: 20px;
-            border-radius: 8px;
+            background-color: var(--white);
+            border: 2px dashed var(--border-color);
+            padding: 25px;
+            border-radius: 16px;
             margin-top: 40px;
+            box-shadow: 0 4px 12px var(--shadow-color);
         }
 
         .notes-section h3 {
             margin-top: 0;
             color: var(--primary-color);
+            font-weight: 600;
         }
 
         .notes-lines {
-            min-height: 150px;
+            min-height: 200px;
             background-image: linear-gradient(var(--border-color) 1px, transparent 1px);
-            background-size: 100% 2rem;
-            padding: 10px;
-            line-height: 2rem;
+            background-size: 100% 2.5rem;
+            padding: 15px;
+            line-height: 2.5rem;
             font-style: italic;
-            color: #777;
+            color: var(--text-light);
+            border-radius: 8px;
         }
 
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            color: var(--footer-color);
-            font-size: 0.9rem;
+            margin-top: 60px;
+            padding-top: 30px;
+            padding-bottom: 100px; /* Espaço para o botão de voltar */
+            border-top: 2px solid var(--border-color);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            width: 100%;
         }
 
         .signature {
             font-style: italic;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-weight: 500;
+            color: var(--primary-color);
         }
 
         .practice-tips {
-            background-color: #f0f7ff;
-            padding: 15px;
-            border-radius: 8px;
+            background-color: rgba(210, 105, 30, 0.1);
+            padding: 18px;
+            border-radius: 12px;
             margin: 15px 0;
+            border-left: 4px solid var(--accent-color);
         }
 
         .daily-exercises {
-            background-color: #fff5e6;
-            padding: 15px;
-            border-radius: 8px;
+            background-color: rgba(205, 133, 63, 0.1);
+            padding: 18px;
+            border-radius: 12px;
             margin: 15px 0;
+            border-left: 4px solid var(--secondary-color);
         }
 
         .progress-tracking {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 8px;
+            background-color: rgba(222, 184, 135, 0.2);
+            padding: 18px;
+            border-radius: 12px;
             margin: 15px 0;
+            border-left: 4px solid var(--border-color);
         }
 
         .checkpoints {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
 
         .checkpoint {
-            background-color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
+            background-color: var(--white);
+            padding: 12px 15px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
+            transition: var(--transition);
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+
+        .checkpoint:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--shadow-color);
         }
 
         .day-card ul ul {
-            margin: 5px 0 10px 20px;
-            font-size: 0.9em;
-            color: #666;
+            margin: 8px 0 15px 20px;
+            font-size: 0.93em;
+            color: var(--text-light);
+        }
+
+        /* Botão de voltar com ícone de casa */
+        .back-to-home {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .back-to-home:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            background-color: var(--accent-color);
+        }
+
+        .back-to-home:active {
+            transform: scale(0.95);
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            h2 { font-size: 1.5rem; }
-            .progress-tracker { grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); gap: 5px; }
-            .progress-step { font-size: 0.8rem; padding: 8px 3px; }
+            header h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.7rem; }
+            .progress-tracker { grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); gap: 8px; }
+            .progress-step { font-size: 0.8rem; padding: 10px 3px; }
             .days-content { grid-template-columns: 1fr; }
             .songs-list ul { columns: 1; -webkit-columns: 1; -moz-columns: 1; }
+            .day-card { padding: 20px; }
+            .container { padding: 0 15px; }
+            .back-to-home {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 20px;
+            }
         }
-
     </style>
 </head>
 <body>
@@ -855,10 +1026,10 @@
         </section>
     </div>
 
-    <footer>
-        <p>Kit Violão Profissional - Desafio de 30 Dias</p>
-        <p class="signature">Desenvolvido com paixão pela equipe do Kit Violão Profissional</p>
-    </footer>
+    <!-- Botão de voltar para a tela inicial com ícone de casa -->
+    <button class="back-to-home" id="backButton" title="Voltar para a tela inicial">
+        <i class="fas fa-home"></i>
+    </button>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -879,6 +1050,11 @@
                 progressTracker.appendChild(step);
             }
             updateCurrentDayMarker();
+
+            // Botão de voltar para a tela inicial
+            document.getElementById('backButton').addEventListener('click', function() {
+                window.location.href = '../index.html'; // Volta para a página inicial do aplicativo
+            });
 
             function toggleDayCompletion(day) {
                 completedDays[day] = !completedDays[day];

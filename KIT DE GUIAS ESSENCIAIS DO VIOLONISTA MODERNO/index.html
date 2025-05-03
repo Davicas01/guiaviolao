@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            /* Brown Color Scheme */
+            /* Brown Color Scheme - Mantendo a mesma paleta */
             --primary-color: #8B4513; /* SaddleBrown */
             --secondary-color: #A0522D; /* Sienna */
             --accent-color: #DAA520; /* Goldenrod */
@@ -17,9 +17,10 @@
             --dark-color: #6B3309; /* Darker Brown */
             --success-color: #556B2F; /* DarkOliveGreen */
             --danger-color: #8B0000; /* DarkRed */
-            --border-radius: 8px;
-            --card-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            --transition: all 0.3s ease;
+            --border-radius: 12px; /* Aumentado para um look mais moderno */
+            --card-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --gradient-bg: linear-gradient(135deg, var(--primary-color), var(--dark-color));
         }
 
         * {
@@ -30,38 +31,45 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            line-height: 1.7; /* Increased line-height for readability */
+            line-height: 1.7;
             color: var(--text-color);
-            background-color: var(--light-color); /* Beige background */
-            padding-bottom: 100px; /* More space for back button */
+            background-color: var(--light-color);
+            padding-bottom: 100px;
+            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%238B451322" fill-opacity="0.08" d="M0,96L48,106.7C96,117,192,139,288,149.3C384,160,480,160,576,144C672,128,768,96,864,101.3C960,107,1056,149,1152,154.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
+            background-attachment: fixed;
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-size: 100%;
         }
 
         .container {
-            max-width: 900px; /* Adjusted for better reading width */
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 25px;
         }
 
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            background: var(--gradient-bg);
             color: white;
-            padding: 50px 0 60px; /* Adjusted padding */
+            padding: 60px 0 70px;
             text-align: center;
             position: relative;
-            margin-bottom: 40px; /* Reduced margin */
+            margin-bottom: 50px;
             border-bottom: 5px solid var(--secondary-color);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
         }
 
         h1 {
-            font-size: 2.8rem; /* Slightly larger */
+            font-size: 3rem;
             margin-bottom: 15px;
             font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -0.5px;
         }
 
         h2 {
-            font-size: 2rem; /* Adjusted size */
-            margin-top: 50px; /* Space before each guide title */
+            font-size: 2.2rem;
+            margin-top: 50px;
             margin-bottom: 25px;
             color: var(--primary-color);
             border-bottom: 2px solid var(--secondary-color);
@@ -71,41 +79,64 @@
         }
 
         h2 i {
-            margin-right: 15px;
+            margin-right: 18px;
             color: var(--secondary-color);
+            font-size: 1.8rem;
+            background: #FFF5E6;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
 
         h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--dark-color);
-            margin-top: 30px;
-            margin-bottom: 15px;
+            margin-top: 35px;
+            margin-bottom: 18px;
+            position: relative;
+            padding-left: 18px;
+        }
+        
+        h3::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: var(--accent-color);
+            border-radius: 3px;
         }
 
         h4 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--secondary-color);
             margin-top: 25px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-
         p {
-            margin-bottom: 18px; /* Adjusted spacing */
-            font-size: 1.05rem; /* Slightly larger text */
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.8;
         }
 
         ul, ol {
-            margin-bottom: 20px;
-            padding-left: 30px; /* Indentation for lists */
+            margin-bottom: 25px;
+            padding-left: 30px;
         }
 
         li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            line-height: 1.7;
         }
 
         .subtitle {
-            font-size: 1.3rem; /* Adjusted size */
+            font-size: 1.4rem;
             margin-bottom: 30px;
             opacity: 0.9;
         }
@@ -114,13 +145,13 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: var(--primary-color);
+            background: var(--gradient-bg);
             color: white;
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -131,98 +162,350 @@
         }
 
         .back-btn:hover {
-            background-color: var(--dark-color);
-            transform: translateY(-3px);
+            transform: translateY(-7px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
         .intro {
             text-align: center;
-            max-width: 800px;
-            margin: 40px auto 60px; /* Adjusted margins */
+            max-width: 860px;
+            margin: 50px auto 70px;
             padding: 0 20px;
+            position: relative;
         }
 
-        .intro h2 { /* Specific style for intro H2 */
+        .intro::before {
+            content: "🎸";
+            position: absolute;
+            font-size: 9rem;
+            opacity: 0.1;
+            z-index: -1;
+            top: -40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .intro h2 {
              border-bottom: none;
              justify-content: center;
-             font-size: 2.2rem;
+             font-size: 2.4rem;
+             margin-bottom: 30px;
         }
 
         .guide-section {
-            background-color: #fff; /* White background for content */
-            padding: 30px 40px; /* Padding inside sections */
-            margin-bottom: 40px;
+            background-color: #fff;
+            padding: 40px 45px;
+            margin-bottom: 50px;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
-            border-left: 5px solid var(--primary-color); /* Accent border */
+            border-left: 5px solid var(--primary-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .guide-section::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: var(--light-color);
+            opacity: 0.1;
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+            z-index: 0;
         }
 
         .tip-box {
-            background-color: #fffaf0; /* FloralWhite */
+            background-color: #fffaf0;
             border-left: 4px solid var(--accent-color);
-            padding: 15px 20px;
-            margin: 25px 0;
-            border-radius: 4px;
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
         }
 
         .tip-box h4 {
             color: var(--accent-color);
             margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .tip-box h4::before {
+            content: "💡";
+            margin-right: 10px;
+            font-size: 1.4rem;
         }
 
         .tip-box ul {
              padding-left: 20px;
              margin-bottom: 5px;
         }
-         .tip-box li {
-             margin-bottom: 5px;
+        
+        .tip-box li {
+             margin-bottom: 8px;
              font-size: 0.95rem;
-         }
-
+        }
 
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.2rem;
+                font-size: 2.3rem;
             }
             h2 {
-                font-size: 1.8rem;
+                font-size: 1.9rem;
             }
-             .guide-section {
-                padding: 20px;
+            .guide-section {
+                padding: 25px;
+            }
+            header {
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
             }
         }
 
         .highlight {
-            color: var(--accent-color); /* Use accent color for highlight */
+            color: var(--accent-color);
             font-weight: 600;
         }
 
         footer {
             text-align: center;
-            margin-top: 60px; /* Adjusted margin */
-            padding: 25px;
-            color: var(--dark-color); /* Darker footer text */
-            background-color: #eaddcc; /* Light brown footer background */
-            font-size: 0.9rem;
+            margin-top: 70px;
+            padding: 35px 20px;
+            color: var(--dark-color);
+            background-color: #eaddcc;
+            font-size: 0.95rem;
             border-top: 3px solid var(--secondary-color);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Style for code/tablature examples if needed */
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color), var(--primary-color));
+        }
+
         pre {
-            background-color: #eee;
-            padding: 15px;
-            border-radius: 5px;
-            font-family: monospace;
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            font-family: 'Courier New', monospace;
             overflow-x: auto;
-            margin: 20px 0;
-            border: 1px solid #ccc;
+            margin: 25px 0;
+            border: 1px solid #e0e0e0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
         }
-
+        
+        /* Elementos modernos adicionais */
+        .section-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .progress-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 5px;
+            background: transparent;
+            z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            width: 0%;
+        }
+        
+        .guide-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .guide-nav a {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+        }
+        
+        .guide-nav a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .guide-nav a i {
+            margin: 0 5px;
+        }
+        
+        .resource-card {
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            transition: var(--transition);
+        }
+        
+        .resource-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .resource-card .icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+        
+        .resource-card .content {
+            flex: 1;
+        }
+        
+        .resource-card h4 {
+            margin: 0 0 8px;
+        }
+        
+        .resource-card p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .guide-section {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .guide-section:nth-child(1) { animation-delay: 0.1s; }
+        .guide-section:nth-child(2) { animation-delay: 0.2s; }
+        .guide-section:nth-child(3) { animation-delay: 0.3s; }
+        .guide-section:nth-child(4) { animation-delay: 0.4s; }
+        .guide-section:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Elementos modernos para listas */
+        ul.feature-list {
+            list-style: none;
+            padding-left: 10px;
+        }
+        
+        ul.feature-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 15px;
+        }
+        
+        ul.feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+            background: rgba(85, 107, 47, 0.1);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Tema escuro */
+        body.dark-mode {
+            background-color: #2c2c2c;
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode header {
+            background: var(--dark-color);
+        }
+        
+        body.dark-mode .guide-section {
+            background-color: #3a3a3a;
+            border-left-color: var(--accent-color);
+        }
+        
+        body.dark-mode .tip-box {
+            background-color: #4a4a4a;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-7px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
     </style>
 </head>
 <body>
+    <!-- Barra de progresso de leitura -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <header>
         <div class="container">
             <h1>📚 Kit de Guias Essenciais do <span class="highlight">Violonista Moderno</span></h1>
@@ -231,6 +514,15 @@
     </header>
 
     <div class="container">
+        <!-- Menu de navegação rápida entre guias -->
+        <div class="guide-nav">
+            <a href="#guia1"><i class="fas fa-brain"></i> Guia 1: Erros Mentais</a>
+            <a href="#guia2"><i class="fas fa-fingerprint"></i> Guia 2: Estilo Próprio</a>
+            <a href="#guia3"><i class="fas fa-music"></i> Guia 3: Cifras e Tabs</a>
+            <a href="#guia4"><i class="fas fa-chart-line"></i> Guia 4: Planejamento</a>
+            <a href="#guia5"><i class="fas fa-bolt"></i> Guia 5: Músicas Novas</a>
+        </div>
+
         <div class="intro">
             <h2>Domine o violão de forma <span class="highlight">inteligente e estruturada</span></h2>
             <p>Este kit exclusivo reúne conhecimento prático e estratégias comprovadas para ajudar você a superar os principais desafios que todo violonista enfrenta. Desenvolvido por professores experientes, cada guia aborda aspectos específicos que farão toda a diferença na sua evolução musical.</p>
@@ -547,22 +839,83 @@ E|---------------------------------|  &lt;-- 6ª corda (Mi grave)
             </div>
         </section>
 
+        <!-- Novos Recursos Complementares -->
+        <section id="recursos" class="guide-section">
+            <h2><i class="fas fa-book-open"></i>Recursos Complementares</h2>
+            <p>Para ampliar seu conhecimento e acelerar sua evolução, aqui estão alguns recursos adicionais que você pode explorar:</p>
+            
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-laptop"></i></div>
+                <div class="content">
+                    <h4>Apps e Ferramentas Digitais</h4>
+                    <p>Aplicativos que podem te ajudar no seu aprendizado diário, desde afinadores até sistemas de ensino completos.</p>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-video"></i></div>
+                <div class="content">
+                    <h4>Canais e Cursos Online</h4>
+                    <p>Seleção de canais no YouTube e plataformas de cursos com conteúdo de qualidade para violonistas de todos os níveis.</p>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-book"></i></div>
+                <div class="content">
+                    <h4>Livros e Métodos Recomendados</h4>
+                    <p>Material de estudo que serve como referência para desenvolver técnica, teoria e repertório.</p>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-users"></i></div>
+                <div class="content">
+                    <h4>Comunidades e Fóruns</h4>
+                    <p>Grupos online onde você pode trocar experiências, fazer perguntas e encontrar parceiros musicais.</p>
+                </div>
+            </div>
+            
+            <h3>Exercícios Práticos para Download</h3>
+            <p>Aqui estão alguns exercícios práticos que você pode baixar e incluir na sua rotina de estudos:</p>
+            
+            <ul class="feature-list">
+                <li>Exercícios de aquecimento para os dedos</li>
+                <li>Sequência progressiva para dominar pestanas</li>
+                <li>Treino de velocidade para trocas de acordes</li>
+                <li>Padrões de dedilhado para mão direita</li>
+                <li>Ritmos básicos dos principais estilos musicais</li>
+            </ul>
+            
+            <div class="tip-box">
+                <h4>💡 Dica de Organização</h4>
+                <p>Mantenha todos os seus recursos de aprendizado organizados em um único lugar (físico ou digital). Isso facilitará seu acesso durante os estudos e garantirá que você aproveite ao máximo os materiais disponíveis.</p>
+            </div>
+        </section>
+
+        <!-- Menu de navegação inferior -->
+        <div class="guide-nav" style="margin-top: 60px;">
+            <a href="#guia1"><i class="fas fa-arrow-up"></i> Voltar ao topo</a>
+            <a href="#guia1"><i class="fas fa-brain"></i> Guia 1</a>
+            <a href="#guia2"><i class="fas fa-fingerprint"></i> Guia 2</a>
+            <a href="#guia3"><i class="fas fa-music"></i> Guia 3</a>
+            <a href="#guia4"><i class="fas fa-chart-line"></i> Guia 4</a>
+            <a href="#guia5"><i class="fas fa-bolt"></i> Guia 5</a>
+        </div>
+
+        <!-- Footer melhorado -->
+
     </div> <!-- /container -->
 
-    <footer>
-        <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
-        <p>© 2025 - Todos os direitos reservados</p>
-    </footer>
 
     <a href="../index.html" class="back-btn" title="Voltar ao Menu Principal">
         <i class="fas fa-home"></i>
     </a>
 
     <script>
-        // Simple script for potential future interactivity, like smooth scrolling if needed
+        // Navegação suave
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                // Check if the link is just for section navigation within the page
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
@@ -571,9 +924,52 @@ E|---------------------------------|  &lt;-- 6ª corda (Mi grave)
                         behavior: 'smooth'
                     });
                 }
-                // Allow normal behavior for external links or the back button
             });
         });
+
+        // Barra de progresso de leitura
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight;
+            const winHeight = window.innerHeight;
+            const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        });
+
+        // Animação de entrada para seções ao rolar
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Aplicar animação à todas as seções de guias
+        document.querySelectorAll('.guide-section').forEach(section => {
+            section.classList.add('animate-on-scroll');
+            observer.observe(section);
+        });
+        
+        // Adicionar tema escuro (opcional)
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+        }
+        
+        // Verificar preferência do usuário
+        if (localStorage.getItem('dark-mode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+        
+
     </script>
 </body>
 </html>

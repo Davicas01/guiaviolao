@@ -435,6 +435,23 @@
             flex-shrink: 0;
         }
         
+        .chord-diagram-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chord-diagram-card h2 {
+            color: var(--primary-color);
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            text-align: center;
+        }
+        
         .chord-diagram {
             max-width: 300px;
             margin: 2rem auto;
@@ -443,80 +460,252 @@
         .diagram-title {
             text-align: center;
             font-weight: 600;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            color: var(--primary-color);
         }
         
-        .diagram-fretboard {
-            width: 100%;
-            height: 250px;
-            background-color: #f8f8f8;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .diagram-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Novo diagrama CSS puro */
+        .fretboard-wrapper {
             position: relative;
+            width: 230px;
+            margin: 0 auto;
+            padding-top: 20px;
+            padding-bottom: 10px;
+        }
+        
+        .fretboard {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            background: #d2b48c;
+            border-radius: 4px;
+            border-top: 4px solid #5e4b36;
+            border-bottom: 12px solid #5e4b36;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 10px 0;
         }
         
-        .diagram-string {
+        .fret {
+            position: absolute;
             width: 100%;
             height: 2px;
-            background-color: #999;
-            position: relative;
+            background-color: #a0a0a0;
+            z-index: 2;
         }
         
-        .diagram-fret {
-            position: absolute;
+        .fret-1 { top: 15%; }
+        .fret-2 { top: 30%; }
+        .fret-3 { top: 45%; }
+        .fret-4 { top: 60%; }
+        .fret-5 { top: 75%; }
+        .fret-6 { top: 90%; }
+        
+        .string {
             width: 100%;
             height: 1px;
-            background-color: #ccc;
+            background-color: #c0c0c0;
+            position: relative;
+            z-index: 1;
         }
         
-        .diagram-dot {
+        .string-1 {
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+        
+        .string-2 {
+            height: 1.5px;
+            background-color: #d0d0d0;
+        }
+        
+        .string-3 {
+            height: 2px;
+            background-color: #c0c0c0;
+        }
+        
+        .string-4 {
+            height: 3px;
+            background-color: #b0b0b0;
+        }
+        
+        .string-5 {
+            height: 3.5px;
+            background-color: #a0a0a0;
+        }
+        
+        .string-6 {
+            height: 4px;
+            background-color: #909090;
+        }
+        
+        .finger {
             position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 0.8rem;
+        }
+        
+        .mute-mark, .open-mark {
+            position: absolute;
+            top: -20px;
             width: 20px;
             height: 20px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(-50%);
+        }
+        
+        .mute-mark {
+            color: var(--danger-color);
+        }
+        
+        .open-mark {
+            color: var(--success-color);
+        }
+        
+        .string-labels {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        
+        .string-label {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .chord-fingering {
+            margin-top: 1.5rem;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .fingering-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .finger-position {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+        
+        .finger-number {
+            width: 24px;
+            height: 24px;
             background-color: var(--primary-color);
+            color: white;
             border-radius: 50%;
-            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 0.8rem;
         }
         
-        .challenge-section {
+        .fret-position {
+            position: absolute;
+            left: -25px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .fret-position-1 { top: calc(15% / 2 + 0%); }
+        .fret-position-2 { top: calc(15% / 2 + 15%); }
+        .fret-position-3 { top: calc(15% / 2 + 30%); }
+        .fret-position-4 { top: calc(15% / 2 + 45%); }
+        .fret-position-5 { top: calc(15% / 2 + 60%); }
+        .fret-position-6 { top: calc(15% / 2 + 75%); }
+        
+        .chord-audio {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .audio-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .audio-button:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.1);
+        }
+        
+        .audio-button i {
+            font-size: 1.5rem;
+        }
+        
+        .chord-tips {
+            margin-top: 1.5rem;
+            padding: 1rem;
             background-color: #fff3cd;
-            border-left: 5px solid var(--warning-color);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            margin-top: 2rem;
+            border-left: 3px solid var(--warning-color);
+            border-radius: 4px;
         }
         
-        .challenge-title {
+        .chord-tips h4 {
+            color: var(--dark-color);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--dark-color);
-            font-weight: 600;
-            margin-bottom: 1rem;
         }
         
-        .challenge-title i {
-            color: var(--warning-color);
-        }
-        
-        .challenge-description {
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-        
-        .challenge-badge {
-            display: inline-block;
-            background-color: var(--warning-color);
-            color: var(--dark-color);
-            font-weight: 500;
-            font-size: 0.85rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 30px;
-            margin-bottom: 1rem;
+        .chord-tips p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
         
         footer {
@@ -532,6 +721,32 @@
             font-size: 0.9rem;
             max-width: 600px;
             margin: 0 auto;
+        }
+        
+        /* Estilo para o botão flutuante de voltar à página inicial */
+        .home-float-button {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.5rem;
+        }
+        
+        .home-float-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
         
         @media (max-width: 768px) {
@@ -559,8 +774,6 @@
     </style>
 </head>
 <body>
-    <a href="../../index.html" class="back-button"><i class="fas fa-home"></i> Voltar à Página Inicial</a>
-
     <header>
         <h1>🔁 Gerador de Acordes Aleatórios</h1>
         <p class="subtitle">Escape da zona de conforto e desenvolva criatividade com combinações surpresa de acordes para improvisar</p>
@@ -660,10 +873,6 @@
                 <span class="btn-icon"><i class="fas fa-undo"></i></span>
                 Reiniciar
             </button>
-            <button class="btn btn-accent" id="saveBtn">
-                <span class="btn-icon"><i class="fas fa-save"></i></span>
-                Salvar Progressão
-            </button>
         </div>
 
         <div class="card results-card">
@@ -684,10 +893,6 @@
                 </div>
                 <span class="challenge-badge">Desafio Diário</span>
                 <p class="challenge-description">Pratique esta progressão por 10 minutos hoje. Tente criar uma melodia simples sobre esses acordes e experimente diferentes ritmos.</p>
-                <button class="btn btn-success" id="completeBtn">
-                    <span class="btn-icon"><i class="fas fa-check"></i></span>
-                    Marcar como Concluído
-                </button>
             </div>
         </div>
 
@@ -717,59 +922,86 @@
         <p>Pratique regularmente com acordes aleatórios para desenvolver sua criatividade musical!</p>
     </footer>
 
+    <a href="../../index.html" class="home-float-button"><i class="fas fa-home"></i></a>
+
     <script>
         // Acordes disponíveis
         const allChords = {
-            major: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
-            minor: ['Am', 'Bm', 'Cm', 'Dm', 'Em', 'Fm', 'Gm'],
-            seventh: ['C7', 'D7', 'E7', 'F7', 'G7', 'A7', 'B7'],
-            minorSeventh: ['Am7', 'Bm7', 'Cm7', 'Dm7', 'Em7', 'Fm7', 'Gm7'],
-            majorSeventh: ['Cmaj7', 'Dmaj7', 'Emaj7', 'Fmaj7', 'Gmaj7', 'Amaj7', 'Bmaj7'],
-            diminished: ['Cº', 'Dº', 'Eº', 'Fº', 'Gº', 'Aº', 'Bº'],
-            augmented: ['C+', 'D+', 'E+', 'F+', 'G+', 'A+', 'B+'],
-            suspended: ['Csus4', 'Dsus4', 'Esus4', 'Fsus4', 'Gsus4', 'Asus4', 'Bsus4']
+            major: ['C', 'D', 'E', 'F', 'G', 'A'],
+            minor: ['Am', 'Dm', 'Em', 'Bm'],
+            seventh: ['C7', 'D7', 'E7', 'G7', 'A7'],
+            minorSeventh: ['Am7', 'Dm7', 'Em7'],
+            majorSeventh: ['Cmaj7', 'Gmaj7', 'Dmaj7'],
+            diminished: ['Dº', 'Bº'],
+            augmented: ['C+', 'G+'],
+            suspended: ['Csus4', 'Dsus4', 'Gsus4', 'Asus4']
         };
 
         // Relações entre acordes (para "musicalmente relacionados")
         const chordRelations = {
             'C': ['G', 'F', 'Am', 'Dm', 'Em'],
             'G': ['C', 'D', 'Em', 'Bm', 'Am'],
-            'D': ['G', 'A', 'Bm', 'Em', 'F#m'],
-            'A': ['D', 'E', 'F#m', 'Bm', 'C#m'],
-            'E': ['A', 'B', 'C#m', 'G#m', 'F#m'],
-            'B': ['E', 'F#', 'G#m', 'C#m', 'D#m'],
-            'F': ['C', 'Bb', 'Dm', 'Gm', 'Am'],
+            'D': ['G', 'A', 'Bm', 'Em'],
+            'A': ['D', 'E', 'Bm', 'Dm'],
+            'E': ['A', 'Am', 'C', 'D'],
+            'F': ['C', 'Dm', 'Am'],
             'Am': ['C', 'F', 'G', 'Dm', 'Em'],
             'Em': ['G', 'C', 'D', 'Am', 'Bm'],
-            'Dm': ['F', 'C', 'Bb', 'Gm', 'Am'],
-            'Bm': ['D', 'G', 'A', 'Em', 'F#m'],
-            'F#m': ['A', 'D', 'E', 'Bm', 'C#m']
+            'Dm': ['F', 'C', 'Am', 'G'],
+            'Bm': ['D', 'G', 'A', 'Em']
         };
 
         // Diagramas de acordes simplificados (posição dos dedos)
         const chordDiagrams = {
+            // Acordes maiores
             'C': [[0,1,0,2,3,0]], // X-string, finger, fret
             'G': [[3,2,0,0,0,3]],
             'D': [[0,0,0,2,3,2]],
             'A': [[0,0,2,2,2,0]],
             'E': [[0,0,1,2,2,0]],
             'F': [[1,1,2,3,3,1]],
-            'B': [[2,2,4,4,4,2]],
+            
+            // Acordes menores
             'Am': [[0,0,2,2,1,0]],
             'Em': [[0,0,0,2,2,0]],
             'Dm': [[0,0,0,2,3,1]],
             'Bm': [[2,2,4,4,3,2]],
+            
+            // Acordes com sétima
             'C7': [[0,1,3,2,3,0]],
             'G7': [[3,2,0,0,0,1]],
             'D7': [[0,0,0,2,1,2]],
             'A7': [[0,0,2,0,2,0]],
-            'E7': [[0,0,1,0,2,0]]
+            'E7': [[0,0,1,0,2,0]],
+            
+            // Acordes menores com sétima
+            'Am7': [[0,0,2,0,1,0]],
+            'Em7': [[0,0,0,0,2,0]],
+            'Dm7': [[0,0,0,2,1,1]],
+            
+            // Acordes maiores com sétima
+            'Cmaj7': [[0,0,0,2,3,0]],
+            'Gmaj7': [[3,2,0,0,0,2]],
+            'Dmaj7': [[0,0,0,2,2,2]],
+            
+            // Acordes suspensos
+            'Csus4': [[0,1,0,3,3,0]],
+            'Dsus4': [[0,0,0,2,3,3]],
+            'Gsus4': [[3,3,0,0,0,3]],
+            'Asus4': [[0,0,2,2,3,0]],
+            
+            // Acordes aumentados
+            'C+': [[0,1,2,3,3,0]],
+            'G+': [[3,3,4,5,5,3]],
+            
+            // Acordes diminutos
+            'Dº': [[0,0,0,1,3,1]],
+            'Bº': [[0,1,2,0,2,0]]
         };
 
         // Elementos DOM
         const generateBtn = document.getElementById('generateBtn');
         const resetBtn = document.getElementById('resetBtn');
-        const saveBtn = document.getElementById('saveBtn');
         const completeBtn = document.getElementById('completeBtn');
         const chordsDisplay = document.getElementById('chordsDisplay');
         const progressionDisplay = document.getElementById('progressionDisplay');
@@ -809,7 +1041,6 @@
         // Gerar acordes
         generateBtn.addEventListener('click', generateChords);
         resetBtn.addEventListener('click', resetChords);
-        saveBtn.addEventListener('click', saveProgression);
         completeBtn.addEventListener('click', completeChallenge);
         
         function generateChords() {
@@ -965,30 +1196,6 @@
             chordDiagram.innerHTML = '';
         }
         
-        function saveProgression() {
-            // Implementação simples: salvar no localStorage
-            if (progressionDisplay.innerHTML) {
-                const savedProgressions = JSON.parse(localStorage.getItem('savedProgressions') || '[]');
-                const currentProgression = [];
-                
-                document.querySelectorAll('.chord-item .chord-name').forEach(chord => {
-                    currentProgression.push(chord.textContent);
-                });
-                
-                if (currentProgression.length > 0) {
-                    savedProgressions.push({
-                        progression: currentProgression,
-                        date: new Date().toLocaleDateString()
-                    });
-                    
-                    localStorage.setItem('savedProgressions', JSON.stringify(savedProgressions));
-                    alert('Progressão salva com sucesso!');
-                }
-            } else {
-                alert('Não há progressão para salvar. Gere acordes primeiro!');
-            }
-        }
-        
         function completeChallenge() {
             const completedChallenges = JSON.parse(localStorage.getItem('completedChallenges') || '[]');
             completedChallenges.push({
@@ -1012,25 +1219,251 @@
             if (chordDiagrams[chord] || chordDiagrams[baseChord]) {
                 const diagram = chordDiagrams[chord] || chordDiagrams[baseChord];
                 
+                // Descrições amigáveis para os dedos
+                const fingerNames = ["", "Indicador", "Médio", "Anelar", "Mínimo"];
+                const stringNames = ["Mi (6ª)", "Lá (5ª)", "Ré (4ª)", "Sol (3ª)", "Si (2ª)", "Mi (1ª)"];
+                
+                // Gerar posições dos dedos baseados no diagrama
+                let fingerPositions = [];
+                let fingerElements = '';
+                let openStrings = '';
+                let muteStrings = '';
+                
+                for (let i = 0; i < diagram[0].length; i++) {
+                    const fretPosition = diagram[0][i];
+                    
+                    // Calcular posição no diagrama
+                    const stringPosition = (i * 40) + 20; // Espaçamento horizontal entre cordas
+                    
+                    if (fretPosition > 0) {
+                        // É um dedo pressionando uma corda
+                        const fretTop = ((fretPosition - 0.5) * 15) + '%'; // Posição vertical
+                        const fingerNumber = i === 0 && (chord === "F" || chord === "B" || chord.includes("Bm")) ? "P" : (i === diagram[0].length-1 ? 4 : (i === 0 ? 1 : (i === 1 ? 2 : 3)));
+                        
+                        fingerElements += `
+                            <div class="finger" style="left: ${stringPosition}px; top: ${fretTop}">
+                                ${fingerNumber}
+                            </div>
+                        `;
+                        
+                        fingerPositions.push({
+                            string: 6-i,
+                            fret: fretPosition,
+                            finger: fingerNumber
+                        });
+                    } else if (fretPosition === 0) {
+                        // É uma corda solta
+                        openStrings += `
+                            <div class="open-mark" style="left: ${stringPosition}px">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                        `;
+                    } else {
+                        // É uma corda que não deve ser tocada
+                        muteStrings += `
+                            <div class="mute-mark" style="left: ${stringPosition}px">
+                                <i class="fas fa-times"></i>
+                            </div>
+                        `;
+                    }
+                }
+                
+                // Gerar posições dos marcadores de casa
+                let fretMarkers = '';
+                for (let i = 1; i <= 6; i++) {
+                    fretMarkers += `<div class="fret-position fret-position-${i}">${i}</div>`;
+                }
+                
+                // Gerar dicas específicas para o acorde
+                let tipText = "Mantenha os dedos curvados e próximos às trastes para um som limpo.";
+                if (chord === "F" || chord === "B" || chord.includes("Bm")) {
+                    tipText = "Este é um acorde de pestana. Pressione firmemente com o dedo indicador sobre todas as cordas na casa indicada.";
+                } else if (chord.includes("7")) {
+                    tipText = "Este é um acorde com sétima. Note a diferença de sonoridade em relação ao acorde comum.";
+                }
+                
+                // Construir HTML do diagrama
+                let fingerPositionsHTML = '';
+                fingerPositions.forEach(pos => {
+                    const fingerName = pos.finger === "P" ? "Pestana" : fingerNames[pos.finger];
+                    const stringName = stringNames[6-pos.string];
+                    fingerPositionsHTML += `
+                        <div class="finger-position">
+                            <div class="finger-number">${pos.finger}</div>
+                            <span>Corda ${stringName}, Casa ${pos.fret}</span>
+                        </div>
+                    `;
+                });
+                
                 chordDiagram.innerHTML = `
                     <div class="diagram-title">${chord}</div>
-                    <div class="diagram-fretboard">
-                        <!-- Representação visual simplificada do acorde -->
-                        <p style="text-align: center; padding: 20px;">
-                            Acorde ${chord}<br>
-                            <em>(Diagrama ilustrativo do acorde ${chord})</em>
-                        </p>
+                    <div class="diagram-subtitle">Posição dos dedos no violão</div>
+                    <div class="fretboard-wrapper">
+                        <div class="string-labels">
+                            <div class="string-label">E</div>
+                            <div class="string-label">B</div>
+                            <div class="string-label">G</div>
+                            <div class="string-label">D</div>
+                            <div class="string-label">A</div>
+                            <div class="string-label">E</div>
+                        </div>
+                        <div class="fretboard">
+                            ${openStrings}
+                            ${muteStrings}
+                            ${fretMarkers}
+                            <div class="string string-1"></div>
+                            <div class="string string-2"></div>
+                            <div class="string string-3"></div>
+                            <div class="string string-4"></div>
+                            <div class="string string-5"></div>
+                            <div class="string string-6"></div>
+                            <div class="fret fret-1"></div>
+                            <div class="fret fret-2"></div>
+                            <div class="fret fret-3"></div>
+                            <div class="fret fret-4"></div>
+                            <div class="fret fret-5"></div>
+                            <div class="fret fret-6"></div>
+                            ${fingerElements}
+                        </div>
+                    </div>
+                    <div class="chord-fingering">
+                        <div class="fingering-title">Posições dos dedos:</div>
+                        ${fingerPositionsHTML || '<p>Informações detalhadas não disponíveis para este acorde</p>'}
+                    </div>
+                    <div class="chord-audio">
+                        <button class="audio-button">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <p>Ouça o som do acorde</p>
+                    </div>
+                    <div class="chord-tips">
+                        <h4><i class="fas fa-lightbulb"></i> Dica:</h4>
+                        <p>${tipText}</p>
                     </div>
                 `;
+                
+                // Adicionar evento ao botão de áudio
+                document.querySelector('.audio-button').addEventListener('click', function() {
+                    playChordSound(chord);
+                });
             } else {
                 chordDiagram.innerHTML = `
                     <div class="diagram-title">${chord}</div>
-                    <p style="text-align: center; padding: 20px;">
-                        Diagrama para ${chord} não disponível.<br>
-                        Consulte um dicionário de acordes para ver a posição correta.
-                    </p>
+                    <div class="diagram-subtitle">Informações do acorde</div>
+                    <div class="fretboard-wrapper">
+                        <div class="fretboard">
+                            <div class="string string-1"></div>
+                            <div class="string string-2"></div>
+                            <div class="string string-3"></div>
+                            <div class="string string-4"></div>
+                            <div class="string string-5"></div>
+                            <div class="string string-6"></div>
+                            <div class="fret fret-1"></div>
+                            <div class="fret fret-2"></div>
+                            <div class="fret fret-3"></div>
+                            <div class="fret fret-4"></div>
+                            <div class="fret fret-5"></div>
+                            <div class="fret fret-6"></div>
+                        </div>
+                        <div style="text-align:center; padding:20px;">
+                            <i class="fas fa-exclamation-triangle" style="font-size:2rem; color:var(--warning-color);"></i>
+                            <p style="margin-top:10px;">Diagrama não disponível</p>
+                        </div>
+                    </div>
+                    <div class="chord-tips">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão:</h4>
+                        <p>Experimente buscar este acorde em aplicativos como Cifra Club ou Ultimate Guitar para visualizar o diagrama correto.</p>
+                    </div>
                 `;
             }
+        }
+        
+        // Função para tocar o som do acorde usando a Web Audio API
+        function playChordSound(chord) {
+            // Criar um contexto de áudio
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Frequências aproximadas das notas para cada acorde em Hz
+            const chordFrequencies = {
+                'C': [261.63, 329.63, 392.00], // C, E, G
+                'G': [196.00, 246.94, 392.00], // G, B, G
+                'D': [146.83, 220.00, 293.66], // D, A, D
+                'A': [220.00, 277.18, 329.63], // A, C#, E
+                'E': [164.81, 246.94, 329.63], // E, B, E
+                'F': [174.61, 220.00, 349.23], // F, A, F
+                'Am': [220.00, 261.63, 329.63], // A, C, E
+                'Em': [164.81, 196.00, 329.63], // E, G, B
+                'Dm': [146.83, 174.61, 220.00], // D, F, A
+                'Bm': [246.94, 293.66, 369.99], // B, D, F#
+                'C7': [261.63, 329.63, 392.00, 466.16], // C, E, G, Bb
+                'G7': [196.00, 246.94, 392.00, 415.30], // G, B, G, F
+                'D7': [146.83, 220.00, 293.66, 349.23], // D, A, D, C
+                'A7': [220.00, 277.18, 329.63, 392.00], // A, C#, E, G
+                'E7': [164.81, 246.94, 329.63, 392.00]  // E, B, E, D
+            };
+            
+            // Se não temos as frequências específicas, usar frequências do acorde base
+            const baseChord = chord.replace(/7|maj7|\+|º|sus\d/g, '');
+            const frequencies = chordFrequencies[chord] || chordFrequencies[baseChord] || [262, 330, 392];
+            
+            // Criar osciladores para cada nota
+            const oscillators = [];
+            const gainNodes = [];
+            
+            // Criar um ganho master para controlar o volume geral
+            const masterGain = audioContext.createGain();
+            masterGain.gain.value = 0.3; // Volume geral do acorde
+            masterGain.connect(audioContext.destination);
+            
+            // Criar um oscilador para cada nota do acorde
+            frequencies.forEach((frequency, index) => {
+                // Criar um oscilador
+                const oscillator = audioContext.createOscillator();
+                oscillator.type = 'triangle'; // Sonoridade mais suave, similar a um violão
+                oscillator.frequency.value = frequency;
+                
+                // Criar um nó de ganho para controlar o volume desta nota
+                const gainNode = audioContext.createGain();
+                gainNode.gain.value = 0.5 / frequencies.length; // Volume dividido pelas notas
+                
+                // Conectar oscilador -> ganho -> saída
+                oscillator.connect(gainNode);
+                gainNode.connect(masterGain);
+                
+                // Guardar referências para controle posterior
+                oscillators.push(oscillator);
+                gainNodes.push(gainNode);
+                
+                // Iniciar oscilador
+                oscillator.start();
+                
+                // Configurar envelope do som (ADSR simplificado)
+                const now = audioContext.currentTime;
+                gainNode.gain.setValueAtTime(0, now);
+                gainNode.gain.linearRampToValueAtTime(0.5 / frequencies.length, now + 0.02); // Attack
+                gainNode.gain.linearRampToValueAtTime(0.3 / frequencies.length, now + 0.2); // Decay
+                gainNode.gain.linearRampToValueAtTime(0, now + 1.5); // Release
+            });
+            
+            // Parar os osciladores após 1.5 segundos
+            setTimeout(() => {
+                oscillators.forEach(osc => {
+                    osc.stop();
+                    osc.disconnect();
+                });
+                gainNodes.forEach(gain => gain.disconnect());
+                masterGain.disconnect();
+            }, 1500);
+            
+            // Feedback visual (opcional)
+            const audioBtn = document.querySelector('.audio-button');
+            audioBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            audioBtn.style.backgroundColor = '#00a785';
+            
+            setTimeout(() => {
+                audioBtn.innerHTML = '<i class="fas fa-play"></i>';
+                audioBtn.style.backgroundColor = '';
+            }, 1500);
         }
     </script>
 </body>
