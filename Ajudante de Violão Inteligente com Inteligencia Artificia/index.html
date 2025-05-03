@@ -74,6 +74,116 @@
             opacity: 0.9;
         }
         
+        /* Estilos para o menu de categorias */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .category-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Estilos para a barra de pesquisa */
+        .search-container {
+            margin: 20px 0 30px 0;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+        }
+        
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            color: var(--secondary-color);
+        }
+        
+        #globalSearch {
+            flex-grow: 1;
+            padding: 12px 20px 12px 45px;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        #globalSearch:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.2);
+        }
+        
+        #searchBtn {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .popular-searches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            padding-left: 5px;
+            align-items: center;
+        }
+        
+        .popular-searches span {
+            font-size: 0.85rem;
+            color: #666;
+            margin-right: 5px;
+        }
+        
+        .search-tag {
+            background-color: var(--bg-light);
+            color: var(--dark-text);
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .search-tag:hover {
+            background-color: var(--light-accent);
+            transform: translateY(-1px);
+        }
+        
         .hero-cta {
             position: relative;
             z-index: 1;
@@ -419,24 +529,33 @@
         <div class="container">
             <h1><i class="fas fa-robot"></i> Ajudante de Violão Inteligente</h1>
             <p class="hero-text">Receba feedback em tempo real e acelere seu aprendizado com IA</p>
-            <!-- Removed CTA button from header -->
+            <!-- Adicionado menu de navegação por categorias -->
+            <div class="category-nav">
+                <button class="category-btn" data-category="acordes"><i class="fas fa-music"></i> Acordes</button>
+                <button class="category-btn" data-category="tecnicas"><i class="fas fa-hand-paper"></i> Técnicas</button>
+                <button class="category-btn" data-category="ritmos"><i class="fas fa-drum"></i> Ritmos</button>
+                <button class="category-btn" data-category="teoria"><i class="fas fa-book"></i> Teoria</button>
+                <button class="category-btn" data-category="repertorio"><i class="fas fa-guitar"></i> Repertório</button>
+            </div>
         </div>
     </header>
 
     <main class="container">
-
-
-        <section id="exercise-section">
-            <h2><i class="fas fa-dumbbell"></i> Exercícios Sugeridos</h2>
-            <h3><i class="fas fa-tasks"></i> Com base na análise</h3>
-            <ul id="exerciseList">
-                <li>Nenhum exercício sugerido ainda. Inicie a análise.</li>
-                <!-- Exercise items will be inserted here by JS -->
-                <!-- Example:
-                <li><strong>Foco: Posição do Polegar Esquerdo.</strong> Pratique o exercício 'Aranha' lentamente, focando em manter o polegar centrado atrás do braço.</li>
-                -->
-            </ul>
-        </section>
+        <!-- Barra de pesquisa global -->
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="globalSearch" placeholder="Pesquise por acordes, técnicas, músicas...">
+                <button id="searchBtn" class="btn btn-sm"><i class="fas fa-arrow-right"></i></button>
+            </div>
+            <div class="popular-searches">
+                <span>Buscas populares:</span>
+                <a href="#" class="search-tag">Acorde F</a>
+                <a href="#" class="search-tag">Pestana</a>
+                <a href="#" class="search-tag">Músicas fáceis</a>
+                <a href="#" class="search-tag">Batidas</a>
+            </div>
+        </div>
 
         <section id="chat-section">
             <h2><i class="fas fa-comments"></i> Converse com a IA</h2>
@@ -472,1007 +591,455 @@
     </button>
 
     <script>
-        // Configuração da API Hugging Face (gratuita)
-        const HF_API_TOKEN = "hf_seu_token_aqui"; // Substitua pelo seu token gratuito do Hugging Face
-        const MODEL_ID = "google/flan-t5-large"; // Modelo gratuito disponível no Hugging Face
-        
-        // Elementos do DOM
-        const sendMessageBtn = document.getElementById('sendMessageBtn');
-        const userInput = document.getElementById('userInput');
-        const chatMessages = document.getElementById('chatMessages');
-        const suggestedQuestionsContainer = document.getElementById('suggestedQuestions');
-
-        // Carregar as perguntas sugeridas imediatamente (sem esperar pelo evento DOMContentLoaded)
-        populateSuggestedQuestions();
-
-        // Adiciona eventos ao botão de enviar e à entrada de texto
-        if (sendMessageBtn) {
-            sendMessageBtn.addEventListener('click', handleSendMessage);
-        }
-        
-        if (userInput) {
-            userInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    handleSendMessage();
-                }
-            });
-        }
-
-        // Inicialização - Garantir que tudo é carregado corretamente
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("DOM totalmente carregado");
-            
-            // Inicializar a interface do chat
-            initChatInterface();
-        });
-
-        // Inicializa a interface do chat
-        function initChatInterface() {
-            // Adiciona eventos de clique e tecla Enter para enviar mensagem
-            if (sendMessageBtn) {
-                sendMessageBtn.addEventListener('click', handleSendMessage);
-                console.log("Botão de enviar configurado");
-            } else {
-                console.error("Botão de enviar não encontrado!");
-            }
-
-            if (userInput) {
-                userInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        handleSendMessage();
-                    }
-                });
-                console.log("Campo de entrada configurado");
-            } else {
-                console.error("Campo de entrada não encontrado!");
-            }
-        }
-
-        // --- Suggested Questions --- 
-        const suggestedQuestionsList = [
-            // Acordes básicos
+// Função que será executada quando a página estiver carregada
+document.addEventListener('DOMContentLoaded', function() {
+    // Obter referências aos elementos importantes
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const userInput = document.getElementById('userInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const suggestedQuestionsContainer = document.getElementById('suggestedQuestions');
+    const searchInput = document.getElementById('globalSearch');
+    const searchBtn = document.getElementById('searchBtn');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const searchTags = document.querySelectorAll('.search-tag');
+    
+    // Categorias de perguntas organizadas por tópico
+    const perguntasPorCategoria = {
+        acordes: [
             "Como fazer o acorde de Fá Maior (F)?",
-            "Como fazer o acorde B7?",
             "Como tocar o acorde de Sol menor (Gm)?",
             "Quais são os acordes essenciais para iniciantes?",
-            "O que significa C7?",
-            "Me ensine todos os acordes com sétima",
-            "Como fazer acordes suspensos (sus2, sus4)?",
-            "Qual a diferença entre acorde maior e menor?",
-            "Como fazer o acorde Fá sustenido menor (F#m)?",
-            
-            // Técnicas de mão esquerda
-            "Me dê uma dica para a pestana não falhar.",
+            "Como fazer acordes com pestana?",
+            "Como tocar o acorde de Ré Maior (D)?",
+            "Acordes para música sertaneja",
+            "O que são acordes suspensos?",
+            "Como fazer acordes com 7ª?"
+        ],
+        tecnicas: [
             "Como melhorar a velocidade dos dedos?",
-            "Como fazer vibrato no violão?",
-            "Como fazer um hammer-on?",
-            "Como fazer pull-off corretamente?",
-            "Truques para trocar acordes mais rápido",
-            "Exercícios para fortalecer os dedos da mão esquerda",
-            "Como fazer o slide no violão?",
+            "Como fazer dedilhado básico?",
+            "Dicas para melhorar a técnica de palhetada",
             "Como fazer bend no violão?",
-            
-            // Técnicas de mão direita
-            "Me ensine um dedilhado simples.",
-            "Como tocar usando palheta corretamente?",
-            "Técnicas de palm muting para iniciantes",
-            "Exercício para independência dos dedos",
-            "Como fazer rasqueado no violão?",
-            "Como fazer o tapping no violão?",
-            "Técnica de slap no violão acústico",
-            "Como alternar entre batida e dedilhado na mesma música",
-            
-            // Ritmos
-            "Qual o ritmo mais fácil para iniciantes?",
-            "Me ensine o ritmo de reggae",
+            "Técnica para hammer-on e pull-off",
+            "Como fazer pestana corretamente?",
+            "Técnica de palm muting",
+            "Exercícios para independência dos dedos"
+        ],
+        ritmos: [
             "Como tocar batida de samba no violão?",
-            "Ritmo básico de bossa nova",
-            "Como tocar country no violão?",
-            "Ritmo de pop rock para violão",
-            "Como fazer levadas de funk no violão?",
-            "Ritmo de balada romântica",
-            
-            // Fundamentos e afinação
-            "Como afinar o violão?",
-            "Quais os nomes das cordas soltas?",
-            "Como trocar as cordas do violão?",
-            "Como praticar com metrônomo?",
-            "Como posicionar corretamente a mão esquerda?",
-            "Meus dedos doem muito, o que fazer?",
-            "Qual a diferença entre violão de nylon e aço?",
-            "Como saber se meu violão precisa de regulagem?",
-            
-            // Exercícios específicos
-            "Me passe um exercício para trocar de C para G.",
-            "Como melhorar minhas trocas de acordes?",
-            "Exercícios para iniciantes praticarem todos os dias",
-            "Como praticar escalas no violão?",
-            "Exercícios para agilidade de dedos",
-            "Rotina de treino para 30 minutos por dia",
-            "Como praticar de forma eficiente?",
-            
-            // Repertório e performance
+            "Batida básica de MPB",
+            "Como fazer levada de reggae?",
+            "Ritmos essenciais para iniciantes",
+            "Batida de pop/rock simples",
+            "Como fazer a batida de bossa nova?",
+            "Dicas para manter o ritmo constante",
+            "Como combinar diferentes ritmos?"
+        ],
+        teoria: [
+            "O que é campo harmônico?",
+            "Como entender as escalas básicas?",
+            "O que é modo maior e menor?",
+            "Progressões harmônicas para iniciantes",
+            "Como funciona o círculo das quintas?",
+            "O que são tensões harmônicas?",
+            "Como transpor uma música?",
+            "Como entender cifras e partituras?"
+        ],
+        repertorio: [
             "Músicas fáceis para iniciantes no violão",
-            "Como tocar e cantar ao mesmo tempo?",
-            "Dicas para tocar bossa nova",
-            "Como superar o medo de tocar para outras pessoas?",
-            "Como memorizar músicas mais facilmente?",
-            
-            // Leitura e teoria
-            "Como ler uma tablatura?",
-            "Explique o campo harmônico de Dó maior",
-            "Como entender cifras com números (C9, G13)?",
-            "O que são inversões de acordes?",
-            "Qual escala usar para improvisar em G?",
-            "Como funciona o Ciclo das Quintas?",
-            "O que são modos musicais?",
-            "Como entender tonalidades no violão?"
-        ];
-
-        function populateSuggestedQuestions() {
-            // Certifique-se de que o container existe antes de tentar preenchê-lo
-            if (!suggestedQuestionsContainer) {
-                console.error("Container de perguntas sugeridas não encontrado");
-                return;
-            }
-            
-            suggestedQuestionsContainer.innerHTML = '<h4>Experimente perguntar:</h4>';
-            
-            // Selecione 8 perguntas aleatórias para não sobrecarregar a interface
-            const randomQuestions = [];
-            const totalQuestions = suggestedQuestionsList.length;
-            const numberOfQuestionsToShow = Math.min(8, totalQuestions);
-            
-            // Seleciona perguntas aleatórias sem repetir
-            while (randomQuestions.length < numberOfQuestionsToShow) {
-                const randomIndex = Math.floor(Math.random() * totalQuestions);
-                const question = suggestedQuestionsList[randomIndex];
-                if (!randomQuestions.includes(question)) {
-                    randomQuestions.push(question);
-                }
-            }
-            
-            // Adiciona as perguntas selecionadas ao container
-            randomQuestions.forEach(question => {
-                const button = document.createElement('button');
-                button.classList.add('suggested-question-btn');
-                button.textContent = question;
-                button.addEventListener('click', () => {
-                    userInput.value = question;
-                    handleSendMessage(); // Envia a mensagem imediatamente após clicar na sugestão
-                });
-                suggestedQuestionsContainer.appendChild(button);
+            "Músicas com 3 acordes para praticar",
+            "Músicas para treinar mudança de acordes",
+            "Músicas brasileiras fáceis para violão",
+            "Baladas simples para tocar e cantar",
+            "Músicas com dedilhado para praticar",
+            "Músicas para treinar acordes com pestana",
+            "Repertório essencial para violonista iniciante"
+        ]
+    };
+    
+    // Lista completa de perguntas sugeridas
+    const todasPerguntas = [
+        "Como fazer o acorde de Fá Maior (F)?",
+        "Como melhorar a velocidade dos dedos?",
+        "Quais são os acordes essenciais para iniciantes?",
+        "Como tocar batida de samba no violão?",
+        "Me ensine um dedilhado simples",
+        "Como praticar com metrônomo?",
+        "Como tocar o acorde de Sol menor (Gm)?",
+        "Músicas fáceis para iniciantes no violão",
+        "Qual a diferença entre violão de nylon e aço?",
+        "Me dê uma dica para a pestana não falhar",
+        "Como afinar o violão sem afinador?",
+        "Como evitar dor nos dedos ao tocar violão?",
+        "O que é campo harmônico?",
+        "Dicas para manter o ritmo constante",
+        "Como improvisar no violão?"
+    ];
+    
+    // Função para exibir perguntas sugeridas por categoria
+    function mostrarPerguntasPorCategoria(categoria) {
+        // Limpar o container
+        suggestedQuestionsContainer.innerHTML = '<h4>Sugestões da categoria ' + categoria.charAt(0).toUpperCase() + categoria.slice(1) + ':</h4>';
+        
+        // Obter perguntas da categoria selecionada
+        const perguntas = perguntasPorCategoria[categoria];
+        
+        // Criar botões para cada pergunta
+        perguntas.forEach(function(pergunta) {
+            const button = document.createElement('button');
+            button.className = 'suggested-question-btn';
+            button.textContent = pergunta;
+            button.addEventListener('click', function() {
+                userInput.value = pergunta;
+                enviarMensagem();
             });
-        }
-
-        // --- Chat Logic ---
-        function addMessage(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', sender); // sender is 'user' or 'ai'
-            
-            if (sender === 'ai') {
-                const icon = document.createElement('i');
-                icon.className = 'fas fa-robot';
-                messageDiv.appendChild(icon);
-                const span = document.createElement('span');
-                // Substituindo \n por <br> para preservar quebras de linha
-                span.innerHTML = text.replace(/\n/g, '<br>');
-                messageDiv.appendChild(span);
-            } else {
-                messageDiv.textContent = text;
-            }
-            
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
-        }
-
-        // Adiciona um indicador de carregamento enquanto espera resposta da IA
-        function showLoadingIndicator() {
-            const loadingDiv = document.createElement('div');
-            loadingDiv.classList.add('message', 'ai', 'loading');
-            loadingDiv.id = 'loading-message';
-            
-            const icon = document.createElement('i');
-            icon.className = 'fas fa-robot';
-            loadingDiv.appendChild(icon);
-            
-            const span = document.createElement('span');
-            span.textContent = "Pensando...";
-            loadingDiv.appendChild(span);
-            
-            chatMessages.appendChild(loadingDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function removeLoadingIndicator() {
-            const loadingElement = document.getElementById('loading-message');
-            if (loadingElement) {
-                loadingElement.remove();
-            }
-        }
+            suggestedQuestionsContainer.appendChild(button);
+        });
         
-        // Função para obter resposta da Hugging Face API (gratuita)
-        async function getAIResponse(prompt) {
-            try {
-                // Verifica se estamos em modo de demonstração ou se o token não foi configurado
-                if (!HF_API_TOKEN || HF_API_TOKEN === "hf_seu_token_aqui") {
-                    console.warn("Token da API Hugging Face não configurado. Usando respostas pré-definidas.");
-                    // Adiciona um pequeno delay para simular o pensamento da IA
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    return getFallbackResponse(prompt);
-                }
-
-                // Cria um contexto específico para violão - Refinado
-                const fullPrompt = `Você é o 'Mestre das Cordas', um professor de violão experiente, amigável e muito paciente. Responda à seguinte pergunta de um aluno de forma clara, didática, passo a passo e encorajadora. Sempre que possível, inclua:
-1.  Uma explicação conceitual simples.
-2.  Instruções práticas e detalhadas (posicionamento dos dedos, movimentos).
-3.  Um pequeno exercício prático relacionado à pergunta, com instruções claras.
-4.  Uma dica extra ou um conselho motivacional.
-
-Pergunta do aluno: "${prompt}"
-
-Resposta do Mestre das Cordas:`;
-
-                const response = await fetch(`https://api-inference.huggingface.co/models/${MODEL_ID}`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${HF_API_TOKEN}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        inputs: fullPrompt,
-                        parameters: {
-                            max_new_tokens: 300, // Aumentado para respostas mais completas
-                            temperature: 0.75, // Um pouco mais criativo
-                            top_p: 0.9,
-                            repetition_penalty: 1.1 // Evitar repetições
-                        }
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result && result[0] && result[0].generated_text) {
-                    // Limpeza da resposta - remove o prompt da resposta e outros ruídos
-                    let cleanResponse = result[0].generated_text.replace(fullPrompt, '').trim();
-                    // Remove possíveis repetições do início da resposta
-                    if (cleanResponse.toLowerCase().startsWith(prompt.toLowerCase().substring(0, 10))) {
-                         cleanResponse = cleanResponse.substring(prompt.length).trim();
-                    }
-                    return cleanResponse || getFallbackResponse(prompt); // Usa fallback se a resposta limpa for vazia
-                } else if (result.error) {
-                    console.error("Erro na API Hugging Face:", result.error);
-                    return `Desculpe, tive um problema (${result.error}). Vamos tentar uma resposta local: ${getFallbackResponse(prompt)}`;
-                } else {
-                    console.error("Formato de resposta inesperado da Hugging Face:", result);
-                    return getFallbackResponse(prompt);
-                }
-            } catch (error) {
-                console.error("Erro ao conectar com a API Hugging Face:", error);
-                return `Não consegui conectar ao meu cérebro principal! 🧠 Mas posso tentar ajudar com informações locais: ${getFallbackResponse(prompt)}`;
-            }
-        }
+        // Adicionar botão para mais sugestões
+        const refreshButton = document.createElement('button');
+        refreshButton.className = 'suggested-question-btn refresh-btn';
+        refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Mais sugestões';
+        refreshButton.addEventListener('click', mostrarPerguntasSugeridas);
+        suggestedQuestionsContainer.appendChild(refreshButton);
         
-        // Respostas pré-definidas (Fallback) - Melhoradas e mais detalhadas
-        function getFallbackResponse(messageText) {
-            let aiResponse = "Desculpe, não entendi bem. Pode reformular sua pergunta sobre violão? Estou aqui para ajudar com afinação, acordes, ritmos, técnicas, teoria musical, leitura de cifras/tablaturas ou dicas gerais!";
-
-            messageText = messageText.toLowerCase();
-
-            // Pestana / F Chord
-            if (messageText.includes("pestana") || messageText.includes("fá maior") || messageText.includes("acorde f")) {
-                aiResponse = `Ah, a famosa pestana! É um desafio, mas você consegue! 💪\n\n**Para o Fá Maior (F):**\n1.  **Dedo 1 (Indicador):** Pressione TODAS as 6 cordas na 1ª casa (essa é a pestana).\n2.  **Dedo 2 (Médio):** Na 2ª casa da corda G (3ª corda).\n3.  **Dedo 3 (Anelar):** Na 3ª casa da corda A (5ª corda).\n4.  **Dedo 4 (Mínimo):** Na 3ª casa da corda D (4ª corda).\n\n**Dicas Cruciais:**\n*   **Posição do Indicador:** Coloque o dedo indicador um pouco de lado, usando a parte mais 'óssea' para pressionar, não a parte 'mole' da digital.\n*   **Polegar Oposto:** O polegar da mão esquerda deve estar posicionado atrás do braço, quase no meio, aplicando contra-pressão.\n*   **Altura do Pulso:** Mantenha o pulso elevado e o antebraço mais alinhado com o braço do violão.\n*   **Distância do Traste:** A pestana deve estar bem próxima ao traste de metal (sem estar em cima dele).\n\n**Exercícios Progressivos para Dominar a Pestana:**\n\n**Exercício 1: Pestana Parcial**\n- Faça pestana apenas nas primeiras 3 cordas (mais finas) na 1ª casa\n- Toque uma corda de cada vez, garantindo som limpo\n- Faça 5 séries de 10 segundos seguradas, com 5 segundos de descanso\n\n**Exercício 2: Pestana Vazia**\n- Faça pestana completa na 1ª casa (todas as 6 cordas) sem outros dedos\n- Toque cada corda separadamente - identifique onde o som não sai limpo\n- Ajuste a pressão e o ângulo do dedo até melhorar\n\n**Exercício 3: F Simplificado**\n- Tente o acorde F 'curto', apenas nas 4 primeiras cordas\n- Depois que dominar, adicione as outras cordas\n\n**Exercício 4: Progressão de Força**\n- Pratique pestanas em diferentes casas: 1ª, 3ª e 5ª casa\n- A pestana na 1ª casa é mais difícil! Se conseguir nas casas mais altas, volte para a 1ª\n\nLembra que todo mundo passa por isso! Pratique 5-10 minutos por dia e em algumas semanas você verá grande diferença. Não desista!`;
-            }
-            // Leitura de cifras
-            else if (messageText.includes("cifra") || (messageText.includes("ler") && messageText.includes("cifras"))) {
-                aiResponse = `**Guia para Leitura de Cifras** 📝\n\n**O Que São Cifras?**\nCifras são uma notação simplificada que indica quais acordes tocar em uma música, normalmente escritas acima da letra.\n\n**Elementos Básicos:**\n\n**1. Letra do Acorde Principal:**\nRepresenta a nota fundamental (C = Dó, D = Ré, E = Mi, F = Fá, G = Sol, A = Lá, B = Si)\n\n**2. Qualidade do Acorde:**\n- **Sem indicação:** Acorde maior (ex: C = Dó maior)\n- **m:** Acorde menor (ex: Am = Lá menor)\n- **7:** Acorde com sétima (ex: G7 = Sol com sétima)\n- **m7:** Acorde menor com sétima (ex: Dm7 = Ré menor com sétima)\n- **maj7:** Acorde maior com sétima maior (ex: Cmaj7 = Dó maior com sétima maior)\n- **dim ou º:** Acorde diminuto (ex: Bº = Si diminuto)\n\n**3. Alterações e Extensões:**\n- **sus4:** Suspensa 4 (ex: Dsus4)\n- **sus2:** Suspensa 2 (ex: Asus2)\n- **add9:** Acorde com nona adicionada (ex: Cadd9)\n- **6:** Acorde com sexta (ex: F6)\n- **9, 11, 13:** Extensões (ex: G9, D11, A13)\n\n**4. Alterações na Fundamental:**\n- **#:** Sustenido (meio tom acima) - ex: F# = Fá sustenido\n- **b:** Bemol (meio tom abaixo) - ex: Bb = Si bemol\n\n**5. Inversões (baixo alternativo):**\n- **C/E:** Acorde de Dó maior com Mi no baixo\n- **Am/G:** Acorde de Lá menor com Sol no baixo\n\n**Como Ler uma Cifra Completa:**\n\n```\nC     Am    F       G7    Dm7b5   Cmaj7/E
-↓     ↓      ↓       ↓      ↓         ↓
-Dó   Lá     Fá      Sol    Ré        Dó maior com
-Maior Menor  Maior   dom.   menor     7ª maior e Mi
-               com    7ª    com 7ª    no baixo
-               7ª     dim.
-                    aiResponse = `**Melhorando as Trocas de Acordes:**\n\nTrocar acordes com fluidez é um dos maiores desafios para violonistas iniciantes. Aqui estão exercícios que realmente funcionam:
-
-**Exercício 1: Técnica da Preparação Antecipada**
-1. Escolha dois acordes para praticar (ex: G e C)
-2. Monte o primeiro acorde (G) e toque-o quatro vezes
-3. Sem tocar as cordas, mova apenas os dedos para a posição do segundo acorde (C)
-4. Segure essa posição por 5 segundos, visualizando mentalmente
-5. Toque o segundo acorde quatro vezes
-6. Repita o processo voltando ao primeiro acorde
-7. Execute este exercício lentamente (60 BPM) por 5 minutos
-
-**Exercício 2: Treinamento Intervalado com Metrônomo**
-1. Ajuste o metrônomo para 40 BPM
-2. Toque o primeiro acorde em um beat
-3. Você tem apenas um beat para mudar para o próximo acorde
-4. Toque o segundo acorde no beat seguinte
-5. Continue alternando: acorde → mudança → acorde → mudança...
-6. A chave é manter o tempo constante mesmo que precise fazer pausas
-7. Gradualmente aumente a velocidade quando conseguir fazer 10 trocas perfeitas
-
-**Exercício 3: Técnica do Fotograma**
-1. Monte o primeiro acorde
-2. Remova TODOS os dedos do braço do violão
-3. Reposicione TODOS os dedos de volta no primeiro acorde de uma só vez
-4. Repita 10 vezes, tentando colocar cada dedo exatamente no lugar certo
-5. Faça o mesmo com o segundo acorde
-6. Agora alterne: primeiro acorde → remover dedos → segundo acorde → remover dedos...
-
-**Exercício 4: Identificação de Dedos Pivô**
-1. Identifique quais dedos permanecem no mesmo lugar (ou quase) na transição
-2. Mantenha esses "dedos pivô" no lugar enquanto move apenas os outros
-3. Pratique a transição mantendo contato visual com os dedos pivô
-4. Isso cria "âncoras" para facilitar a mudança
-
-**Dica de Ouro:** Sempre pratique transições em contexto musical. Escolha uma progressão simples de uma música real e aplique estes exercícios. Isso torna o treino mais motivador e diretamente aplicável!`;
-                }
-                return aiResponse; // Return early as this is a specific request
-            }
-            // Como melhorar velocidade dos dedos
-            else if (messageText.includes("velocidade") && (messageText.includes("dedos") || messageText.includes("mão"))) {
-                aiResponse = `**Como Melhorar a Velocidade dos Dedos no Violão:**\n\nA velocidade é resultado de movimentos precisos e eficientes, não de força bruta. Aqui está um plano progressivo para desenvolver agilidade nos dedos:
-
-**Fundamentos Essenciais:**
-1. **Postura Correta:**
-   * Punho levemente curvado, não dobrado
-   * Dedos arqueados, como se segurasse uma bola pequena
-   * Polegar posicionado no meio do braço do violão (não aparecendo acima do braço)
-
-2. **Movimento Econômico:**
-   * Use apenas a pressão necessária (excesso de força = tensão = lentidão)
-   * Mantenha os dedos próximos às cordas (1-2 cm no máximo)
-   * Levante os dedos apenas o suficiente para mudar de posição
-
-**Programa de Exercícios Progressivos (10 min/dia):**
-
-**Nível 1: Cromático Fundamental (3 min)**
-- Em uma única corda, posicione os dedos 1-2-3-4 nas casas consecutivas (ex: casas 1-2-3-4)
-- Toque cada nota claramente em sequência, mantendo os outros dedos próximos à corda
-- Use metrônomo a 60 BPM, uma nota por batida
-- Quando conseguir 5 sequências perfeitas, aumente 5 BPM
-- Faça na corda E (1ª), depois B (2ª), etc.
-
-**Nível 2: Aranha (3 min)**
-- Dedo 1 na casa 1, corda E (6ª)
-- Dedo 2 na casa 2, corda A (5ª)
-- Dedo 3 na casa 3, corda D (4ª)
-- Dedo 4 na casa 4, corda G (3ª)
-- Toque todas as notas, uma por uma
-- Depois, mova tudo uma corda acima (casa 1/corda A, casa 2/corda D, etc.)
-- Continue subindo até chegar à corda E (1ª)
-- Desça de volta à posição inicial
-
-**Nível 3: Saltos Controlados (2 min)**
-- Pratique saltos específicos entre cordas/casas
-- Exemplo: Dedo 1 na casa 5/corda D, depois salte para casa 2/corda B
-- Faça o salto lentamente no início, focando na precisão
-- Aumente gradualmente a velocidade
-- Crie padrões de saltos que simulem situações reais de música
-
-**Nível 4: Aplicação em Escalas (2 min)**
-- Aprenda a escala pentatônica menor na posição 1 (a mais básica)
-- Pratique tocando do grave ao agudo e vice-versa
-- Use metrônomo e aumente a velocidade gradualmente
-- Quando confortável, adicione variações rítmicas (tercinas, quiálteras)
-
-**Dica Profissional:** O segredo para ganhar velocidade é praticar LENTAMENTE com atenção total à economia de movimento. Paradoxal, mas verdadeiro! Pratique com precisão a 60 BPM e você tocará com facilidade a 120 BPM em algumas semanas.
-
-**Exercício Extra: Treinamento de Independência**
-- Mantenha o dedo 1 na casa 1/corda E (6ª)
-- Tente tocar com o dedo 3 na casa 3/corda E, sem mover o dedo 1
-- Depois tente com o dedo 4 na casa 4/corda E, ainda mantendo o dedo 1
-- Gradualmente trabalhe diferentes combinações de dedos fixos/móveis
-
-Lembre-se: Não force! Se sentir tensão ou dor, faça pausas frequentes e verifique sua técnica. A fluidez vem antes da velocidade!`;
-            }
-            // Metrônomo
-            else if (messageText.includes("metrônomo") || (messageText.includes("praticar") && messageText.includes("tempo"))) {
-                aiResponse = `**Como Praticar com Metrônomo de Forma Eficaz:**\n\nO metrônomo é sua ferramenta mais poderosa para desenvolver precisão rítmica e velocidade controlada. Vamos dominá-lo:
-
-**Por que usar o metrônomo:**
-- Desenvolve seu senso de tempo interno
-- Expõe inconsistências rítmicas que você não percebe
-- Força disciplina técnica e controle
-- Oferece uma forma mensurável de acompanhar seu progresso
-
-**Exercícios Progressivos:**
-
-**Fase 1: Estabelecendo Base Rítmica (para iniciantes)**
-1. Configure o metrônomo em 70-80 BPM (batidas por minuto)
-2. Toque um acorde simples fazendo apenas movimentos para baixo (↓) em cada batida
-3. Quando estiver confortável, alterne entre baixo (↓) e cima (↑): ↓↑↓↑
-4. Adicione variações: ↓↑↑↓, ↓↓↑↑, etc.
-5. Pratique por 5-10 minutos diários
-
-**Fase 2: Subdividindo o Tempo (intermediário)**
-1. Configure para 60 BPM
-2. Toque o primeiro acorde em um beat
-3. Você tem apenas um beat para mudar para o próximo acorde
-4. Toque o segundo acorde no beat seguinte
-5. Continue alternando: acorde → mudança → acorde → mudança...
-6. A chave é manter o tempo constante mesmo que precise fazer pausas
-7. Gradualmente aumente a velocidade quando conseguir fazer 10 trocas perfeitas
-
-**Fase 3: Deslocamentos Rítmicos (avançado)**
-1. Configure para 50-60 BPM
-2. Em vez de tocar NA batida, toque ENTRE as batidas (contra-tempos)
-3. Conte "1-e-2-e-3-e-4-e", mas toque apenas nos "e"
-4. Tente alternar entre tocar nas batidas e nos contra-tempos
-5. Isso desenvolve independência rítmica
-
-**Técnicas de Prática Eficaz:**
-
-**Técnica do Metrônomo Decrescente:**
-1. Comece em um andamento onde você consegue tocar perfeitamente (ex: 80 BPM)
-2. Toque por 1 minuto nesta velocidade
-3. Aumente 5 BPM e toque por 30 segundos
-4. Aumente mais 5 BPM e toque por 20 segundos
-5. Volte ao andamento inicial - ele parecerá surpreendentemente mais fácil!
-
-**Metrônomo Silencioso:**
-1. Ligue o metrônomo e toque junto por 30 segundos
-2. Silencie o metrônomo por 4 compassos enquanto continua tocando
-3. Ligue novamente para verificar se manteve o tempo
-4. Gradualmente aumente o tempo "silencioso"
-
-**Aplicações Práticas:**
-- Pratique transições de acordes com o metrônomo em andamento lento
-- Use para dominar passagens técnicas difíceis
-- Treine leituras de cifra/partitura mantendo o tempo constante
-
-**Dica de Ouro:** Resista à tentação de aumentar o tempo antes de dominar completamente o andamento atual. Sua meta é precisão consistente, não velocidade forçada!
-
-**Apps de Metrônomo Recomendados:** Pro Metronome, Soundbrenner, The Metronome by Musicroom (todos têm versões gratuitas).`;
-            }
-            
-            // Rhythms
-            else if (messageText.includes("ritmo") || messageText.includes("batida")) {
-                let ritmo = "Pop/Rock básico";
-                let desc = "↓ ↓↑ ↓↑ (Baixo, Baixo-Cima, Baixo-Cima)";
-                let example = "Comum em muitas músicas pop e rock.";
-                
-                if (messageText.includes("rock")) {
-                    ritmo = "Rock Clássico";
-                    desc = "↓ ↓↑ ↑↓↑ (Baixo, Baixo-Cima, Cima-Baixo-Cima)";
-                    example = "Ex: Knockin' on Heaven's Door (versão G'n'R)";
-                } else if (messageText.includes("reggae")) {
-                    ritmo = "Reggae Skank";
-                    desc = "(Mudo) ↑ (Mudo) ↑ (Silêncio nos tempos fortes, toque para cima nos contratempos)";
-                    example = "Ex: Three Little Birds - Bob Marley";
-                } else if (messageText.includes("samba") || messageText.includes("pagode")) {
-                    ritmo = "Samba/Pagode Básico";
-                    desc = "↓ ↑↓↑ ↓↑ (Baixo, Cima-Baixo-Cima, Baixo-Cima)"; // Simplificado
-                    example = "Leva característica, mas simplificado para iniciar.";
-                } else if (messageText.includes("balada") || messageText.includes("lenta")) {
-                    ritmo = "Balada Simples";
-                    desc = "↓ (pausa) ↓↑ (pausa) ↓↑ (Baixo, pausa, Baixo-Cima, pausa, Baixo-Cima)";
-                    example = "Ex: Hallelujah - Leonard Cohen";
-                } else if (messageText.includes("valsa")) {
-                    ritmo = "Valsa (3/4)";
-                    desc = "↓ ↑ ↑ (Baixo, Cima, Cima)";
-                    example = "Músicas em compasso ternário.";
-                } else if (messageText.includes("bossa nova")) {
-                    ritmo = "Bossa Nova Básica";
-                    desc = "↓ (1) ↑↓ (e) ↑ (2) ↓ (e) ↑↓ (3) ↑ (4)";
-                    example = "Ex: Garota de Ipanema - Tom Jobim";
-                } else if (messageText.includes("funk")) {
-                    ritmo = "Funk Brasileiro Simplificado";
-                    desc = "↓↓ ↑↑ ↓↑ ↓↑ (com ênfase nas batidas para cima)";
-                    example = "Adapte para músicas de funk mais populares";
-                } else if (messageText.includes("country")) {
-                    ritmo = "Country Básico";
-                    desc = "↓ ↓↑ ↓ ↓↑ (acentuando o baixo nos tempos 1 e 3)";
-                    example = "Ex: Take Me Home, Country Roads - John Denver";
-                } else if (messageText.includes("fácil") || messageText.includes("iniciante")) {
-                     ritmo = "Super Fácil";
-                     desc = "↓ ↓ ↓ ↓ (Quatro toques para baixo por acorde)";
-                     example = "Ótimo para focar na troca de acordes no início.";
-                }
-
-                aiResponse = `**Ritmo: ${ritmo}** 🎵\n\n**Padrão:** ${desc}\n*Exemplo de uso:* ${example}\n\n**Como Praticar este Ritmo:**\n\n**Passo 1: Entenda o Movimento**\n- ↓ = Movimento para baixo (com dedos ou palheta)
-- ↑ = Movimento para cima (com dedos ou palheta)
-- Pratique os movimentos no ar primeiro, sem tocar as cordas
-- Use seu pulso de forma relaxada, não o braço inteiro
-
-**Passo 2: Pratique Sem Acordes**\n- Abafe todas as cordas levemente com a mão esquerda
-- Pratique o padrão rítmico puro, sem se preocupar com acordes
-- Use metrônomo em 60-70 BPM
-- Repita até o movimento ficar automático (5 minutos)
-
-**Passo 3: Adicione Um Acorde Simples**\n- Escolha um acorde fácil (Em ou Am)
-- Mantenha o acorde formado enquanto executa o ritmo
-- Continue com o metrônomo
-- Foque em manter a constância do tempo
-
-**Passo 4: Progressão Simples**\n- Use dois acordes que você domina (ex: Em - Am)
-- Toque 4 repetições do ritmo em cada acorde
-- Quando estiver confortável, reduza para 2 repetições por acorde
-- Pratique a transição suave entre os acordes sem perder o ritmo
-
-**Dica Técnica:** O segredo de um bom ritmo está no pulso relaxado e na precisão do tempo. A força vem do pulso, não dos dedos ou do braço.
-
-**Exercício de Fixação: Isolamento Rítmico**\n1. Grave-se tocando apenas o ritmo por 1 minuto
-2. Ouça a gravação e identifique inconsistências
-3. Pratique especificamente as partes problemáticas
-4. Repita o processo até soar consistente
-
-**Próximo Nível:** Depois de dominar este ritmo básico, experimente adicionar acentos em determinadas batidas ou incluir batidas nas cordas mudas (percussivas) para enriquecer o som.
-
-Quer experimentar outro ritmo ou aprender variações deste?`;
-            }
-            // Fingerpicking / Dedilhado
-            else if (messageText.includes("dedilhado") || messageText.includes("fingerstyle") || messageText.includes("dedos")) {
-                aiResponse = `O dedilhado é uma técnica que transforma completamente seu violão! Vamos dominar isso! 🎶\n\n**Nomenclatura dos Dedos da Mão Direita:**\n*   **p** = Polegar (geralmente toca as cordas graves: E, A, D - os 'bordões')\n*   **i** = Indicador (geralmente toca a corda G/3ª)\n*   **m** = Médio (geralmente toca a corda B/2ª)\n*   **a** = Anelar (geralmente toca a corda E aguda/1ª)\n\n**Programa de Exercícios Progressivos:**\n\n**Nível 1 - Independência dos Dedos (5 min por dia)**\n1. **Exercício Básico PIMA:**\n   * Monte um acorde simples como Am ou Em.\n   * Toque a sequência: **p - i - m - a** (uma nota por tempo, 60 BPM).\n   * O polegar (p) toca a 5ª corda (A), indicador (i) toca a 3ª corda (G), médio (m) toca a 2ª corda (B), anelar (a) toca a 1ª corda (E).\n   * Repita 10 vezes mantendo um ritmo constante.\n\n2. **Exercício de Alternância:**\n   * Mesmo acorde, agora toque: **p - i - p - m - p - a** (60 BPM).\n   * O polegar alterna com os outros dedos, criando um padrão de baixo alternado.\n   * Repita 10 vezes sem parar.\n\n**Nível 2 - Arpejos Simples (7 min por dia)**\n1. **Arpejo Simples em C:**\n   * Monte o acorde de Dó (C).\n   * Toque: p(5ª corda) - i(3ª corda) - m(2ª corda) - a(1ª corda) - m(2ª corda) - i(3ª corda)\n   * Repita o padrão fluido, como uma onda.\n\n2. **Arpejo em Am:**\n   * Mude para o acorde de Am sem interromper o ritmo.\n   * Continue o mesmo padrão de dedos.\n   * Alterne entre C e Am a cada 4 repetições do padrão.\n\n**Nível 3 - Travis Picking (Técnica de Country/Folk)**\n1. **Padrão Básico de Travis Picking:**\n   * Com acorde de C: Toque p(5ª) - i(3ª) - p(4ª) - m(2ª)\n   * Mantenha o polegar alternando entre as cordas graves enquanto os outros dedos criam a melodia.\n\n**Dicas Técnicas Essenciais:**\n\n1. **Postura da Mão:**\n   * Mantenha o pulso levemente arqueado, como se estivesse segurando uma laranja.\n   * Dedos curvados e relaxados, nunca rígidos.\n   * Polegar aponta ligeiramente para cima, não paralelo às outras cordas.\n\n2. **Toque com as Pontas:**\n   * Use as pontas dos dedos, não a parte carnuda.\n   * Exceção: o polegar pode usar uma superfície maior para um som mais encorpado.\n\n3. **Preparação dos Dedos:**\n   * Posicione todos os dedos levemente sobre as cordas que irão tocar antes de iniciar.\n   * Isso evita movimentos precipitados e garante precisão.\n\n**Aplicação Prática: "Romanza" (Melodia Simples)**\nExperimente este trecho da famosa música clássica:\n\n* Dedos i-m alternados na 1ª corda: 7-5-3-2-3-5-7-8-7-5-3-2-0\n* Depois, use o polegar para tocar a 3ª corda solta enquanto continua a melodia com i-m.\n\nPratique lentamente, com metrônomo, e aumente a velocidade gradualmente. O segredo do dedilhado é a consistência diária, mesmo que por apenas 5-10 minutos!`;
-            }
-            
-            // Prática Eficiente e Rotinas de Estudo
-            if (messageText.includes("praticar") && (messageText.includes("eficiente") || messageText.includes("melhor forma"))) {
-                aiResponse = `**Como Praticar Violão de Forma Eficiente:**\n\n**1. Princípio de Prática Deliberada:**\n- **Foco em Dificuldades:** Identifique pontos fracos específicos (uma troca de acorde difícil, um trecho rápido, etc.).
-- **Isole o Problema:** Trabalhe em trechos pequenos (3-4 compassos) que contenham a dificuldade.
-- **Repetição Consciente:** Faça repetições com atenção total ao movimento, não no "piloto automático".
-
-**2. Estrutura de Prática (Modelo para 30 minutos):**\n- **Aquecimento (5 min):** Exercícios simples de técnica, alongamentos.
-- **Revisão (5 min):** Toque algo que já domina bem (reforço positivo).
-- **Ponto de Foco Principal (15 min):** Trabalhe intensamente em uma única habilidade.
-- **Aplicação Musical (5 min):** Aplique a técnica em uma música ou trecho musical.
-
-**3. Exercícios Práticos para Sessões Curtas:**
-
-**Exercício #1: Prática de Transições em Câmera Lenta**
-- Escolha uma transição de acordes difícil (ex: F → C).
-- Configure o metrônomo em 40 BPM.
-- Toque o primeiro acorde por 4 tempos.
-- Use os próximos 4 tempos para mover lentamente os dedos para a posição do segundo acorde.
-- Continue alternando, sempre mantendo movimentos suaves e precisos.
-- Faça 5 vezes sem erro antes de aumentar o tempo em 5 BPM.
-
-**Exercício #2: Técnica do Microscópio**
-1. Selecione um trecho de 2-4 compassos de uma música.
-2. Toque em velocidade muito reduzida (30% da velocidade final).
-3. Observe conscientemente cada movimento de dedo.
-4. A cada repetição bem-sucedida, aumente 10% a velocidade.
-5. Ao atingir 70%, volte para 30% e recomece o processo.
-
-**Exercício #3: Treino em Intervalos**
-- Pratique por 25 minutos.
-- Faça pausa obrigatória de 5 minutos (levante-se, alongue).
-- Volte por mais 25 minutos.
-- Este método aproveita o "Efeito de Primazia e Recência" - aprendemos mais no início e no final das sessões.
-
-**4. Ferramentas Obrigatórias:**
-- **Metrônomo:** Comece lento! Gradualmente aumente a velocidade.
-- **Gravação:** Grave seu treino frequentemente e ouça criticamente.
-- **Diário de Prática:** Anote o que praticou, velocidade do metrônomo, e desafios.
-
-**Dica Motivacional:** Lembre-se que até os grandes músicos começaram com os mesmos desafios. O segredo não está em sessões longas, mas sim na consistência diária e na prática consciente!`;
-            }
-            
-            // Rotina de treino para tempo específico
-            else if ((messageText.includes("rotina") || messageText.includes("treino")) && 
-                    (messageText.includes("30 minutos") || messageText.includes("meia hora") || 
-                     messageText.includes("15 minutos") || messageText.includes("20 minutos") || messageText.includes("uma hora"))) {
-                
-                let tempo = "30 minutos";
-                if (messageText.includes("15 minutos")) tempo = "15 minutos";
-                if (messageText.includes("20 minutos")) tempo = "20 minutos";
-                if (messageText.includes("uma hora") || messageText.includes("60 minutos")) tempo = "60 minutos";
-                
-                if (tempo === "15 minutos") {
-                    aiResponse = `**Rotina Eficiente de 15 Minutos Diários:**\n\n**Dias 1, 3, 5 (Foco Técnico)**\n- **Aquecimento (2 min):** Alongamentos de mão e dedos + tocar 1 escala simples.
-- **Acordes (6 min):** Trabalhe em 3 acordes por dia. Para cada acorde:
-  * Monte, verifique o som de cada corda (1 min)
-  * Pratique 10 trocas com outro acorde (1 min)
-- **Ritmo (5 min):** Pratique uma única batida com esses acordes.
-- **Revisão (2 min):** Toque algo que você já sabe, mesmo que seja simples.
-
-**Dias 2, 4, 6 (Foco Musical)**\n- **Aquecimento (2 min):** Mesmo procedimento.
-- **Progressão (5 min):** Pratique uma progressão de 2-3 acordes com ritmo.
-- **Trecho de Música (7 min):** Trabalhe em um pequeno trecho de uma música.
-- **Diversão (1 min):** Termine improvisando algo livremente.
-
-**Exercício Específico: A Técnica Sanduíche (para qualquer trecho difícil)**\n- Toque o compasso ANTES do trecho difícil
-- Toque o trecho difícil LENTAMENTE
-- Toque o compasso DEPOIS do trecho difícil
-- Repita este "sanduíche" 5 vezes
-
-**Dica Motivacional:** 15 minutos consistentes todos os dias produzem resultados muito melhores que sessões longas ocasionais. Celebre pequenas vitórias diárias!`;
-                }
-                else if (tempo === "60 minutos") {
-                    aiResponse = `**Rotina Completa de 1 Hora de Prática:**\n\n**Estrutura Recomendada:**
-
-**1. Aquecimento (10 min)**
-- Alongamentos para mãos e punhos (2 min)
-- Exercício "Dedos de Aranha" em todas as cordas (3 min)
-- Escalas cromáticas em uma corda (3 min)
-- Exercício de independência dos dedos (2 min)
-
-**2. Técnica Fundamental (15 min)**
-- **Dias Pares:** Trabalho de Mão Direita
-  * Alternância de dedos p-i-m-a em padrões (5 min)
-  * Prática de batidas rítmicas específicas (5 min)
-  * Exercícios de palhetada alternada (5 min)
-- **Dias Ímpares:** Trabalho de Mão Esquerda
-  * Exercícios de pestana com metrônomo (5 min)
-  * Hammer-ons e pull-offs em sequência (5 min)
-  * Exercício de alongamento para dedos 1-3-4 (5 min)
-
-**3. Repertório (25 min)**
-- Revisão de música(s) já conhecida(s) (5 min)
-- Trabalho em seção nova/difícil (10 min)
-- Prática de uma música completa (10 min)
-
-**4. Teoria Aplicada (5 min)**
-- **Opções rotativas:**
-  * Identificar notas no braço do violão
-  * Construir acordes a partir de fórmulas
-  * Praticar uma escala em diferentes posições
-  * Criar uma progressão de acordes simples
-
-**5. Sessão Livre/Criativa (5 min)**
-- Improviso sobre uma progressão simples
-- Composição de uma pequena ideia musical
-- Tocando de ouvido uma melodia familiar
-
-**Exercício Estrela: Treino de Transição Progressiva**
-1. Escolha dois acordes difíceis de transicionar
-2. Inicie com metrônomo a 40 BPM
-3. Toque 4 tempos de cada acorde
-4. Nos próximos 4 tempos, mude lentamente os dedos para a posição do segundo acorde
-5. Continue alternando, sempre mantendo movimentos suaves e precisos
-6. Faça 5 vezes sem erro antes de aumentar o tempo em 5 BPM
-
-**Dica para Resultado Rápido:** Concentre-se em pequenos trechos e repita-os muitas vezes corretamente. É melhor aprender 4 compassos perfeitamente do que uma música inteira com falhas!`;
-                }
-                else { // 30 minutos (padrão) ou 20 minutos
-                    aiResponse = `**Rotina de Treino para ${tempo}:**\n\n**Fase 1: Preparação e Técnica (${tempo === "20 minutos" ? "6" : "10"} min)**
-- **Aquecimento (2 min):** Alongamentos de mão e dedos + tocar 1 escala simples.
-- **Acordes (6 min):** Trabalhe em 3 acordes por dia. Para cada acorde:
-  * Monte, verifique o som de cada corda (1 min)
-  * Pratique 10 trocas com outro acorde (1 min)
-- **Ritmo (5 min):** Pratique uma única batida com esses acordes.
-- **Revisão (2 min):** Toque algo que você já sabe, mesmo que seja simples.
-
-**Fase 2: Aplicação e Repertório (${tempo === "20 minutos" ? "10" : "15"} min)**
-- **Trocas de Acordes (${tempo === "20 minutos" ? "4" : "6"} min):**
-  * Escolha 3 acordes relacionados (ex: C, G, Am)
-  * Pratique trocas limpas, um acorde a cada 4 tempos
-  * Reduza para 2 tempos quando conseguir 5 trocas perfeitas consecutivas
-
-- **Trabalho em Música (${tempo === "20 minutos" ? "6" : "9"} min):**
-  * Foque em apenas um trecho pequeno de uma música
-  * Pratique o trecho lentamente, aumentando a velocidade aos poucos
-  * Ligue o trecho com o restante da música que você já conhece
-
-**Fase 3: Integração e Criatividade (${tempo === "20 minutos" ? "4" : "5"} min)**
-- **Sessão Livre:**
-  * Toque algo que goste apenas por diversão
-  * Tente improvisar sobre uma sequência simples de acordes
-  * Revise algo que aprendeu anteriormente
-
-**Exercício Especial do Dia: Técnica do Metrônomo Decrescente**
-1. Escolha um exercício ou trecho musical que você está trabalhando
-2. Configure o metrônomo em uma velocidade onde você consegue tocar perfeitamente
-3. Toque por 1 minuto nesta velocidade
-4. Aumente 5 BPM e toque por 30 segundos
-5. Aumente mais 5 BPM e toque por 20 segundos
-6. Volte à velocidade inicial e note como parece mais fácil agora
-
-**Dica para Resultado Rápido:** Concentre-se em pequenos trechos e repita-os muitas vezes corretamente. É melhor aprender 4 compassos perfeitamente do que uma música inteira com falhas!`;
-                }
-            }
-            
-            // Campo harmônico
-            else if (messageText.includes("campo harmônico") || (messageText.includes("progressão") && messageText.includes("acorde"))) {
-                let tom = "Dó maior (C)";
-                
-                if (messageText.includes("sol") || messageText.includes(" g ") || messageText.includes(" g,") || messageText.includes(" g.") || messageText.includes(" g:"))
-                    tom = "Sol maior (G)";
-                else if (messageText.includes("ré") || messageText.includes(" d ") || messageText.includes(" d,") || messageText.includes(" d.") || messageText.includes(" d:"))
-                    tom = "Ré maior (D)";
-                else if (messageText.includes("lá") || messageText.includes(" a ") || messageText.includes(" a,") || messageText.includes(" a.") || messageText.includes(" a:"))
-                    tom = "Lá maior (A)";
-                else if (messageText.includes("mi") || messageText.includes(" e ") || messageText.includes(" e,") || messageText.includes(" e.") || messageText.includes(" e:"))
-                    tom = "Mi maior (E)";
-                else if (messageText.includes("fá") || messageText.includes(" f ") || messageText.includes(" f,") || messageText.includes(" f.") || messageText.includes(" f:"))
-                    tom = "Fá maior (F)";
-                else if (messageText.includes("si") || messageText.includes(" b ") || messageText.includes(" b,") || messageText.includes(" b.") || messageText.includes(" b:"))
-                    tom = "Si maior (B)";
-                
-                const camposHarmonicos = {
-                    "Dó maior (C)": ["C", "Dm", "Em", "F", "G", "Am", "Bº"],
-                    "Sol maior (G)": ["G", "Am", "Bm", "C", "D", "Em", "F#º"],
-                    "Ré maior (D)": ["D", "Em", "F#m", "G", "A", "Bm", "C#º"],
-                    "Lá maior (A)": ["A", "Bm", "C#m", "D", "E", "F#m", "G#º"],
-                    "Mi maior (E)": ["E", "F#m", "G#m", "A", "B", "C#m", "D#º"],
-                    "Fá maior (F)": ["F", "Gm", "Am", "Bb", "C", "Dm", "Eº"],
-                    "Si maior (B)": ["B", "C#m", "D#m", "E", "F#", "G#m", "A#º"]
-                };
-                
-                const acordes = camposHarmonicos[tom];
-                
-                aiResponse = `**Campo Harmônico de ${tom}** 🎼\n\n**O que é o Campo Harmônico?**\nO campo harmônico é o conjunto de acordes que pertencem a uma tonalidade. Construímos estes acordes usando as notas da escala diatônica correspondente.\n\n**Campo Harmônico Maior - Graus e Acordes:**\n\n**I** - ${acordes[0]} (Maior)\n**ii** - ${acordes[1]} (menor)\n**iii** - ${acordes[2]} (menor)\n**IV** - ${acordes[3]} (Maior)\n**V** - ${acordes[4]} (Maior)\n**vi** - ${acordes[5]} (menor)\n**viiº** - ${acordes[6]} (diminuto)\n\n**Como Funciona:**\nCada grau tem uma função harmônica e "personalidade" específica:\n- **I (Tônica)**: Estabilidade, repouso, conclusão\n- **ii e IV (Subdominantes)**: Movimento, afastamento, tensão moderada\n- **V (Dominante)**: Alta tensão, necessidade de resolução\n- **iii e vi (Relativos menores)**: Contrastes emocionais\n- **viiº (Sensível)**: Tensão extrema, conduz à tônica\n\n**Progressões Comuns em ${tom}:**\n\n1. **Progressão I-IV-V** (${acordes[0]}-${acordes[3]}-${acordes[4]})\n   Clássica do rock, pop, sertanejo.\n\n2. **Progressão I-V-vi-IV** (${acordes[0]}-${acordes[4]}-${acordes[5]}-${acordes[3]})\n   Extremamente popular em baladas e pop moderno.\n\n3. **Progressão ii-V-I** (${acordes[1]}-${acordes[4]}-${acordes[0]})\n   Fundamental no jazz e bossa nova.\n\n4. **Progressão I-vi-IV-V** (${acordes[0]}-${acordes[5]}-${acordes[3]}-${acordes[4]})\n   Clássica dos anos 50-60, muito usada em ballads.\n\n**Exercício Prático: Treino de Campo Harmônico**\n\n1. **Toque os acordes em sequência:** ${acordes[0]} → ${acordes[1]} → ${acordes[2]} → ${acordes[3]} → ${acordes[4]} → ${acordes[5]} → ${acordes[6]} → ${acordes[0]}\n\n2. **Pratique as tríades em sequência na região aguda:**\n   Use apenas as cordas 1, 2 e 3 para tocar formas compactas de cada acorde\n\n3. **Crie uma melodia simples usando apenas notas da escala de ${tom.split(' ')[0]}:**\n   Toque a melodia sobre diferentes acordes do campo harmônico e note como o mesmo grupo de notas pode soar diferente dependendo do acorde de apoio\n\n4. **Experimente substituições de acordes:**\n   Onde teria um ${acordes[4]}, tente o ${acordes[2]} ou o ${acordes[6]}\n   Onde teria um ${acordes[0]}, tente o ${acordes[5]}\n\n**Dica para Composição:** A sequência vi-IV-I-V (${acordes[5]}-${acordes[3]}-${acordes[0]}-${acordes[4]}) soa incrível e é base de inúmeras músicas populares!`;
-            }
-            
-            // Escalas e improvisação
-            else if ((messageText.includes("escala") || messageText.includes("improvisar")) && !messageText.includes("afinar")) {
-                let tom = "G";
-                
-                // Detectar o tom
-                if (messageText.includes("sol") || messageText.includes(" g ") || messageText.includes(" g,") || messageText.includes(" g.") || messageText.includes(" g:"))
-                    tom = "G";
-                else if (messageText.includes("dó") || messageText.includes("do ") || messageText.includes(" c ") || messageText.includes(" c,") || messageText.includes(" c.") || messageText.includes(" c:"))
-                    tom = "C";
-                else if (messageText.includes("ré") || messageText.includes(" d ") || messageText.includes(" d,") || messageText.includes(" d.") || messageText.includes(" d:"))
-                    tom = "D";
-                else if (messageText.includes("lá") || messageText.includes(" a ") || messageText.includes(" a,") || messageText.includes(" a.") || messageText.includes(" a:"))
-                    tom = "A";
-                else if (messageText.includes("mi") || messageText.includes(" e ") || messageText.includes(" e,") || messageText.includes(" e.") || messageText.includes(" e:"))
-                    tom = "E";
-                
-                // Determinar tipo de escala
-                let tipoEscala = "pentatônica menor";
-                if (messageText.includes("maior") || messageText.includes("major") || messageText.includes("jônica") || messageText.includes("jonica"))
-                    tipoEscala = "maior";
-                else if (messageText.includes("menor") || messageText.includes("minor") || messageText.includes("eólia") || messageText.includes("eolia"))
-                    tipoEscala = "menor";
-                else if (messageText.includes("blues"))
-                    tipoEscala = "blues";
-                
-                // Criar resposta adequada
-                if (tipoEscala === "pentatônica menor") {
-                    aiResponse = `**Escala Pentatônica Menor de ${tom} para Improvisação** 🎸\n\n**Por que a Pentatônica?**\nA escala pentatônica menor é perfeita para iniciantes na improvisação porque:\n1. Tem apenas 5 notas (penta = cinco)\n2. Soa bem sobre praticamente qualquer acorde do tom\n3. É a base do blues, rock, pop e muito mais\n\n**Posição 1 - Escala Pentatônica Menor de ${tom}:**\n\nAqui está a forma mais usada (desenho em tablatura):\n\n`;
-                    
-                    // Diferentes formatos de tablaturas dependendo do tom
-                    if (tom === "G") {
-                        aiResponse += ````
-E |---3---6---|
-B |---3---6---|
-G |---3---5---|
-D |---3---5---|
-A |---3---5---|
-E |---3---6---|
-````;
-                    } 
-                    else if (tom === "A") {
-                        aiResponse += ````
-E |---5---8---|
-B |---5---8---|
-G |---5---7---|
-D |---5---7---|
-A |---5---7---|
-E |---5---8---|
-````;
-                    }
-                    else if (tom === "E") {
-                        aiResponse += ````
-E |---0---3---|
-B |---0---3---|
-G |---0---2---|
-D |---0---2---|
-A |---0---2---|
-E |---0---3---|
-````;
-                    }
-                    else if (tom === "D") {
-                        aiResponse += ``````
-E |---10---13---|   (para ${tom})
-B |---10---13---|
-G |---10---12---|
-D |---10---12---|
-A |---10---12---|
-E |---10---13---|
-````;
-                    }
-                    else { // C ou outros
-                        aiResponse += ````
-E |---8---11---|
-B |---8---11---|
-G |---8---10---|
-D |---8---10---|
-A |---8---10---|
-E |---8---11---|
-````;
-                    }
-                    
-                    aiResponse += `\n\n**Como Praticar a Improvisação:**\n\n**1. Exercício de Familiarização (5 min)**\n- Toque a escala ascendente e descendente lentamente\n- Use metrônomo a 60 BPM\n- Foque em produzir notas limpas e claras\n- Experimente diferentes dedilhados para encontrar o mais confortável\n\n**2. Exercício de Fraseado (7 min)**\n- Toque grupos de 3-4 notas da escala\n- Adicione técnicas expressivas como:\n  * Slides entre notas (deslizar o dedo de uma casa a outra)\n  * Bends (dobrar a corda para elevar a nota)\n  * Vibratos (pequena oscilação da nota)\n- Use pausas entre as frases - o silêncio é tão importante quanto as notas!\n\n**3. Exercício de Pergunta e Resposta (8 min)**\n- Toque uma frase curta (pergunta)\n- Responda com outra frase que complementa a primeira\n- Mantenha a coerência rítmica e melódica\n\n**4. Aplicação com backing track**\n- Busque no YouTube: "backing track ${tom} pentatonica" ou "${tom} minor pentatonic jam track"\n- Improvise usando suas frases sobre a base\n- Comece com poucas notas e gradualmente adicione complexidade\n\n**Exercício Semanal: O "Lick do Dia"**\n- Crie ou aprenda uma pequena frase musical (lick) por dia\n- Pratique esse lick em diferentes regiões do braço\n- Ao final de uma semana, combine os licks em um solo contínuo\n\n**Dica de Ouro:** Na improvisação, é melhor tocar poucas notas com sentimento e expressividade do que muitas notas rapidamente sem direção. Foque na musicalidade!`;
-                } 
-                else if (tipoEscala === "blues") {
-                    // Resposta para escala blues
-                    aiResponse = `**Escala Blues em ${tom}** 🎸🎵\n\n**O que é a Escala Blues?**\nA escala blues é uma variação da pentatônica menor com uma nota adicional (a famosa "blue note"), que dá aquele som característico do blues, rock e jazz.\n\n**Formato da Escala Blues em ${tom}:**\n\n`;
-                    
-                    // Diferentes formatos dependendo do tom
-                    if (tom === "G") {
-                        aiResponse += ````
-E |---3------6---|
-B |---3------6---|
-G |---3--4--5---|
-D |---3--4--5---|
-A |---3--4--5---|
-E |---3------6---|
-             ^
-          Blue note
-````;
-                    } 
-                    else if (tom === "A") {
-                        aiResponse += ````
-E |---5------8---|
-B |---5------8---|
-G |---5--6--7---|
-D |---5--6--7---|
-A |---5--6--7---|
-E |---5------8---|
-             ^
-          Blue note
-````;
-                    }
-                    else if (tom === "E") {
-                        aiResponse += ````
-E |---0------3---|
-B |---0------3---|
-G |---0--1--2---|
-D |---0--1--2---|
-A |---0--1--2---|
-E |---0------3---|
-             ^
-          Blue note
-````;
-                    }
-                    else { // D, C ou outros
-                        aiResponse += ````
-E |---10------13---|   (para ${tom})
-B |---10------13---|
-G |---10--11--12---|
-D |---10--11--12---|
-A |---10--11--12---|
-E |---10------13---|
-               ^
-            Blue note
-````;
-                    }
-                    
-                    aiResponse += `\n\n**Características da Escala Blues:**\n- Adiciona tensão e expressividade à pentatônica menor\n- A "blue note" (marcada acima) cria o som característico e emocional\n- Funciona muito bem em progressões I-IV-V (ex: ${tom}-${tom === "A" ? "D-E" : tom === "E" ? "A-B" : tom === "G" ? "C-D" : "F-G"})\n\n**Exercícios para Dominar a Escala Blues:**\n\n**1. Exercício Blues Básico (5 min)**\n- Toque a escala lentamente, enfatizando a blue note\n- Repita dando um pequeno bend (dobra) na blue note\n- Tente fazer vibratos nas notas longas\n\n**2. Exercício de Licks Clássicos (7 min)**\n- Aprenda este lick básico (toque lentamente):\n  * Toque a blue note na 3ª corda\n  * Faça um pequeno bend (não chegue à nota completa acima)\n  * Volte e toque a nota natural abaixo\n  * Termine na tônica\n\n**3. Exercício de Frases Blues (8 min)**\n- Use estas 3 técnicas nas suas frases:\n  * Repetição: repita uma nota ou padrão com variações rítmicas\n  * Call & Response: toque uma frase e "responda" com outra similar\n  * Silêncio: deixe espaços entre as frases (crucial no blues!)\n\n**Aplicação Prática:**\n1. Busque no YouTube: "slow blues in ${tom} backing track"\n2. Comece improvisando apenas nas primeiras 3 notas da escala\n3. Gradualmente adicione a blue note para criar tensão\n4. Resolva suas frases voltando para notas da pentatônica\n\n**Dica Avançada:** No blues, a expressividade é mais importante que a velocidade. Trabalhe no seu "feel" - bends precisos, vibratos controlados e timing relaxado são a essência do bom blues!`;
-                } 
-                else if (tipoEscala === "maior") {
-                    // Resposta para escala maior
-                    aiResponse = `**Escala Maior de ${tom} para Improvisação** 🎸\n\n**A Escala Maior Completa:**\nA escala maior é a "mãe" de todas as outras escalas e modos. Dominar esta escala abre portas para vários estilos, do rock ao jazz, do pop ao clássico.\n\n**Padrão da Escala ${tom} Maior na Posição Aberta:**\n\n`;
-                    
-                    // Diferentes formatos dependendo do tom
-                    if (tom === "C") {
-                        aiResponse += ````
-E |---0---1---3---|
-B |---0---1---3---|
-G |---0---2---|
-D |---0---2---|
-A |---0---2---3---|
-E |---0---1---3---|
-     Do  Re  Mi   Fa  Sol La  Si   Do
-     1   2   3    4    5   6   7    1
-````;
-                    }
-                    else if (tom === "G") {
-                        aiResponse += ````
-E |---3------|
-B |---0---1---3---|
-G |---0------|
-D |---0---2---4---|
-A |---2---3---5---|
-E |---3------|
-     Sol La  Si   Do  Re  Mi  Fa#  Sol
-     1   2   3    4   5   6   7    1
-````;
-                    }
-                    else {
-                        aiResponse += ````
-Para a escala de ${tom} Maior:
-As notas são: ${
-                        {
-                            "D": "Ré, Mi, Fá#, Sol, Lá, Si, Dó#, Ré",
-                            "A": "Lá, Si, Dó#, Ré, Mi, Fá#, Sol#, Lá",
-                            "E": "Mi, Fá#, Sol#, Lá, Si, Dó#, Ré#, Mi"
-                        }[tom] || `${tom}... (solicite um diagrama específico para este tom)`
-                        }
-
-Graus:  1   2   3    4   5   6    7    1
-````;
-                    }
-                    
-            
-            // Tuning
-            else if (messageText.includes("afinar") || messageText.includes("afinação")) {
-                aiResponse = `Afinação padrão do violão (da mais grossa para a mais fina): **E - A - D - G - B - E** (Mi - Lá - Ré - Sol - Si - Mi).\n\n**Como Afinar:**\n1.  **Use um Afinador:** Pode ser um app no celular (como GuitarTuna, Cifra Club Afinador) ou um afinador físico.\n2.  **Comece pela 6ª Corda (E grave):** Toque a corda solta e ajuste a tarraxa até o afinador mostrar 'E' e ficar verde (ou indicar que está afinado).\n3.  **Repita para as Outras:** Faça o mesmo para A (5ª), D (4ª), G (3ª), B (2ª) e E (1ª aguda).\n4.  **Verificação:** Toque todas as cordas novamente para garantir que a tensão não desafinou as outras.\n\n**Dica:** Afine sempre 'subindo' para a nota. Se passar, volte um pouco e suba novamente até o ponto certo. Isso ajuda a manter a afinação mais estável.`;
-            }
-        }
-
-        // Função para lidar com o envio de mensagem do usuário
-        async function handleSendMessage() {
-            const message = userInput.value.trim();
-            if (!message) return; // Não envia mensagens vazias
-            
-            // Adiciona a mensagem do usuário ao chat
-            addMessage(message, 'user');
-            
-            // Limpa o campo de entrada
-            userInput.value = '';
-            
-            // Mostra indicador de carregamento
-            showLoadingIndicator();
-            
-            setTimeout(() => {
-                try {
-                    // Usa apenas respostas locais (fallback) sem tentar acessar API externa
-                    const response = getFallbackResponse(message);
-                    
-                    // Remove o indicador de carregamento
-                    removeLoadingIndicator();
-                    
-                    // Adiciona a resposta ao chat
-                    addMessage(response, 'ai');
-                } catch (error) {
-                    console.error('Erro ao processar resposta:', error);
-                    removeLoadingIndicator();
-                    addMessage('Desculpe, tive um problema ao processar sua pergunta. Pode tentar novamente?', 'ai');
-                }
-            }, 500); // Pequeno delay para simular processamento
-        }
-
-        // Adiciona eventos de clique e tecla Enter para enviar mensagem
-        sendMessageBtn.addEventListener('click', handleSendMessage);
-        userInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                handleSendMessage();
+        // Destacar o botão de categoria ativo
+        categoryBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.getAttribute('data-category') === categoria) {
+                btn.classList.add('active');
             }
         });
-
-        // Adicionar estilos para o indicador de carregamento
-        const styleElement = document.createElement('style');
-        styleElement.textContent = `
-            .message.loading span {
-                display: inline-flex;
-                align-items: center;
-                font-style: italic;
-                color: var(--secondary-color);
-            }
-            .message.loading span::after {
-                content: '';
-                width: 12px;
-                height: 12px;
-                margin-left: 8px;
-                border: 2px solid var(--border-color);
-                border-radius: 50%;
-                border-top-color: var(--primary-color);
-                animation: spin 1s linear infinite;
-            }
-            @keyframes spin {
-                to { transform: rotate(360deg); }
-            }
-            
-            /* Adiciona informação sobre a IA no rodapé */
-            .ai-info {
-                margin-top: 20px;
-                font-size: 0.8rem;
-                color: #E0E0E0; /* Lighter color for footer */
-                text-align: center;
-            }
-            
-            .ai-info a {
-                color: var(--light-accent);
-                text-decoration: none;
-            }
-            
-            .ai-info a:hover {
-                text-decoration: underline;
-            }
-        `;
-        document.head.appendChild(styleElement);
+    }
+    
+    // Exibir perguntas sugeridas aleatórias na interface
+    function mostrarPerguntasSugeridas() {
+        // Limpar o container
+        suggestedQuestionsContainer.innerHTML = '<h4>Experimente perguntar:</h4>';
         
-        // Adiciona informações sobre a IA usada no rodapé
-        const aiInfoElement = document.createElement('p');
-        aiInfoElement.className = 'ai-info';
-        document.querySelector('footer .container').appendChild(aiInfoElement);
+        // Selecionar 8 perguntas aleatórias
+        const perguntasSelecionadas = [];
+        while (perguntasSelecionadas.length < 8) {
+            const randomIndex = Math.floor(Math.random() * todasPerguntas.length);
+            const pergunta = todasPerguntas[randomIndex];
+            if (!perguntasSelecionadas.includes(pergunta)) {
+                perguntasSelecionadas.push(pergunta);
+            }
+        }
+        
+        // Criar botões para cada pergunta
+        perguntasSelecionadas.forEach(function(pergunta) {
+            const button = document.createElement('button');
+            button.className = 'suggested-question-btn';
+            button.textContent = pergunta;
+            button.addEventListener('click', function() {
+                userInput.value = pergunta;
+                enviarMensagem();
+            });
+            suggestedQuestionsContainer.appendChild(button);
+        });
+        
+        // Adicionar botão para mais sugestões
+        const refreshButton = document.createElement('button');
+        refreshButton.className = 'suggested-question-btn refresh-btn';
+        refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Mais sugestões';
+        refreshButton.addEventListener('click', mostrarPerguntasSugeridas);
+        suggestedQuestionsContainer.appendChild(refreshButton);
+        
+        // Remover destaque dos botões de categoria
+        categoryBtns.forEach(btn => {
+            btn.classList.remove('active');
+        });
+    }
+    
+    // Inicializar a interface com sugestões aleatórias
+    mostrarPerguntasSugeridas();
+    
+    // Adicionar evento de clique aos botões de categoria
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const categoria = this.getAttribute('data-category');
+            mostrarPerguntasPorCategoria(categoria);
+        });
+    });
+    
+    // Adicionar evento de clique às tags de busca populares
+    searchTags.forEach(tag => {
+        tag.addEventListener('click', function(e) {
+            e.preventDefault();
+            const termo = this.textContent;
+            searchInput.value = termo;
+            realizarBusca(termo);
+        });
+    });
+    
+    // Função para realizar busca
+    function realizarBusca(termo) {
+        userInput.value = termo;
+        enviarMensagem();
+    }
+    
+    // Adicionar evento de clique ao botão de busca
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function() {
+            const termo = searchInput.value.trim();
+            if (termo !== '') {
+                realizarBusca(termo);
+                searchInput.value = '';
+            }
+        });
+    }
+    
+    // Adicionar evento de tecla Enter ao campo de busca
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const termo = this.value.trim();
+                if (termo !== '') {
+                    realizarBusca(termo);
+                    this.value = '';
+                }
+            }
+        });
+    }
+    
+    // Adicionar evento de clique ao botão de enviar
+    if (sendMessageBtn) {
+        sendMessageBtn.addEventListener('click', enviarMensagem);
+    }
+    
+    // Adicionar evento de tecla Enter ao campo de entrada
+    if (userInput) {
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                enviarMensagem();
+            }
+        });
+    }
+    
+    // Função para mostrar as perguntas sugeridas
+    function mostrarPerguntasSugeridas() {
+        // Limpar o container
+        suggestedQuestionsContainer.innerHTML = '<h4>Experimente perguntar:</h4>';
+        
+        // Selecionar 8 perguntas aleatórias
+        const perguntasSelecionadas = [];
+        while (perguntasSelecionadas.length < 8) {
+            const randomIndex = Math.floor(Math.random() * todasPerguntas.length);
+            const pergunta = todasPerguntas[randomIndex];
+            if (!perguntasSelecionadas.includes(pergunta)) {
+                perguntasSelecionadas.push(pergunta);
+            }
+        }
+        
+        // Criar botões para cada pergunta
+        perguntasSelecionadas.forEach(function(pergunta) {
+            const button = document.createElement('button');
+            button.className = 'suggested-question-btn';
+            button.textContent = pergunta;
+            button.addEventListener('click', function() {
+                userInput.value = pergunta;
+                enviarMensagem();
+            });
+            suggestedQuestionsContainer.appendChild(button);
+        });
+        
+        // Adicionar botão para mais sugestões
+        const refreshButton = document.createElement('button');
+        refreshButton.className = 'suggested-question-btn refresh-btn';
+        refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Mais sugestões';
+        refreshButton.addEventListener('click', mostrarPerguntasSugeridas);
+        suggestedQuestionsContainer.appendChild(refreshButton);
+    }
+    
+    // Função para enviar mensagem
+    function enviarMensagem() {
+        const text = userInput.value.trim();
+        if (text === '') return; // Não enviar mensagens vazias
+        
+        // Adicionar mensagem do usuário ao chat
+        adicionarMensagemAoChat(text, 'user');
+        
+        // Limpar campo de entrada
+        userInput.value = '';
+        
+        // Mostrar indicador de "pensando"
+        mostrarIndicadorDePensamento();
+        
+        // Simular resposta após 500ms
+        setTimeout(function() {
+            // Remover indicador de pensamento
+            removerIndicadorDePensamento();
+            
+            // Gerar e adicionar resposta da IA
+            const resposta = gerarResposta(text);
+            adicionarMensagemAoChat(resposta, 'ai');
+        }, 500);
+    }
+    
+    // Função para adicionar mensagens ao chat
+    function adicionarMensagemAoChat(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message ' + sender;
+        
+        if (sender === 'ai') {
+            // Formato para mensagens da IA (com ícone)
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-robot';
+            
+            const span = document.createElement('span');
+            span.innerHTML = text.replace(/\n/g, '<br>'); // Converter quebras de linha
+            
+            messageDiv.appendChild(icon);
+            messageDiv.appendChild(span);
+        } else {
+            // Formato simples para mensagens do usuário
+            messageDiv.textContent = text;
+        }
+        
+        // Adicionar ao chat e rolar para a parte inferior
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Função para mostrar indicador de pensamento
+    function mostrarIndicadorDePensamento() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message ai thinking';
+        loadingDiv.id = 'thinking-indicator';
+        
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-robot';
+        loadingDiv.appendChild(icon);
+        
+        const span = document.createElement('span');
+        span.textContent = 'Pensando...';
+        loadingDiv.appendChild(span);
+        
+        chatMessages.appendChild(loadingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Função para remover indicador de pensamento
+    function removerIndicadorDePensamento() {
+        const indicator = document.getElementById('thinking-indicator');
+        if (indicator) {
+            indicator.remove();
+        }
+    }
+    
+    // Função para gerar respostas baseadas na entrada do usuário
+    function gerarResposta(mensagem) {
+        const mensagemLower = mensagem.toLowerCase();
+        
+        // Verificar palavras-chave para determinar a resposta
+        if (mensagemLower.includes('pestana') || mensagemLower.includes('fá maior') || mensagemLower.includes('acorde f')) {
+            return `Ah, a famosa pestana! É um desafio, mas você vai conseguir dominar! 💪\n\n**Para o Fá Maior (F):**\n1. **Dedo 1 (Indicador):** Pressione todas as 6 cordas na 1ª casa em forma de pestana\n2. **Dedo 2 (Médio):** Na 2ª casa da corda G (3ª corda)\n3. **Dedo 3 (Anelar):** Na 3ª casa da corda A (5ª corda)\n4. **Dedo 4 (Mínimo):** Na 3ª casa da corda D (4ª corda)\n\n**Dicas Cruciais:**\n* **Posição do Indicador:** Use a lateral do dedo (parte mais "óssea"), não a ponta ou parte macia\n* **Polegar Oposto:** Coloque o polegar atrás do braço do violão, aplicando contra-pressão\n* **Altura do Pulso:** Mantenha o pulso elevado e o antebraço mais alinhado com o braço do violão\n* **Distância do Traste:** Posicione o dedo bem próximo ao traste de metal (sem estar em cima dele)\n* **Comece devagar:** Pratique verificando se todas as cordas estão soando limpas, uma por uma`;
+        }
+        else if (mensagemLower.includes('velocidade') && (mensagemLower.includes('dedo') || mensagemLower.includes('mão'))) {
+            return `**Como Melhorar a Velocidade dos Dedos:**\n\nA velocidade vem da precisão e relaxamento, não da força. Aqui está um plano prático:\n\n**Exercício 1: Cromático Básico (3-5 min diários)**\n- Em uma única corda, posicione os dedos 1-2-3-4 nas casas consecutivas\n- Use metrônomo começando em 60 BPM, uma nota por batida\n- Mantenha os dedos próximos às cordas (não os levante muito)\n- Quando conseguir tocar sem erros por 1 minuto, aumente 5 BPM\n\n**Exercício 2: Aranha (3-5 min diários)**\n- Dedo 1 na casa 1/corda 6, dedo 2 na casa 2/corda 5, etc.\n- Toque uma nota por vez, mantendo cada dedo pressionado até usar todos os 4 dedos\n- Depois, mova o padrão para as próximas cordas\n\n**Exercício 3: Independência (para nível intermediário)**\n- Mantenha o dedo 1 pressionado na casa 1/corda 6\n- Toque alternadamente com os dedos 2, 3 e 4 na casa 3 da mesma corda\n- Repita em todas as cordas\n\n**Dica importante:** Pratique devagar e com precisão. Velocidade vem da eficiência de movimento, não da força.`;
+        }
+        else if (mensagemLower.includes('acordes') && mensagemLower.includes('iniciante')) {
+            return `**Os 8 Acordes Essenciais para Iniciantes:**\n\n1. **C (Dó Maior)** - x32010 - Forma um triângulo na primeira posição\n2. **G (Sol Maior)** - 320003 - Use os dedos 2, 1 e 3 para formar o triângulo básico\n3. **D (Ré Maior)** - xx0232 - Mantenha os dedos em formato triangular na segunda casa\n4. **A (Lá Maior)** - x02220 - Todos os dedos ficam alinhados na segunda casa\n5. **E (Mi Maior)** - 022100 - Similar ao A, mas uma corda abaixo\n6. **Am (Lá menor)** - x02210 - Como o A maior, mas com a 3ª corda na 1ª casa\n7. **Em (Mi menor)** - 022000 - O mais fácil! Apenas dois dedos na segunda casa\n8. **Dm (Ré menor)** - xx0231 - Como o D maior, mas com a 2ª corda na 3ª casa\n\n**Plano de Prática:**\n• Comece pelos acordes mais simples: Em, Am, e C\n• Dedique 5 minutos para cada acorde, tocando cada corda individualmente\n• **Prática de transição:** C→G, G→D, Am→E, Em→G\n• Use músicas simples como "Asa Branca" (G, C, D) para praticar mudanças`;
+        }
+        else if (mensagemLower.includes('música') || mensagemLower.includes('fácil') || mensagemLower.includes('facil') || mensagemLower.includes('musica') || mensagemLower.includes('simples')) {
+            return `**7 Músicas Perfeitas para Iniciantes:**\n\n1. **"Asa Branca" (Luiz Gonzaga)**\n   *Acordes:* C, G7, F (ou G, D, C se quiser evitar pestana)\n   *Ritmo:* Baião simplificado ↓↑↓↑↓↑\n   *Por que é boa:* Apenas 3 acordes e ritmo repetitivo\n\n2. **"Knockin' on Heaven's Door" (Bob Dylan)**\n   *Acordes:* G, D, Am, C\n   *Ritmo:* Batida simples ↓↓↑↑\n\n3. **"Parabéns Pra Você"**\n   *Acordes:* D, A7\n   *Ritmo:* ↓↓↓↓\n   *Por que é boa:* Apenas 2 acordes!\n\n4. **"Love Me Do" (The Beatles)**\n   *Acordes:* G, C\n   *Ritmo:* ↓↑↓↑\n\n5. **"Pra Não Dizer Que Não Falei das Flores" (Geraldo Vandré)**\n   *Acordes:* Am, G, C, F (pode substituir F por C ou D7)\n   *Ritmo:* Batida em 2 tempos\n\n6. **"Stand By Me" (Ben E. King)**\n   *Acordes:* G, Em, C, D\n   *Ritmo:* ↓↑↑↓\n\n7. **"Marcha Soldado"**\n   *Acordes:* C, G7\n   *Ritmo:* Marcha simples\n\n**Dica:** Escolha apenas UMA música e domine-a completamente antes de passar para outra. É melhor tocar uma música inteira bem do que várias pela metade!`;
+        }
+        else if (mensagemLower.includes('dor') && (mensagemLower.includes('dedo') || mensagemLower.includes('mão') || mensagemLower.includes('dedos'))) {
+            return `**Como Evitar Dor nos Dedos ao Tocar Violão:**\n\n**É normal sentir desconforto no início, mas dor intensa não!**\n\n**Causas comuns e soluções:**\n\n1. **Dedos sem calosidade**\n   • **Solução:** Comece com sessões curtas (10-15 min) e aumente gradualmente\n   • As pontas dos dedos vão endurecer naturalmente com o tempo\n\n2. **Pressão excessiva nas cordas**\n   • **Solução:** Use apenas a força mínima necessária para produzir um som limpo\n   • Você provavelmente está pressionando com força demais (comum em iniciantes)\n\n3. **Altura das cordas (action)**\n   • **Solução:** Verifique se seu violão está bem regulado\n   • Cordas muito altas exigem mais força e causam mais dor\n\n4. **Postura incorreta**\n   • **Solução:** Mantenha o polegar no meio da parte de trás do braço do violão\n   • Seus dedos devem formar um "C" ao redor do braço\n\n5. **Usar a ponta dos dedos**\n   • **Solução:** Pressione as cordas com a parte "carnuda" das pontas dos dedos\n\n**Dica extra:** Cordas de nylon são mais suaves para os dedos do que as de aço. Se a dor persistir por mais de 30 minutos após parar de tocar, descanse por 1-2 dias.`;
+        }
+        else if (mensagemLower.includes('afinar') || mensagemLower.includes('afinação')) {
+            return `**Como Afinar o Violão Sem Afinador:**\n\n**Método 1: Afinação Relativa (5ª casa)**\n\nIniciando com a 6ª corda (Mi grave):\n1. **Mi (6ª corda):** Afine usando referência (outro instrumento, diapasão ou vídeo online)\n2. **Lá (5ª corda):** Deve soar igual à 6ª corda pressionada na 5ª casa\n3. **Ré (4ª corda):** Deve soar igual à 5ª corda pressionada na 5ª casa\n4. **Sol (3ª corda):** Deve soar igual à 4ª corda pressionada na 5ª casa\n5. **Si (2ª corda):** Deve soar igual à 3ª corda pressionada na 4ª casa (exceção!)\n6. **Mi (1ª corda):** Deve soar igual à 2ª corda pressionada na 5ª casa\n\n**Método 2: Harmônicos na 5ª e 7ª casas**\n1. **Mi e Lá:** Compare o harmônico da 6ª corda na 5ª casa com a 5ª corda solta\n2. **Lá e Ré:** Compare o harmônico da 5ª corda na 5ª casa com a 4ª corda solta\n3. E assim por diante\n\n**Dicas:**\n• Os harmônicos são produzidos tocando levemente a corda sobre o traste (sem pressionar)\n• Ajuste lentamente as tarraxas até os sons coincidirem\n• Aplicativos gratuitos de afinador são uma opção mais precisa`;
+        }
+        else if (mensagemLower.includes('campo harmônico') || mensagemLower.includes('campo harmonico')) {
+            return `**O que é Campo Harmônico:**\n\n**Definição:** O campo harmônico é o conjunto de acordes formados a partir das notas de uma escala musical.\n\n**Campo Harmônico Maior (exemplo em C):**\n\n1. **C (Dó Maior)** - Acorde de tônica (I)\n2. **Dm (Ré menor)** - Acorde de segunda (ii)\n3. **Em (Mi menor)** - Acorde de terça (iii)\n4. **F (Fá Maior)** - Acorde de subdominante (IV)\n5. **G (Sol Maior)** - Acorde de dominante (V)\n6. **Am (Lá menor)** - Acorde de sexta/relativa menor (vi)\n7. **B° (Si diminuto)** - Acorde de sétima (vii°)\n\n**Como usar na prática:**\n\n• **Progressões comuns:** I-IV-V (C-F-G), I-vi-IV-V (C-Am-F-G)\n• **Substituições:** Substitua acordes com funções similares (vi no lugar do I)\n• **Modulação:** Use acordes comuns para mudar de tonalidade\n\n**Aplicação diária:**\nSe você conhece o campo harmônico de uma tonalidade, pode prever quais acordes provavelmente aparecerão juntos em músicas naquela tonalidade.\n\n**Dica inicial:** Memorize o campo harmônico de C (sem acidentes) e depois aprenda a transportar para outras tonalidades usando o ciclo das quintas.`;
+        }
+        else if (mensagemLower.includes('ritmo') || mensagemLower.includes('batida') || mensagemLower.includes('constante')) {
+            return `**Dicas para Manter o Ritmo Constante:**\n\n**1. Use um metrônomo regularmente**\n• Comece lento (60-70 BPM)\n• Pratique tocar exatamente junto com as batidas\n• Aumente a velocidade gradualmente só depois de dominar o ritmo lento\n\n**2. Desenvolva sua percepção rítmica**\n• Bata palmas junto com suas músicas favoritas\n• Conte os tempos em voz alta enquanto toca (1-2-3-4)\n• Toque apenas cordas soltas no ritmo desejado antes de adicionar acordes\n\n**3. Divida as batidas complexas**\n• Use sílabas para representar cada movimento (ex: "TUM-chi-TUM-chi")\n• Pratique apenas o movimento da mão direita sem a esquerda\n• Adicione acordes somente quando o ritmo estiver "no automático"\n\n**4. Técnicas específicas**\n• **Abafe as cordas** levemente com a palma da mão para marcar o tempo\n• Utilize o **pulso como pêndulo** para manter o tempo constante\n• **Movimente o pé** marcando o tempo (cuidado para não criar ruído)\n\n**5. Exercício prático**\nToque a mesma batida por 5 minutos sem parar, mantendo o tempo constante. Se errar, não pare, apenas volte ao ritmo na próxima batida. Isso treina sua recuperação.`;
+        }
+        else if (mensagemLower.includes('diferença') && (mensagemLower.includes('nylon') || mensagemLower.includes('aço') || mensagemLower.includes('aco'))) {
+            return `**Diferenças entre Violão de Nylon e Aço:**\n\n**Violão de Nylon:**\n\n• **Som:** Mais suave, quente e encorpado\n• **Cordas:** Mais macias, menos tensão, mais confortáveis para iniciantes\n• **Braço:** Geralmente mais largo, facilitando dedilhados\n• **Estilo:** Ideal para música clássica, flamenco, bossa nova e MPB\n• **Técnica:** Tradicionalmente tocado com os dedos, sem palheta\n• **Durabilidade das cordas:** 2-3 meses com uso regular\n• **Para iniciantes:** Mais gentil com os dedos, menos doloroso\n\n**Violão de Aço:**\n\n• **Som:** Mais brilhante, metálico e projetado\n• **Cordas:** Maior tensão, exigem mais força dos dedos\n• **Braço:** Geralmente mais estreito\n• **Estilo:** Ideal para rock, pop, country, folk\n• **Técnica:** Versátil, pode usar palheta ou dedos\n• **Durabilidade das cordas:** 1-2 meses com uso regular\n• **Captação:** Mais fácil de amplificar sem microfone\n\n**Qual escolher?**\nSe você é iniciante e quer tocar MPB, música brasileira ou clássica, o nylon é uma ótima escolha. Para rock, pop e música americana em geral, o aço oferece o timbre característico desses estilos.\n\n**Observação:** É possível tocar qualquer estilo em ambos, mas certos gêneros soarão mais autênticos no instrumento apropriado.`;
+        }
+        else if (mensagemLower.includes('metrônomo') || mensagemLower.includes('metronomo')) {
+            return `**Como Praticar com Metrônomo:**\n\n**Por que usar metrônomo:**\n• Desenvolve seu senso rítmico interno\n• Expõe problemas técnicos escondidos\n• Permite progresso gradual e mensurável\n• Essencial para tocar com outros músicos\n\n**Guia passo a passo:**\n\n**1. Comece lento**\n• Defina um BPM confortável (60-70 para iniciantes)\n• Se estiver com dificuldade, diminua ainda mais\n\n**2. Pratique em camadas:**\n• **Nível 1:** Apenas bata palmas junto com o metrônomo\n• **Nível 2:** Toque apenas cordas soltas no ritmo\n• **Nível 3:** Adicione trocas de acordes simples\n• **Nível 4:** Execute a música ou exercício completo\n\n**3. Exercício de subdivisão**\n• Configure o metrônomo para 60 BPM\n• Toque uma nota a cada clique (semínimas)\n• Depois toque duas notas por clique (colcheias)\n• Em seguida, quatro notas por clique (semicolcheias)\n\n**4. Aumente a velocidade gradualmente**\n• Aumente apenas 3-5 BPM quando estiver consistente\n• Volte ao andamento lento se perder a precisão\n\n**Dica profissional:** Pratique com o metrônomo marcando apenas o 2º e 4º tempos (em compasso 4/4) para desenvolver ainda mais sua estabilidade rítmica.`;
+        }
+        else if (mensagemLower.includes('improvisa') || mensagemLower.includes('improvisar') || mensagemLower.includes('solo')) {
+            return `**Como Improvisar no Violão:**\n\n**Para iniciantes:**\n\n**1. Comece com a escala pentatônica menor**\n• Na tonalidade de Am: Use as notas A, C, D, E, G\n• Posição básica: 5ª casa da corda E (Mi) até a 8ª casa\n• Esta escala funciona em muitos contextos musicais\n\n**2. Aprenda os padrões da escala no braço**\n• Estude o formato da escala (disponível em diagramas online)\n• Pratique subindo e descendo lentamente primeiro\n\n**3. Improvisação rítmica**\n• Comece improvisando usando apenas 2-3 notas\n• Foque no ritmo mais que nas notas\n• Use pausas (o silêncio é tão importante quanto as notas)\n\n**4. Técnicas expressivas simples**\n• **Bend:** Pressione uma nota e empurre a corda para cima para elevar o tom\n• **Slide:** Deslize de uma nota para outra\n• **Hammer-on/Pull-off:** Articulações sem tocar novamente a corda\n\n**5. Exercício prático para começar**\n• Toque a progressão Am-G-F-E em loop (ou peça para alguém tocar)\n• Improvise usando apenas as notas da escala pentatônica de Am\n• Comece com frases curtas, repita motivos e desenvolva-os gradualmente\n\n**Lembre-se:** Bom improviso não é tocar rápido ou muitas notas, mas sim criar frases musicais com significado e expressão.`;
+        }
+        else if (mensagemLower.includes('dedilhado') || mensagemLower.includes('arpejo')) {
+            return `**Dedilhado Simples para Iniciantes:**\n\n**Padrão básico de dedilhado (arpejo)**\nUsando os dedos: p (polegar), i (indicador), m (médio), a (anelar)\n\n**Técnica correta:**\n• **Mão direita:** Mantenha o pulso levemente arqueado\n• **Posição dos dedos:** Curvados naturalmente, perpendiculares às cordas\n• **Unhas:** Para dedilhado clássico, use uma combinação de polpa do dedo e unha\n\n**Padrão 1 - Básico (4/4)**\np i m a (repetir)\nPolegar na 6ª, 5ª ou 4ª corda, demais dedos nas 3ª, 2ª e 1ª cordas\n\n**Padrão 2 - Balada**\np i m a m i (repetir)\n\n**Padrão 3 - Valsa (3/4)**\np i m  p i m  (repetir)\n\n**Exercício prático:**\n1. Use o acorde de C maior (é fácil de formar)\n2. Toque lentamente, garantindo que cada nota soe clara\n3. Mantenha um ritmo constante (use metrônomo em 60 BPM)\n4. Quando dominar um padrão, tente outro acorde\n\n**Progressão ideal para praticar:**\nC - G - Am - F (um compasso para cada acorde)\n\n**Dica importante:** Comece muito lento e com precisão. A velocidade virá naturalmente conforme a técnica melhora.`;
+        }
+        else if (mensagemLower.includes('gm') || mensagemLower.includes('sol menor')) {
+            return `**Como Tocar o Acorde de Sol menor (Gm):**\n\n**Formato padrão (com pestana):**\n1. **Dedo 1 (indicador):** Pestana na 3ª casa cobrindo as 6 cordas\n2. **Dedo 3 (anelar):** 5ª casa da 2ª corda (B)\n3. **Dedo 4 (mínimo):** 5ª casa da 1ª corda (E)\n\n**Versão simplificada (sem pestana):**\n1. **Dedo 1 (indicador):** 3ª casa da 6ª corda (E)\n2. **Dedo 2 (médio):** 3ª casa da 5ª corda (A)\n3. **Dedo 3 (anelar):** 3ª casa da 4ª corda (D)\n4. Toque apenas das cordas 1-4 (evite as cordas 1 e 2)\n\n**Versão alternativa (forma de Em deslocada):**\n1. **Dedo 1 (indicador):** 3ª casa da 1ª corda (E)\n2. **Dedo 2 (médio):** 3ª casa da 2ª corda (B) \n3. Toque apenas as 4 cordas mais agudas\n\n**Transições comuns envolvendo Gm:**\n• Gm → Cm (ambos com pestana)\n• Gm → D (mova apenas 2 dedos)\n• Gm → F (desça dois trastes com a pestana)\n\n**Músicas populares com Gm:**\n• \"Que País é Este\" - Legião Urbana (Gm - C - D)\n• \"Admirável Gado Novo\" - Zé Ramalho (Gm - F - Cm - D)`;
+        }
+        else if (mensagemLower.includes('samba') && (mensagemLower.includes('batida') || mensagemLower.includes('ritmo'))) {
+            return `**Como Tocar Batida de Samba no Violão:**\n\n**Batida de samba básica (para destros):**\n\n**Padrão principal:**\n• **Notação:** ↓(B) ↑ ↓ ↑ ↓(B) ↑\n• **Onde (B) = batida percussiva com polegar/lateral da mão**\n\n**Passo a passo:**\n\n**1. Posição da mão direita:**\n• Polegar para baixo nas cordas graves (6ª, 5ª, 4ª)\n• Dedos (ou lateral do indicador) para cima nas cordas agudas\n• Mantenha o pulso flexível e solto\n\n**2. Movimento básico (sem cordas):**\n• Treine fazendo o movimento "baixo-cima-baixo-cima-baixo-cima"\n• Adicione a percussão batendo levemente no tampo com o polegar\n\n**3. Contagem:**\n• 1 **e** 2 **e** 3 **e** (em compasso 3/4)\n• Bata no tampo nos tempos 1 e 3\n\n**4. Acordes comuns no samba:**\n• A7, D7, G7, Dm, E7, Am\n• Experimente com a progressão: Am - E7 - Am - A7 - Dm - G7 - C - E7\n\n**5. Variações rítmicas:**\n• Experimente acentuar diferentes partes do padrão\n• Adicione "fantasmas" (toques muito leves entre os principais)\n\n**Dica profissional:** Ouça muito samba! A batida está no ouvido tanto quanto nas mãos. Escute João Gilberto, Paulinho da Viola e outros mestres.`;
+        }
+        else {
+            return `Obrigado pela sua pergunta sobre "${mensagem}"!\n\nPosso ajudar com diversos temas relacionados ao violão:\n\n• **Acordes e posições** - aprenda novos acordes ou aperfeiçoe os que já conhece\n• **Técnicas específicas** - dedilhado, pestanas, hammer-ons, palm muting, etc.\n• **Ritmos e batidas** - do pop ao samba, passando por rock, MPB e muito mais\n• **Exercícios práticos** - para melhorar velocidade, precisão e coordenação\n• **Teoria musical** - escalas, campo harmônico, progressões de acordes\n• **Repertório** - músicas para iniciantes, intermediários ou avançados\n\nExperimente clicar em uma das sugestões acima para ver exemplos específicos ou me pergunte algo como:\n\n- "Como fazer o acorde de Mi menor?"\n- "Quais ritmos são fáceis para começar?"\n- "Dicas para trocar acordes mais rápido"\n- "Músicas com apenas 3 acordes"`;
+        }
+    }
+    
+    // Adicionar botão para limpar o chat
+    const clearChatBtn = document.createElement('button');
+    clearChatBtn.className = 'btn btn-secondary';
+    clearChatBtn.innerHTML = '<i class="fas fa-trash"></i> Limpar conversa';
+    clearChatBtn.style.marginTop = '20px';
+    clearChatBtn.style.width = '100%';
+    clearChatBtn.style.backgroundColor = '#a0522d';
+    
+    clearChatBtn.addEventListener('click', function() {
+        // Manter apenas a primeira mensagem (boas-vindas)
+        while (chatMessages.children.length > 1) {
+            chatMessages.removeChild(chatMessages.lastChild);
+        }
+        // Rolar para o topo
+        chatMessages.scrollTop = 0;
+    });
+    
+    // Adicionar o botão abaixo do chat
+    document.getElementById('chatInterface').parentNode.appendChild(clearChatBtn);
+});
 
-        // Populate suggested questions on load
-        document.addEventListener('DOMContentLoaded', populateSuggestedQuestions);
-    </script>
+// Estilo adicional para animação de "pensando"
+document.head.insertAdjacentHTML('beforeend', `
+<style>
+    .message.thinking span {
+        display: inline-flex;
+        align-items: center;
+        font-style: italic;
+        color: var(--secondary-color);
+    }
+    .message.thinking span::after {
+        content: '';
+        width: 12px;
+        height: 12px;
+        margin-left: 8px;
+        border: 2px solid var(--border-color);
+        border-radius: 50%;
+        border-top-color: var(--primary-color);
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .refresh-btn {
+        background-color: var(--accent-color) !important;
+        color: var(--light-text) !important;
+    }
+    
+    .refresh-btn:hover {
+        background-color: var(--secondary-color) !important;
+    }
+    
+    #suggestedQuestions {
+        max-height: 150px;
+        overflow-y: auto;
+        padding-bottom: 12px;
+    }
+</style>
+`);
+</script>
 </body>
 </html>
