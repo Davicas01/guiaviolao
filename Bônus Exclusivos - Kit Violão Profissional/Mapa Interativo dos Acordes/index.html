@@ -1090,8 +1090,7 @@
             </div>
 
             <div class="chord-suggestions">
-                <div class="suggestion-title">Acordes que combinam bem com C (Clique para explorar):</div>
-                <div class="suggestions-grid">
+                <div class="suggestion-title">Acordes que combinam bem com <span id="currentChordName">C</span> (Clique para explorar):</div>                <div class="suggestions-grid">
                     <div class="suggestion-card" data-chord="F">
                         <h4>F (Fá maior)</h4>
                         <p>Subdominante - Sensação de movimento</p>
@@ -1172,7 +1171,7 @@ const chordData = {
         fingering: [[0,1,0,2,3,0], [3,1,0,2,3,0]], // Alternative fingerings
         progressions: ["C - G - Am - F", "C - F - G", "C - Am - F - G", "C - E7 - Am - G"],
         about: "O acorde de Dó maior é formado pelas notas C, E e G. É um dos acordes mais fundamentais no violão e frequentemente usado como acorde inicial em muitas músicas.",
-        songs: ["Let It Be - The Beatles", "Knockin' on Heaven's Door - Bob Dylan", "Hallelujah - Leonard Cohen", "Stand By Me - Ben E. King"]
+        songs: ["Pra Você Guardei o Amor - Nando Reis", "Velha Infância - Tribalistas", "Let It Be - The Beatles", "Stand By Me - Ben E. King"]
     },
     G: {
         name: "G (Sol Maior)",
@@ -1182,7 +1181,7 @@ const chordData = {
         fingering: [[3,2,0,0,0,3], [3,2,0,0,3,3]],
         progressions: ["G - C - D", "G - Em - C - D", "G - D - Em - C"],
         about: "O acorde de Sol maior é formado pelas notas G, B e D. É frequentemente usado como acorde dominante na tonalidade de C, criando uma tensão que resolve bem de volta para C.",
-        songs: ["Sweet Home Alabama - Lynyrd Skynyrd", "Good Riddance (Time of Your Life) - Green Day", "Brown Eyed Girl - Van Morrison", "Wish You Were Here - Pink Floyd"]
+        songs: ["Asa Branca - Luiz Gonzaga", "Sozinho - Caetano Veloso", "Sweet Home Alabama - Lynyrd Skynyrd", "Wish You Were Here - Pink Floyd"]
     },
     F: {
         name: "F (Fá Maior)",
@@ -1192,7 +1191,7 @@ const chordData = {
         fingering: [[1,1,2,3,3,1], [1,1,2,3,3,-1]],
         progressions: ["F - C - G", "F - Bb - C", "F - G - Am - G"],
         about: "O acorde de Fá maior é formado pelas notas F, A e C. Funciona como subdominante na tonalidade de C e cria uma sensação de movimento em progressões harmônicas.",
-        songs: ["Hey Jude - The Beatles", "Hotel California - Eagles (verso)", "Wonderwall - Oasis (capo)", "House of the Rising Sun - The Animals"]
+        songs: ["Chão de Giz - Zé Ramalho", "Tente Outra Vez - Raul Seixas", "Hey Jude - The Beatles", "Wonderwall - Oasis"]
     },
     Am: {
         name: "Am (Lá menor)",
@@ -1202,7 +1201,7 @@ const chordData = {
         fingering: [[0,1,2,2,0,0], [0,1,3,2,0,0]],
         progressions: ["Am - F - C - G", "Am - G - F - E", "Am - Dm - E - Am"],
         about: "O acorde de Lá menor é formado pelas notas A, C e E. É o relativo menor de C maior, trazendo um tom mais melancólico e introspectivo às progressões.",
-        songs: ["Stairway to Heaven - Led Zeppelin (intro)", "Losing My Religion - R.E.M.", "Angie - The Rolling Stones", "Nothing Else Matters - Metallica (intro)"]
+        songs: ["Eduardo e Mônica - Legião Urbana", "Monte Castelo - Legião Urbana", "Stairway to Heaven - Led Zeppelin", "Nothing Else Matters - Metallica"]
     },
     Dm: {
         name: "Dm (Ré menor)",
@@ -1212,7 +1211,7 @@ const chordData = {
         fingering: [[-1,0,0,2,3,1], [-1,-1,0,2,3,1]],
         progressions: ["Dm - G - C", "Dm - Am - E - Am", "Dm - F - C"],
         about: "O acorde de Ré menor é formado pelas notas D, F e A. Serve como subdominante menor na tonalidade de C, trazendo um tom mais contemplativo e introspectivo.",
-        songs: ["Sultans of Swing - Dire Straits", "Like a Rolling Stone - Bob Dylan", "While My Guitar Gently Weeps - The Beatles", "Come As You Are - Nirvana"]
+        songs: ["Faroeste Caboclo - Legião Urbana", "Tempo Perdido - Legião Urbana", "Sultans of Swing - Dire Straits", "Come As You Are - Nirvana"]
     },
     Em: {
         name: "Em (Mi menor)",
@@ -1222,7 +1221,7 @@ const chordData = {
         fingering: [[0,0,0,2,2,0], [0,0,0,0,2,0]],
         progressions: ["Em - D - C", "Em - G - C - D", "Em - Am - D - G"],
         about: "O acorde de Mi menor é formado pelas notas E, G e B. Como relativo menor de G, adiciona um contraste emotivo em progressões na tonalidade de C.",
-        songs: ["Zombie - The Cranberries", "Heart of Gold - Neil Young", "Wish You Were Here - Pink Floyd", "Wicked Game - Chris Isaak"]
+        songs: ["Dias de Luta, Dias de Glória - Charlie Brown Jr.", "Primeiros Erros - Capital Inicial", "Zombie - The Cranberries", "Wish You Were Here - Pink Floyd"]
     },
     G7: {
         name: "G7 (Sol com Sétima)",
@@ -1232,7 +1231,7 @@ const chordData = {
         fingering: [[3,2,0,0,0,1], [3,2,0,0,0,1]],
         progressions: ["C - G7 - C", "Am - Dm - G7 - C"],
         about: "Acorde dominante com sétima menor, cria forte tensão para resolver em C.",
-        songs: ["Jambalaya (On the Bayou) - Hank Williams", "Blues em G (diversos)", "Sitting on the Dock of the Bay - Otis Redding"]
+        songs: ["Garota de Ipanema - Tom Jobim", "Chega de Saudade - Tom Jobim", "Jambalaya - Hank Williams", "Sitting on the Dock of the Bay - Otis Redding"]
     },
     C7: {
         name: "C7 (Dó com Sétima)",
@@ -1242,7 +1241,7 @@ const chordData = {
         fingering: [[0,1,3,2,3,0], [0,1,3,2,4,0]],
         progressions: ["C7 - F", "G7 - C7 - F"],
         about: "Acorde maior com sétima menor, frequentemente usado como dominante para F.",
-        songs: ["Sweet Georgia Brown (Jazz Standard)", "Blues em C (diversos)", "Crazy Little Thing Called Love - Queen"]
+        songs: ["Samba de Uma Nota Só - Tom Jobim", "O Barquinho - Roberto Menescal", "Sweet Georgia Brown - Jazz Standard", "Crazy Little Thing Called Love - Queen"]
     },
     A7: {
         name: "A7 (Lá com Sétima)",
@@ -1252,7 +1251,7 @@ const chordData = {
         fingering: [[0,2,0,2,0,0], [0,2,0,1,0,0]],
         progressions: ["D - A7 - D", "G - D - A7 - D"],
         about: "Acorde dominante com sétima menor, resolve bem em D.",
-        songs: ["Johnny B. Goode - Chuck Berry", "Hound Dog - Elvis Presley", "Sweet Caroline - Neil Diamond", "La Bamba - Ritchie Valens", "Blues em D (diversos)"]
+        songs: ["Sangue Latino - Secos & Molhados", "Maluco Beleza - Raul Seixas", "Johnny B. Goode - Chuck Berry", "Sweet Caroline - Neil Diamond"]
     },
     D7: {
         name: "D7 (Ré com Sétima)",
@@ -1262,7 +1261,7 @@ const chordData = {
         fingering: [[0,0,0,2,1,2], [0,0,0,2,1,3]],
         progressions: ["G - D7 - G", "C - G - D7 - G"],
         about: "Acorde dominante com sétima menor, resolve bem em G.",
-        songs: ["Take Me Home, Country Roads - John Denver", "Folsom Prison Blues - Johnny Cash", "Hey Jude - The Beatles (parte)", "Sweet Home Chicago - Robert Johnson", "Blues em G (diversos)"]
+        songs: ["Morena Tropicana - Alceu Valença", "Vambora - Adriana Calcanhotto", "Take Me Home, Country Roads - John Denver", "Sweet Home Chicago - Robert Johnson"]
     },
     E7: {
         name: "E7 (Mi com Sétima)",
@@ -1272,7 +1271,7 @@ const chordData = {
         fingering: [[0,0,1,0,2,0], [0,0,1,0,2,0]],
         progressions: ["A - E7 - A", "D - A - E7 - A"],
         about: "Acorde dominante com sétima menor, resolve bem em A.",
-        songs: ["Blue Suede Shoes - Carl Perkins", "Before You Accuse Me - Eric Clapton", "Hey Joe - Jimi Hendrix", "All Shook Up - Elvis Presley", "Blues em A (diversos)"]
+        songs: ["Eu Sei - Papas da Língua", "Que País É Este - Legião Urbana", "Blue Suede Shoes - Carl Perkins", "Hey Joe - Jimi Hendrix"]
     },
     Bm: {
         name: "Bm (Si menor)",
@@ -1282,7 +1281,7 @@ const chordData = {
         fingering: [[2,2,4,4,3,2], [1,1,3,4,2,1]],
         progressions: ["Bm - G - D - A", "Bm - A - G - F#"],
         about: "Acorde menor, relativo de D maior.",
-        songs: ["Hotel California - Eagles (refrão)", "Tears in Heaven - Eric Clapton", "Drive - Incubus", "While My Guitar Gently Weeps - The Beatles", "Angie - The Rolling Stones"]
+        songs: ["Além do Horizonte - Jota Quest", "Pais e Filhos - Legião Urbana", "Hotel California - Eagles", "Tears in Heaven - Eric Clapton"]
     },
     B7: {
         name: "B7 (Si com Sétima)",
@@ -1292,7 +1291,7 @@ const chordData = {
         fingering: [[2,1,2,0,2,0], [2,1,3,0,4,0]],
         progressions: ["E - B7 - E", "A - E - B7 - E"],
         about: "Acorde dominante com sétima menor, resolve bem em E.",
-        songs: ["La Bamba - Ritchie Valens", "Something - The Beatles", "Pride and Joy - Stevie Ray Vaughan", "I Shot The Sheriff - Bob Marley", "Blues em E (diversos)"]
+        songs: ["Manhã de Carnaval - Luiz Bonfá", "Tequila - Expressão Verbal", "La Bamba - Ritchie Valens", "Pride and Joy - Stevie Ray Vaughan"]
     }
     // ... other chords ...
 };
@@ -1592,6 +1591,9 @@ function updateChordDisplay(chord) {
     // Update chord info section
     document.querySelector('.chord-info h3').textContent = `Sobre o Acorde ${chord}`;
     document.querySelector('.chord-info p').textContent = chordInfo.about || "";
+    
+    // Atualizar o nome do acorde na seção de sugestões
+    document.getElementById('currentChordName').textContent = chord;
     
     // Update suggested chords
     updateChordSuggestions(chord);

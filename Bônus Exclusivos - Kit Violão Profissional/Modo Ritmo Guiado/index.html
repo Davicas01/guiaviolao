@@ -354,6 +354,7 @@
         
         input[type="range"] {
             -webkit-appearance: none;
+            appearance: none; /* Add standard property */
             width: 100%;
             height: 10px;
             border-radius: 5px;
@@ -470,7 +471,8 @@
             transition: transform 0.2s ease;
         }
         
-        .beat-counter:not(.-) {
+        /* Use a class for animation instead of invalid :not() selector */
+        .beat-counter.active {
             animation: pulse 0.5s ease-in-out;
         }
         
@@ -786,11 +788,7 @@
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
-        </div>
-    </footer>
+
 
     <a href="../../index.html" class="scroll-top-btn" id="homeBtn"><i class="fas fa-home"></i></a>
 
@@ -798,7 +796,7 @@
         // DOM Elements
         const playButton = document.getElementById('playButton');
         const stopButton = document.getElementById('stopButton');
-        const countInButton = document.getElementById('countInButton');
+        // const countInButton = document.getElementById('countInButton'); // Removed: Element does not exist
         const tempoSlider = document.getElementById('tempoSlider');
         const tempoValue = document.querySelector('.tempo-value');
         const rhythmCards = document.querySelectorAll('.rhythm-card');
@@ -1081,17 +1079,6 @@
             beatCounter.textContent = '-';
         });
         
-        countInButton.addEventListener('click', () => {
-            // Iniciar o contexto de áudio se estiver suspenso
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-            
-            if (!isPlaying) {
-                startCountIn();
-            }
-        });
-        
         tempoSlider.addEventListener('input', () => {
             tempo = parseInt(tempoSlider.value);
             tempoValue.textContent = `${tempo} BPM`;
@@ -1148,50 +1135,13 @@
             requestAnimationFrame(tick);
         }
         
-        function startCountIn() {
-            countInActive = true;
-            currentBeat = 0;
-            beatCounter.textContent = "4";
-            
-            const countInDuration = 60000 / tempo; // Duração de nota de um quarto
-            
-            // Tocar 4 batidas de contagem inicial
-            let countBeats = 4;
-            let lastTime = performance.now();
-            
-            const countTick = (currentTime) => {
-                if (!countInActive) return;
-                
-                const elapsed = currentTime - lastTime;
-                if (elapsed >= countInDuration) {
-                    countBeats--;
-                    
-                    if (countBeats > 0) {
-                        beatCounter.textContent = countBeats.toString();
-                        playAccentSound();
-                        createBeatMarker(true, true); // Usar true para acento na contagem
-                        lastTime = currentTime;
-                        requestAnimationFrame(countTick);
-                    } else {
-                        countInActive = false;
-                        beatCounter.textContent = "1";
-                        startPlayback();
-                        playButton.innerHTML = '<i class="fas fa-pause"></i> Pausar';
-                    }
-                } else {
-                    requestAnimationFrame(countTick);
-                }
-            };
-            
-            requestAnimationFrame(countTick);
-        }
-        
         function stopPlayback() {
             isPlaying = false;
             if (intervalId) {
                 clearInterval(intervalId);
                 intervalId = null;
             }
+            beatCounter.classList.remove('active'); // Remove active class on stop
         }
         
         function playBeat() {
@@ -1249,12 +1199,6 @@
                 marker.appendChild(arrow);
             }
             
-            if (isCountIn) {
-                marker.style.backgroundColor = '#8B4513';
-                marker.style.boxShadow = '0 0 20px rgba(139, 69, 19, 0.9)';
-                marker.style.animation = 'pulse 0.5s infinite alternate';
-            }
-            
             // Posicionamento do marcador - agora com movimento mais suave da esquerda para a direita
             const totalWidth = visualization.offsetWidth;
             const beatWidth = totalWidth / rhythmPatterns[selectedRhythm].length;
@@ -1299,17 +1243,16 @@
             // Calcular o número da batida (baseado em 1)
             const beatNumber = Math.floor(currentBeat / 2) + 1;
             beatCounter.textContent = beatNumber.toString();
+            beatCounter.classList.add('active'); // Add active class for animation
             
             // Adicionar uma pequena animação ao contador de batida
             beatCounter.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                beatCounter.style.transform = 'scale(1)';
-            }, 100);
         }
         
         function resetVisualization() {
             currentBeat = 0;
             beatCounter.textContent = '-';
+            beatCounter.classList.remove('active'); // Remove active class on reset
             
             // Limpar todos os marcadores
             while (visualization.firstChild) {
