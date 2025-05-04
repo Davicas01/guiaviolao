@@ -620,40 +620,62 @@ footer {
     }
 }
 
+/* Adicionando melhorias de responsividade para telas de celular */
 @media (max-width: 576px) {
-    h1 {
-        font-size: 1.8rem;
+    body {
+        overflow-x: hidden; /* Remove a barra de rolagem horizontal */
     }
-    
-    header {
-        padding: 2.5rem 0;
+
+    .container {
+        padding: 0 10px; /* Reduzindo o padding para telas menores */
     }
-    
+
     .search-container {
-        padding: 1.2rem;
-        margin-top: -1.5rem;
+        padding: 1rem; /* Ajustando o padding para caber melhor em telas pequenas */
     }
-    
+
     .cifra-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
+        grid-template-columns: 1fr; /* Força uma única coluna em telas pequenas */
+        gap: 1rem; /* Reduzindo o espaçamento entre os itens */
     }
-    
+
     .cifra-thumbnail {
-        height: 150px;
+        height: 120px; /* Ajustando a altura das imagens para telas menores */
     }
-    
-    .cifra-actions button {
+
+    .pagination {
+        flex-direction: row; /* Mantém os botões de navegação na horizontal */
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .pagination-btn {
+        width: 44px; /* Mantém largura fixa para os botões */
+        height: 44px; /* Mantém altura fixa para os botões */
+        border-radius: 50%; /* Mantém formato circular */
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Ajustes para os botões de navegação do PDF */
+    .pdf-toolbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    .pdf-toolbar button {
         width: 40px;
         height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    
-    .cifra-table th:nth-child(4),
-    .cifra-table td:nth-child(4) {
-        display: none;
-    }
-    
-    .modal-body {
-        padding: 1.2rem;
+
+    .modal-content {
+        width: 90%; /* Ajusta a largura do modal para telas pequenas */
+        margin: 0.5rem auto;
     }
 }

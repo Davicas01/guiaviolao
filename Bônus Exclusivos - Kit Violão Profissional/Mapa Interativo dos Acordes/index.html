@@ -207,84 +207,116 @@
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid var(--border-color);
+            /* Transformação para trazer os sub-acordes 30% mais próximos do centro */
+            transform: translate(
+                calc(var(--x-position, 0px) * 0.7),
+                calc(var(--y-position, 0px) * 0.7)
+            );
         }
         
+        /* Modificar o efeito hover para compatibilidade com a nova transformação */
         .chord-node:hover {
-            transform: scale(1.1);
+            transform: translate(
+                calc(var(--x-position, 0px) * 0.7),
+                calc(var(--y-position, 0px) * 0.7)
+            ) scale(1.1);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             z-index: 5;
         }
         
-        .chord-node.major {
-            background-color: #FFF8E1;
-            border-color: #CD853F;
-            color: #8B4513;
-        }
-        
-        .chord-node.minor {
-            background-color: #F5F0E6;
-            border-color: #A0522D;
-            color: #5D4037;
-        }
-        
-        .chord-node.diminished {
-            background-color: #EFE5DC;
-            border-color: #8B4513;
-            color: #3E2723;
-        }
-        
+        /* Modificar o estado selected para compatibilidade com a nova transformação */
         .chord-node.selected {
-            transform: scale(1.2);
+            transform: translate(
+                calc(var(--x-position, 0px) * 0.7),
+                calc(var(--y-position, 0px) * 0.7)
+            ) scale(1.2);
             box-shadow: 0 6px 12px rgba(93, 64, 55, 0.4);
             z-index: 5;
             border-width: 3px;
-            animation: pulse 1.5s infinite;
+            animation: none; /* Desativar animação original para não interferir */
             background-color: #8D6E63;
             color: white;
         }
         
-        /* Substituir a animação pulse existente por esta versão melhorada */
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(93, 64, 55, 0.8);
-        transform: scale(1);
-    }
-    50% {
-        box-shadow: 0 0 0 12px rgba(93, 64, 55, 0);
-        transform: scale(1.15);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(93, 64, 55, 0);
-        transform: scale(1);
-    }
-}
+        /* Adicionar nova animação pulse compatível com a transformação */
+        .chord-node.selected {
+            animation: pulse-transformed 1.5s infinite;
+        }
 
-/* Animação para reprodução de acorde mais visível */
-@keyframes chord-played {
-    0% { 
-        box-shadow: 0 0 0 5px rgba(139, 69, 19, 0.7);
-        transform: scale(1);
-    }
-    50% {
-        box-shadow: 0 0 0 10px rgba(139, 69, 19, 0.3);
-        transform: scale(1.08);
-    }
-    100% { 
-        box-shadow: 0 0 0 15px rgba(139, 69, 19, 0);
-        transform: scale(1);
-    }
-}
+        @keyframes pulse-transformed {
+            0% {
+                box-shadow: 0 0 0 0 rgba(93, 64, 55, 0.8);
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.7),
+                    calc(var(--y-position, 0px) * 0.7)
+                );
+            }
+            50% {
+                box-shadow: 0 0 0 12px rgba(93, 64, 55, 0);
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.7),
+                    calc(var(--y-position, 0px) * 0.7)
+                ) scale(1.15);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(93, 64, 55, 0);
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.7),
+                    calc(var(--y-position, 0px) * 0.7)
+                );
+            }
+        }
 
-.playing {
-    animation: chord-played 0.8s ease-out;
-}
+        /* Responsividade - aproximar ainda mais em telas menores */
+        @media (max-width: 768px) {
+            .chord-node {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.6),
+                    calc(var(--y-position, 0px) * 0.6)
+                );
+                width: 55px;
+                height: 55px;
+            }
+            
+            .chord-node:hover {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.6),
+                    calc(var(--y-position, 0px) * 0.6)
+                ) scale(1.1);
+            }
+            
+            .chord-node.selected {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.6),
+                    calc(var(--y-position, 0px) * 0.6)
+                ) scale(1.2);
+            }
+        }
 
-/* Suavizar transições */
-.chord-node, .suggestion-card, .chord-button {
-    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                box-shadow 0.25s ease,
-                background-color 0.3s ease;
-}
+        @media (max-width: 480px) {
+            .chord-node {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.5),
+                    calc(var(--y-position, 0px) * 0.5)
+                );
+                width: 50px;
+                height: 50px;
+            }
+            
+            .chord-node:hover {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.5),
+                    calc(var(--y-position, 0px) * 0.5)
+                ) scale(1.1);
+            }
+            
+            .chord-node.selected {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.5),
+                    calc(var(--y-position, 0px) * 0.5)
+                ) scale(1.2);
+            }
+        }
 
         .chord-diagram {
             margin-top: 2rem;
@@ -311,24 +343,24 @@
         .chord-fretboard {
             display: inline-block;
             position: relative;
-            width: 200px; /* Slightly smaller default size */
-            height: 240px;
-            /* Refined gradient for a slightly richer wood look */
-            background: linear-gradient(145deg, #A1887F 0%, #8D6E63 40%, #795548 100%);
-            border-radius: 6px; /* Slightly smaller radius */
-            padding: 20px 0 10px 0; /* Adjusted padding */
-            margin: 10px auto; /* Added top/bottom margin */
-            /* Softer inner shadow and subtle outer shadow */
-            box-shadow: inset 0 1px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.15);
-            border: 1px solid rgba(0,0,0,0.1); /* Subtle border */
+            width: 220px; /* Increased width slightly */
+            height: 250px; /* Increased height slightly */
+            /* Enhanced wood gradient */
+            background: linear-gradient(140deg, #BCAAA4 0%, #8D6E63 50%, #6D4C41 100%);
+            border-radius: 8px; /* Slightly larger radius */
+            padding: 25px 5px 15px 5px; /* Adjusted padding */
+            margin: 15px auto; /* Increased margin */
+            /* More defined shadow */
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,0,0,0.2); /* Darker border */
         }
         
         .chord-string {
             position: relative;
             height: 38px; /* Keep height for spacing */
             width: 100%;
-            /* Lighter string color for better contrast */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.25); 
+            /* Thinner, more metallic string appearance */
+            border-bottom: 1px solid rgba(224, 224, 224, 0.4); 
             display: flex;
             align-items: center;
         }
@@ -341,8 +373,8 @@
             position: relative;
             width: 25%;
             height: 100%;
-            /* Lighter fret color */
-            border-right: 2px solid rgba(255, 255, 255, 0.1); 
+            /* Thinner, metallic fret appearance */
+            border-right: 2px solid rgba(210, 210, 210, 0.25); 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -355,12 +387,10 @@
         /* Estilos para melhorar a visualização de acordes */
         .position-indicator {
             position: absolute;
-            left: -35px; /* Adjusted position */
-            top: -5px; /* Adjusted position */
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: white;
-            background-color: var(--secondary-color); /* Use secondary color */
+            left: -45px; /* Adjusted position further left */
+            top: 0px; /* Align with top padding */
+            font-size: 0.9rem; /* Slightly larger */
+            background-color: var(--primary-color); /* Use primary color */
             padding: 3px 8px;
             border-radius: 10px;
             border: 1px solid rgba(0,0,0,0.2);
@@ -368,11 +398,13 @@
         }
 
         .barre-indicator {
-            height: 18px; /* Slightly thicker */
-            background-color: rgba(255, 255, 255, 0.6); /* Lighter barre */
-            border-radius: 9px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-            border: 1px solid rgba(0,0,0,0.1);
+            position: absolute; /* Ensure absolute positioning */
+            height: 20px; /* Thicker barre */
+            background-color: rgba(255, 255, 255, 0.7); /* Brighter barre */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.35);
+            border: 1px solid rgba(0,0,0,0.15);
+            pointer-events: none; /* Prevent interaction */
         }
 
         .barre-dot { /* Style for dots under a barre */
@@ -383,20 +415,20 @@
 
         /* Adicione ao seu CSS para diagramas de acordes mais claros */
         .chord-dot {
-            width: 30px; /* Slightly larger */
-            height: 30px;
+            width: 32px; /* Larger dots */
+            height: 32px;
             border-radius: 50%;
-            /* Brighter gradient for dots */
-            background: linear-gradient(135deg, #FFFFFF, #E8E8E8); 
-            color: #333; /* Darker text for contrast */
-            /* Refined shadow */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(0,0,0,0.1);
+            /* More pronounced gradient */
+            background: radial-gradient(circle, #FFFFFF 40%, #D0D0D0 100%); 
+            color: #212121; /* Darker text */
+            /* Sharper shadow */
+            box-shadow: 0 3px 5px rgba(0,0,0,0.4), inset 0 1px 2px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700; /* Bolder finger number */
-            font-size: 1.1rem; /* Larger finger number */
-            border: 1px solid rgba(0,0,0,0.15);
+            font-size: 1.2rem; /* Larger finger number */
+            border: 1px solid rgba(0,0,0,0.2);
             cursor: default; /* Default cursor as it's informational */
             transition: transform 0.1s ease;
         }
@@ -408,26 +440,25 @@
 
         .open-string, .muted-string {
             position: absolute;
-            top: -18px; /* Position above the nut */
-            font-size: 1.1rem; /* Slightly smaller */
-            font-weight: 600;
-            width: 22px;
-            height: 22px;
+            top: -22px; /* Position slightly higher */
+            font-size: 1.2rem; /* Larger symbols */
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            background-color: rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         
         .open-string {
-             color: #eee; /* Light color for open string */
+             color: #FAFAFA; /* Brighter open string */
         }
         
         .muted-string {
-             color: #FF8A80; /* Softer red for muted */
+             color: #EF5350; /* Brighter red for muted */
              font-weight: bold;
         }
 
@@ -435,8 +466,8 @@
         .chord-string-labels {
             display: flex;
             justify-content: space-around;
-            width: 200px; /* Match fretboard width */
-            margin: 8px auto 0; /* Add margin top */
+            width: 220px; /* Match new fretboard width */
+            margin: 10px auto 0; /* Adjusted margin */
         }
         
         .string-label {
@@ -444,16 +475,16 @@
             height: 25px;
             text-align: center;
             font-weight: 600;
-            font-size: 0.85rem; /* Slightly larger */
+            font-size: 0.9rem; /* Larger */
             color: var(--dark-color); /* Ensure good contrast */
-            opacity: 0.8; /* Slightly less prominent */
+            opacity: 0.9; /* More prominent */
         }
         
         .chord-fret-labels {
             position: absolute;
-            left: -30px; /* Adjusted position */
-            top: 20px; /* Align with first fret space */
-            height: calc(100% - 30px); /* Match fretboard playable area */
+            left: -35px; /* Adjusted position */
+            top: 25px; /* Align with top padding */
+            height: calc(100% - 40px); /* Match fretboard playable area */
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -465,7 +496,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem; /* Larger fret number */
+            font-size: 1rem; /* Larger fret number */
             color: var(--dark-color); /* Darker color for contrast */
             font-weight: 600;
             opacity: 0.9;
@@ -842,6 +873,106 @@
             color: var(--secondary-color);
         }
 
+        /* Estilos para o Popup de Progressões */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 3000; /* Acima do modal de músicas */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-overlay.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .popup-overlay.visible .popup-content {
+            transform: scale(1);
+        }
+
+        .popup-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .popup-close-btn:hover {
+            color: var(--dark-color);
+        }
+
+        .popup-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .popup-body {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: var(--dark-color);
+        }
+
+        .popup-body p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .progression-chords-popup {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .chord-pill {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+
+        .chord-arrow {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .popup-footer {
+            margin-top: 25px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -920,71 +1051,27 @@
             <div class="chord-diagram" id="chordDisplay">
                 <div class="chord-title">C (Dó Maior)</div>
                 <div class="chord-description">Acorde básico, perfeito para iniciar uma progressão</div>
-                
-                <div class="chord-fretboard">
+                <div class="chord-fretboard" id="fretboard">
                     <div class="chord-fret-labels">
                         <div class="fret-label">1</div>
                         <div class="fret-label">2</div>
                         <div class="fret-label">3</div>
                         <div class="fret-label">4</div>
                     </div>
-                    <!-- 6ª corda (E) -->
-                    <div class="chord-string">
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret">
-                            <div class="chord-dot">3</div>
-                        </div>
-                        <div class="chord-fret"></div>
-                    </div>
-                    <!-- 5ª corda (A) -->
-                    <div class="chord-string">
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret">
-                            <div class="chord-dot">3</div>
-                        </div>
-                        <div class="chord-fret"></div>
-                    </div>
-                    <!-- 4ª corda (D) -->
-                    <div class="chord-string">
-                        <div class="chord-fret">
-                            <div class="chord-dot">2</div>
-                        </div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                    </div>
-                    <!-- 3ª corda (G) -->
-                    <div class="chord-string">
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                        class="chord-fret"></div>
-                    </div>
-                    <!-- 2ª corda (B) -->
-                    <div class="chord-string">
-                        <div class="chord-fret">
-                            <div class="chord-dot">1</div>
-                        </div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                    </div>
-                    <!-- 1ª corda (E) -->
-                    <div class="chord-string">
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                        <div class="chord-fret"></div>
-                    </div>
+                    <!-- As cordas e casas serão desenhadas dinamicamente pelo JS -->
                 </div>
-
+                <div class="chord-string-labels">
+                    <div class="string-label">E</div>
+                    <div class="string-label">A</div>
+                    <div class="string-label">D</div>
+                    <div class="string-label">G</div>
+                    <div class="string-label">B</div>
+                    <div class="string-label">e</div>
+                </div>
                 <div class="button-row">
                     <button class="action-btn" id="playChordBtn"><i class="fas fa-play"></i> Tocar Acorde</button>
                     <button class="action-btn secondary" id="seeExamplesBtn"><i class="fas fa-music"></i> Ver Músicas com Este Acorde</button>
                 </div>
-                
                 <button class="play-progression-btn" id="playProgressionBtn"><i class="fas fa-play-circle"></i> Tocar Progressão</button>
             </div>
 
@@ -1042,6 +1129,25 @@
                     <ul>
                         <!-- Song list will be populated here -->
                     </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup para Progressões -->
+        <div id="progressionPopup" class="popup-overlay">
+            <div class="popup-content">
+                <button id="popupCloseBtn" class="popup-close-btn">&times;</button>
+                <h4 id="popupTitle" class="popup-title">Progressão</h4>
+                <div id="popupBody" class="popup-body">
+                    <p id="popupText"></p>
+                    <div class="progression-chords-popup">
+                        <!-- Acordes da progressão serão inseridos aqui -->
+                    </div>
+                    <div class="popup-footer">
+                        <button class="play-progression-btn" id="playPopupProgressionBtn">
+                            <i class="fas fa-play-circle"></i> Tocar Progressão
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1142,51 +1248,51 @@ const chordData = {
         name: "A7 (Lá com Sétima)",
         description: "Dominante de D, comum em blues e rock",
         relatives: ["D", "G", "Bm", "Em"],
-        position: { angle: 0, distance: 0 }, // Placeholder
+        position: { angle: 0, distance: 0 }, 
         fingering: [[0,2,0,2,0,0], [0,2,0,1,0,0]],
         progressions: ["D - A7 - D", "G - D - A7 - D"],
         about: "Acorde dominante com sétima menor, resolve bem em D.",
-        songs: ["Johnny B. Goode - Chuck Berry", "Hound Dog - Elvis Presley", "Blues em D (diversos)"]
+        songs: ["Johnny B. Goode - Chuck Berry", "Hound Dog - Elvis Presley", "Sweet Caroline - Neil Diamond", "La Bamba - Ritchie Valens", "Blues em D (diversos)"]
     },
     D7: {
         name: "D7 (Ré com Sétima)",
         description: "Dominante de G, muito usado em folk e country",
         relatives: ["G", "C", "Em", "Am"],
-        position: { angle: 0, distance: 0 }, // Placeholder
+        position: { angle: 0, distance: 0 },
         fingering: [[0,0,0,2,1,2], [0,0,0,2,1,3]],
         progressions: ["G - D7 - G", "C - G - D7 - G"],
         about: "Acorde dominante com sétima menor, resolve bem em G.",
-        songs: ["Take Me Home, Country Roads - John Denver", "Folsom Prison Blues - Johnny Cash", "Blues em G (diversos)"]
+        songs: ["Take Me Home, Country Roads - John Denver", "Folsom Prison Blues - Johnny Cash", "Hey Jude - The Beatles (parte)", "Sweet Home Chicago - Robert Johnson", "Blues em G (diversos)"]
     },
     E7: {
         name: "E7 (Mi com Sétima)",
         description: "Dominante de A, essencial em blues e rockabilly",
         relatives: ["A", "D", "F#m", "Bm"],
-        position: { angle: 0, distance: 0 }, // Placeholder
+        position: { angle: 0, distance: 0 },
         fingering: [[0,0,1,0,2,0], [0,0,1,0,2,0]],
         progressions: ["A - E7 - A", "D - A - E7 - A"],
         about: "Acorde dominante com sétima menor, resolve bem em A.",
-        songs: ["Blue Suede Shoes - Carl Perkins", "Before You Accuse Me - Eric Clapton", "Blues em A (diversos)"]
+        songs: ["Blue Suede Shoes - Carl Perkins", "Before You Accuse Me - Eric Clapton", "Hey Joe - Jimi Hendrix", "All Shook Up - Elvis Presley", "Blues em A (diversos)"]
     },
     Bm: {
         name: "Bm (Si menor)",
         description: "Relativo menor de D, tom introspectivo",
         relatives: ["D", "G", "Em", "A", "F#m"],
-        position: { angle: 0, distance: 0 }, // Placeholder
+        position: { angle: 0, distance: 0 },
         fingering: [[2,2,4,4,3,2], [1,1,3,4,2,1]],
         progressions: ["Bm - G - D - A", "Bm - A - G - F#"],
         about: "Acorde menor, relativo de D maior.",
-        songs: ["Hotel California - Eagles (refrão)", "Tears in Heaven - Eric Clapton", "Drive - Incubus"]
+        songs: ["Hotel California - Eagles (refrão)", "Tears in Heaven - Eric Clapton", "Drive - Incubus", "While My Guitar Gently Weeps - The Beatles", "Angie - The Rolling Stones"]
     },
     B7: {
         name: "B7 (Si com Sétima)",
         description: "Dominante de E, cria forte tensão",
         relatives: ["E", "A", "C#m", "F#m"],
-        position: { angle: 0, distance: 0 }, // Placeholder
+        position: { angle: 0, distance: 0 },
         fingering: [[2,1,2,0,2,0], [2,1,3,0,4,0]],
         progressions: ["E - B7 - E", "A - E - B7 - E"],
         about: "Acorde dominante com sétima menor, resolve bem em E.",
-        songs: ["La Bamba - Ritchie Valens", "Something - The Beatles", "Blues em E (diversos)"]
+        songs: ["La Bamba - Ritchie Valens", "Something - The Beatles", "Pride and Joy - Stevie Ray Vaughan", "I Shot The Sheriff - Bob Marley", "Blues em E (diversos)"]
     }
     // ... other chords ...
 };
@@ -1423,8 +1529,13 @@ function createChordNode(chord, index, total) {
     const x = Math.cos(radian) * radius;
     const y = Math.sin(radian) * radius;
     
-    node.style.top = `calc(50% - 30px + ${y}px)`;
-    node.style.left = `calc(50% - 30px + ${x}px)`;
+    // Armazenar posições originais como variáveis CSS
+    node.style.setProperty('--x-position', x + 'px');
+    node.style.setProperty('--y-position', y + 'px');
+    
+    // Posicionamento base (será ajustado pelo CSS transform)
+    node.style.top = 'calc(50% - 30px)';
+    node.style.left = 'calc(50% - 30px)';
     
     // Add event listener
     node.addEventListener('click', function() {
@@ -1493,10 +1604,9 @@ function updateChordDisplay(chord) {
 }
 
 function updateChordDiagram(chord) {
-    // Expanded chord shapes with barre information
-    // Format: [fret positions, finger positions, barres (array of {fromString, toString, fret})]
+    // Dados dos shapes dos acordes
     const chordShapes = {
-        'C': [[0,1,0,2,3,0], [0,1,3,2,0,0], []],
+        'C': [[0,1,0,2,3,0], [3,1,0,2,3,0], []],
         'F': [[1,1,2,3,3,1], [1,1,2,3,3,1], [{fromString: 1, toString: 6, fret: 1}]],
         'G': [[3,2,0,0,0,3], [3,2,0,0,0,3], []],
         'Am': [[0,1,2,2,0,0], [0,1,3,2,0,0], []],
@@ -1510,89 +1620,78 @@ function updateChordDiagram(chord) {
         'Bm': [[2,2,4,4,3,2], [1,1,3,4,2,1], [{fromString: 1, toString: 2, fret: 2}]],
         'B7': [[2,1,2,0,2,0], [2,1,3,0,4,0], []]
     };
-    
-    // Se temos dados de dedilhado para este acorde
+    const fretboard = document.getElementById('fretboard');
+    // Limpa o conteúdo do fretboard
+    fretboard.innerHTML = '<div class="chord-fret-labels">\n<div class="fret-label">1</div>\n<div class="fret-label">2</div>\n<div class="fret-label">3</div>\n<div class="fret-label">4</div>\n</div>';
     if (chordShapes[chord]) {
-        // Limpar elementos existentes
-        document.querySelectorAll('.chord-dot, .open-string, .muted-string, .barre-indicator').forEach(el => {
-            el.remove();
-        });
-        
         const frets = chordShapes[chord][0];
         const fingers = chordShapes[chord][1];
         const barres = chordShapes[chord][2];
-        
-        // Encontrar a menor casa pressionada para determinar a posição
-        const pressedFrets = frets.filter(fret => fret > 0);
+        // Encontrar a menor casa pressionada
+        const pressedFrets = frets.filter(f => f > 0);
         const minFret = pressedFrets.length > 0 ? Math.min(...pressedFrets) : 1;
-        
-        // Adicionar indicador de posição
+        // Adiciona indicador de posição se necessário
         if (minFret > 1) {
             const positionIndicator = document.createElement('div');
             positionIndicator.className = 'position-indicator';
             positionIndicator.textContent = minFret + 'ª casa';
-            document.querySelector('.chord-fretboard').appendChild(positionIndicator);
+            fretboard.appendChild(positionIndicator);
         }
-        
-        // Adicionar pontos para cada posição de dedo
-        frets.forEach((fret, stringIndex) => {
-            // Indicadores de estado da corda (aberta ou muda)
-            const stringElement = document.querySelectorAll('.chord-string')[5 - stringIndex];
-            
-            if (fret === 0) {
-                // Indicador de corda aberta
+        // Renderiza as cordas (6 cordas)
+        for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
+            const stringDiv = document.createElement('div');
+            stringDiv.className = 'chord-string';
+            // Renderiza as casas (4 casas)
+            for (let fretIdx = 0; fretIdx < 4; fretIdx++) {
+                const fretDiv = document.createElement('div');
+                fretDiv.className = 'chord-fret';
+                // Se o dedo está nesta casa
+                if (frets[stringIdx] - 1 === fretIdx) {
+                    const dot = document.createElement('div');
+                    dot.className = 'chord-dot';
+                    // Verifica pestana
+                    let isBarre = false;
+                    barres.forEach(barre => {
+                        if (barre.fret === frets[stringIdx] && stringIdx >= barre.fromString - 1 && stringIdx <= barre.toString - 1) {
+                            isBarre = true;
+                            dot.classList.add('barre-dot');
+                       
+                        }
+                    });
+                    if (!isBarre && fingers[stringIdx]) {
+                        dot.textContent = fingers[stringIdx];
+                    }
+                    fretDiv.appendChild(dot);
+                }
+                stringDiv.appendChild(fretDiv);
+            }
+            fretboard.appendChild(stringDiv);
+        }
+        // Indicadores de corda aberta/muda
+        for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
+            if (frets[stringIdx] === 0) {
                 const openIndicator = document.createElement('div');
                 openIndicator.className = 'open-string';
                 openIndicator.textContent = 'o';
-                openIndicator.style.left = `${25 * stringIndex + 12}px`;
-                document.querySelector('.chord-fretboard').appendChild(openIndicator);
-            } else if (fret === -1) {
-                // Indicador de corda muda
+                openIndicator.style.left = `${stringIdx * 33 + 10}px`;
+                fretboard.appendChild(openIndicator);
+            } else if (frets[stringIdx] === -1) {
                 const mutedIndicator = document.createElement('div');
                 mutedIndicator.className = 'muted-string';
                 mutedIndicator.textContent = 'x';
-                mutedIndicator.style.left = `${25 * stringIndex + 12}px`;
-                document.querySelector('.chord-fretboard').appendChild(mutedIndicator);
+                mutedIndicator.style.left = `${stringIdx * 33 + 10}px`;
+                fretboard.appendChild(mutedIndicator);
             }
-            
-            if (fret > 0) {
-                // Criar um novo ponto para a posição do dedo
-                const dot = document.createElement('div');
-                dot.classList.add('chord-dot');
-                
-                // Verificar se este dedo faz parte de uma pestana
-                let isPartOfBarre = false;
-                barres.forEach(barre => {
-                    if (barre.fret === fret && stringIndex >= barre.fromString - 1 && stringIndex <= barre.toString - 1) {
-                        isPartOfBarre = true;
-                        dot.classList.add('barre-dot');
-                    }
-                });
-                
-                if (!isPartOfBarre && fingers[stringIndex]) {
-                    dot.textContent = fingers[stringIndex]; // Número do dedo
-                }
-                
-                // Encontrar a posição correta da casa
-                const fretElement = stringElement.querySelectorAll('.chord-fret')[fret - 1];
-                
-                if (fretElement) {
-                    fretElement.appendChild(dot);
-                }
-            }
-        });
-        
-        // Adicionar indicadores de pestana
+        }
+        // Pestana
         barres.forEach(barre => {
             const barreIndicator = document.createElement('div');
             barreIndicator.className = 'barre-indicator';
-            
-            const width = (barre.toString - barre.fromString) * 25;
+            const width = (barre.toString - barre.fromString + 1) * 33;
             barreIndicator.style.width = width + 'px';
-            barreIndicator.style.left = (barre.fromString - 1) * 25 + 10 + 'px';
+            barreIndicator.style.left = ((barre.fromString - 1) * 33 + 10) + 'px';
             barreIndicator.style.top = ((barre.fret - 1) * 38) + 19 + 'px';
-            
-            document.querySelector('.chord-fretboard').appendChild(barreIndicator);
+            fretboard.appendChild(barreIndicator);
         });
     }
 }
@@ -1646,7 +1745,8 @@ function updateProgressionTags(chord) {
         tag.className = 'progression-tag';
         tag.textContent = progression;
         tag.addEventListener('click', function() {
-            alert(`Esta progressão é muito usada em: rock, pop e baladas acústicas!\n\nTente tocar com ritmo de 4/4 (BAIXO-BAIXO-CIMA-BAIXO-CIMA)`);
+            // Substituir o alert pelo popup
+            showProgressionPopup(progression, chord);
         });
         progressionExamples.appendChild(tag);
     });
@@ -1665,8 +1765,69 @@ function openSongModal(chord) {
                   ? chordInfo.songs
                   : ["Nenhuma música de exemplo encontrada para este acorde."];
 
+    // Categorias com base no tipo do acorde
+    let categories = "Popular | Rock | Folk";
+    if (chord.includes('7')) {
+        categories = "Blues | Rock | Jazz";
+    } else if (chord.includes('m')) {
+        categories = "Rock | Baladas | Folk";
+    }
+    
     modalTitle.textContent = `Músicas Populares com ${chord}`;
-    modalBody.innerHTML = '<ul>' + songs.map(song => `<li>${song}</li>`).join('') + '</ul>';
+    
+    modalBody.innerHTML = `
+        <div class="chord-category-tags" style="margin-bottom: 15px;">
+            <span style="font-size: 0.8rem; color: var(--secondary-color);">Categorias:</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px;">
+                ${categories.split('|').map(cat => 
+                    `<span style="background-color: var(--light-bg); padding: 3px 8px; 
+                    border-radius: 12px; font-size: 0.8rem;">${cat.trim()}</span>`
+                ).join('')}
+            </div>
+        </div>
+
+        <h4 style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); 
+                  padding-bottom: 8px;">
+            Exemplos de Músicas:
+        </h4>
+        
+        <ul style="list-style-type: none; padding: 0;">
+            ${songs.map(song => {
+                // Separar artista da música
+                const parts = song.split(' - ');
+                if (parts.length > 1) {
+                    return `<li style="margin-bottom: 10px; display: flex; align-items: center;">
+                        <i class="fas fa-music" style="margin-right: 10px; color: var(--accent-color);"></i>
+                        <div>
+                            <strong>${parts[0]}</strong>
+                            <div style="font-size: 0.85rem; color: var(--secondary-color);">${parts[1]}</div>
+                        </div>
+                    </li>`;
+                }
+                return `<li style="margin-bottom: 8px; display: flex; align-items: center;">
+                    <i class="fas fa-music" style="margin-right: 10px; color: var(--accent-color);"></i>
+                    ${song}
+                </li>`;
+            }).join('')}
+        </ul>
+        
+        <div style="margin-top: 15px; text-align: center, font-size: 0.9rem;">
+            <button id="playModalChord" class="action-btn" style="padding: 8px 15px; margin: 0 auto;">
+                <i class="fas fa-play"></i> Ouvir o Acorde ${chord}
+            </button>
+        </div>
+    `;
+    
+    // Adiciona evento para tocar o acorde a partir do modal
+    setTimeout(() => {
+        const playModalChordBtn = document.getElementById('playModalChord');
+        if (playModalChordBtn) {
+            playModalChordBtn.addEventListener('click', () => {
+                playChord(chord);
+            });
+        }
+    }, 100);
+    
     songModal.classList.add('visible');
 }
 
@@ -1683,6 +1844,89 @@ modalOverlay.addEventListener('click', function(event) {
     }
 });
 // --- End Modal Functions ---
+
+// --- Popup Functions for Progressions ---
+const progressionPopup = document.getElementById('progressionPopup');
+const progressionPopupTitle = document.getElementById('popupTitle');
+const progressionPopupText = document.getElementById('popupText');
+const progressionPopupChordsContainer = document.querySelector('#progressionPopup .progression-chords-popup');
+const progressionPopupCloseBtn = document.getElementById('popupCloseBtn');
+const playPopupProgressionBtn = document.getElementById('playPopupProgressionBtn');
+
+// Variável para armazenar o handler do botão de tocar, para poder removê-lo depois
+let currentPlayPopupHandler = null;
+
+function showProgressionPopup(progression, chord) {
+    if (!progressionPopup || !progressionPopupTitle || !progressionPopupText || !progressionPopupChordsContainer || !playPopupProgressionBtn) {
+        console.error("Elementos do popup de progressão não encontrados.");
+        return;
+    }
+
+    // Configurar o conteúdo
+    progressionPopupTitle.textContent = `Progressão: ${progression}`;
+    progressionPopupText.innerHTML = `Esta progressão é muito usada em: <strong>rock</strong>, <strong>pop</strong> e <strong>baladas acústicas</strong>!<br><br>
+                          Tente tocar com ritmo de 4/4 (<strong>BAIXO-BAIXO-CIMA-BAIXO-CIMA</strong>)`;
+    
+    // Configurar os acordes da progressão como pílulas
+    progressionPopupChordsContainer.innerHTML = '';
+    const chords = progression.split(' - ');
+    
+    chords.forEach((chordName, index) => {
+        // Adicionar pílula de acorde
+        const pill = document.createElement('div');
+        pill.className = 'chord-pill';
+        pill.textContent = chordName;
+        progressionPopupChordsContainer.appendChild(pill);
+        
+        // Adicionar seta entre acordes, exceto após o último
+        if (index < chords.length - 1) {
+            const arrow = document.createElement('div');
+            arrow.className = 'chord-arrow';
+            arrow.innerHTML = '<i class="fas fa-arrow-right"></i>';
+            progressionPopupChordsContainer.appendChild(arrow);
+        }
+    });
+    
+    // Configurar botão para tocar a progressão (sem clonar)
+    // 1. Remover o listener anterior, se existir
+    if (currentPlayPopupHandler) {
+        playPopupProgressionBtn.removeEventListener('click', currentPlayPopupHandler);
+    }
+    // 2. Criar o novo handler
+    currentPlayPopupHandler = () => {
+        playProgression(progression);
+    };
+    // 3. Adicionar o novo listener
+    playPopupProgressionBtn.addEventListener('click', currentPlayPopupHandler);
+    
+    // Mostrar o popup
+    progressionPopup.classList.add('visible');
+}
+
+function closeProgressionPopup() {
+    if (progressionPopup) {
+        progressionPopup.classList.remove('visible');
+    }
+    // Opcional: Remover o listener do botão de play ao fechar para limpar
+    if (currentPlayPopupHandler && playPopupProgressionBtn) {
+        playPopupProgressionBtn.removeEventListener('click', currentPlayPopupHandler);
+        currentPlayPopupHandler = null;
+    }
+}
+
+// Adicionar event listeners para o popup de progressão (fora do DOMContentLoaded para usar variáveis globais)
+if (progressionPopupCloseBtn) {
+    progressionPopupCloseBtn.addEventListener('click', closeProgressionPopup);
+}
+if (progressionPopup) {
+    progressionPopup.addEventListener('click', function(event) {
+        // Fecha apenas se clicar no fundo (overlay), não no conteúdo
+        if (event.target === progressionPopup) {
+            closeProgressionPopup();
+        }
+    });
+}
+// --- End Popup Functions ---
 
 
 // Inicialização
@@ -1702,6 +1946,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.tonality-btn').forEach(button => {
         button.addEventListener('click', function() {
             // Update active state
+
             document.querySelectorAll('.tonality-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
@@ -1733,13 +1978,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Set up play progression button
-    const playProgressionBtn = document.getElementById('playProgressionBtn');
-    if (playProgressionBtn) {
-        playProgressionBtn.addEventListener('click', function() {
-            const progression = document.querySelector('.progression-tag');
-            if (progression) {
-                playProgression(progression.textContent);
+    // Set up play progression button (initial one below diagram)
+    const playProgressionBtnInitial = document.getElementById('playProgressionBtn'); // Renomeado para evitar conflito
+    if (playProgressionBtnInitial) {
+        playProgressionBtnInitial.addEventListener('click', function() {
+            // Pega a primeira progressão como exemplo para tocar
+            const firstProgressionTag = document.querySelector('.progression-tag');
+            if (firstProgressionTag) {
+                playProgression(firstProgressionTag.textContent);
             }
         });
     }
