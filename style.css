@@ -1488,3 +1488,120 @@ body.dark-mode .no-favorites-icon {
         padding: 5px 10px;
     }
 }
+
+/* === MODAL DE NOTIFICAÇÃO DE PRODUTOS === */
+.modal-overlay {
+    display: none; /* Escondido por padrão */
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo mais escuro */
+}
+
+.modal-content.product-notification {
+    max-width: 500px; /* Largura máxima */
+    background: linear-gradient(135deg, #ffffff, #f8f5f2);
+    border-radius: var(--radius-large);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeInScale 0.4s ease-out; /* Animação de entrada */
+}
+
+.product-notification .modal-header {
+    background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-top-left-radius: var(--radius-large);
+    border-top-right-radius: var(--radius-large);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-notification .modal-header h3 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+}
+
+.product-notification .modal-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.product-notification .modal-close:hover {
+    color: white;
+}
+
+.product-notification .modal-body {
+    padding: var(--spacing-lg);
+    color: var(--text-dark);
+}
+
+.product-notification .modal-body p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.7;
+}
+
+.product-notification .modal-body strong {
+    color: var(--primary-color);
+}
+
+.product-notification .modal-body ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-lg) 0;
+}
+
+.product-notification .modal-body ul li {
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    color: var(--text-medium);
+}
+
+.product-notification .modal-body ul li i {
+    color: var(--accent-color);
+    margin-right: var(--spacing-sm);
+    width: 20px; /* Alinhar ícones */
+    text-align: center;
+}
+
+.product-notification .modal-footer.notification-footer {
+    padding: var(--spacing-lg);
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom-left-radius: var(--radius-large);
+    border-bottom-right-radius: var(--radius-large);
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center; /* Centralizar botões */
+}
+
+/* Animação para o modal */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsividade para o modal */
+@media (max-width: 600px) {
+    .modal-content.product-notification {
+        max-width: 90%;
+        margin: var(--spacing-md);
+    }
+    .product-notification .modal-footer.notification-footer {
+        flex-direction: column;
+    }
+    .product-notification .modal-footer.notification-footer .btn {
+        width: 100%;
+    }
+}

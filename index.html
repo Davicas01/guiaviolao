@@ -1460,6 +1460,30 @@
         </div>
     </div>
 
+    <!-- Modal de Notificação de Produtos -->
+    <div class="modal-overlay" id="productNotificationModal">
+        <div class="modal-content product-notification">
+            <div class="modal-header">
+                <h3>🚀 Turbine Seu Aprendizado!</h3>
+                <button class="modal-close" id="closeProductNotification">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Explore nossos <strong>Produtos Premium</strong> e <strong>Ferramentas Essenciais</strong> para acelerar sua jornada no violão!</p>
+                <ul>
+                    <li><i class="fas fa-star"></i> Treino Personalizado IA</li>
+                    <li><i class="fas fa-robot"></i> Assistente virtual</li>
+                    <li><i class="fas fa-calendar-check"></i> Desafios guiados</li>
+                    <li><i class="fas fa-toolbox"></i> Kits de acordes, ritmos e técnicas</li>
+                </ul>
+                <p>Invista em você e toque suas músicas favoritas mais rápido!</p>
+            </div>
+            <div class="modal-footer notification-footer">
+                <a href="#produtos" class="btn btn-primary" id="goToPremium">Ver Produtos Premium</a>
+                <a href="#produtos-essenciais" class="btn btn-secondary" id="goToEssentials">Ver Ferramentas Essenciais</a>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script src="violao-nav.js"></script>
     <script>
@@ -1886,6 +1910,27 @@
                 if (e.key === 'Enter') {
                     e.preventDefault(); // Impedir submissão padrão do formulário (se houver)
                     submitAccessCode.click(); // Simular clique no botão de submissão
+                }
+            });
+        });
+
+        // Funcionalidade para o modal de notificação de produtos
+        document.addEventListener('DOMContentLoaded', function() {
+            const productNotificationModal = document.getElementById('productNotificationModal');
+            const closeProductNotification = document.getElementById('closeProductNotification');
+
+            // Mostrar modal de notificação após 2 segundos
+            setTimeout(() => {
+                productNotificationModal.style.display = 'flex';
+            }, 2000);
+
+            // Fechar modal de notificação
+            closeProductNotification.addEventListener('click', function() {
+                productNotificationModal.style.display = 'none';
+            });
+            window.addEventListener('click', function(e) {
+                if (e.target === productNotificationModal) {
+                    productNotificationModal.style.display = 'none';
                 }
             });
         });

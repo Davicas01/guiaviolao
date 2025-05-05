@@ -346,6 +346,55 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // === MODAL DE NOTIFICAÇÃO DE PRODUTOS ===
+    document.addEventListener('DOMContentLoaded', function() {
+        const productNotificationModal = document.getElementById('productNotificationModal');
+        const closeProductNotification = document.getElementById('closeProductNotification');
+        const goToPremiumBtn = document.getElementById('goToPremium');
+        const goToEssentialsBtn = document.getElementById('goToEssentials');
+
+        // Verificar se o modal já foi mostrado nesta sessão
+        const notificationShown = sessionStorage.getItem('productNotificationShown');
+
+        // Mostrar o modal após um pequeno atraso (ex: 2 segundos) se ainda não foi mostrado
+        if (!notificationShown && productNotificationModal) {
+            setTimeout(() => {
+                productNotificationModal.style.display = 'flex';
+                // Marcar como mostrado para esta sessão
+                sessionStorage.setItem('productNotificationShown', 'true');
+            }, 2000); // Atraso de 2000ms (2 segundos)
+        }
+
+        // Função para fechar o modal
+        function closeNotificationModal() {
+            if (productNotificationModal) {
+                productNotificationModal.style.display = 'none';
+            }
+        }
+
+        // Event listener para o botão de fechar
+        if (closeProductNotification) {
+            closeProductNotification.addEventListener('click', closeNotificationModal);
+        }
+
+        // Event listener para fechar ao clicar fora do modal
+        if (productNotificationModal) {
+            productNotificationModal.addEventListener('click', function(event) {
+                if (event.target === productNotificationModal) {
+                    closeNotificationModal();
+                }
+            });
+        }
+
+        // Event listeners para os botões de link (fecham o modal ao clicar)
+        if (goToPremiumBtn) {
+            goToPremiumBtn.addEventListener('click', closeNotificationModal);
+        }
+        if (goToEssentialsBtn) {
+            goToEssentialsBtn.addEventListener('click', closeNotificationModal);
+        }
+    });
+
     // === INICIALIZAÇÃO ===
     
     // Carregar favoritos
