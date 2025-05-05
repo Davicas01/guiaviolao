@@ -311,41 +311,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('PWA instalado com sucesso');
     });
     
-    // === MODO ESCURO ===
-    
-    // Verificar preferência do usuário
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Verificar configuração salva
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-        document.body.classList.add('dark-mode');
-    }
-    
-    // Adicionar toggle de tema no footer
-    const footer = document.querySelector('footer .container');
-    if (footer) {
-        const themeToggle = document.createElement('button');
-        themeToggle.classList.add('theme-toggle', 'btn', 'text-btn');
-        themeToggle.innerHTML = document.body.classList.contains('dark-mode') 
-            ? '<i class="fas fa-sun"></i> Modo claro' 
-            : '<i class="fas fa-moon"></i> Modo escuro';
-        footer.appendChild(themeToggle);
-        
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            
-            // Atualizar texto do botão
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo claro';
-            } else {
-                localStorage.setItem('theme', 'light');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Modo escuro';
-            }
-        });
-    }
-    
     // === MODAL DE NOTIFICAÇÃO DE PRODUTOS ===
     document.addEventListener('DOMContentLoaded', function() {
         const productNotificationModal = document.getElementById('productNotificationModal');
