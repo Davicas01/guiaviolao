@@ -622,6 +622,7 @@ footer {
 
 /* Adicionando melhorias de responsividade para telas de celular */
 @media (max-width: 576px) {
+    html, /* Add html selector */
     body {
         overflow-x: hidden; /* Remove a barra de rolagem horizontal */
     }
@@ -677,5 +678,9 @@ footer {
     .modal-content {
         width: 90%; /* Ajusta a largura do modal para telas pequenas */
         margin: 0.5rem auto;
+    }
+
+    #list-view {
+        overflow-x: auto; /* Permite rolagem horizontal apenas na tabela, se necessário */
     }
 }

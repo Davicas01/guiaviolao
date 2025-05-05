@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini-curso "Destravando os Dedos" - Kit Violão Profissional</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -739,6 +739,45 @@
             
             .next-prev-nav {
                 flex-direction: column;
+            }
+
+            .module-footer {
+                flex-direction: column;
+                align-items: flex-start; /* Align items to the start */
+                gap: 1rem; /* Add some space between stacked items */
+            }
+
+            .view-module-btn {
+                align-self: flex-end; /* Move button to the right */
+            }
+
+            .tracker-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+
+            .overall-progress {
+                width: 100%; /* Make progress take full width */
+            }
+
+            .overall-progress .progress-bar {
+                width: 100%; /* Make bar take full width */
+                flex-grow: 1; /* Allow bar to grow */
+                margin-right: 0.5rem;
+            }
+
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .modal-close {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
             }
         }
     </style>
