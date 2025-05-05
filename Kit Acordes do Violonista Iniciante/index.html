@@ -1792,8 +1792,10 @@
             
             // Criar envelope de amplitude para simular decaimento da corda
             const gainNode = audioContext.createGain();
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 3);
+            // Aumentar o ganho inicial para 0.5
+            gainNode.gain.setValueAtTime(0.5, audioContext.currentTime); 
+            // Ajustar o decaimento para ser um pouco mais rápido
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 2.5); 
             
             // Conectar os nós de áudio
             oscillator.connect(gainNode);
@@ -1801,17 +1803,19 @@
             
             // Tocar o som
             oscillator.start();
-            oscillator.stop(audioContext.currentTime + 3); // Tocar por 3 segundos
+            // Ajustar o tempo de parada
+            oscillator.stop(audioContext.currentTime + 2.5); 
             
             // Efeito visual no botão
             const button = document.querySelector(`button[onclick="playStringSound('${string}')"]`);
             button.classList.add('playing');
             button.innerHTML = '<i class="fas fa-volume-up"></i>';
             
+            // Ajustar o tempo do timeout
             setTimeout(() => {
                 button.classList.remove('playing');
                 button.innerHTML = '<i class="fas fa-play"></i>';
-            }, 3000);
+            }, 2500); 
         }
         
         // Iniciar timer para exercício

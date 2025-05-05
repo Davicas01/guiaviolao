@@ -1413,19 +1413,22 @@ const metronome = {
     },
     
     loadSounds() {
-        // Carregar som de corda de violão para tempo forte
-        this.createGuitarSound('high', 330); // Mi (E4)
-        // Carregar som para tempo fraco
-        this.createGuitarSound('low', 196); // Sol (G3)
+        // Carregar som de corda de violão para tempo forte (Accent)
+        // Usando E4 (Mi agudo) - 329.63 Hz
+        this.createGuitarSound('high', 329.63);
+        // Carregar som para tempo fraco (Regular beat)
+        // Usando A3 (Lá) - 220.00 Hz
+        this.createGuitarSound('low', 220.00);
     },
     
     createGuitarSound(type, frequency) {
-        const buffer = this.audioContext.createBuffer(1, this.audioContext.sampleRate * 0.2, this.audioContext.sampleRate);
+        const buffer = this.audioContext.createBuffer(1, this.audioContext.sampleRate * 0.3, this.audioContext.sampleRate); // Increased duration slightly to 0.3s
         const data = buffer.getChannelData(0);
         
         // Parâmetros que fazem o som parecer com cordas de violão
-        const decay = type === 'high' ? 0.9995 : 0.9993; // Decaimento mais lento para som mais natural
-        const attackTime = type === 'high' ? 0.002 : 0.003; // Ataque mais rápido para som agudo
+        // Adjusted decay for a slightly longer, more natural sound
+        const decay = type === 'high' ? 0.9996 : 0.9994;
+        const attackTime = type === 'high' ? 0.002 : 0.003;
         
         // Gerar uma forma de onda que simula uma corda de violão
         for (let i = 0; i < buffer.length; i++) {
@@ -1435,9 +1438,10 @@ const metronome = {
                 
             // Componentes harmônicos da corda de violão
             const fundamental = Math.sin(2 * Math.PI * frequency * i / this.audioContext.sampleRate);
-            const harmonic1 = 0.5 * Math.sin(2 * Math.PI * frequency * 2 * i / this.audioContext.sampleRate); // Oitava
-            const harmonic2 = 0.3 * Math.sin(2 * Math.PI * frequency * 3 * i / this.audioContext.sampleRate); // Quinta
-            const harmonic3 = 0.1 * Math.sin(2 * Math.PI * frequency * 4 * i / this.audioContext.sampleRate); // Oitava alta
+            // Increased amplitude of the first harmonic
+            const harmonic1 = 0.6 * Math.sin(2 * Math.PI * frequency * 2 * i / this.audioContext.sampleRate); 
+            const harmonic2 = 0.3 * Math.sin(2 * Math.PI * frequency * 3 * i / this.audioContext.sampleRate);
+            const harmonic3 = 0.1 * Math.sin(2 * Math.PI * frequency * 4 * i / this.audioContext.sampleRate);
             
             // Combinar os harmônicos
             const sum = fundamental + harmonic1 + harmonic2 + harmonic3;
@@ -1466,7 +1470,7 @@ const metronome = {
         gainNode.connect(this.audioContext.destination);
         
         // Volume um pouco mais alto para o tempo forte
-        gainNode.gain.value = isAccent ? 0.7 : 0.5;
+        gainNode.gain.value = isAccent ? 0.6 : 0.4;
         
         source.start();
     },

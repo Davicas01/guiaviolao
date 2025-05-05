@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plano PRO de Treinamento Personalizado com IA</title>
+    <title>Treino Personalizado IA</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -36,6 +36,7 @@
             background-color: var(--light-bg);
             line-height: 1.6;
             font-size: 16px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         .container {
@@ -330,6 +331,9 @@
             display: flex;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 1.5rem;
+            overflow-x: auto; /* Allow horizontal scrolling for tabs on small screens */
+            padding-bottom: 5px; /* Add some space below scrollbar if it appears */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
 
         .tab {
@@ -339,6 +343,7 @@
             font-weight: 600;
             color: var(--dark-color);
             transition: var(--transition);
+            white-space: nowrap; /* Prevent tab text from wrapping */
         }
 
         .tab.active {
@@ -389,6 +394,85 @@
             font-size: 0.9rem;
         }
 
+        /* Styles for Timer Modal */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: auto;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            width: 80%;
+            max-width: 400px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        #timer-display {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin: 1.5rem 0;
+        }
+
+        .timer-controls button {
+            margin: 0 0.5rem;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Styles for Details Modal */
+        #details-modal .modal-content {
+            max-width: 500px; /* Slightly wider for details */
+            text-align: left;
+        }
+
+        #details-modal-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        #details-modal-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--dark-color);
+        }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 1.8rem;
@@ -408,6 +492,47 @@
             .checkbox-group {
                 grid-template-columns: 1fr;
             }
+            .container {
+                padding: 1rem; /* Reduce padding on smaller screens */
+            }
+            .modal-content {
+                width: 90%; /* Increase width slightly for smaller screens */
+            }
+            .home-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .home-btn i {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) { /* Add breakpoint for very small screens */
+            header h1 {
+                font-size: 1.6rem;
+            }
+            header p {
+                font-size: 0.9rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            .btn-lg {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+            #timer-display {
+                font-size: 2.5rem;
+            }
+            .tab {
+                padding: 0.6rem 1rem; /* Reduce tab padding */
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -415,7 +540,7 @@
 
     <header>
         <div class="container">
-            <h1><i class="fas fa-guitar"></i> Plano PRO Personalizado com IA</h1>
+            <h1><i class="fas fa-guitar"></i> Treino Personalizado IA</h1>
             <p>Seu treinamento adaptativo para dominar o violão</p>
         </div>
     </header>
@@ -590,6 +715,7 @@
             <div class="tabs">
                 <div class="tab active" data-tab="today">Plano de Hoje</div>
                 <div class="tab" data-tab="week">Plano Semanal</div>
+                <div class="tab" data-tab="month">Plano Mensal</div> <!-- Nova Aba -->
                 <div class="tab" data-tab="progress">Meu Progresso</div>
                 <div class="tab" data-tab="resources">Recursos</div>
             </div>
@@ -611,10 +737,21 @@
             <!-- Tab Content: Weekly Plan -->
             <div class="tab-content hidden" id="tab-week">
                 <div class="card">
-                    <h3><i class="fas fa-calendar-week"></i> Plano Semanal</h3>
-                    <p class="weekly-intro">Seu progresso será otimizado seguindo este plano semanal personalizado.</p>
+                    <h3><i class="fas fa-calendar-week"></i> Plano Semanal Detalhado</h3>
+                    <p class="weekly-intro">Foco da semana: <strong id="weekly-focus">Carregando...</strong></p> <!-- Added ID -->
                     <div id="weekly-plan-container">
-                        <!-- Weekly plan content will be loaded here -->
+                        <p>Carregando plano semanal...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Monthly Plan (NOVO) -->
+            <div class="tab-content hidden" id="tab-month">
+                <div class="card">
+                    <h3><i class="fas fa-calendar-alt"></i> Plano Mensal</h3>
+                    <p>Visão geral dos seus objetivos e marcos para as próximas 4 semanas.</p>
+                    <div id="monthly-plan-container">
+                        <p>Carregando plano mensal...</p>
                     </div>
                 </div>
             </div>
@@ -643,34 +780,7 @@
                 <div class="card">
                     <h3>Habilidades Desenvolvidas</h3>
                     <div id="skills-progress">
-                        <div class="skill-progress">
-                            <div class="progress-label">
-                                <strong>Acordes Básicos</strong>
-                                <span>0%</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-progress">
-                            <div class="progress-label">
-                                <strong>Ritmos (Batidas)</strong>
-                                <span>0%</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-progress">
-                            <div class="progress-label">
-                                <strong>Transição de Acordes</strong>
-                                <span>0%</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <!-- More skills will be added dynamically based on level -->
+                        <!-- Skills progress bars will be loaded here -->
                     </div>
                 </div>
                 
@@ -681,53 +791,64 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Tab Content: Resources -->
             <div class="tab-content hidden" id="tab-resources">
                 <div class="card">
-                    <h3><i class="fas fa-book-open"></i> Recursos Personalizados</h3>
-                    <p class="resources-intro">Materiais selecionados com base no seu nível e objetivos.</p>
+                    <h3><i class="fas fa-book-open"></i> Recursos Recomendados</h3>
                     
-                    <h4>Vídeo-aulas Recomendadas</h4>
+                    <h4>Vídeos e Tutoriais</h4>
                     <div id="video-resources">
-                        <p>Carregando recursos...</p>
+                        <p>Recursos de vídeo serão personalizados conforme você progride.</p>
                     </div>
-                    
-                    <h4>Músicas Sugeridas para o seu Nível</h4>
+
+                    <h4>Músicas Sugeridas</h4>
                     <div id="song-resources">
-                        <p>Carregando sugestões de músicas...</p>
+                        <p>Músicas sugeridas aparecerão aqui conforme você avança.</p>
                     </div>
-                    
+
                     <h4>Exercícios Técnicos</h4>
                     <div id="exercise-resources">
-                        <p>Carregando exercícios...</p>
+                        <p>Exercícios técnicos serão recomendados com base no seu progresso.</p>
                     </div>
                 </div>
             </div>
             
-            <div class="card feedback-card">
-                <h3><i class="fas fa-sliders-h"></i> Ajustes do Plano</h3>
-                <p>Como está sendo sua experiência com este plano?</p>
-                <div class="feedback-options">
-                    <button class="btn btn-sm" id="too-easy-btn">Muito Fácil</button>
-                    <button class="btn btn-sm" id="good-btn">Está Bom</button>
-                    <button class="btn btn-sm" id="too-hard-btn">Muito Difícil</button>
-                </div>
-                <p><small>Seu feedback nos ajuda a ajustar seu plano para melhor atender suas necessidades.</small></p>
+            <!-- Botão para refazer a avaliação -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn" id="reset-assessment-btn"><i class="fas fa-redo"></i> Refazer Avaliação</button>
             </div>
         </section>
 
     </main>
 
-    <footer>
-        <div class="container">
-            &copy; 2024 Kit Violão Profissional - Todos os direitos reservados.
+    <!-- Timer Modal -->
+    <div id="timer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-timer-modal">&times;</span>
+            <h3><i class="fas fa-clock"></i> Sessão de Prática</h3>
+            <div id="timer-display">00:00</div>
+            <div class="timer-controls">
+                <button class="btn btn-sm" id="pause-timer-btn"><i class="fas fa-pause"></i> Pausar</button>
+                <button class="btn btn-sm" id="reset-timer-btn"><i class="fas fa-redo"></i> Reiniciar</button>
+            </div>
         </div>
-    </footer>
+    </div>
 
-    <button class="home-btn" onclick="showSection('assessment-section')">
+    <!-- Exercise Details Modal -->
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-details-modal">&times;</span>
+            <h3 id="details-modal-title">Detalhes do Exercício</h3>
+            <div id="details-modal-content">
+                <p>Carregando detalhes...</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="../index.html" class="home-btn" title="Voltar à Tela Inicial do Aplicativo">
         <i class="fas fa-home"></i>
-    </button>
+    </a>
 
     <script>
         const assessmentSection = document.getElementById('assessment-section');
@@ -740,9 +861,26 @@
         const userName = document.getElementById('user-name');
         const exercisesContainer = document.getElementById('exercises-container');
         const weeklyPlanContainer = document.getElementById('weekly-plan-container');
+        const weeklyFocusElement = document.getElementById('weekly-focus'); // Added for weekly focus
+        const monthlyPlanContainer = document.getElementById('monthly-plan-container'); // Added for monthly plan
         const nextGoals = document.getElementById('next-goals');
         const practiceTime = document.getElementById('practice-time');
         const todayDate = document.getElementById('today-date');
+        const timerModal = document.getElementById('timer-modal');
+        const closeTimerModalBtn = document.getElementById('close-timer-modal');
+        const timerDisplay = document.getElementById('timer-display');
+        const startSessionBtn = document.getElementById('start-session-btn');
+        const pauseTimerBtn = document.getElementById('pause-timer-btn');
+        const resetTimerBtn = document.getElementById('reset-timer-btn');
+        const detailsModal = document.getElementById('details-modal');
+        const closeDetailsModalBtn = document.getElementById('close-details-modal');
+        const detailsModalTitle = document.getElementById('details-modal-title');
+        const detailsModalContent = document.getElementById('details-modal-content');
+
+        let timerInterval = null;
+        let totalSeconds = 0;
+        let remainingSeconds = 0;
+        let isPaused = false;
 
         // --- Utility Functions ---
         function showSection(sectionId) {
@@ -790,6 +928,54 @@
             document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
         }
 
+        // Format seconds into MM:SS
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        // --- Timer Functions ---
+        function startTimer(durationMinutes) {
+            totalSeconds = durationMinutes * 60;
+            remainingSeconds = totalSeconds;
+            isPaused = false;
+            pauseTimerBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+            updateTimerDisplay();
+            clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                if (!isPaused && remainingSeconds > 0) {
+                    remainingSeconds--;
+                    updateTimerDisplay();
+                } else if (remainingSeconds === 0) {
+                    clearInterval(timerInterval);
+                    alert("Sessão de prática concluída!");
+                    // Optionally close modal or give other feedback
+                    timerModal.style.display = 'none'; 
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            isPaused = !isPaused;
+            pauseTimerBtn.innerHTML = isPaused ? '<i class="fas fa-play"></i> Retomar' : '<i class="fas fa-pause"></i> Pausar';
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            remainingSeconds = totalSeconds;
+            isPaused = false;
+            pauseTimerBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+            updateTimerDisplay();
+            // Restart the timer immediately after reset
+            startTimer(totalSeconds / 60);
+        }
+
+        function updateTimerDisplay() {
+            timerDisplay.textContent = formatTime(remainingSeconds);
+        }
+
         // --- "AI" Simulation Aprimorado ---
         function generatePlan(userData) {
             console.log("Generating plan for:", userData);
@@ -798,7 +984,8 @@
             let plan = {
                 today: [],
                 weekly: [],
-                focus: "",
+                monthly: [], // Novo campo para plano mensal
+                weeklyFocus: "", // Renomeado de 'focus' para clareza
                 suggestions: [],
                 progress: 10, // Progresso inicial
                 skills: [], // Habilidades para desenvolver
@@ -810,13 +997,15 @@
 
             // Inicialização dos dias da semana
             const weekdays = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
-            
+            const dailyTime = Math.max(15, Math.floor(userData.time / 2)); // Tempo base por dia
+            const weekendTime = Math.max(20, Math.floor(userData.time * 0.75)); // Tempo para fim de semana
+
             // Aquecimento básico para todos os níveis
             plan.today.push({ 
                 id: 'warmup1', 
                 title: "Aquecimento de Dedos", 
-                description: "Exercício 1-2-3-4 em todas as cordas (5 min)", 
-                type: "warmup", 
+                description: "Exercício 1-2-3-4 em todas as cordas", 
+                duration_minutes: 5, // Added duration
                 completed: false,
                 details: "Posicione os dedos 1, 2, 3 e 4 em sequência nas casas da mesma corda, mantendo os dedos pressionados. Faça o exercício em todas as cordas subindo e descendo."
             });
@@ -828,30 +1017,30 @@
                     plan.today.push({ 
                         id: 'ex1', 
                         title: "Postura e Pegada", 
-                        description: "Revisar postura correta e como segurar o violão (5 min)", 
-                        type: "technique", 
+                        description: "Revisar postura correta e como segurar o violão", // Removed time from description
+                        duration_minutes: 5, // Added duration
                         completed: false,
                         details: "Sente-se em uma cadeira sem braços, mantenha as costas retas. O violão deve descansar na perna direita (para destros) e o braço deve estar em um ângulo confortável."
                     });
                     plan.today.push({ 
                         id: 'ex2', 
                         title: "Acorde Em", 
-                        description: "Aprender e praticar o acorde Em (10 min)", 
-                        type: "chords", 
+                        description: "Aprender e praticar o acorde Em", // Removed time from description
+                        duration_minutes: 10, // Added duration
                         completed: false,
                         details: "O Em é um dos acordes mais simples. Posicione o dedo 2 na 2ª casa da 5ª corda e o dedo 3 na 2ª casa da 4ª corda. Toque todas as cordas e ouça o som."
                     });
                     plan.today.push({ 
                         id: 'ex3', 
                         title: "Conhecendo o Violão", 
-                        description: "Aprender os nomes das cordas e partes do violão (5 min)", 
-                        type: "theory", 
+                        description: "Aprender os nomes das cordas e partes do violão", // Removed time from description
+                        duration_minutes: 5, // Added duration
                         completed: false,
                         details: "As cordas do violão se chamam, de cima para baixo: Mi (1ª), Si (2ª), Sol (3ª), Ré (4ª), Lá (5ª) e Mi (6ª). Familiarize-se com as partes: corpo, braço, trastes, cabeça."
                     });
                     
                     // Foco da semana
-                    plan.focus = "Familiarização com o instrumento e primeiros acordes";
+                    plan.weeklyFocus = "Familiarização com o instrumento e primeiros acordes";
                     
                     // Progresso
                     plan.progress = 5;
@@ -874,15 +1063,23 @@
                         "Aprender a tocar uma melodia simples"
                     ];
                     
-                    // Plano semanal
+                    // Plano semanal DETALHADO
                     plan.weekly = [
-                        {day: "Segunda", focus: "Postura e acorde Em", time: "15 min"},
-                        {day: "Terça", focus: "Repita os exercícios de segunda", time: "15 min"},
-                        {day: "Quarta", focus: "Introdução ao acorde Am", time: "15 min"},
-                        {day: "Quinta", focus: "Transição entre Em e Am", time: "15 min"},
-                        {day: "Sexta", focus: "Revisão dos acordes aprendidos", time: "15 min"},
-                        {day: "Sábado", focus: "Experimente tocar Asa Branca", time: "20 min"},
-                        {day: "Domingo", focus: "Descanso ou prática livre", time: "optativo"}
+                        {day: "Segunda", focus: "Postura e acorde Em", time: `${dailyTime} min`},
+                        {day: "Terça", focus: "Repetir exercícios de segunda + Cordas Soltas", time: `${dailyTime} min`},
+                        {day: "Quarta", focus: "Introdução ao acorde Am", time: `${dailyTime} min`},
+                        {day: "Quinta", focus: "Transição lenta entre Em e Am", time: `${dailyTime} min`},
+                        {day: "Sexta", focus: "Revisão dos acordes e postura", time: `${dailyTime} min`},
+                        {day: "Sábado", focus: "Tentar tocar ritmo simples em Em e Am", time: `${weekendTime} min`},
+                        {day: "Domingo", focus: "Descanso ou prática livre (revisar nomes das cordas)", time: "optativo"}
+                    ];
+
+                    // Plano Mensal (Exemplo)
+                    plan.monthly = [
+                        { week: "Semana 1", focus: "Fundamentos: Postura, Acordes Em/Am", goal: "Tocar Em e Am com som limpo" },
+                        { week: "Semana 2", focus: "Novos Acordes: C e G", goal: "Aprender C e G e iniciar transições" },
+                        { week: "Semana 3", focus: "Transições e Ritmo Básico", goal: "Trocar entre 4 acordes e fazer 1 ritmo" },
+                        { week: "Semana 4", focus: "Primeira Música Simples", goal: "Tocar uma música de 2-3 acordes" }
                     ];
                     break;
 
@@ -891,30 +1088,30 @@
                     plan.today.push({ 
                         id: 'ex1', 
                         title: "Transição C → G → D", 
-                        description: `Praticar a troca entre C, G e D (${Math.max(10, Math.floor(userData.time / 3))} min)`, 
-                        type: "chords", 
+                        description: "Praticar a troca entre C, G e D", // Removed time from description
+                        duration_minutes: Math.max(10, Math.floor(userData.time / 3)), // Added duration
                         completed: false,
                         details: "Pratique a troca entre esses acordes. Primeiro lentamente, garantindo que todos os dedos estejam na posição correta e todas as notas soem limpas. Gradualmente aumente o tempo."
                     });
                     plan.today.push({ 
                         id: 'ex2', 
                         title: "Ritmo Básico (Pop/MPB)", 
-                        description: `Praticar batida ↓↓↑↑↓↑ (${Math.max(10, Math.floor(userData.time / 3))} min)`, 
-                        type: "rhythm", 
+                        description: "Praticar batida ↓↓↑↑↓↑", // Removed time from description
+                        duration_minutes: Math.max(10, Math.floor(userData.time / 3)), // Added duration
                         completed: false,
                         details: "Com o acorde C, pratique a batida: baixo (↓), baixo (↓), cima (↑), cima (↑), baixo (↓), cima (↑). Use somente o dedão para os baixos e todos os dedos para as batidas para cima."
                     });
                     plan.today.push({ 
                         id: 'ex3', 
                         title: "Música Simples", 
-                        description: `Tocar 'Pra Não Dizer Que Não Falei das Flores' (${Math.max(10, Math.floor(userData.time / 3))} min)`, 
-                        type: "song", 
+                        description: "Tocar 'Pra Não Dizer Que Não Falei das Flores'", // Removed time from description
+                        duration_minutes: Math.max(10, Math.floor(userData.time / 3)), // Added duration
                         completed: false,
                         details: "Esta música usa basicamente G, C e D. Perfeita para praticar a transição entre acordes com um ritmo simples. Acompanhe com a música para trabalhar o tempo."
                     });
                     
                     // Foco da semana
-                    plan.focus = "Fluidez na troca de acordes básicos e ritmos";
+                    plan.weeklyFocus = "Fluidez na troca de acordes básicos e ritmos";
                     
                     // Progresso
                     plan.progress = 25;
@@ -938,15 +1135,23 @@
                         "Tocar uma música completa acompanhando a gravação"
                     ];
                     
-                    // Plano semanal
+                    // Plano semanal DETALHADO
                     plan.weekly = [
-                        {day: "Segunda", focus: "Prática de transição de acordes", time: "20 min"},
-                        {day: "Terça", focus: "Prática de ritmo básico", time: "20 min"},
-                        {day: "Quarta", focus: "Combinação de acordes e ritmo", time: "20 min"},
-                        {day: "Quinta", focus: "Tocar 'Pra Não Dizer Que Não Falei das Flores'", time: "20 min"},
-                        {day: "Sexta", focus: "Revisão de dificuldades da semana", time: "20 min"},
-                        {day: "Sábado", focus: "Tocar junto com gravação", time: "25 min"},
-                        {day: "Domingo", focus: "Descanso ou prática livre", time: "optativo"}
+                        {day: "Segunda", focus: "Transição C-G-D (lento)", time: `${dailyTime} min`},
+                        {day: "Terça", focus: "Prática de ritmo ↓↓↑↑↓↑", time: `${dailyTime} min`},
+                        {day: "Quarta", focus: "Combinar acordes C-G com ritmo", time: `${dailyTime} min`},
+                        {day: "Quinta", focus: "Tocar 'Pra Não Dizer...' (parte 1)", time: `${dailyTime} min`},
+                        {day: "Sexta", focus: "Tocar 'Pra Não Dizer...' (completa, lento)", time: `${dailyTime} min`},
+                        {day: "Sábado", focus: "Tocar junto com a gravação (velocidade reduzida)", time: `${weekendTime} min`},
+                        {day: "Domingo", focus: "Revisão ou aprender novo ritmo simples", time: "optativo"}
+                    ];
+
+                    // Plano Mensal (Exemplo)
+                    plan.monthly = [
+                        { week: "Semana 1", focus: "Fluidez C-G-D e Ritmo Pop", goal: "Tocar sequência C-G-D com ritmo sem parar" },
+                        { week: "Semana 2", focus: "Introdução à Pestana (F)", goal: "Conseguir montar o F, mesmo que não soe perfeito" },
+                        { week: "Semana 3", focus: "Prática de Pestana e Nova Música", goal: "Melhorar som da pestana e tocar música com F" },
+                        { week: "Semana 4", focus: "Revisão e Ritmos Variados", goal: "Dominar 3 ritmos e tocar 2 músicas completas" }
                     ];
                     break;
 
@@ -955,38 +1160,38 @@
                     plan.today.push({ 
                         id: 'ex1', 
                         title: "Acordes com Pestana", 
-                        description: `Praticar os acordes F, Bm e B7 (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "chords", 
+                        description: "Praticar os acordes F, Bm e B7", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Trabalhe a força e precisão da pestana. Para o F, pressione todas as cordas na 1ª casa com o dedo 1, posicione o dedo 2 na 2ª casa da 3ª corda, dedo 3 na 3ª casa da 5ª corda e dedo 4 na 3ª casa da 4ª corda."
                     });
                     plan.today.push({ 
                         id: 'ex2', 
                         title: "Escala Pentatônica de Am", 
-                        description: `Praticar a escala pentatônica de Lá menor (${Math.max(10, Math.floor(userData.time / 4))} min)`, 
-                        type: "scales", 
+                        description: "Praticar a escala pentatônica de Lá menor", // Removed time from description
+                        duration_minutes: Math.max(10, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Comece da 5ª casa da 6ª corda (E) e siga o padrão da pentatônica menor. Pratique subindo e descendo lentamente, garantindo que cada nota soe clara."
                     });
                     plan.today.push({ 
                         id: 'ex3', 
                         title: "Técnica de Palhetada Alternada", 
-                        description: `Praticar palhetada alternada na 1ª corda (${Math.max(10, Math.floor(userData.time / 4))} min)`, 
-                        type: "technique", 
+                        description: "Praticar palhetada alternada na 1ª corda", // Removed time from description
+                        duration_minutes: Math.max(10, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Com a palheta, toque a 1ª corda alternando entre movimentos para baixo e para cima. Comece devagar e aumente gradualmente a velocidade, mantendo o ritmo constante."
                     });
                     plan.today.push({ 
                         id: 'ex4', 
                         title: "Aplicação: House of the Rising Sun", 
-                        description: `Praticar a progressão Am-C-D-F-Am-E-Am (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "song", 
+                        description: "Praticar a progressão Am-C-D-F-Am-E-Am", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Esta música clássica combina acordes básicos e pestanas com arpejo. Pratique a sequência de acordes primeiro, depois tente o padrão de dedilhado característico da música."
                     });
                     
                     // Foco da semana
-                    plan.focus = "Domínio de pestanas e introdução a escalas";
+                    plan.weeklyFocus = "Domínio de pestanas e introdução a escalas";
                     
                     // Progresso
                     plan.progress = 45;
@@ -1011,15 +1216,23 @@
                         "Tocar 'House of the Rising Sun' com o ritmo correto"
                     ];
                     
-                    // Plano semanal
+                    // Plano semanal DETALHADO
                     plan.weekly = [
-                        {day: "Segunda", focus: "Técnica de pestana", time: "30 min"},
-                        {day: "Terça", focus: "Escala pentatônica e exercícios", time: "30 min"},
-                        {day: "Quarta", focus: "Técnica de palhetada alternada", time: "25 min"},
-                        {day: "Quinta", focus: "Acordes e progressão de 'House of the Rising Sun'", time: "30 min"},
-                        {day: "Sexta", focus: "Dedilhado e técnica de arpejo", time: "30 min"},
-                        {day: "Sábado", focus: "Praticar 'House of the Rising Sun' completa", time: "40 min"},
-                        {day: "Domingo", focus: "Revisão ou improvisação com pentatônica", time: "25 min"}
+                        {day: "Segunda", focus: "Exercícios de força para pestana (F, Bm)", time: `${dailyTime} min`},
+                        {day: "Terça", focus: "Escala Pentatônica Am (padrão 1)", time: `${dailyTime} min`},
+                        {day: "Quarta", focus: "Palhetada alternada em escalas", time: `${dailyTime} min`},
+                        {day: "Quinta", focus: "Progressão 'House of the Rising Sun' (acordes)", time: `${dailyTime} min`},
+                        {day: "Sexta", focus: "Dedilhado/Arpejo em 'House of the Rising Sun'", time: `${dailyTime} min`},
+                        {day: "Sábado", focus: "Tocar 'House of the Rising Sun' completa", time: `${weekendTime} min`},
+                        {day: "Domingo", focus: "Improviso básico com Pentatônica Am", time: "optativo"}
+                    ];
+
+                    // Plano Mensal (Exemplo)
+                    plan.monthly = [
+                        { week: "Semana 1", focus: "Pestanas (F, Bm) e Pentatônica Am", goal: "Tocar F e Bm com som limpo e escala Am fluente" },
+                        { week: "Semana 2", focus: "Fingerstyle Básico e Nova Música", goal: "Aprender padrão PIMA e música com fingerstyle" },
+                        { week: "Semana 3", focus: "Escala Maior (C) e Teoria", goal: "Dominar padrão da escala maior e entender intervalos" },
+                        { week: "Semana 4", focus: "Improvisação e Aplicação", goal: "Improvisar sobre backing track e aplicar escalas em músicas" }
                     ];
                     break;
 
@@ -1028,38 +1241,38 @@
                     plan.today.push({ 
                         id: 'ex1', 
                         title: "Acordes com Tensões", 
-                        description: `Praticar acordes maj7, 7(9), m7 (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "chords", 
+                        description: "Praticar acordes maj7, 7(9), m7", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Pratique Cmaj7, G7(9), Dm7. Estes acordes adicionam cores à sua harmonia. Trabalhe nas transições entre eles e escute as diferenças de sonoridade."
                     });
                     plan.today.push({ 
                         id: 'ex2', 
                         title: "Técnica: Ligados e Pull-offs", 
-                        description: `Exercícios de ligados ascendentes e descendentes (${Math.max(10, Math.floor(userData.time / 4))} min)`, 
-                        type: "technique", 
+                        description: "Exercícios de ligados ascendentes e descendentes", // Removed time from description
+                        duration_minutes: Math.max(10, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Na mesma corda, posicione os dedos 1 e 3 em casas separadas por duas. Toque a nota mais baixa e, sem palheta, pressione a casa mais alta (ligado). Depois, faça o inverso (pull-off)."
                     });
                     plan.today.push({ 
                         id: 'ex3', 
                         title: "Introdução ao Fingerstyle", 
-                        description: `Padrão p-i-m-a em progressão Am-F-C-G (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "fingerstyle", 
+                        description: "Padrão p-i-m-a em progressão Am-F-C-G", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Use o polegar (p) para as cordas 6,5,4, e os dedos indicador (i), médio (m) e anelar (a) para as cordas 3,2,1 respectivamente. Toque o polegar seguido dos outros dedos em sequência."
                     });
                     plan.today.push({ 
                         id: 'ex4', 
                         title: "Música: Tears in Heaven", 
-                        description: `Estudo dos acordes e padrão de dedilhado (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "song", 
+                        description: "Estudo dos acordes e padrão de dedilhado", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Esta música de Eric Clapton é perfeita para prática de fingerstyle intermediário. Foque primeiro nos acordes, depois no padrão de dedilhado específico da música."
                     });
                     
                     // Foco da semana
-                    plan.focus = "Técnicas avançadas e fingerstyle";
+                    plan.weeklyFocus = "Técnicas avançadas e fingerstyle";
                     
                     // Progresso
                     plan.progress = 65;
@@ -1084,15 +1297,23 @@
                         "Tocar 'Tears in Heaven' em andamento moderado"
                     ];
                     
-                    // Plano semanal
+                    // Plano semanal DETALHADO
                     plan.weekly = [
-                        {day: "Segunda", focus: "Acordes com tensões e transições", time: "35 min"},
-                        {day: "Terça", focus: "Técnicas de ligados e pull-offs", time: "30 min"},
-                        {day: "Quarta", focus: "Introdução ao fingerstyle", time: "35 min"},
-                        {day: "Quinta", focus: "Prática de 'Tears in Heaven' - acordes", time: "30 min"},
-                        {day: "Sexta", focus: "Prática de 'Tears in Heaven' - dedilhado", time: "35 min"},
-                        {day: "Sábado", focus: "Integração de técnicas e música completa", time: "45 min"},
-                        {day: "Domingo", focus: "Sessão livre ou composição", time: "30 min"}
+                        {day: "Segunda", focus: "Acordes com tensões e transições", time: `${dailyTime} min`},
+                        {day: "Terça", focus: "Técnicas de ligados e pull-offs", time: `${dailyTime} min`},
+                        {day: "Quarta", focus: "Introdução ao fingerstyle", time: `${dailyTime} min`},
+                        {day: "Quinta", focus: "Prática de 'Tears in Heaven' - acordes", time: `${dailyTime} min`},
+                        {day: "Sexta", focus: "Prática de 'Tears in Heaven' - dedilhado", time: `${dailyTime} min`},
+                        {day: "Sábado", focus: "Integração de técnicas e música completa", time: `${weekendTime} min`},
+                        {day: "Domingo", focus: "Sessão livre ou composição", time: "optativo"}
+                    ];
+
+                    // Plano Mensal (Exemplo)
+                    plan.monthly = [
+                        { week: "Semana 1", focus: "Tensões, Ligados/Pull-offs, Fingerstyle (PIMA)", goal: "Dominar técnicas e aplicar em progressões" },
+                        { week: "Semana 2", focus: "Música Fingerstyle Complexa (ex: Tears in Heaven)", goal: "Tocar a música completa com fluidez" },
+                        { week: "Semana 3", focus: "Modos Gregos (Introdução)", goal: "Entender e aplicar modos Dórico e Mixolídio" },
+                        { week: "Semana 4", focus: "Improvisação Modal e Composição", goal: "Improvisar usando modos e compor pequena peça" }
                     ];
                     break;
 
@@ -1101,38 +1322,38 @@
                     plan.today.push({ 
                         id: 'ex1', 
                         title: "Técnica: Tapping", 
-                        description: `Introdução ao tapping em duas cordas (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "technique", 
+                        description: "Introdução ao tapping em duas cordas", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Use a mão direita para 'martelar' (tap) notas no braço além das que você está segurando com a mão esquerda. Pratique sequências simples usando as cordas 1 e 2."
                     });
                     plan.today.push({ 
                         id: 'ex2', 
                         title: "Improviso sobre II-V-I", 
-                        description: `Praticar improviso sobre progressão Dm7-G7-Cmaj7 (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "improvisation", 
+                        description: "Praticar improviso sobre progressão Dm7-G7-Cmaj7", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Usando a escala de Dó maior e modos relacionados, pratique frases melódicas sobre esta progressão. Foque em notas-alvo e construção de frases musicais."
                     });
                     plan.today.push({ 
                         id: 'ex3', 
                         title: "Fingerstyle Avançado", 
-                        description: `Estudo de 'Blackbird' dos Beatles (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "fingerstyle", 
+                        description: "Estudo de 'Blackbird' dos Beatles", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Esta música combina linha de baixo e melodia simultaneamente. Trabalhe nas partes separadamente primeiro, depois junte-as lentamente."
                     });
                     plan.today.push({ 
                         id: 'ex4', 
                         title: "Composição", 
-                        description: `Desenvolvimento de ideias musicais próprias (${Math.max(15, Math.floor(userData.time / 4))} min)`, 
-                        type: "creative", 
+                        description: "Desenvolvimento de ideias musicais próprias", // Removed time from description
+                        duration_minutes: Math.max(15, Math.floor(userData.time / 4)), // Added duration
                         completed: false,
                         details: "Crie progressões de acordes originais ou desenvolva melodias. Grave suas ideias no celular para não esquecê-las. Explore combinações de acordes incomuns."
                     });
                     
                     // Foco da semana
-                    plan.focus = "Técnicas avançadas e expressividade musical";
+                    plan.weeklyFocus = "Técnicas avançadas e expressividade musical";
                     
                     // Progresso
                     plan.progress = 80;
@@ -1159,15 +1380,23 @@
                         "Compor uma música autoral completa"
                     ];
                     
-                    // Plano semanal
+                    // Plano semanal DETALHADO
                     plan.weekly = [
-                        {day: "Segunda", focus: "Técnica de tapping", time: "40 min"},
-                        {day: "Terça", focus: "Improvisação sobre II-V-I", time: "40 min"},
-                        {day: "Quarta", focus: "Fingerstyle: Blackbird (parte 1)", time: "40 min"},
-                        {day: "Quinta", focus: "Fingerstyle: Blackbird (parte 2)", time: "40 min"},
-                        {day: "Sexta", focus: "Composição e desenvolvimento de ideias", time: "45 min"},
-                        {day: "Sábado", focus: "Integração de técnicas e repertório", time: "50 min"},
-                        {day: "Domingo", focus: "Gravação e análise do progresso", time: "40 min"}
+                        {day: "Segunda", focus: "Técnica de tapping", time: `${dailyTime + 5} min`},
+                        {day: "Terça", focus: "Improviso sobre II-V-I", time: `${dailyTime + 5} min`},
+                        {day: "Quarta", focus: "Fingerstyle: Blackbird (parte 1)", time: `${dailyTime + 5} min`},
+                        {day: "Quinta", focus: "Fingerstyle: Blackbird (parte 2)", time: `${dailyTime + 5} min`},
+                        {day: "Sexta", focus: "Composição e desenvolvimento de ideias", time: `${dailyTime + 10} min`},
+                        {day: "Sábado", focus: "Tocar 'Blackbird' completa + Improviso Livre", time: `${weekendTime + 10} min`},
+                        {day: "Domingo", focus: "Gravação e Análise do progresso", time: "optativo"}
+                    ];
+
+                    // Plano Mensal (Exemplo)
+                    plan.monthly = [
+                        { week: "Semana 1", focus: "Tapping, Improviso II-V-I, Música Complexa (Parte 1)", goal: "Dominar licks de tapping e improvisar sobre II-V-I" },
+                        { week: "Semana 2", focus: "Música Complexa (Completa), Harmonia Quartal", goal: "Tocar música avançada e entender harmonia quartal" },
+                        { week: "Semana 3", focus: "Técnicas Híbridas (Palheta + Dedos), Modos Avançados", goal: "Aplicar técnicas híbridas e modos Lídio/Frígio" },
+                        { week: "Semana 4", focus: "Composição Avançada / Arranjo", goal: "Compor peça instrumental ou arranjar música existente" }
                     ];
                     break;
 
@@ -1176,27 +1405,27 @@
                     plan.today.push({ 
                         id: 'ex1', 
                         title: "Revisão Geral", 
-                        description: "Revise acordes e técnicas que você já conhece (15 min)", 
-                        type: "review", 
+                        description: "Revise acordes e técnicas que você já conhece", // Removed time from description
+                        duration_minutes: 15, // Added duration
                         completed: false,
                         details: "Faça um inventário de todos os acordes e técnicas que você já domina. Identifique aqueles que precisam de mais prática."
                     });
                     plan.today.push({ 
                         id: 'ex2', 
                         title: "Técnica Livre", 
-                        description: "Escolha uma técnica para focar hoje (15 min)", 
-                        type: "technique", 
+                        description: "Escolha uma técnica para focar hoje", // Removed time from description
+                        duration_minutes: 15, // Added duration
                         completed: false,
                         details: "Selecione uma técnica específica que você quer melhorar e dedique tempo focado apenas nela."
                     });
                     
-                    plan.focus = "Avaliação de habilidades e prática direcionada";
-                    plan.progress = 40; // Valor médio
-                    
-                    plan.nextGoals = [
-                        "Definir objetivos claros de aprendizado",
-                        "Criar um plano de estudo consistente",
-                        "Avaliar seu nível atual com precisão"
+                    plan.weeklyFocus = "Avaliação e Definição de Metas";
+                    plan.weekly = weekdays.map(day => ({ day: day, focus: "Prática Livre / Revisão", time: `${dailyTime} min` }));
+                    plan.monthly = [
+                        { week: "Semana 1", focus: "Autoavaliação e Definição de Objetivos", goal: "Criar plano de estudo claro" },
+                        { week: "Semana 2", focus: "Revisão de Fundamentos", goal: "Solidificar acordes e técnicas básicas" },
+                        { week: "Semana 3", focus: "Exploração de Novos Tópicos", goal: "Identificar áreas de interesse para focar" },
+                        { week: "Semana 4", focus: "Planejamento do Próximo Mês", goal: "Definir metas específicas para o mês seguinte" }
                     ];
             }
 
@@ -1205,8 +1434,8 @@
                 plan.today.push({ 
                     id: 'fun1', 
                     title: "Momento Música", 
-                    description: `Escolha e toque uma música que você goste (${Math.max(10, userData.time - 30)} min)`, 
-                    type: "fun", 
+                    description: "Escolha e toque uma música que você goste", // Removed time from description
+                    duration_minutes: Math.max(10, userData.time - 30), // Added duration
                     completed: false,
                     details: "Escolha uma música que você goste e já saiba tocar, ou experimente tocar uma nova. O objetivo é se divertir e aplicar o que você aprendeu."
                 });
@@ -1275,44 +1504,175 @@
 
             // Exibir plano de hoje
             exercisesContainer.innerHTML = '';
-            if (planData.today.length === 0) {
-                exercisesContainer.innerHTML = '<p>Nenhuma tarefa para hoje. Revise seus objetivos ou gere um novo plano.</p>';
-            } else {
+            if (planData.today && planData.today.length > 0) {
                 planData.today.forEach(item => {
+                    const completedIcon = item.completed ? '<i class="fas fa-check-circle" style="color: var(--success-color);"></i>' : '<i class="far fa-circle"></i>';
+                    // Updated to remove the type tag and use duration_minutes
                     exercisesContainer.innerHTML += `
                         <div class="exercise-item ${item.completed ? 'completed' : ''}" data-id="${item.id}">
                             <div>
-                                <h4>${item.title}</h4>
+                                <h4>${item.title} <span class="tag">${item.duration_minutes} min</span></h4> 
                                 <p>${item.description}</p>
                             </div>
                             <div class="exercise-actions">
-                                <button onclick="toggleTaskComplete('${item.id}')" title="Marcar como concluída">
-                                    <i class="fas ${item.completed ? 'fa-check-square' : 'fa-square'}"></i>
+                                <button onclick="toggleTaskComplete('${item.id}')" title="${item.completed ? 'Desmarcar' : 'Marcar como concluída'}">
+                                    ${completedIcon} <!-- Moved icon inside button -->
                                 </button>
                                 <button onclick="showExerciseDetails('${item.id}')" title="Mais detalhes">
-                                    <i class="fas fa-info-circle"></i>
+                                    <i class="fas fa-info-circle"></i> <!-- Added icon for details -->
                                 </button>
                             </div>
                         </div>
                     `;
                 });
+            } else {
+                exercisesContainer.innerHTML = '<p>Nenhuma tarefa para hoje. Revise seus objetivos ou gere um novo plano.</p>';
             }
 
-            // Exibir plano semanal
+            // Exibir foco semanal
+            weeklyFocusElement.textContent = planData.weeklyFocus || "Não definido";
+
+            // Exibir plano semanal DETALHADO
             weeklyPlanContainer.innerHTML = '';
             if (planData.weekly && planData.weekly.length > 0) {
                 planData.weekly.forEach(day => {
+                    // Check if exercises exist for the day
+                    const exercisesHtml = day.exercises && Array.isArray(day.exercises) ? `
+                        <div class="day-exercises">
+                            <h5><i class="fas fa-dumbbell"></i> Exercícios:</h5>
+                            <ul>
+                                ${day.exercises.map(ex => `
+                                    <li>
+                                        <strong>${ex.title || 'Exercício'}</strong> 
+                                        ${ex.duration ? `<span class="tag">${ex.duration}</span>` : ''}
+                                        <p>${ex.description || ''}</p>
+                                        ${ex.details ? `<p class="exercise-details-small"><i class="fas fa-info-circle"></i> ${ex.details}</p>` : ''}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    ` : '';
+
+                    // Check if goals exist for the day
+                    const goalsHtml = day.goals && Array.isArray(day.goals) ? `
+                        <div class="day-goals">
+                            <h5><i class="fas fa-bullseye"></i> Objetivos do Dia:</h5>
+                            <ul>
+                                ${day.goals.map(goal => `<li>${goal}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : '';
+
+                    // Check if notes exist for the day
+                    const notesHtml = day.notes ? `
+                        <div class="day-notes">
+                            <h5><i class="fas fa-sticky-note"></i> Notas:</h5>
+                            <p>${day.notes}</p>
+                        </div>
+                    ` : '';
+
                     weeklyPlanContainer.innerHTML += `
-                        <div class="exercise-item">
+                        <div class="exercise-item weekly-day">
                             <div>
-                                <h4>${day.day}</h4>
-                                <p>${day.focus} (${day.time})</p>
+                                <h4><i class="far fa-calendar-alt"></i> ${day.day}</h4>
+                                <div class="day-focus">
+                                    <p><strong><i class="fas fa-crosshairs"></i> Foco:</strong> ${day.focus}</p>
+                                    <p><i class="fas fa-clock"></i> Tempo Sugerido: <strong>${day.time}</strong></p>
+                                </div>
+                                ${exercisesHtml}
+                                ${goalsHtml}
+                                ${notesHtml}
                             </div>
                         </div>
                     `;
                 });
             } else {
                 weeklyPlanContainer.innerHTML = '<p>Plano semanal indisponível. Por favor, atualize seu perfil.</p>';
+            }
+
+            // Exibir plano mensal (NOVO e MAIS DETALHADO)
+            monthlyPlanContainer.innerHTML = '';
+            if (planData.monthly && planData.monthly.length > 0) {
+                // Add monthly overview if available
+                if (planData.monthlyGoals && Array.isArray(planData.monthlyGoals)) {
+                    monthlyPlanContainer.innerHTML += `
+                        <div class="monthly-overview">
+                            <h4><i class="fas fa-mountain"></i> Visão Geral do Mês</h4>
+                            <div class="monthly-goals">
+                                <h5>Objetivos Principais:</h5>
+                                <ul>
+                                    ${planData.monthlyGoals.map(goal => `<li>${goal}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                planData.monthly.forEach(week => {
+                    // Generate key exercises HTML if available
+                    const keyExercisesHtml = week.keyExercises && Array.isArray(week.keyExercises) ? `
+                        <div class="week-key-exercises">
+                            <h5><i class="fas fa-key"></i> Exercícios-Chave:</h5>
+                            <ul>
+                                ${week.keyExercises.map(ex => `
+                                    <li>
+                                        <strong>${ex.title}</strong>
+                                        ${ex.description ? `<p>${ex.description}</p>` : ''}
+                                        ${ex.technique ? `<span class="tag">${ex.technique}</span>` : ''}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    ` : '';
+
+                    // Generate repertoire HTML if available
+                    const repertoireHtml = week.repertoire && Array.isArray(week.repertoire) ? `
+                        <div class="week-repertoire">
+                            <h5><i class="fas fa-music"></i> Repertório Sugerido:</h5>
+                            <ul>
+                                ${week.repertoire.map(song => `<li>${song}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : '';
+
+                    // Generate checkpoints HTML if available
+                    const checkpointsHtml = week.checkpoints && Array.isArray(week.checkpoints) ? `
+                        <div class="week-checkpoints">
+                            <h5><i class="fas fa-flag-checkered"></i> Checkpoints:</h5>
+                            <ul>
+                                ${week.checkpoints.map(cp => `<li>${cp}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : '';
+
+                    // Generate theory topics HTML if available
+                    const theoryHtml = week.theoryTopics && Array.isArray(week.theoryTopics) ? `
+                        <div class="week-theory">
+                            <h5><i class="fas fa-book"></i> Fundamentos Teóricos:</h5>
+                            <ul>
+                                ${week.theoryTopics.map(topic => `<li>${topic}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : '';
+
+                    monthlyPlanContainer.innerHTML += `
+                        <div class="exercise-item monthly-week">
+                            <div>
+                                <h4><i class="fas fa-calendar-week"></i> ${week.week}</h4>
+                                <div class="week-main-info">
+                                    <p><strong><i class="fas fa-crosshairs"></i> Foco Principal:</strong> ${week.focus}</p>
+                                    <p><strong><i class="fas fa-flag"></i> Meta da Semana:</strong> ${week.goal}</p>
+                                </div>
+                                ${keyExercisesHtml}
+                                ${repertoireHtml}
+                                ${checkpointsHtml}
+                                ${theoryHtml}
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                monthlyPlanContainer.innerHTML = '<p>Plano mensal indisponível. Por favor, atualize seu perfil.</p>';
             }
 
             // Exibir progresso
@@ -1345,14 +1705,17 @@
                                 <span>${skill.progress}%</span>
                             </div>
                             <div class="progress-bar-container">
-                                <div class="progress-bar" style="width: ${skill.progress}%"></div>
+                                <div class="progress-bar" style="width: ${skill.progress}%; background-color: var(--accent-color);"></div>
                             </div>
                         </div>
                     `;
                 });
+           
+            } else {
+                 skillsProgress.innerHTML = '<p>Suas habilidades serão exibidas aqui conforme você progride.</p>';
             }
 
-            // Exibir recursos de vídeo
+            // Exibir recursos recomendados (vídeos, músicas, exercícios)
             const videoResources = document.getElementById('video-resources');
             const songResources = document.getElementById('song-resources');
             const exerciseResources = document.getElementById('exercise-resources');
@@ -1361,35 +1724,56 @@
             songResources.innerHTML = '';
             exerciseResources.innerHTML = '';
 
+            let videoList = document.createElement('ul');
+            let songList = document.createElement('ul');
+            let exerciseList = document.createElement('ul');
+            let hasVideos = false, hasSongs = false, hasExercises = false;
+
             if (planData.suggestions && planData.suggestions.length > 0) {
                 planData.suggestions.forEach(sug => {
-                    const resourceItem = `
-                        <div class="exercise-item">
-                            <div><h4>${sug.title}</h4></div>
-                            <div><a href="${sug.link || '#'}" target="_blank" class="btn btn-sm"><i class="fas fa-external-link-alt"></i> Acessar</a></div>
-                        </div>
-                    `;
+                    const li = document.createElement('li');
+                    // Criar um link pesquisável no YouTube
+                    const link = document.createElement('a');
+                    link.href = sug.link || `https://www.youtube.com/results?search_query=${encodeURIComponent(sug.title + ' violao')}`;
+                    link.textContent = sug.title;
+                    link.target = "_blank"; // Abrir em nova aba
+                    link.style.color = "var(--primary-color)";
+                    link.style.textDecoration = "none";
+                    li.appendChild(link);
                     
-                    // Distribuir os recursos entre as categorias
-                    if (sug.title.toLowerCase().includes('vídeo') || sug.title.toLowerCase().includes('tutorial')) {
-                        videoResources.innerHTML += resourceItem;
-                    } else if (sug.title.toLowerCase().includes('música')) {
-                        songResources.innerHTML += resourceItem;
+                    // Basic categorization based on title keywords
+                    if (sug.title.toLowerCase().includes('vídeo') || sug.title.toLowerCase().includes('tutorial') || sug.title.toLowerCase().includes('introdução')) {
+                        videoList.appendChild(li);
+                        hasVideos = true;
+                    } else if (sug.title.toLowerCase().includes('música') || sug.title.toLowerCase().includes('tocar')) {
+                        songList.appendChild(li);
+                        hasSongs = true;
+                    } else if (sug.title.toLowerCase().includes('exercício') || sug.title.toLowerCase().includes('escala') || sug.title.toLowerCase().includes('técnica') || sug.title.toLowerCase().includes('pestana')) {
+                        exerciseList.appendChild(li);
+                        hasExercises = true;
                     } else {
-                        exerciseResources.innerHTML += resourceItem;
+                        // Default to videos if no keyword matches
+                        videoList.appendChild(li);
+                        hasVideos = true;
                     }
                 });
             }
             
-            if (videoResources.innerHTML === '') {
+            if (hasVideos) {
+                videoResources.appendChild(videoList);
+            } else {
                 videoResources.innerHTML = '<p>Recursos de vídeo serão personalizados conforme você progride.</p>';
             }
             
-            if (songResources.innerHTML === '') {
+            if (hasSongs) {
+                songResources.appendChild(songList);
+            } else {
                 songResources.innerHTML = '<p>Músicas sugeridas aparecerão aqui conforme você avança.</p>';
             }
             
-            if (exerciseResources.innerHTML === '') {
+            if (hasExercises) {
+                exerciseResources.appendChild(exerciseList);
+            } else {
                 exerciseResources.innerHTML = '<p>Exercícios técnicos serão recomendados com base no seu progresso.</p>';
             }
 
@@ -1398,6 +1782,7 @@
 
         // --- Event Handlers ---
         function handleAssessmentSubmit(event) {
+            // ... (código existente para coletar dados)
             event.preventDefault();
             showSection('loading-section');
 
@@ -1438,10 +1823,11 @@
                 userData.currentPlan = planData; // Armazena o plano com os dados do usuário
                 saveUserData(userData);
                 displayDashboard(userData, planData);
-            }, 2000); // 2 segundos de delay para simulação
+            }, 1500); // Reduzido para 1.5 segundos
         }
 
         function toggleTaskComplete(taskId) {
+            // ... (código existente para marcar tarefa)
             const userData = loadUserData();
             if (!userData || !userData.currentPlan) return;
 
@@ -1461,7 +1847,11 @@
                     case 'intermediario_avancado': baseProgress = 60; break;
                     case 'avancado': baseProgress = 75; break;
                  }
-                userData.currentPlan.progress = baseProgress + Math.round((completedTasks / totalTasks) * (100 - baseProgress));
+                 // Calcula o progresso adicional baseado nas tarefas concluídas
+                 let taskProgressIncrement = totalTasks > 0 ? (100 - baseProgress) / totalTasks : 0;
+                 userData.currentPlan.progress = Math.round(baseProgress + (completedTasks * taskProgressIncrement));
+                 // Garante que o progresso não ultrapasse 100
+                 userData.currentPlan.progress = Math.min(100, userData.currentPlan.progress);
 
                 saveUserData(userData);
                 // Atualizar o item específico e a barra de progresso para feedback visual
@@ -1470,14 +1860,25 @@
         }
 
         function showExerciseDetails(taskId) {
+            // ... (código existente para mostrar detalhes)
             const userData = loadUserData();
             if (!userData || !userData.currentPlan) return;
 
             const task = userData.currentPlan.today.find(t => t.id === taskId);
-            if (task && task.details) {
-                alert(`${task.title}\n\n${task.details}`);
+            if (task) {
+                detailsModalTitle.textContent = task.title || "Detalhes do Exercício";
+                detailsModalContent.innerHTML = task.details ? `<p>${task.details.replace(/\n/g, '<br>')}</p>` : '<p>Nenhum detalhe adicional disponível.</p>';
+                // Adicionar duração e tipo se disponíveis
+                if (task.duration_minutes) {
+                    detailsModalContent.innerHTML += `<p><strong>Duração Sugerida:</strong> ${task.duration_minutes} minutos</p>`;
+                }
+                if (task.type) {
+                    detailsModalContent.innerHTML += `<p><strong>Tipo:</strong> ${task.type}</p>`;
+                }
+                detailsModal.style.display = 'flex'; // Show modal
             } else {
-                alert(`Detalhes não disponíveis para este exercício.`);
+                // Fallback alert if task not found (shouldn't normally happen)
+                alert(`Detalhes não encontrados para a tarefa ID: ${taskId}`);
             }
         }
 
@@ -1532,37 +1933,57 @@
             });
         });
 
-        // --- Feedback Buttons ---
-        document.getElementById('too-easy-btn').addEventListener('click', function() {
-            alert("Entendido! Vamos aumentar o nível de dificuldade do seu próximo plano.");
+        // --- Botão de Iniciar Sessão (MODIFIED) ---
+        startSessionBtn.addEventListener('click', function() {
             const userData = loadUserData();
-            if (userData) {
-                userData.feedback = "too_easy";
-                saveUserData(userData);
+            if (userData && userData.currentPlan) {
+                const duration = userData.currentPlan.practiceTime || 30; // Get duration from plan or default
+                timerModal.style.display = 'flex'; // Show modal
+                startTimer(duration);
+            } else {
+                alert("Não foi possível iniciar a sessão. Gere seu plano primeiro.");
             }
         });
 
-        document.getElementById('good-btn').addEventListener('click', function() {
-            alert("Ótimo! Continuaremos com este nível de desafio.");
-            const userData = loadUserData();
-            if (userData) {
-                userData.feedback = "good";
-                saveUserData(userData);
+        // --- Timer Modal Controls ---
+        closeTimerModalBtn.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            timerModal.style.display = 'none';
+        });
+
+        pauseTimerBtn.addEventListener('click', pauseTimer);
+        resetTimerBtn.addEventListener('click', resetTimer);
+
+        // Close modal if clicked outside content
+        window.addEventListener('click', (event) => {
+            if (event.target == timerModal) {
+                clearInterval(timerInterval);
+                timerModal.style.display = 'none';
             }
         });
 
-        document.getElementById('too-hard-btn').addEventListener('click', function() {
-            alert("Entendido! Vamos ajustar seu plano para um nível mais adequado.");
-            const userData = loadUserData();
-            if (userData) {
-                userData.feedback = "too_hard";
-                saveUserData(userData);
+        // --- Details Modal Controls ---
+        closeDetailsModalBtn.addEventListener('click', () => {
+            detailsModal.style.display = 'none';
+        });
+
+        // Close details modal if clicked outside content
+        window.addEventListener('click', (event) => {
+            if (event.target == detailsModal) {
+                detailsModal.style.display = 'none';
+            }
+            // Keep existing logic for timer modal
+            if (event.target == timerModal) {
+                clearInterval(timerInterval);
+                timerModal.style.display = 'none';
             }
         });
 
-        // --- Botão de Iniciar Sessão ---
-        document.getElementById('start-session-btn').addEventListener('click', function() {
-            alert("Função de temporizador de sessão será implementada em breve!");
+        // --- Botão Refazer Avaliação ---
+        document.getElementById('reset-assessment-btn').addEventListener('click', () => {
+            showSection('assessment-section');
+            // Opcional: Limpar o formulário ao voltar
+            // assessmentForm.reset(); 
         });
 
         // --- Initialization ---

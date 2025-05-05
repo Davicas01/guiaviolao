@@ -1077,7 +1077,7 @@
 
             <div class="chord-info">
                 <h3>Sobre o Acorde C (Dó Maior)</h3>
-                <p>O acorde de Dó maior é formado pelas notas C, E e G. É um dos acordes mais fundamentais no violão e frequentemente usado como acorde inicial em muitas músicas.</p>
+                <p>O acorde de Dó Maior (C) é a pedra angular da tonalidade de C. Formado pelas notas C (tônica), E (terça maior) e G (quinta justa), ele transmite uma sensação de estabilidade, brilho e resolução completa. É o ponto de partida e chegada mais comum em músicas populares, servindo como o 'lar' harmônico onde a música encontra repouso.</p>
                 <p><strong>Como usar:</strong> Ideal como acorde de tônica em músicas na tonalidade de C. Também funciona bem em progressões com F e G.</p>
                 
                 <div class="progression-examples">
@@ -1170,8 +1170,16 @@ const chordData = {
         position: { x: 0, y: 0 }, // Center
         fingering: [[0,1,0,2,3,0], [3,1,0,2,3,0]], // Alternative fingerings
         progressions: ["C - G - Am - F", "C - F - G", "C - Am - F - G", "C - E7 - Am - G"],
-        about: "O acorde de Dó maior é formado pelas notas C, E e G. É um dos acordes mais fundamentais no violão e frequentemente usado como acorde inicial em muitas músicas.",
-        songs: ["Pra Você Guardei o Amor - Nando Reis", "Velha Infância - Tribalistas", "Let It Be - The Beatles", "Stand By Me - Ben E. King"]
+        about: "O acorde de Dó Maior (C) é a pedra angular da tonalidade de C. Formado pelas notas C (tônica), E (terça maior) e G (quinta justa), ele transmite uma sensação de estabilidade, brilho e resolução completa. É o ponto de partida e chegada mais comum em músicas populares, servindo como o 'lar' harmônico onde a música encontra repouso.",
+        songs: [
+            "Pra Você Guardei o Amor - Nando Reis (MPB)", 
+            "Velha Infância - Tribalistas (Pop/MPB)", 
+            "Ainda é Cedo - Legião Urbana (Rock BR)",
+            "Let It Be - The Beatles (Rock Clássico)", 
+            "Stand By Me - Ben E. King (Soul)",
+            "Knockin' on Heaven's Door - Bob Dylan (Folk Rock)",
+            "Imagine - John Lennon (Pop)"
+        ]
     },
     G: {
         name: "G (Sol Maior)",
@@ -1180,8 +1188,16 @@ const chordData = {
         position: { angle: 60, distance: 150 },
         fingering: [[3,2,0,0,0,3], [3,2,0,0,3,3]],
         progressions: ["G - C - D", "G - Em - C - D", "G - D - Em - C"],
-        about: "O acorde de Sol maior é formado pelas notas G, B e D. É frequentemente usado como acorde dominante na tonalidade de C, criando uma tensão que resolve bem de volta para C.",
-        songs: ["Asa Branca - Luiz Gonzaga", "Sozinho - Caetano Veloso", "Sweet Home Alabama - Lynyrd Skynyrd", "Wish You Were Here - Pink Floyd"]
+        about: "Sol Maior (G) é o acorde dominante na tonalidade de C. Composto por G (tônica), B (terça maior) e D (quinta justa), ele cria uma forte tensão harmônica que naturalmente 'pede' para resolver de volta em C. Essencial para criar movimento e expectativa antes de retornar ao acorde tônico (cadência V-I). Também é a tônica da tonalidade de G.",
+        songs: [
+            "Asa Branca - Luiz Gonzaga (Baião)", 
+            "Sozinho - Caetano Veloso (MPB)", 
+            "Metamorfose Ambulante - Raul Seixas (Rock BR)",
+            "Sweet Home Alabama - Lynyrd Skynyrd (Southern Rock)", 
+            "Wish You Were Here - Pink Floyd (Rock Progressivo)",
+            "Good Riddance (Time of Your Life) - Green Day (Punk Acústico)",
+            "Patience - Guns N' Roses (Hard Rock Acústico)"
+        ]
     },
     F: {
         name: "F (Fá Maior)",
@@ -1190,8 +1206,16 @@ const chordData = {
         position: { angle: 300, distance: 150 },
         fingering: [[1,1,2,3,3,1], [1,1,2,3,3,-1]],
         progressions: ["F - C - G", "F - Bb - C", "F - G - Am - G"],
-        about: "O acorde de Fá maior é formado pelas notas F, A e C. Funciona como subdominante na tonalidade de C e cria uma sensação de movimento em progressões harmônicas.",
-        songs: ["Chão de Giz - Zé Ramalho", "Tente Outra Vez - Raul Seixas", "Hey Jude - The Beatles", "Wonderwall - Oasis"]
+        about: "Fá Maior (F) atua como o acorde subdominante (IV grau) em C. Formado por F (tônica), A (terça maior) e C (quinta justa), ele oferece uma sensação de afastamento suave da tônica, criando uma sonoridade 'brilhante' e preparando o terreno para o dominante (G) ou retornando ao C (cadência IV-I, ou Plagal). É um acorde fundamental, apesar da pestana inicial poder ser desafiadora para iniciantes.",
+        songs: [
+            "Chão de Giz - Zé Ramalho (MPB/Folk)", 
+            "Tente Outra Vez - Raul Seixas (Rock BR)", 
+            "Como Nossos Pais - Elis Regina (MPB)",
+            "Hey Jude - The Beatles (Rock Clássico)", 
+            "Wonderwall - Oasis (Britpop)",
+            "House of the Rising Sun - The Animals (Folk Rock)",
+            "Every Breath You Take - The Police (New Wave)"
+        ]
     },
     Am: {
         name: "Am (Lá menor)",
@@ -1200,8 +1224,16 @@ const chordData = {
         position: { angle: 120, distance: 150 },
         fingering: [[0,1,2,2,0,0], [0,1,3,2,0,0]],
         progressions: ["Am - F - C - G", "Am - G - F - E", "Am - Dm - E - Am"],
-        about: "O acorde de Lá menor é formado pelas notas A, C e E. É o relativo menor de C maior, trazendo um tom mais melancólico e introspectivo às progressões.",
-        songs: ["Eduardo e Mônica - Legião Urbana", "Monte Castelo - Legião Urbana", "Stairway to Heaven - Led Zeppelin", "Nothing Else Matters - Metallica"]
+        about: "Lá menor (Am) é o relativo menor (vi grau) de C Maior. Contém as notas A (tônica), C (terça menor) e E (quinta justa). Compartilha duas notas com C (C e E), criando uma ligação forte, mas soa mais melancólico, introspectivo ou sério. É perfeito para adicionar contraste emocional e profundidade às progressões em C, muito comum na famosa sequência C-G-Am-F.",
+        songs: [
+            "Eduardo e Mônica - Legião Urbana (Rock BR)", 
+            "Monte Castelo - Legião Urbana (Rock BR)", 
+            "Angie - The Rolling Stones (Rock Clássico)",
+            "Stairway to Heaven - Led Zeppelin (Hard Rock/Folk Rock)", 
+            "Nothing Else Matters - Metallica (Heavy Metal Acústico)",
+            "Losing My Religion - R.E.M. (Alternative Rock)",
+            "Hurt - Johnny Cash (Country/Alternative)"
+        ]
     },
     Dm: {
         name: "Dm (Ré menor)",
@@ -1210,8 +1242,16 @@ const chordData = {
         position: { angle: 240, distance: 150 },
         fingering: [[-1,0,0,2,3,1], [-1,-1,0,2,3,1]],
         progressions: ["Dm - G - C", "Dm - Am - E - Am", "Dm - F - C"],
-        about: "O acorde de Ré menor é formado pelas notas D, F e A. Serve como subdominante menor na tonalidade de C, trazendo um tom mais contemplativo e introspectivo.",
-        songs: ["Faroeste Caboclo - Legião Urbana", "Tempo Perdido - Legião Urbana", "Sultans of Swing - Dire Straits", "Come As You Are - Nirvana"]
+        about: "Ré menor (Dm) é o acorde supertônico (ii grau) na tonalidade de C, funcionando como subdominante menor. Com as notas D (tônica), F (terça menor) e A (quinta justa), ele traz uma cor mais sombria, suave e contemplativa em comparação com o F maior. Frequentemente usado na progressão ii-V-I (Dm-G-C), uma das mais importantes na música ocidental.",
+        songs: [
+            "Faroeste Caboclo - Legião Urbana (Rock BR/Narrativa)", 
+            "Tempo Perdido - Legião Urbana (Rock BR)", 
+            "O Bêbado e a Equilibrista - Elis Regina (MPB)",
+            "Sultans of Swing - Dire Straits (Rock)", 
+            "Come As You Are - Nirvana (Grunge)",
+            "Like a Rolling Stone - Bob Dylan (Folk Rock)",
+            "Another Brick in the Wall, Pt. 2 - Pink Floyd (Rock Progressivo)"
+        ]
     },
     Em: {
         name: "Em (Mi menor)",
@@ -1220,8 +1260,16 @@ const chordData = {
         position: { angle: 180, distance: 150 },
         fingering: [[0,0,0,2,2,0], [0,0,0,0,2,0]],
         progressions: ["Em - D - C", "Em - G - C - D", "Em - Am - D - G"],
-        about: "O acorde de Mi menor é formado pelas notas E, G e B. Como relativo menor de G, adiciona um contraste emotivo em progressões na tonalidade de C.",
-        songs: ["Dias de Luta, Dias de Glória - Charlie Brown Jr.", "Primeiros Erros - Capital Inicial", "Zombie - The Cranberries", "Wish You Were Here - Pink Floyd"]
+        about: "Mi menor (Em) funciona como o acorde mediante (iii grau) na tonalidade de C e também é o relativo menor de G Maior. Suas notas são E (tônica), G (terça menor) e B (quinta justa). Ele adiciona uma cor diferente, menos conclusiva que C, F ou G, muitas vezes usada para criar uma ponte, um contraste suave ou um momento de passagem dentro da tonalidade de C.",
+        songs: [
+            "Dias de Luta, Dias de Glória - Charlie Brown Jr. (Rock BR)", 
+            "Primeiros Erros - Capital Inicial (Rock BR)", 
+            "Lanterna dos Afogados - Paralamas do Sucesso (Rock BR)",
+            "Zombie - The Cranberries (Alternative Rock)", 
+            "Wish You Were Here - Pink Floyd (Rock Progressivo)",
+            "One - U2 (Rock Alternativo)",
+            "Hotel California - Eagles (Rock Clássico) - (Verso)"
+        ]
     },
     G7: {
         name: "G7 (Sol com Sétima)",
@@ -1230,8 +1278,16 @@ const chordData = {
         position: { angle: 60, distance: 220 }, // Example position
         fingering: [[3,2,0,0,0,1], [3,2,0,0,0,1]],
         progressions: ["C - G7 - C", "Am - Dm - G7 - C"],
-        about: "Acorde dominante com sétima menor, cria forte tensão para resolver em C.",
-        songs: ["Garota de Ipanema - Tom Jobim", "Chega de Saudade - Tom Jobim", "Jambalaya - Hank Williams", "Sitting on the Dock of the Bay - Otis Redding"]
+        about: "Sol com Sétima (G7) é a versão dominante com sétima do G (V7 grau). Adiciona a nota F (sétima menor) às notas G, B e D. Essa sétima cria uma dissonância (trítono entre B e F) que intensifica dramaticamente a necessidade de resolução em C. Essencial em blues, jazz, bossa nova e para dar mais força e direcionamento à cadência V-I.",
+        songs: [
+            "Garota de Ipanema - Tom Jobim (Bossa Nova)", 
+            "Chega de Saudade - Tom Jobim (Bossa Nova)", 
+            "Sampa - Caetano Veloso (MPB)",
+            "Jambalaya - Hank Williams (Country)", 
+            "Sitting on the Dock of the Bay - Otis Redding (Soul)",
+            "Folsom Prison Blues - Johnny Cash (Country)",
+            "Brown Eyed Girl - Van Morrison (Pop Rock)"
+        ]
     },
     C7: {
         name: "C7 (Dó com Sétima)",
@@ -1240,8 +1296,16 @@ const chordData = {
         position: { angle: 0, distance: 220 }, // Example position
         fingering: [[0,1,3,2,3,0], [0,1,3,2,4,0]],
         progressions: ["C7 - F", "G7 - C7 - F"],
-        about: "Acorde maior com sétima menor, frequentemente usado como dominante para F.",
-        songs: ["Samba de Uma Nota Só - Tom Jobim", "O Barquinho - Roberto Menescal", "Sweet Georgia Brown - Jazz Standard", "Crazy Little Thing Called Love - Queen"]
+        about: "Dó com Sétima (C7) transforma o acorde tônico C em um dominante secundário (V7/IV), geralmente para preparar e conduzir ao acorde F (subdominante). Adiciona a nota Bb (sétima menor) às notas C, E e G. Cria uma sonoridade 'bluesy' característica e é fundamental para progressões de blues (I7-IV-V), jazz, ou para modular temporariamente para a tonalidade de F.",
+        songs: [
+            "Samba de Uma Nota Só - Tom Jobim (Bossa Nova)", 
+            "O Barquinho - Roberto Menescal (Bossa Nova)", 
+            "Desde que o Samba é Samba - Caetano Veloso (MPB)",
+            "Sweet Georgia Brown - Jazz Standard (Jazz)", 
+            "Crazy Little Thing Called Love - Queen (Rockabilly)",
+            "Hound Dog - Elvis Presley (Rock and Roll)",
+            "Georgia On My Mind - Ray Charles (Soul/Jazz)"
+        ]
     },
     A7: {
         name: "A7 (Lá com Sétima)",
@@ -1250,8 +1314,16 @@ const chordData = {
         position: { angle: 0, distance: 0 }, 
         fingering: [[0,2,0,2,0,0], [0,2,0,1,0,0]],
         progressions: ["D - A7 - D", "G - D - A7 - D"],
-        about: "Acorde dominante com sétima menor, resolve bem em D.",
-        songs: ["Sangue Latino - Secos & Molhados", "Maluco Beleza - Raul Seixas", "Johnny B. Goode - Chuck Berry", "Sweet Caroline - Neil Diamond"]
+        about: "Lá com Sétima (A7) funciona como dominante secundário para Dm ou D (V7/ii ou V7/II). Adiciona a nota G (sétima menor) às notas A, C# (terça maior) e E. Cria uma forte tensão que resolve naturalmente em Dm (o ii grau de C) ou D maior (usado em modulações ou empréstimo modal). Comum em blues, rock, country e para adicionar um sabor harmônico mais rico.",
+        songs: [
+            "Sangue Latino - Secos & Molhados (Rock BR Progressivo)", 
+            "Maluco Beleza - Raul Seixas (Rock BR)", 
+            "Não Quero Dinheiro - Tim Maia (Soul/Funk BR)",
+            "Johnny B. Goode - Chuck Berry (Rock and Roll)", 
+            "Sweet Caroline - Neil Diamond (Pop)",
+            "Cross Road Blues - Robert Johnson (Blues)",
+            "I Saw Her Standing There - The Beatles (Rock and Roll)"
+        ]
     },
     D7: {
         name: "D7 (Ré com Sétima)",
@@ -1260,8 +1332,16 @@ const chordData = {
         position: { angle: 0, distance: 0 },
         fingering: [[0,0,0,2,1,2], [0,0,0,2,1,3]],
         progressions: ["G - D7 - G", "C - G - D7 - G"],
-        about: "Acorde dominante com sétima menor, resolve bem em G.",
-        songs: ["Morena Tropicana - Alceu Valença", "Vambora - Adriana Calcanhotto", "Take Me Home, Country Roads - John Denver", "Sweet Home Chicago - Robert Johnson"]
+        about: "Ré com Sétima (D7) é o dominante secundário para G (V7/V). Adiciona a nota C (sétima menor) às notas D, F# (terça maior) e A. Cria uma forte atração harmônica para o acorde G (o V grau de C), muito usado em folk, country, blues e para dar mais força à cadência II-V-I (Dm-G7-C) quando usado no lugar de Dm ou como preparação para G.",
+        songs: [
+            "Morena Tropicana - Alceu Valença (Frevo/MPB)", 
+            "Vambora - Adriana Calcanhotto (MPB)", 
+            "Anunciação - Alceu Valença (MPB/Forró)",
+            "Take Me Home, Country Roads - John Denver (Country/Folk)", 
+            "Sweet Home Chicago - Robert Johnson (Blues)",
+            "Me and Bobby McGee - Janis Joplin (Folk Rock)",
+            "Ring of Fire - Johnny Cash (Country)"
+        ]
     },
     E7: {
         name: "E7 (Mi com Sétima)",
@@ -1270,8 +1350,16 @@ const chordData = {
         position: { angle: 0, distance: 0 },
         fingering: [[0,0,1,0,2,0], [0,0,1,0,2,0]],
         progressions: ["A - E7 - A", "D - A - E7 - A"],
-        about: "Acorde dominante com sétima menor, resolve bem em A.",
-        songs: ["Eu Sei - Papas da Língua", "Que País É Este - Legião Urbana", "Blue Suede Shoes - Carl Perkins", "Hey Joe - Jimi Hendrix"]
+        about: "Mi com Sétima (E7) atua como dominante secundário para Am (V7/vi). Adiciona a nota D (sétima menor) às notas E, G# (terça maior) e B. Cria uma tensão poderosa que resolve perfeitamente em Am (o vi grau de C), sendo crucial em blues, rockabilly, flamenco e para dar um toque dramático à cadência V-i em Lá menor ou dentro da tonalidade de C.",
+        songs: [
+            "Eu Sei - Papas da Língua (Pop Rock BR)", 
+            "Que País É Este - Legião Urbana (Rock BR)", 
+            "Ciúme - Ultraje a Rigor (Rock BR)",
+            "Blue Suede Shoes - Carl Perkins (Rockabilly)", 
+            "Hey Joe - Jimi Hendrix (Blues Rock)",
+            "All My Loving - The Beatles (Pop Rock)",
+            "(Sittin' On) The Dock of the Bay - Otis Redding (Soul) - (Ponte)"
+        ]
     },
     Bm: {
         name: "Bm (Si menor)",
@@ -1280,8 +1368,16 @@ const chordData = {
         position: { angle: 0, distance: 0 },
         fingering: [[2,2,4,4,3,2], [1,1,3,4,2,1]],
         progressions: ["Bm - G - D - A", "Bm - A - G - F#"],
-        about: "Acorde menor, relativo de D maior.",
-        songs: ["Além do Horizonte - Jota Quest", "Pais e Filhos - Legião Urbana", "Hotel California - Eagles", "Tears in Heaven - Eric Clapton"]
+        about: "Si menor (Bm) é o relativo menor de D Maior (iii grau em G). Contém as notas B (tônica), D (terça menor) e F# (quinta justa). Embora não pertença diretamente ao campo harmônico diatônico de C maior (que tem Bdim - Si diminuto), ele pode aparecer através de empréstimo modal (vindo de G maior ou E menor, por exemplo) ou em modulações, trazendo uma sonoridade mais escura, rica e sofisticada.",
+        songs: [
+            "Além do Horizonte - Jota Quest (Pop Rock BR)", 
+            "Pais e Filhos - Legião Urbana (Rock BR)", 
+            "Índios - Legião Urbana (Rock BR)",
+            "Hotel California - Eagles (Rock Clássico)", 
+            "Tears in Heaven - Eric Clapton (Soft Rock)",
+            "Drive - Incubus (Alternative Rock)",
+            "Nutshell - Alice in Chains (Grunge Acústico)"
+        ]
     },
     B7: {
         name: "B7 (Si com Sétima)",
@@ -1290,8 +1386,16 @@ const chordData = {
         position: { angle: 0, distance: 0 },
         fingering: [[2,1,2,0,2,0], [2,1,3,0,4,0]],
         progressions: ["E - B7 - E", "A - E - B7 - E"],
-        about: "Acorde dominante com sétima menor, resolve bem em E.",
-        songs: ["Manhã de Carnaval - Luiz Bonfá", "Tequila - Expressão Verbal", "La Bamba - Ritchie Valens", "Pride and Joy - Stevie Ray Vaughan"]
+        about: "Si com Sétima (B7) é o dominante secundário para Em (V7/iii). Adiciona a nota A (sétima menor) às notas B, D# (terça maior) e F#. Cria uma forte resolução para Em (o iii grau de C), frequentemente usado em blues, jazz, música brasileira (como Bossa Nova) e para adicionar cor e tensão antes de um acorde de Mi menor, mesmo dentro da tonalidade de C.",
+        songs: [
+            "Manhã de Carnaval - Luiz Bonfá (Bossa Nova)", 
+            "Tequila - Expressão Verbal (Surf Music BR)", // Adaptação
+            "A Felicidade - Tom Jobim (Bossa Nova)",
+            "La Bamba - Ritchie Valens (Rock and Roll)", 
+            "Pride and Joy - Stevie Ray Vaughan (Blues Rock)",
+            "Something - The Beatles (Pop Rock)",
+            "(Sittin' On) The Dock of the Bay - Otis Redding (Soul) - (Ponte)"
+        ]
     }
     // ... other chords ...
 };
@@ -1601,6 +1705,7 @@ function updateChordDisplay(chord) {
     // Update chord diagram
     updateChordDiagram(chord);
     
+       
     // Update progression tags
     updateProgressionTags(chord);
 }
@@ -1858,17 +1963,54 @@ const playPopupProgressionBtn = document.getElementById('playPopupProgressionBtn
 // Variável para armazenar o handler do botão de tocar, para poder removê-lo depois
 let currentPlayPopupHandler = null;
 
+// Helper function to get specific text for progressions
+function getProgressionInfo(progression, chord) {
+    let style = "<strong>rock</strong>, <strong>pop</strong> e <strong>baladas acústicas</strong>";
+    let rhythm = "<strong>BAIXO-BAIXO-CIMA-BAIXO-CIMA</strong> (4/4)";
+    let feel = "Esta é uma progressão muito versátil!";
+
+    // Example customization based on chords
+    if (progression.includes('Am') || progression.includes('Em') || progression.includes('Dm')) {
+        style = "<strong>rock</strong>, <strong>baladas</strong> e <strong>música folk</strong>";
+        rhythm = "<strong>BAIXO-cima-baixo-CIMA-baixo-cima</strong> (Variação Pop/Rock)";
+        feel = "Traz uma sensação mais melancólica ou introspectiva.";
+    }
+    if (progression.includes('G7') || progression.includes('C7') || progression.includes('E7') || progression.includes('A7') || progression.includes('D7') || progression.includes('B7')) {
+        style = "<strong>blues</strong>, <strong>jazz</strong>, <strong>rock clássico</strong> e <strong>MPB</strong>";
+        rhythm = "<strong>BAIXO-cima-abafa-CIMA-baixo-abafa</strong> (Levada Blues/Shuffle)";
+        feel = "A sétima dominante adiciona tensão e um sabor 'bluesy'.";
+    }
+     if (progression.includes('F') && progression.includes('C') && progression.includes('G')) {
+        style = "<strong>pop-rock</strong>, <strong>sertanejo universitário</strong> e <strong>música gospel</strong>";
+        rhythm = "<strong>BAIXO-BAIXO-CIMA-CIMA-BAIXO-CIMA</strong> (Ritmo Pop Comum)";
+         feel = "Uma das progressões mais comuns e agradáveis.";
+    }
+     if (chord === 'G' && progression.includes('C') && progression.includes('D')) {
+         style = "<strong>country</strong>, <strong>folk</strong> e <strong>rock clássico</strong>";
+         rhythm = "<strong>BAIXO-cima-BAIXO-cima-BAIXO-cima</strong> (Ritmo Folk)";
+         feel = "Progressão fundamental em G, muito usada em músicas animadas.";
+     }
+
+    return { style, rhythm, feel };
+}
+
+
 function showProgressionPopup(progression, chord) {
     if (!progressionPopup || !progressionPopupTitle || !progressionPopupText || !progressionPopupChordsContainer || !playPopupProgressionBtn) {
         console.error("Elementos do popup de progressão não encontrados.");
         return;
     }
 
+    // Get specific info
+    const info = getProgressionInfo(progression, chord);
+
     // Configurar o conteúdo
     progressionPopupTitle.textContent = `Progressão: ${progression}`;
-    progressionPopupText.innerHTML = `Esta progressão é muito usada em: <strong>rock</strong>, <strong>pop</strong> e <strong>baladas acústicas</strong>!<br><br>
-                          Tente tocar com ritmo de 4/4 (<strong>BAIXO-BAIXO-CIMA-BAIXO-CIMA</strong>)`;
-    
+    // Use the specific info here
+    progressionPopupText.innerHTML = `Esta progressão é muito usada em: ${info.style}!<br>
+                          ${info.feel}<br><br>
+                          Tente tocar com ritmo de ${info.rhythm}`;
+
     // Configurar os acordes da progressão como pílulas
     progressionPopupChordsContainer.innerHTML = '';
     const chords = progression.split(' - ');
