@@ -14,7 +14,7 @@ const urlsToCache = [
   './img/icon-512.svg',
   './img/maskable-icon.svg',
   './img/placeholder.svg',
-  './img/Mockup .png',
+  './img/imagem do app.png',
   './img/logo nova.png',
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
@@ -27,6 +27,7 @@ const CRITICAL_ASSETS = [
   './script.js',
   './img/placeholder.svg',
   './img/logo nova.png',
+  './img/imagem do app.png',
   './manifest.json'
 ];
 
