@@ -2,39 +2,57 @@
     "name": "Domine o Violão",
     "short_name": "Domine o Violão",
     "description": "Da Primeira Nota à Sua Primeira Música - Aprenda violão de forma completa com 50 aulas e materiais exclusivos",
-    "start_url": "./index.html",
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#8B4513",
     "orientation": "any",
     "icons": [
         {
-            "src": "./img/logo nova.png",
+            "src": "/img/logo nova.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "./img/logo nova.png",
+            "src": "/img/logo nova.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "./img/logo nova.png",
+            "src": "/img/logo nova.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
+        },
+        {
+            "src": "/img/logo nova.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "monochrome"
         }
     ],
     "screenshots": [
         {
-            "src": "./img/Mockup .png",
+            "src": "/img/Mockup .png",
             "sizes": "1280x720",
             "type": "image/png"
         }
     ],
     "categories": ["education", "music"],
     "dir": "ltr",
-    "lang": "pt-BR"
+    "lang": "pt-BR",
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "shortcuts": [
+        {
+            "name": "Acessar curso",
+            "short_name": "Curso",
+            "description": "Acesse as aulas do curso",
+            "url": "/index.html",
+            "icons": [{ "src": "/img/logo nova.png", "sizes": "192x192" }]
+        }
+    ],
+    "id": "domineoviolaoapp"
 }
