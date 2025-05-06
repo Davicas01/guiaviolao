@@ -18,8 +18,8 @@
     <!-- PWA Meta Tags -->
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="img/LOGO(APP).png" type="image/png">
-    <link rel="apple-touch-icon" href="img/LOGO(APP).png">
+    <link rel="icon" href="img/logo nova.png" type="image/png">
+    <link rel="apple-touch-icon" href="img/logo nova.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Domine o Violão">
@@ -877,6 +877,8 @@
                     <li><a href="#inicio" class="active">Início</a></li>
                     <li><a href="#metodo">Método Completo</a></li>
                     <li><a href="#bonus">Bônus</a></li>
+                    <li><a href="#produtos">Produtos Premium</a></li>
+                    <li><a href="#produtos-essenciais">Ferramentas Essenciais</a></li>
                     <li><a href="#" id="logoutBtn">Sair <i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </nav>
@@ -1349,6 +1351,17 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>(Novo!)</span>
                             </div>
+                            
+                            <!-- Aviso de manutenção -->
+                            <div style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 10px 15px; border-radius: 5px; margin: 10px 0; position: relative; text-align: center;">
+                                <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background-color: #fff3cd; padding: 0 10px;">
+                                    <i class="fas fa-tools" style="margin-right: 5px;"></i>
+                                    <span style="font-weight: bold;">EM MANUTENÇÃO</span>
+                                </div>
+                                <p style="margin: 10px 0 5px;">Este conteúdo está temporariamente indisponível enquanto realizamos melhorias.</p>
+                                <p style="margin: 5px 0;"><small>Previsão de retorno: em breve</small></p>
+                            </div>
+                            
                             <p>Coleção completa de materiais extras para aprofundar seus estudos: teoria avançada (Campo Harmônico), repertório (50 Músicas, Batidas), técnica (Dedilhado, Pestana), organização (Planner, Ficha) e referência (Dicionário, Diagrama, Manual).</p>
                             
                             <!-- Os links para os Bonus Esquecidos foram removidos da exibição principal -->
@@ -1385,6 +1398,13 @@
                             <li><a href="#bonus">Bônus</a></li>
                         </ul>
                     </div>
+                    <div class="footer-nav">
+                        <h4>Produtos</h4>
+                        <ul>
+                            <li><a href="#produtos">Produtos Premium</a></li>
+                            <li><a href="#produtos-essenciais">Ferramentas Essenciais</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
@@ -1409,7 +1429,7 @@
     <div class="install-prompt" id="installPrompt">
         <div class="install-content">
             <div class="prompt-header">
-                <img src="img/LOGO(APP).png" alt="Ícone do App" class="prompt-icon">
+                <img src="img/logo nova.png" alt="Ícone do App" class="prompt-icon">
                 <h3>Instale o App</h3>
                 <button class="close-prompt text-btn" id="closePrompt">&times;</button>
             </div>
@@ -1826,9 +1846,7 @@
                     accessError.style.display = 'block';
                     return;
                 }
-                accessError.style.display = 'none';
-                
-                // Códigos de acesso simplificados - um código único e simples para cada produto
+               
                 const validCodes = {
                     "treinoia714": { product: 'pro-plan', path: 'PLANO PRO DE TREINAMENTO PERSONALIZA COM IA/index.html' },
                     "assistente512": { product: 'ai-assistant', path: 'Ajudante de Violão Inteligente com Inteligencia Artificia/index.html' },

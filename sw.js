@@ -1,7 +1,7 @@
 // Nome do cache para armazenamento offline
-const CACHE_NAME = 'kit-violao-v2';
-const STATIC_CACHE_NAME = 'kit-violao-static-v2';
-const DYNAMIC_CACHE_NAME = 'kit-violao-dynamic-v2';
+const CACHE_NAME = 'domine-violao-v3';
+const STATIC_CACHE_NAME = 'domine-violao-static-v3';
+const DYNAMIC_CACHE_NAME = 'domine-violao-dynamic-v3';
 
 // Lista de recursos para cache offline inicial - usando caminhos relativos
 const urlsToCache = [
@@ -15,6 +15,7 @@ const urlsToCache = [
   './img/maskable-icon.svg',
   './img/placeholder.svg',
   './img/Mockup .png',
+  './img/logo nova.png',
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
@@ -25,6 +26,7 @@ const CRITICAL_ASSETS = [
   './style.css',
   './script.js',
   './img/placeholder.svg',
+  './img/logo nova.png',
   './manifest.json'
 ];
 
@@ -260,11 +262,11 @@ self.addEventListener('sync', event => {
 // Ouvinte para notificações push
 self.addEventListener('push', event => {
   const data = event.data ? event.data.json() : {};
-  const title = data.title || 'Novidades do Violão!';
+  const title = data.title || 'Novidades do Domine o Violão!';
   const options = {
-    body: data.body || 'Confira as novidades no seu aplicativo de violão!',
-    icon: './img/icon-192.svg',
-    badge: './img/maskable-icon.svg'
+    body: data.body || 'Da Primeira Nota à Sua Primeira Música - Confira as novidades no seu aplicativo!',
+    icon: './img/logo nova.png',
+    badge: './img/logo nova.png'
   };
   
   event.waitUntil(
