@@ -7,14 +7,6 @@
     <meta name="description" content="Domine o Violão - Da Primeira Nota à Sua Primeira Música! Um aplicativo completo com método + bônus incríveis">
     <title>Domine o Violão</title>
     
-    <!-- Verificação de autenticação -->
-    <script>
-        // Verificar se o usuário está autenticado
-        if (localStorage.getItem('violaoAuth') !== 'true') {
-            window.location.href = 'login.html';
-        }
-    </script>
-    
     <!-- PWA Meta Tags -->
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
@@ -28,30 +20,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Verificação de autenticação aprimorada -->
+    <!-- Verificação de autenticação (expiração a cada 4 horas) -->
     <script>
-        // Função para verificar autenticação
-        function checkAuth() {
+        // Verificar autenticação somente se não estiver na página de login
+        if (window.location.pathname.indexOf('login.html') === -1) {
             const isAuthenticated = localStorage.getItem('violaoAuth') === 'true';
             const lastLoginTime = localStorage.getItem('violaoLoginTime');
             const currentTime = new Date().getTime();
             
-            // Verifica se o login expirou (após 24 horas)
-            const sessionExpired = lastLoginTime && (currentTime - parseInt(lastLoginTime) > 24 * 60 * 60 * 1000);
+            // Verifica se o login expirou (após 4 horas)
+            const sessionExpired = lastLoginTime && (currentTime - parseInt(lastLoginTime) > 4 * 60 * 60 * 1000);
             
             if (!isAuthenticated || sessionExpired) {
-                // Se não autenticado ou sessão expirada, redireciona para login
                 if (sessionExpired) {
                     localStorage.setItem('loginMessage', 'Sua sessão expirou. Por favor, faça login novamente.');
                 }
-                window.location.replace('login.html');
-                return false;
+                window.location.href = 'login.html';
             }
-            return true;
         }
-        
-        // Executar verificação imediatamente
-        checkAuth();
     </script>
     
     <!-- Estilos para elementos adicionais -->
@@ -1422,26 +1408,11 @@
     </div>
 
     <!-- Botão Voltar ao Topo -->
-    <button id="backToTop" class="back-to-top" title="Voltar ao topo">
-        <i class="fas fa-arrow-up"></i>
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+        <i class="fas fa-chevron-up"></i>
     </button>
 
-    <div class="install-prompt" id="installPrompt">
-        <div class="install-content">
-            <div class="prompt-header">
-                <img src="img/logo nova.png" alt="Ícone do App" class="prompt-icon">
-                <h3>Instale o App</h3>
-                <button class="close-prompt text-btn" id="closePrompt">&times;</button>
-            </div>
-            <p>Instale nosso aplicativo para acesso offline e uma melhor experiência!</p>
-            <div class="prompt-buttons">
-                <button class="btn btn-primary" id="installBtn">Instalar App</button>
-                <button class="text-btn" id="laterBtn">Mais tarde</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal para entrada do código de acesso -->
+    <!-- Modal de Código de Acesso -->
     <div class="modal-overlay" id="accessCodeModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1502,468 +1473,31 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script src="violao-nav.js"></script>
+    <!-- Script para corrigir a exibição dos produtos -->
     <script>
-        // Registrar o service worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => {
-                        console.log('Service Worker registrado com sucesso:', reg.scope);
-                        // Verificar atualizações
-                        reg.addEventListener('updatefound', () => {
-                            const newWorker = reg.installing;
-                            console.log('Nova versão do Service Worker encontrada');
-                            
-                            // Monitorar estado do novo service worker
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    console.log('Nova versão disponível! Recarregue para atualizar.');
-                                }
-                            });
-                        });
-                    })
-                    .catch(err => console.error('Erro ao registrar Service Worker:', err));
-            });
-        }
-        
-        // Funcionalidade Voltar ao Topo
-        const backToTopButton = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.add('show');
-            } else {
-                backToTopButton.classList.remove('show');
-            }
-        });
-        
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Logout functionality
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            if (confirm('Tem certeza que deseja sair? Você precisará inserir seu código de acesso novamente.')) {
-                localStorage.setItem('violaoAuth', 'false');
-                window.location.href = 'login.html';
-            }
-        });
-        
-        // Display user name if available
+        // Garantir que os cards de produtos sejam exibidos corretamente
         document.addEventListener('DOMContentLoaded', function() {
-            const savedName = localStorage.getItem('violaoUserName');
-            if (savedName) {
-                // Add user name to header if exists
-                const userElement = document.createElement('div');
-                userElement.className = 'user-welcome';
-                userElement.innerHTML = `<i class="fas fa-user-circle"></i> Olá, ${savedName}!`;
-                document.querySelector('.main-header .container').appendChild(userElement);
-            }
-            
-            // Forçar a exibição dos cartões de produtos premium
-            document.querySelectorAll('.product-card.animate-on-scroll').forEach(card => {
+            // Forçar a exibição dos cartões de produtos premium e ferramentas essenciais
+            document.querySelectorAll('.product-card').forEach(card => {
                 card.classList.add('animated');
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
             });
-        });
-        
-        // Configuração para os produtos do Kit Bônus Esquecidos
-        const kitBonusEsquecidosProducts = [
-            {
-                id: "campo-harmonico",
-                name: "3 Apostilas do Campo Harmônico",
-                description: "Domine o campo harmônico de forma completa",
-                icon: "fas fa-book",
-                path: "Bonus Esquecidos/3 Apostilas para Dominar o Campo Harmônico/apostila01.html"
-            },
-            {
-                id: "atividades-alunos",
-                name: "Apostila com Atividades",
-                description: "Perfeito para professores de violão",
-                icon: "fas fa-tasks",
-                path: "Bonus Esquecidos/Apostila com Atividades para Seus Alunos/index.html"
-            },
-            {
-                id: "50-musicas",
-                name: "50 Músicas Mais Pedidas",
-                description: "As músicas que não podem faltar no seu repertório",
-                icon: "fas fa-music",
-                path: "Bonus Esquecidos/As 50 Músicas Mais Pedidas em Festas/index.html"
-            },
-            {
-                id: "batidas-todos-generos",
-                name: "Batidas para Todos Gêneros",
-                description: "Aprenda as batidas de todos os estilos musicais",
-                icon: "fas fa-guitar",
-                path: "Bonus Esquecidos/Batidas de Violão para Todos os Gêneros/index.html"
-            },
-            {
-                id: "desafio-7dias",
-                name: "Desafio de 7 Dias",
-                description: "Programa intensivo para avançar rapidamente",
-                icon: "fas fa-calendar-check",
-                path: "Bonus Esquecidos/Desafio de 7 Dias no Violão/index.html"
-            },
-            {
-                id: "diagrama-acordes",
-                name: "Diagrama de Acordes",
-                description: "Organizado por tom para consulta rápida",
-                icon: "fas fa-project-diagram",
-                path: "Bonus Esquecidos/Diagrama de Acordes (Organizado por Tom)/index.html"
-            },
-            {
-                id: "dicionario-acordes",
-                name: "Dicionário de Acordes",
-                description: "Guia completo de todos os acordes possíveis",
-                icon: "fas fa-book-open",
-                path: "Bonus Esquecidos/Dicionário de Acordes (PDF Digital)/index.html"
-            },
-            {
-                id: "exercicios-dedilhado",
-                name: "Exercícios para Dedilhado",
-                description: "Melhore sua técnica de dedilhado",
-                icon: "fas fa-hand-paper",
-                path: "Bonus Esquecidos/Exercícios para Melhorar o Dedilhado/index.html"
-            },
-            {
-                id: "ficha-evolucao",
-                name: "Ficha de Evolução",
-                description: "Acompanhe seu progresso com exercícios avançados",
-                icon: "fas fa-file-alt",
-                path: "Bonus Esquecidos/Ficha de Evolução e Exercícios Avançados/index.html"
-            },
-            {
-                id: "guia-pestana",
-                name: "Guia de Acordes com Pestana",
-                description: "Domine a técnica da pestana sem dificuldades",
-                icon: "fas fa-graduation-cap",
-                path: "Bonus Esquecidos/Guia de Acordes com Pestana/index.html"
-            },
-            {
-                id: "manual-cifras",
-                name: "Manual de Cifras Completo",
-                description: "Tudo sobre como ler e interpretar cifras",
-                icon: "fas fa-clipboard",
-                path: "Bonus Esquecidos/Manual de Cifras Completo/index.html"
-            },
-            {
-                id: "planner-estudos",
-                name: "Planner de Estudos",
-                description: "Organize seu tempo de prática com eficiência",
-                icon: "fas fa-clipboard-list",
-                path: "Bonus Esquecidos/Planner de Estudos para Violão/index.html"
-            }
-        ];
 
-        // Funcionalidade para o modal de código de acesso
-        document.addEventListener('DOMContentLoaded', function() {
-            // Selecionar TODOS os botões "Já tenho acesso" relevantes
-            const accessCodeBtn = document.getElementById('accessCodeBtn'); // PDF Principal (já existe)
-            const proPlanCodeBtn = document.getElementById('proPlanCodeBtn'); // Plano PRO (já existe)
-            const aiAssistantCodeBtn = document.getElementById('aiAssistantCodeBtn'); // Ajudante IA (já existe)
-            const desafio30DiasBtn = document.getElementById('desafio30DiasBtn'); // Desafio 30 Dias (já existe)
-            const coverCourseBtn = document.getElementById('coverCourseBtn'); // Curso Cover (já existe)
-            const guiasKitBtn = document.getElementById('guiasKitBtn'); // Kit Guias Essenciais
-            const kitAcordesBtn = document.getElementById('kitAcordesBtn'); // Kit Acordes Iniciante
-            const kitForcaBtn = document.getElementById('kitForcaBtn'); // Kit Força e Conforto
-            const musicasProntasBtn = document.getElementById('musicasProntasBtn'); // 10 Músicas Prontas
-            const livePestanasBtn = document.getElementById('livePestanasBtn'); // Desafio Livre Pestanas
-            const bonusKitBtn = document.getElementById('bonusKitBtn'); // Bônus Exclusivos Kit Profissional
-            const ritmosEssenciaisBtn = document.getElementById('ritmosEssenciaisBtn'); // Pack Ritmos Essenciais
-
-            const accessCodeModal = document.getElementById('accessCodeModal');
-            const closeAccessModal = document.getElementById('closeAccessModal');
-            const submitAccessCode = document.getElementById('submitAccessCode');
-            const accessCodeInput = document.getElementById('accessCodeInput');
-            const accessError = document.getElementById('accessError');
-            const productSelection = document.getElementById('productSelection');
-            let currentProduct = ''; // Variable to store which product modal was opened for
-
-            // Função para abrir modal e setar produto atual
-            function openAccessModal(productType) {
-                currentProduct = productType;
-                accessCodeModal.style.display = 'flex';
-                accessCodeInput.value = ''; // Limpar input anterior
-                accessError.style.display = 'none'; // Esconder erro anterior
-                accessCodeInput.focus(); // Focar no input
-                
-                // Atualizar o texto do placeholder com um código personalizado aleatório
-                updatePlaceholderWithRandomCode(productType);
+            // Verificar se as seções estão visíveis, caso contrário forçar a exibição
+            const produtosSection = document.getElementById('produtos');
+            const produtosEssenciaisSection = document.getElementById('produtos-essenciais');
+            
+            if (produtosSection) {
+                produtosSection.style.display = 'block';
             }
             
-            // Função para gerar um código de acesso personalizado para o produto atual
-            function updatePlaceholderWithRandomCode(productType) {
-                const randomSuffix = Math.floor(1000 + Math.random() * 9000); // Números aleatórios de 4 dígitos
-                let codeExample = '';
-                
-                // Definir exemplo de código baseado no tipo de produto
-                switch(productType) {
-                    case 'pro-plan':
-                        codeExample = `treinoia${randomSuffix}`;
-                        break;
-                    case 'ai-assistant':
-                        codeExample = `assistente${randomSuffix}`;
-                        break;
-                    case 'desafio-30dias':
-                        codeExample = `desafio${randomSuffix}`;
-                        break;
-                    case 'cover-course':
-                        codeExample = `cover${randomSuffix}`;
-                        break;
-                    case 'pdf-principal':
-                        codeExample = `pdf${randomSuffix}`;
-                        break;
-                    case 'guias-kit':
-                        codeExample = `guias${randomSuffix}`;
-                        break;
-                    case 'kit-acordes':
-                        codeExample = `acordes${randomSuffix}`;
-                        break;
-                    case 'kit-forca':
-                        codeExample = `forca${randomSuffix}`;
-                        break;
-                    case 'musicas-prontas':
-                        codeExample = `musicas${randomSuffix}`;
-                        break;
-                    case 'livre-pestanas':
-                        codeExample = `pestana${randomSuffix}`;
-                        break;
-                    case 'bonus-kit':
-                        codeExample = `bonus${randomSuffix}`;
-                        break;
-                    case 'ritmos-essenciais':
-                        codeExample = `ritmos${randomSuffix}`;
-                        break;
-                    default:
-                        codeExample = `acesso${randomSuffix}`;
-                }
-                
-                // Atualizar texto no modal para mostrar o código
-                const modalText = document.querySelector('.modal-body > p');
-                modalText.innerHTML = `Por favor, insira abaixo o código único <strong>${codeExample}</strong> que você recebeu ao adquirir o produto:`;
-                
-                // Atualizar placeholder do input
-                accessCodeInput.placeholder = `Exemplo: ${codeExample}`;
+            if (produtosEssenciaisSection) {
+                produtosEssenciaisSection.style.display = 'block';
             }
-
-            // Adicionar ouvintes de evento para CADA botão
-            if (accessCodeBtn) {
-                accessCodeBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('pro-plan'); // Corrigido para 'pro-plan' em vez de 'pdf-principal'
-                });
-            }
-            if (proPlanCodeBtn) {
-                proPlanCodeBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('pro-plan');
-                });
-            }
-            if (aiAssistantCodeBtn) {
-                aiAssistantCodeBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('ai-assistant');
-                });
-            }
-            if (desafio30DiasBtn) {
-                desafio30DiasBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('desafio-30dias');
-                });
-            }
-            if (coverCourseBtn) {
-                coverCourseBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('cover-course');
-                });
-            }
-            if (guiasKitBtn) {
-                guiasKitBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('guias-kit');
-                });
-            }
-             if (kitAcordesBtn) {
-                kitAcordesBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('kit-acordes');
-                });
-            }
-            if (kitForcaBtn) {
-                kitForcaBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('kit-forca');
-                });
-            }
-            if (musicasProntasBtn) {
-                musicasProntasBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('musicas-prontas');
-                });
-            }
-            if (livePestanasBtn) {
-                livePestanasBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('livre-pestanas');
-                });
-            }
-            if (bonusKitBtn) {
-                bonusKitBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('bonus-kit');
-                });
-            }
-            if (ritmosEssenciaisBtn) { // Listener para Ritmos Essenciais
-                ritmosEssenciaisBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAccessModal('ritmos-essenciais');
-                });
-            }
-
-            // Fechar o modal
-            closeAccessModal.addEventListener('click', function() {
-                accessCodeModal.style.display = 'none';
-            });
-            window.addEventListener('click', function(e) {
-                if (e.target === accessCodeModal) {
-                    accessCodeModal.style.display = 'none';
-                }
-            });
-
-            // Validar e processar o código de acesso
-            submitAccessCode.addEventListener('click', function() {
-                const code = accessCodeInput.value.trim().toLowerCase();
-
-                if (code === '') {
-                    accessError.textContent = 'Por favor, digite seu código de acesso.';
-                    accessError.style.display = 'block';
-                    return;
-                }
-               
-                const validCodes = {
-                    "treinoia714": { product: 'pro-plan', path: 'PLANO PRO DE TREINAMENTO PERSONALIZA COM IA/index.html' },
-                    "assistente512": { product: 'ai-assistant', path: 'Ajudante de Violão Inteligente com Inteligencia Artificia/index.html' },
-                    "desafio412": { product: 'desafio-30dias', path: 'Desafio de 30 Dias/index.html' },
-                    "cover361": { product: 'cover-course', path: 'Curso Relâmpago como gravar cover/index.html' },
-                    "guias925": { product: 'guias-kit', path: 'KIT DE GUIAS ESSENCIAIS DO VIOLONISTA MODERNO/index.html' },
-                    "acordes210": { product: 'kit-acordes', path: 'Kit Acordes do Violonista Iniciante/index.html' },
-                    "forca214": { product: 'kit-forca', path: 'Kit forças e conforto/index.html' },
-                                       "musicas815": { product: 'musicas-prontas', path: '10 Músicas Prontas pra Tocar/index.html' },
-                    "pestana670": { product: 'livre-pestanas', path: 'Desafio Livre das Pestanas/index.html' },
-                    "bonus378": { product: 'bonus-kit', path: 'Bonus Esquecidos/index.html', isKit: true },
-                    "ritmos526": { product: 'ritmos-essenciais', path: 'Pack de Ritmos Essenciais Para Violão/index.html' }
-                };
-                
-                // Verificar se o código digitado existe
-                if (validCodes[code]) {
-                    const codeInfo = validCodes[code];
-                    
-                    // Verificar se corresponde ao produto atual
-                    if (codeInfo.product === currentProduct) {
-                        
-                        // Se for um kit com múltiplos subprodutos, mostrar tela de seleção
-                        if (codeInfo.isKit) {
-                            // Esconder elementos existentes no modal
-                            document.querySelector('.modal-body > p').style.display = 'none';
-                            document.querySelector('.form-group').style.display = 'none';
-                            submitAccessCode.style.display = 'none';
-                            
-                            // Atualizar título do modal
-                            document.querySelector('.modal-header h3').textContent = 'Selecione o material que deseja acessar';
-                            
-                            // Configurar a grade de produtos do kit
-                            const selectionGrid = document.querySelector('.product-selection-grid');
-                            selectionGrid.innerHTML = '';
-                            
-                            // Preencher o grid com os produtos do kit
-                            if (codeInfo.product === 'bonus-kit') {
-                                kitBonusEsquecidosProducts.forEach(product => {
-                                    const productItem = document.createElement('div');
-                                    productItem.className = 'product-selection-item';
-                                    productItem.dataset.path = product.path;
-                                    
-                                    productItem.innerHTML = `
-                                        <i class="${product.icon}"></i>
-                                        <h4>${product.name}</h4>
-                                        <p>${product.description}</p>
-                                    `;
-                                    
-                                    // Adicionar evento de clique para cada item
-                                    productItem.addEventListener('click', function() {
-                                        window.location.href = this.dataset.path;
-                                    });
-                                    
-                                    selectionGrid.appendChild(productItem);
-                                });
-                            }
-                            
-                            // Mostrar a tela de seleção
-                            productSelection.style.display = 'block';
-                            
-                            // Adicionar botão para ir para a página principal do kit
-                            const footerDiv = document.createElement('div');
-                            footerDiv.className = 'product-selection-footer';
-                            footerDiv.innerHTML = `
-                                <button class="btn btn-secondary" id="viewAllKitBtn">Ver página principal do Kit</button>
-                            `;
-                            
-                            document.querySelector('.modal-footer').appendChild(footerDiv);
-                            
-                            document.getElementById('viewAllKitBtn').addEventListener('click', function() {
-                                window.location.href = codeInfo.path;
-                            });
-                        } else {
-                            // Código válido para produto individual, redirecionar diretamente
-                            window.location.href = codeInfo.path;
-                        }
-                    } else {
-                        // Código existe mas não corresponde ao produto atual
-                        accessError.textContent = 'Este código é válido para outro produto. Verifique se está acessando o produto correto.';
-                        accessError.style.display = 'block';
-                    }
-                } else {
-                    // Código inválido
-                    accessError.textContent = 'Código de acesso inválido. Verifique e tente novamente.';
-                    accessError.style.display = 'block';
-                }
-            });
-
-            // Permitir submissão com Enter no input
-            accessCodeInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault(); // Impedir submissão padrão do formulário (se houver)
-                    submitAccessCode.click(); // Simular clique no botão de submissão
-                }
-            });
-        });
-
-        // Funcionalidade para o modal de notificação de produtos
-        document.addEventListener('DOMContentLoaded', function() {
-            const productNotificationModal = document.getElementById('productNotificationModal');
-            const closeProductNotification = document.getElementById('closeProductNotification');
-
-            // Mostrar modal de notificação após 2 segundos
-            setTimeout(() => {
-                productNotificationModal.style.display = 'flex';
-            }, 2000);
-
-            // Fechar modal de notificação
-            closeProductNotification.addEventListener('click', function() {
-                productNotificationModal.style.display = 'none';
-            });
-            window.addEventListener('click', function(e) {
-                if (e.target === productNotificationModal) {
-                    productNotificationModal.style.display = 'none';
-                }
-            });
         });
     </script>
+
+    <script src="script.js"></script>
 </body>
 </html>

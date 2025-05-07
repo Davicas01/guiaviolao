@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalar Domine o Violão</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 150px;
+        }
+        .button {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            padding: 14px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+        }
+        .steps {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #8B4513;
+        }
+        .steps li {
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        .device-specific {
+            display: none;
+        }
+        .header-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header-title h1 {
+            margin-bottom: 10px;
+            color: #3E2723;
+        }
+        .header-title p {
+            color: #666;
+            font-size: 16px;
+        }
+        .icon {
+            font-size: 24px;
+            vertical-align: middle;
+            margin-right: 10px;
+            color: #8B4513;
+        }
+        .progress-container {
+            position: relative;
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8B4513, #CD853F);
+            border-radius: 3px;
+            width: 0;
+            transition: width 1s linear;
+        }
+        .countdown {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #666;
+        }
+        .skip-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #8B4513;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .skip-btn:hover {
+            text-decoration: underline;
+        }
+        .benefits {
+            background-color: #FFF8E1;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .benefits h3 {
+            margin-top: 0;
+            color: #8B4513;
+        }
+        .benefits ul {
+            padding-left: 20px;
+        }
+        .benefits li {
+            margin: 10px 0;
+        }
+        .note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="img/logo nova.png" alt="Domine o Violão" class="logo">
+        
+        <div class="header-title">
+            <h1>Vamos instalar o Domine o Violão</h1>
+            <p>Siga os passos abaixo para ter acesso completo ao aplicativo</p>
+        </div>
+        
+        <div class="benefits">
+            <h3><i class="fas fa-star icon" style="font-size: 18px;"></i> Por que instalar o app?</h3>
+            <ul>
+                <li>Acesso ao conteúdo <strong>mesmo sem internet</strong></li>
+                <li>Experiência completa com todas as funcionalidades</li>
+                <li>Atualizações automáticas e prática de violão facilitada</li>
+                <li>Ícone na sua tela inicial para acesso rápido</li>
+            </ul>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="countdown" id="countdown">
+            Redirecionando para o app em <span id="timer">15</span> segundos...
+        </div>
+        
+        <div class="device-specific" id="android">
+            <h2><i class="fas fa-android icon"></i> Instalação no Android</h2>
+            <div class="steps">
+                <ol>
+                    <li>Abra este link no Chrome: <a href="https://domineoviolaoapp.netlify.app">domineoviolaoapp.netlify.app</a></li>
+                    <li>Toque no banner "Adicionar à tela inicial" quando aparecer</li>
+                    <li>OU toque no menu (<i class="fas fa-ellipsis-v"></i>) e selecione "Instalar aplicativo"</li>
+                    <li>Confirme a instalação tocando em "Instalar"</li>
+                </ol>
+            </div>
+            <a href="https://domineoviolaoapp.netlify.app" class="button"><i class="fas fa-external-link-alt"></i> Abrir no Chrome</a>
+        </div>
+
+        <div class="device-specific" id="ios">
+            <h2><i class="fas fa-apple icon"></i> Instalação no iPhone/iPad</h2>
+            <div class="steps">
+                <ol>
+                    <li>Abra este link no Safari: <a href="https://domineoviolaoapp.netlify.app">domineoviolaoapp.netlify.app</a></li>
+                    <li>Toque no botão compartilhar (<i class="fas fa-share-square"></i>)</li>
+                    <li>Role para baixo e toque em "Adicionar à Tela de Início"</li>
+                    <li>Digite um nome (ou mantenha o sugerido) e toque em "Adicionar"</li>
+                </ol>
+            </div>
+            <a href="https://domineoviolaoapp.netlify.app" class="button"><i class="fas fa-external-link-alt"></i> Abrir no Safari</a>
+        </div>
+
+        <div class="device-specific" id="desktop">
+            <h2><i class="fas fa-laptop icon"></i> Instalação no Computador</h2>
+            <div class="steps">
+                <ol>
+                    <li>Abra este link no Chrome: <a href="https://domineoviolaoapp.netlify.app">domineoviolaoapp.netlify.app</a></li>
+                    <li>Clique no ícone de instalação (<i class="fas fa-download"></i>) na barra de endereços</li>
+                    <li>OU clique no menu (<i class="fas fa-ellipsis-v"></i>) e selecione "Instalar Domine o Violão"</li>
+                    <li>Clique em "Instalar" na janela de confirmação</li>
+                </ol>
+            </div>
+            <a href="https://domineoviolaoapp.netlify.app" class="button"><i class="fas fa-external-link-alt"></i> Abrir no Chrome</a>
+        </div>
+        
+        <p class="note">Após instalar, você verá o ícone do Domine o Violão na sua tela inicial para acesso rápido.</p>
+        
+        <a href="index.html" class="skip-btn" id="skipBtn">Pular e ir diretamente para o app <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <script>
+        // Detectar dispositivo
+        function detectDevice() {
+            const ua = navigator.userAgent;
+            if (/android/i.test(ua)) {
+                document.getElementById('android').style.display = 'block';
+            } else if (/ipad|iphone|ipod/i.test(ua)) {
+                document.getElementById('ios').style.display = 'block';
+            } else {
+                document.getElementById('desktop').style.display = 'block';
+            }
+        }
+        
+        // Iniciar temporizador de redirecionamento
+        let secondsLeft = 15;
+        let progressWidth = 0;
+        const timerElement = document.getElementById('timer');
+        const progressBar = document.getElementById('progressBar');
+        
+        function startTimer() {
+            const interval = setInterval(() => {
+                secondsLeft--;
+                progressWidth = (15 - secondsLeft) / 15 * 100;
+                
+                if (secondsLeft <= 0) {
+                    clearInterval(interval);
+                    window.location.href = 'index.html';
+                } else {
+                    timerElement.textContent = secondsLeft;
+                    progressBar.style.width = progressWidth + '%';
+                }
+            }, 1000);
+        }
+        
+        // Verificar se esta é a primeira vez ou se o usuário já instalou
+        function checkInstallStatus() {
+            const hasVisitedBefore = localStorage.getItem('installedApp');
+            
+            if (hasVisitedBefore === 'true') {
+                // Se já instalou antes, ir direto para o app
+                window.location.href = 'index.html';
+            } else {
+                // Primeira visita, mostrar instruções
+                detectDevice();
+                startTimer();
+                
+                // Marcar como visitado para futuras visitas
+                document.getElementById('skipBtn').addEventListener('click', () => {
+                    localStorage.setItem('installedApp', 'true');
+                });
+            }
+        }
+
+        // Executar quando a página carregar
+        window.onload = checkInstallStatus;
+    </script>
+</body>
+</html>

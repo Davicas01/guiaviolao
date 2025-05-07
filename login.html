@@ -213,6 +213,15 @@
             animation: shake 0.5s ease;
         }
         
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+        
         button {
             background-color: var(--primary-color);
             color: white;
@@ -317,7 +326,7 @@
         <div class="welcome-text">
             <p>Digite o código <strong>DVM365</strong> para acessar o conteúdo exclusivo</p>
             <button type="button" id="autoFillButton" style="margin-top: 10px; background-color: #CD853F;">
-                <i class="fas fa-magic"></i> Preencher Automaticamente
+                <i class="fas fa-magic"></i> Preencher Automatic
             </button>
         </div>
         
@@ -369,6 +378,13 @@
             // Código de acesso correto
             const CORRECT_CODE = "DVM365";
             
+            // Verificar se o usuário já está autenticado
+            const isAuthenticated = localStorage.getItem('violaoAuth') === 'true';
+            if (isAuthenticated) {
+                // Se já estiver autenticado, redirecionar diretamente para o index
+                window.location.href = 'index.html';
+            }
+            
             // Preencher automaticamente
             autoFillButton.addEventListener('click', function() {
                 const codeChars = CORRECT_CODE.split('');
@@ -400,15 +416,43 @@
                     // Simplified - we always accept the login
                     successMessage.style.display = 'block';
                     
-                    // Salvar estado de autenticação
+                    // Salvar estado de autenticação com validade de 4 horas
                     localStorage.setItem('violaoAuth', 'true');
                     localStorage.setItem('violaoLoginTime', new Date().getTime());
                     
-                    // Redirecionar após mensagem de sucesso
+                    // Salvar nome do usuário se fornecido
+                    const userName = document.getElementById('code1').value + 
+                                    document.getElementById('code2').value + 
+                                    document.getElementById('code3').value;
+                    if (userName) {
+                        localStorage.setItem('violaoUserName', userName);
+                    }
+                    
+                    // Redirecionar diretamente para index.html
                     setTimeout(() => {
                         window.location.href = 'index.html';
                     }, 1000);
                 }, 500);
+            });
+            
+            // Mover foco para o próximo input ao digitar
+            codeInputs.forEach((input, index) => {
+                input.addEventListener('input', function() {
+                    if (this.value.length === this.maxLength) {
+                        if (index < codeInputs.length - 1) {
+                            codeInputs[index + 1].focus();
+                        }
+                    }
+                });
+                
+                // Permitir navegação com as teclas de seta
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowRight' && index < codeInputs.length - 1) {
+                        codeInputs[index + 1].focus();
+                    } else if (e.key === 'ArrowLeft' && index > 0) {
+                        codeInputs[index - 1].focus();
+                    }
+                });
             });
         });
     </script>
