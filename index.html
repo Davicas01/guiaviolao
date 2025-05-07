@@ -22,8 +22,9 @@
     
     <!-- Verificação de autenticação (expiração a cada 4 horas) -->
     <script>
-        // Verificar autenticação somente se não estiver na página de login
-        if (window.location.pathname.indexOf('login.html') === -1) {
+        // Verificar autenticação somente se não estiver na página de login ou install
+        const currentPath = window.location.pathname;
+        if (currentPath.indexOf('login.html') === -1 && currentPath.indexOf('install.html') === -1) {
             const isAuthenticated = localStorage.getItem('violaoAuth') === 'true';
             const lastLoginTime = localStorage.getItem('violaoLoginTime');
             const currentTime = new Date().getTime();

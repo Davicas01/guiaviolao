@@ -240,18 +240,27 @@
         
         // Verificar se esta é a primeira vez ou se o usuário já instalou
         function checkInstallStatus() {
+            // Primeiro verificar se o usuário está autenticado
+            const isAuthenticated = localStorage.getItem('violaoAuth') === 'true';
+            if (!isAuthenticated) {
+                // Se não estiver autenticado, redirecionar para login
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Verificar se já instalou o app
             const hasVisitedBefore = localStorage.getItem('installedApp');
             
             if (hasVisitedBefore === 'true') {
                 // Se já instalou antes, ir direto para o app
                 window.location.href = 'index.html';
             } else {
-                // Primeira visita, mostrar instruções
+                // Primeira visita ou novo login, mostrar instruções
                 detectDevice();
                 startTimer();
                 
-                // Marcar como visitado para futuras visitas
-                document.getElementById('skipBtn').addEventListener('click', () => {
+                // Marcar como visitado para futuras visitas quando clicar em pular
+                document.getElementById('skipBtn').addEventListener('click', function() {
                     localStorage.setItem('installedApp', 'true');
                 });
             }
