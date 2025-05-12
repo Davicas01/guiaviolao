@@ -124,22 +124,87 @@
         }
         .benefits li {
             margin: 10px 0;
-        }
-        .note {
+        }        .note {
             font-size: 14px;
             color: #666;
             margin-top: 15px;
             font-style: italic;
         }
+        
+        /* Novos estilos para melhorar a experiência */
+        .entry-options {
+            display: flex;
+            flex-direction: column;
+            margin: 25px 0;
+            gap: 15px;
+        }
+        
+        .main-button {
+            background: #8B4513;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(139, 69, 19, 0.2);
+        }
+        
+        .main-button:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(139, 69, 19, 0.3);
+        }
+        
+        .install-container {
+            margin-top: 30px;
+        }
+        
+        .install-container h2 {
+            color: #3E2723;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 2px solid #F5DEB3;
+            padding-bottom: 15px;
+        }
+        
+        .install-container h3 {
+            margin: 20px 0 15px;
+            color: #8B4513;
+        }
+        
+        .steps ol li {
+            padding: 10px 0;
+        }
+        
+        .steps ol li strong {
+            color: #8B4513;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .primary-button {
+            font-size: 1.1rem;
+            padding: 18px;
+        }
     </style>
 </head>
-<body>
-    <div class="container">
+<body><div class="container">
         <img src="img/logo nova.png" alt="Domine o Violão" class="logo">
         
         <div class="header-title">
-            <h1>Vamos instalar o Domine o Violão</h1>
-            <p>Siga os passos abaixo para ter acesso completo ao aplicativo</p>
+            <h1>Domine o Violão</h1>
+            <p>Instale o aplicativo para uma melhor experiência</p>
         </div>
         
         <div class="benefits">
@@ -152,59 +217,59 @@
             </ul>
         </div>
         
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
+        <div class="entry-options">
+            <a href="index.html" class="main-button" id="skipInstallBtn">
+                <i class="fas fa-guitar"></i> Acessar o App Diretamente
+            </a>
         </div>
-        
-        <div class="countdown" id="countdown">
-            Redirecionando para o app em <span id="timer">15</span> segundos...
-        </div>
-        
-        <div class="device-specific" id="android">
-            <h2><i class="fas fa-android icon"></i> Instalação no Android</h2>
-            <div class="steps">
-                <ol>
-                    <li>Abra este link no Chrome: <a href="https://domineoviolaoapp.netlify.app">domineoviolaoapp.netlify.app</a></li>
-                    <li>Toque no banner "Adicionar à tela inicial" quando aparecer</li>
-                    <li>OU toque no menu (<i class="fas fa-ellipsis-v"></i>) e selecione "Instalar aplicativo"</li>
-                    <li>Confirme a instalação tocando em "Instalar"</li>
-                </ol>
+          <div class="install-container">
+            <h2><i class="fas fa-download icon"></i> Como instalar o aplicativo</h2>
+            
+            <div class="device-specific" id="android">
+                <h3><i class="fas fa-android icon"></i> No Android</h3>
+                <div class="steps">
+                    <ol>
+                        <li><strong>Abra o Chrome</strong> e acesse este site</li>
+                        <li>Toque no <strong>banner de instalação</strong> quando aparecer</li>
+                        <li>OU toque no <strong>menu</strong> (<i class="fas fa-ellipsis-v"></i>) e selecione "<strong>Instalar aplicativo</strong>"</li>
+                        <li>Confirme tocando em "<strong>Instalar</strong>"</li>
+                    </ol>
+                </div>
             </div>
-            <a href="https://domineoviolaoapp.netlify.app" class="button"><i class="fas fa-external-link-alt"></i> Abrir no Chrome</a>
-        </div>
 
-        <div class="device-specific" id="ios">
-            <h2><i class="fas fa-apple icon"></i> Instalação no iPhone/iPad</h2>
-            <div class="steps">
-                <ol>
-                    <li>Abra este link no Safari: <a href="https://domineoviolaoapp.netlify.app">domineoviolaoapp.netlify.app</a></li>
-                    <li>Toque no botão compartilhar (<i class="fas fa-share-square"></i>)</li>
-                    <li>Role para baixo e toque em "Adicionar à Tela de Início"</li>
-                    <li>Digite um nome (ou mantenha o sugerido) e toque em "Adicionar"</li>
-                </ol>
+            <div class="device-specific" id="ios">
+                <h3><i class="fas fa-apple icon"></i> No iPhone/iPad</h3>
+                <div class="steps">
+                    <ol>
+                        <li><strong>Abra o Safari</strong> e acesse este site</li>
+                        <li>Toque no botão <strong>compartilhar</strong> (<i class="fas fa-share-square"></i>)</li>
+                        <li>Role para baixo e toque em "<strong>Adicionar à Tela de Início</strong>"</li>
+                        <li>Toque em "<strong>Adicionar</strong>" para confirmar</li>
+                    </ol>
+                </div>
             </div>
-            <a href="https://domineoviolaoapp.netlify.app" class="button"><i class="fas fa-external-link-alt"></i> Abrir no Safari</a>
-        </div>
 
-        <div class="device-specific" id="desktop">
-            <h2><i class="fas fa-laptop icon"></i> Instalação no Computador</h2>
-            <div class="steps">
-                <ol>
-                    <li>Abra este link no Chrome: <a href="https://domineoviolaoapp.netlify.app">domineoviolaoapp.netlify.app</a></li>
-                    <li>Clique no ícone de instalação (<i class="fas fa-download"></i>) na barra de endereços</li>
-                    <li>OU clique no menu (<i class="fas fa-ellipsis-v"></i>) e selecione "Instalar Domine o Violão"</li>
-                    <li>Clique em "Instalar" na janela de confirmação</li>
-                </ol>
+            <div class="device-specific" id="desktop">
+                <h3><i class="fas fa-laptop icon"></i> No Computador</h3>
+                <div class="steps">
+                    <ol>
+                        <li><strong>Abra o Chrome</strong> e acesse este site</li>
+                        <li>Clique no <strong>ícone de instalação</strong> (<i class="fas fa-download"></i>) na barra de endereços</li>
+                        <li>OU clique no <strong>menu</strong> (<i class="fas fa-ellipsis-v"></i>) e selecione "<strong>Instalar Domine o Violão</strong>"</li>
+                        <li>Clique em "<strong>Instalar</strong>" para confirmar</li>
+                    </ol>
+                </div>
             </div>
-            <a href="https://domineoviolaoapp.netlify.app" class="button"><i class="fas fa-external-link-alt"></i> Abrir no Chrome</a>
+            
+            <p class="note">Após instalar, você terá acesso ao aplicativo diretamente da sua tela inicial!</p>
+            
+            <div class="action-buttons">
+                <a href="index.html" class="button primary-button" id="skipBtn">
+                    <i class="fas fa-guitar"></i> Continuar para o App
+                </a>
+            </div>
         </div>
-        
-        <p class="note">Após instalar, você verá o ícone do Domine o Violão na sua tela inicial para acesso rápido.</p>
-        
-        <a href="index.html" class="skip-btn" id="skipBtn">Pular e ir diretamente para o app <i class="fas fa-arrow-right"></i></a>
-    </div>
-
-    <script>
+    </div>    <script>
         // Detectar dispositivo
         function detectDevice() {
             const ua = navigator.userAgent;
@@ -215,27 +280,6 @@
             } else {
                 document.getElementById('desktop').style.display = 'block';
             }
-        }
-        
-        // Iniciar temporizador de redirecionamento
-        let secondsLeft = 15;
-        let progressWidth = 0;
-        const timerElement = document.getElementById('timer');
-        const progressBar = document.getElementById('progressBar');
-        
-        function startTimer() {
-            const interval = setInterval(() => {
-                secondsLeft--;
-                progressWidth = (15 - secondsLeft) / 15 * 100;
-                
-                if (secondsLeft <= 0) {
-                    clearInterval(interval);
-                    window.location.href = 'index.html';
-                } else {
-                    timerElement.textContent = secondsLeft;
-                    progressBar.style.width = progressWidth + '%';
-                }
-            }, 1000);
         }
         
         // Verificar se esta é a primeira vez ou se o usuário já instalou
@@ -257,12 +301,17 @@
             } else {
                 // Primeira visita ou novo login, mostrar instruções
                 detectDevice();
-                startTimer();
                 
-                // Marcar como visitado para futuras visitas quando clicar em pular
+                // Marcar como visitado para futuras visitas
                 document.getElementById('skipBtn').addEventListener('click', function() {
                     localStorage.setItem('installedApp', 'true');
                 });
+                
+                if (document.getElementById('skipInstallBtn')) {
+                    document.getElementById('skipInstallBtn').addEventListener('click', function() {
+                        localStorage.setItem('installedApp', 'true');
+                    });
+                }
             }
         }
 
