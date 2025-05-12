@@ -207,10 +207,15 @@
             border-radius: 10px;
             flex: 1;
         }
-        
-        .code-input.error {
+          .code-input.error {
             border-color: #e74c3c;
             animation: shake 0.5s ease;
+        }
+
+        .code-input.filled {
+            border-color: var(--primary-color);
+            background-color: rgba(205, 133, 63, 0.1);
+            animation: pulse 0.5s ease;
         }
         
         @keyframes shake {
@@ -220,6 +225,12 @@
             60% { transform: translateX(-10px); }
             80% { transform: translateX(10px); }
             100% { transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         button {
@@ -321,35 +332,32 @@
             <span class="icon-guitar">🎸</span>
             <h1>Domine o Violão</h1>
             <p class="subtitle">Acesso Exclusivo</p>
-        </div>
-        
-        <div class="welcome-text">
-            <p>Digite o código <strong>DVM365</strong> para acessar o conteúdo exclusivo</p>
-            <button type="button" id="autoFillButton" style="margin-top: 10px; background-color: #CD853F;">
-                <i class="fas fa-magic"></i> Preencher Automatic
-            </button>
+        </div>          <div class="welcome-text">
+            <p>Por favor, verifique seu <strong>e-mail</strong> para encontrar o código de acesso exclusivo</p>
+            <div class="email-tip" style="background-color: rgba(139, 69, 19, 0.1); padding: 15px; border-radius: var(--radius); margin-top: 15px;">
+                <i class="fas fa-envelope" style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 8px; display: block;"></i> 
+                <p><strong>Importante:</strong> Você precisa obter o código de 6 dígitos diretamente do e-mail cadastrado na sua compra</p>
+                <p style="margin-top: 5px; font-size: 0.9rem;">O código não é exibido neste aplicativo por motivos de segurança</p>
+            </div>
         </div>
         
         <form class="access-form" id="accessForm">
             <div class="form-row">
-                <label><i class="fas fa-key"></i> Seu código de acesso</label>
-                <div class="code-box">
-                    <input type="text" class="code-input" maxlength="1" value="D" id="code1" required>
-                    <input type="text" class="code-input" maxlength="1" value="V" id="code2" required>
-                    <input type="text" class="code-input" maxlength="1" value="M" id="code3" required>
-                    <input type="text" class="code-input" maxlength="1" value="3" id="code4" required>
-                    <input type="text" class="code-input" maxlength="1" value="6" id="code5" required>
-                    <input type="text" class="code-input" maxlength="1" value="5" id="code6" required>
+                <label><i class="fas fa-key"></i> Seu código de acesso</label>                <div class="code-box">
+                    <input type="text" class="code-input" maxlength="1" placeholder="•" id="code1" required>
+                    <input type="text" class="code-input" maxlength="1" placeholder="•" id="code2" required>
+                    <input type="text" class="code-input" maxlength="1" placeholder="•" id="code3" required>
+                    <input type="text" class="code-input" maxlength="1" placeholder="•" id="code4" required>
+                    <input type="text" class="code-input" maxlength="1" placeholder="•" id="code5" required>
+                    <input type="text" class="code-input" maxlength="1" placeholder="•" id="code6" required>
                 </div>
             </div>
             
             <button type="submit" id="loginButton">
                 <i class="fas fa-guitar"></i> Acessar Conteúdo
             </button>
-        </form>
-
-        <div class="error-message" id="errorMessage">
-            Código de acesso incorreto. Por favor, verifique e tente novamente.
+        </form>        <div class="error-message" id="errorMessage">
+            Código de acesso incorreto. Por favor, verifique o código enviado ao seu e-mail e tente novamente.
         </div>
         
         <div class="success-message" id="successMessage">
@@ -359,6 +367,14 @@
         <div class="loading" id="loadingIndicator">
             <div class="spinner"></div>
             <p>Validando seu acesso...</p>
+        </div>
+          <div class="unique-code-info">
+            <p><i class="fas fa-info-circle"></i> Não encontrou o e-mail com o código?</p>
+            <ul style="text-align: left; margin-top: 8px; list-style-type: none; padding-left: 10px;">
+                <li style="margin-bottom: 5px;"><i class="fas fa-check" style="color: var(--primary-color); margin-right: 5px;"></i> Verifique sua pasta de spam ou promoções</li>
+                <li style="margin-bottom: 5px;"><i class="fas fa-check" style="color: var(--primary-color); margin-right: 5px;"></i> O e-mail tem como assunto "Seu código de acesso - Domine o Violão"</li>
+                <li><i class="fas fa-check" style="color: var(--primary-color); margin-right: 5px;"></i> Se ainda não recebeu, aguarde alguns minutos e verifique novamente</li>
+            </ul>
         </div>
         
         <div class="footer">
@@ -371,9 +387,7 @@
             const form = document.getElementById('accessForm');
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const codeInputs = document.querySelectorAll('.code-input');
-            const autoFillButton = document.getElementById('autoFillButton');
+            const loadingIndicator = document.getElementById('loadingIndicator');            const codeInputs = document.querySelectorAll('.code-input');
             
             // Código de acesso correto
             const CORRECT_CODE = "DVM365";
@@ -384,14 +398,6 @@
                 // Se já estiver autenticado, redirecionar diretamente para o index
                 window.location.href = 'index.html';
             }
-            
-            // Preencher automaticamente
-            autoFillButton.addEventListener('click', function() {
-                const codeChars = CORRECT_CODE.split('');
-                codeInputs.forEach((input, index) => {
-                    input.value = codeChars[index] || '';
-                });
-            });
             
             // Versão simplificada do manipulador de formulário
             form.addEventListener('submit', function(e) {
