@@ -41,8 +41,7 @@
         }
     </script>
     
-    <!-- Estilos para elementos adicionais -->
-    <style>
+    <!-- Estilos para elementos adicionais -->    <style>
         /* Estilos para o botão de Voltar ao Topo */
         .back-to-top {
             position: fixed;
@@ -75,6 +74,13 @@
             background-color: #A0522D;
             transform: scale(1.1);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Animação de Pulse para o selo de desconto */
+        @keyframes pulse {
+            0% { transform: rotate(15deg) scale(1); }
+            50% { transform: rotate(15deg) scale(1.08); }
+            100% { transform: rotate(15deg) scale(1); }
         }
         
         /* Estilos para a barra de pesquisa */
@@ -835,15 +841,33 @@
             font-size: 0.8rem;
             color: #666;
             line-height: 1.4;
-        }
-
-        @media (max-width: 768px) {
+        }        @media (max-width: 768px) {
             .modal-content {
                 width: 95%;
             }
             
             .product-selection-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            /* Ajustes específicos para o modal de produtos no mobile */
+            #productNotificationModal .modal-content {
+                width: 92%;
+                max-width: none;
+            }
+            
+            #productNotificationModal .modal-body div[style*="display: flex; flex-wrap: wrap"] > div {
+                width: 100%;
+                min-width: 0;
+            }
+            
+            #productNotificationModal .modal-footer a {
+                width: 100%;
+                min-width: 0;
+            }
+            
+            #productNotificationModal .modal-header h3 {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -1448,33 +1472,55 @@
                 <button class="btn btn-primary" id="submitAccessCode">Acessar</button>
             </div>
         </div>
-    </div>
-
-    <!-- Modal de Notificação de Produtos -->
+    </div>    <!-- Modal de Notificação de Produtos -->
     <div class="modal-overlay" id="productNotificationModal">
         <div class="modal-content product-notification">
-            <div class="modal-header">
-                <h3>🚀 Turbine Seu Aprendizado!</h3>
-                <button class="modal-close" id="closeProductNotification">&times;</button>
+            <div class="modal-header" style="background: linear-gradient(135deg, #8B4513, #A0522D); border-bottom: none; border-radius: 10px 10px 0 0; padding: 15px;">
+                <h3 style="color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); margin: 0; font-size: 1.5rem;">🔥 Evolua seu Violão AGORA! 🔥</h3>
+                <button class="modal-close" id="closeProductNotification" style="background: rgba(255,255,255,0.3); color: white;">&times;</button>
             </div>
-            <div class="modal-body">
-                <p>Explore nossos <strong>Produtos Premium</strong> e <strong>Ferramentas Essenciais</strong> para acelerar sua jornada no violão!</p>
-                <ul>
-                    <li><i class="fas fa-star"></i> Treino Personalizado com IA</li>
-                    <li><i class="fas fa-robot"></i> Assistente virtual</li>
-                    <li><i class="fas fa-calendar-check"></i> Desafios guiados</li>
-                    <li><i class="fas fa-toolbox"></i> Kits de acordes, ritmos e técnicas</li>
-                </ul>
-                <p>Invista em você e toque suas músicas favoritas mais rápido!</p>
-            </div>
-            <div class="modal-footer notification-footer">
-                <a href="#produtos" class="btn btn-primary" id="goToPremium">Ver Produtos Premium</a>
-                <a href="#produtos-essenciais" class="btn btn-secondary" id="goToEssentials">Ver Ferramentas Essenciais</a>
+            <div class="modal-body" style="padding: 20px; background-color: #fff; text-align: center;">
+                <div style="margin-bottom: 15px; position: relative;">
+                    <span style="font-size: 56px; display: block; margin-bottom: 10px;">🎸</span>
+                    <h4 style="color: #8B4513; font-size: 1.3rem; margin: 5px 0 15px;">Desbloqueie Todo Seu Potencial Musical!</h4>
+                    <!-- Selo de desconto -->
+                    <div style="position: absolute; top: -10px; right: -10px; background-color: #e74c3c; color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: rotate(15deg); box-shadow: 0 2px 5px rgba(0,0,0,0.2); animation: pulse 2s infinite;">
+                        <span style="font-weight: bold; font-size: 1.2rem;">50%</span>
+                        <span style="font-size: 0.7rem; text-transform: uppercase;">OFF</span>
+                    </div>
+                </div>
+                
+                <p style="font-size: 1.1rem; margin-bottom: 20px;">Nossos <strong style="color: #8B4513;">Produtos Premium</strong> e <strong style="color: #8B4513;">Ferramentas Essenciais</strong> foram criados para acelerar seu aprendizado:</p>
+                
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                    <div style="background: #f9f5f0; padding: 12px; border-radius: 8px; width: 45%; min-width: 180px; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(139,69,19,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <i class="fas fa-star" style="color: #8B4513; font-size: 1.5rem;"></i>
+                        <p style="margin: 5px 0 0; font-weight: 500;">Treino Personalizado</p>
+                    </div>
+                    <div style="background: #f9f5f0; padding: 12px; border-radius: 8px; width: 45%; min-width: 180px; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(139,69,19,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <i class="fas fa-robot" style="color: #8B4513; font-size: 1.5rem;"></i>
+                        <p style="margin: 5px 0 0; font-weight: 500;">Assistente IA</p>
+                    </div>
+                    <div style="background: #f9f5f0; padding: 12px; border-radius: 8px; width: 45%; min-width: 180px; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(139,69,19,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <i class="fas fa-calendar-check" style="color: #8B4513; font-size: 1.5rem;"></i>
+                        <p style="margin: 5px 0 0; font-weight: 500;">Desafios Guiados</p>
+                    </div>
+                    <div style="background: #f9f5f0; padding: 12px; border-radius: 8px; width: 45%; min-width: 180px; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(139,69,19,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <i class="fas fa-toolbox" style="color: #8B4513; font-size: 1.5rem;"></i>
+                        <p style="margin: 5px 0 0; font-weight: 500;">Kits de Técnicas</p>
+                    </div>
+                </div>
+                
+                <div style="background-color: #FFF3CD; border-radius: 8px; padding: 12px; margin-bottom: 15px; text-align: left;">
+                    <p style="margin: 0; color: #856404; font-weight: 500;"><i class="fas fa-lightbulb" style="margin-right: 8px;"></i> Alunos com nossos recursos premium progridem <strong>3x mais rápido</strong> do que alunos que estudam sozinhos!</p>
+                </div>
+                  <!-- O contador de tempo limitado e a barra de pessoas comprando foram removidos -->
+            </div>            <div class="modal-footer notification-footer" style="background-color: #f9f5f0; border-top: none; border-radius: 0 0 10px 10px; padding: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                <a href="#produtos" class="btn btn-primary" id="goToPremium" style="background: #8B4513; color: white; padding: 12px 20px; border-radius: 30px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; flex: 1; min-width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(139,69,19,0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 15px rgba(139,69,19,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(139,69,19,0.3)';">Ver Produtos Premium</a>
+                <a href="#produtos-essenciais" class="btn btn-secondary" id="goToEssentials" style="background: #d9a064; color: white; padding: 12px 20px; border-radius: 30px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; flex: 1; min-width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(139,69,19,0.2); transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 15px rgba(139,69,19,0.3)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(139,69,19,0.2)';">Ver Ferramentas Essenciais</a>
             </div>
         </div>
-    </div>
-
-    <!-- Script para corrigir a exibição dos produtos -->
+    </div>    <!-- Script para corrigir a exibição dos produtos -->
     <script>
         // Garantir que os cards de produtos sejam exibidos corretamente
         document.addEventListener('DOMContentLoaded', function() {
@@ -1496,6 +1542,30 @@
             if (produtosEssenciaisSection) {
                 produtosEssenciaisSection.style.display = 'block';
             }
+              // Inicializar imediatamente o popup de produtos
+            // Isto garante que o popup apareça mesmo se houver algum problema no script.js
+            const forcePopup = function() {
+                const productNotificationModal = document.getElementById('productNotificationModal');
+                if (productNotificationModal) {
+                    // Verificar se não é uma página de produto
+                    const isProductPage = window.location.href.includes('PLANO PRO') || 
+                                      window.location.href.includes('Ajudante de Violão') ||
+                                      window.location.href.includes('Desafio de 30 Dias') ||
+                                      window.location.href.includes('Curso Relâmpago') ||
+                                      window.location.href.includes('KIT DE GUIAS');
+                    
+                    // Mostrar o popup em todas as páginas, exceto páginas de produto
+                if (!isProductPage) {
+                    setTimeout(function() {
+                        productNotificationModal.style.display = 'flex';
+                        // O contador regressivo foi removido
+                    }, 1500);
+                    }
+                }
+            };
+            
+            // Iniciar popup
+            forcePopup();
         });
     </script>
 

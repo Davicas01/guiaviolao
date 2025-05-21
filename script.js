@@ -299,8 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('installPromptDismissed', 'true');
         });
     }
-    
-    // Verificar se o app já está instalado
+      // Verificar se o app já está instalado
     window.addEventListener('appinstalled', () => {
         // Esconder prompt
         installPrompt.classList.remove('active');
@@ -310,55 +309,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('PWA instalado com sucesso');
     });
-    
-    // === MODAL DE NOTIFICAÇÃO DE PRODUTOS ===
-    document.addEventListener('DOMContentLoaded', function() {
-        const productNotificationModal = document.getElementById('productNotificationModal');
-        const closeProductNotification = document.getElementById('closeProductNotification');
-        const goToPremiumBtn = document.getElementById('goToPremium');
-        const goToEssentialsBtn = document.getElementById('goToEssentials');
-
-        // Verificar se o modal já foi mostrado nesta sessão
-        const notificationShown = sessionStorage.getItem('productNotificationShown');
-
-        // Mostrar o modal após um pequeno atraso (ex: 2 segundos) se ainda não foi mostrado
-        if (!notificationShown && productNotificationModal) {
-            setTimeout(() => {
-                productNotificationModal.style.display = 'flex';
-                // Marcar como mostrado para esta sessão
-                sessionStorage.setItem('productNotificationShown', 'true');
-            }, 2000); // Atraso de 2000ms (2 segundos)
-        }
-
-        // Função para fechar o modal
-        function closeNotificationModal() {
-            if (productNotificationModal) {
-                productNotificationModal.style.display = 'none';
-            }
-        }
-
-        // Event listener para o botão de fechar
-        if (closeProductNotification) {
-            closeProductNotification.addEventListener('click', closeNotificationModal);
-        }
-
-        // Event listener para fechar ao clicar fora do modal
-        if (productNotificationModal) {
-            productNotificationModal.addEventListener('click', function(event) {
-                if (event.target === productNotificationModal) {
-                    closeNotificationModal();
-                }
-            });
-        }
-
-        // Event listeners para os botões de link (fecham o modal ao clicar)
-        if (goToPremiumBtn) {
-            goToPremiumBtn.addEventListener('click', closeNotificationModal);
-        }
-        if (goToEssentialsBtn) {
-            goToEssentialsBtn.addEventListener('click', closeNotificationModal);
-        }
-    });
 
     // === INICIALIZAÇÃO ===
     
@@ -367,7 +317,65 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Destacar link de navegação inicial
     highlightNavOnScroll();
+    
+    // Inicializar popup de produtos
+    initProductNotificationModal();
 });
+
+// === MODAL DE NOTIFICAÇÃO DE PRODUTOS ===
+function initProductNotificationModal() {
+    // Obter elementos do DOM
+    const productNotificationModal = document.getElementById('productNotificationModal');
+    const closeProductNotification = document.getElementById('closeProductNotification');
+    const goToPremiumBtn = document.getElementById('goToPremium');
+    const goToEssentialsBtn = document.getElementById('goToEssentials');
+    const notNowButton = document.getElementById('notNowButton');
+    
+    // Verificar se elementos existem
+    if (!productNotificationModal) {
+        console.error('Modal de produtos não encontrado!');
+        return;
+    }
+      // Verificar se estamos numa página de produto
+    const isProductPage = window.location.href.includes('PLANO PRO') || 
+                          window.location.href.includes('Ajudante de Violão') ||
+                          window.location.href.includes('Desafio de 30 Dias') ||
+                          window.location.href.includes('Curso Relâmpago') ||
+                          window.location.href.includes('KIT DE GUIAS');
+    
+    // Se estiver numa página de produto, não mostrar o popup promocional
+    if (isProductPage) {
+        return;
+    }
+      // Mostrar o modal SEMPRE que o usuário entrar na página
+    // após um pequeno atraso para melhor experiência do usuário
+    setTimeout(() => {
+        productNotificationModal.style.display = 'flex';
+        // O contador regressivo foi removido
+    }, 1000); // Atraso de 1 segundo para melhor experiência
+    
+    // Função para fechar o modal
+    function closeNotificationModal() {
+        productNotificationModal.style.display = 'none';
+    }    // Event listener para o botão de fechar
+    if (closeProductNotification) {
+        closeProductNotification.addEventListener('click', closeNotificationModal);
+    }
+
+    // Event listener para fechar ao clicar fora do modal
+    productNotificationModal.addEventListener('click', function(event) {
+        if (event.target === productNotificationModal) {
+            closeNotificationModal();
+        }
+    });// Event listeners para os botões de link (fecham o modal ao clicar)
+    if (goToPremiumBtn) {
+        goToPremiumBtn.addEventListener('click', closeNotificationModal);
+    }
+    if (goToEssentialsBtn) {
+        goToEssentialsBtn.addEventListener('click', closeNotificationModal);
+    }
+}
+
 // Funcionalidade para o botão de navegação flutuante
 document.addEventListener('DOMContentLoaded', function() {
     const quickNavToggle = document.getElementById('quickNavToggle');
