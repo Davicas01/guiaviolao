@@ -1,0 +1,27 @@
+<script>
+(function() {
+    // Determinar caminho para a raiz
+    function getPathToRoot() {
+        const path = window.location.pathname;
+        const segments = path.split('/').filter(segment => segment.length > 0);
+        const depth = segments.length - 1;
+        
+        if (depth <= 0) return './';
+        
+        let pathToRoot = '';
+        for (let i = 0; i < depth; i++) {
+            pathToRoot += '../';
+        }
+        
+        return pathToRoot;
+    }
+    
+    // Caminho para o script
+    const scriptPath = getPathToRoot() + 'violao-nav.js';
+    
+    // Criar e adicionar o script
+    const script = document.createElement('script');
+    script.src = scriptPath;
+    document.body.appendChild(script);
+})();
+</script>

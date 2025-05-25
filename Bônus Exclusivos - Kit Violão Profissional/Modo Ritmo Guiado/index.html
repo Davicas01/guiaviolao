@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Ritmo Guiado - Kit Violão Profissional</title>
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #A0522D;
+            --accent-color: #CD853F;
+            --light-bg: #FAF0E6;
+            --dark-text: #5D4037;
+            --light-text: #fff;
+            --shadow: 0 8px 16px rgba(139, 69, 19, 0.15);
+            --border-radius: 12px;
+            --border-color: #DEB887;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Inter', 'Segoe UI', Roboto, sans-serif;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+            background-image: linear-gradient(45deg, rgba(139, 69, 19, 0.03) 25%, transparent 25%, transparent 75%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03)), 
+                              linear-gradient(45deg, rgba(139, 69, 19, 0.03) 25%, transparent 25%, transparent 75%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03));
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            background-color: rgba(139, 69, 19, 0.2);
+            color: var(--light-text);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(139, 69, 19, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            position: relative;
+            border-bottom-left-radius: 30% 5%;
+            border-bottom-right-radius: 30% 5%;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(139, 69, 19, 0.2);
+        }
+        
+        .intro-card {
+            border-left: 6px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .intro-card::after {
+            content: '🎵';
+            position: absolute;
+            bottom: -30px;
+            right: -10px;
+            font-size: 120px;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+        }
+        
+        h2 {
+            font-size: 1.7rem;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60%;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+        
+        .rhythm-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0));
+            z-index: -1;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        
+        button.secondary-btn {
+            background-color: #78644C;
+        }
+        
+        button.secondary-btn:hover {
+            background-color: #665540;
+        }
+        
+        button.accent-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        button.accent-btn:hover {
+            background-color: #BC7A38;
+        }
+        
+        .control-btn i {
+            font-size: 1.3rem;
+        }
+        
+        .rhythm-selector, .tempo-control {
+            margin: 2rem 0;
+        }
+        
+        .rhythm-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .rhythm-card {
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rhythm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.05), transparent);
+            z-index: 0;
+        }
+        
+        .rhythm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.15);
+            border-color: var(--primary-color);
+        }
+        
+        .rhythm-card.selected {
+            background-color: rgba(139, 69, 19, 0.08);
+            border-color: var(--primary-color);
+            border-width: 2px;
+            box-shadow: 0 8px 16px rgba(139, 69, 19, 0.15);
+        }
+        
+        .rhythm-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .rhythm-badges {
+            display: flex;
+            gap: 0.7rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .rhythm-badge {
+            background-color: rgba(139, 69, 19, 0.1);
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .rhythm-pattern {
+            font-family: monospace;
+            font-size: 1.1rem;
+            background-color: rgba(139, 69, 19, 0.07);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-top: 0.8rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+        }
+        
+        .tempo-settings {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            background-color: rgba(139, 69, 19, 0.05);
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .tempo-slider {
+            flex-grow: 1;
+        }
+        
+        .tempo-value {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            min-width: 85px;
+            text-align: center;
+            background-color: white;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(139, 69, 19, 0.1);
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none; /* Add standard property */
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #e5d6c7;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: var(--secondary-color);
+            transform: scale(1.2);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+        
+        .visualization {
+            height: 180px;
+            background-color: rgba(139, 69, 19, 0.04);
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(139, 69, 19, 0.1);
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .beat-marker {
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            transition: opacity 0.2s ease, height 0.3s ease;
+            border-radius: 4px;
+            z-index: 1;
+        }
+        
+        .beat-marker.accent {
+            background-color: var(--accent-color);
+            width: 6px;
+            box-shadow: 0 0 10px rgba(205, 133, 63, 0.5);
+        }
+        
+        .beat-marker::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: inherit;
+        }
+        
+        .rhythm-visual-guide {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .rhythm-guide-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .rhythm-guide-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .rhythm-guide-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .rhythm-guide-down {
+            background-color: var(--primary-color);
+        }
+        
+        .rhythm-guide-up {
+            background-color: #CD853F;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(205, 133, 63, 0.7); }
+            50% { transform: scale(1.1); box-shadow: 0 0 10px 3px rgba(205, 133, 63, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(205, 133, 63, 0.7); }
+        }
+        
+        .beat-counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 1.5rem;
+            text-shadow: 0 2px 6px rgba(139, 69, 19, 0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        /* Use a class for animation instead of invalid :not() selector */
+        .beat-counter.active {
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .vibration-toggle {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            padding: 1rem;
+            background-color: rgba(139, 69, 19, 0.05);
+            border-radius: var(--border-radius);
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 62px;
+            height: 34px;
+            margin-right: 1.2rem;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(0,0,0,0.2);
+        }
+        
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+        
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--secondary-color);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(28px);
+        }
+        
+        .feedback-message {
+            display: none;
+            background-color: rgba(160, 82, 45, 0.1);
+            color: var(--secondary-color);
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary-color);
+            font-weight: 500;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tips-section {
+            background-color: rgba(205, 133, 63, 0.1);
+            border-left: 6px solid var(--accent-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #8B7765;
+            font-size: 0.9rem;
+            background-color: rgba(139, 69, 19, 0.05);
+            border-top: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+            font-size: 1.4rem;
+        }
+        
+        .scroll-top-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .rhythm-controls {
+                justify-content: center;
+            }
+            
+            button {
+                padding: 0.8rem 1.4rem;
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .tempo-settings {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .tempo-value {
+                text-align: center;
+                margin: 0 auto;
+            }
+            
+            .scroll-top-btn {
+                width: 45px;
+                height: 45px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔊 Modo Ritmo Guiado</h1>
+            <div class="subtitle">Aprenda a tocar no tempo com ajuda de áudio real e vibração</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card intro-card">
+            <h2>Como funciona o Modo Ritmo Guiado?</h2>
+            <p>Esta ferramenta inovadora combina recursos audiovisuais e táteis para ajudar você a desenvolver seu senso rítmico de forma natural e intuitiva:</p>
+            
+            <ul class="feature-list">
+                <li><strong>Áudio Real:</strong> Ouça batidas reais gravadas por músicos profissionais</li>
+                <li><strong>Vibração Sincronizada:</strong> Sinta o ritmo no seu corpo através da vibração do celular</li>
+                <li><strong>Visualização Dinâmica:</strong> Acompanhe visualmente o andamento das batidas em tempo real</li>
+                <li><strong>Padrões Personalizáveis:</strong> Escolha entre diversos ritmos e ajuste o andamento conforme sua necessidade</li>
+            </ul>
+            
+            <p>Esta experiência sensorial completa ajuda a internalizar o ritmo de maneira muito mais eficaz que métodos tradicionais.</p>
+        </div>
+
+        <div class="card">
+            <h2>Selecione um Padrão Rítmico</h2>
+            
+            <div class="rhythm-options">
+                <div class="rhythm-card" data-rhythm="pop">
+                    <div class="rhythm-title">Pop Básico</div>
+                    <div class="rhythm-badges">
+                        <span class="rhythm-badge">4/4</span>
+                        <span class="rhythm-badge">Iniciante</span>
+                    </div>
+                    <p>Batida simples para músicas pop e rock lento.</p>
+                    <div class="rhythm-pattern">↓ ↓ ↑↓ ↑↓</div>
+                </div>
+                
+                <div class="rhythm-card" data-rhythm="popDancing">
+                    <div class="rhythm-title">Pop Dançante</div>
+                    <div class="rhythm-badges">
+                        <span class="rhythm-badge">4/4</span>
+                        <span class="rhythm-badge">Intermediário</span>
+                    </div>
+                    <p>Batida animada com acentos nos contratempos.</p>
+                    <div class="rhythm-pattern">↓ ↑↓↑ ↓ ↑↓↑</div>
+                </div>
+                
+                <div class="rhythm-card" data-rhythm="bossaNova">
+                    <div class="rhythm-title">Bossa Nova</div>
+                    <div class="rhythm-badges">
+                        <span class="rhythm-badge">4/4</span>
+                        <span class="rhythm-badge">Avançado</span>
+                    </div>
+                    <p>O clássico balanço brasileiro.</p>
+                    <div class="rhythm-pattern">↓ · ↓↑ ↓ · ↓↑</div>
+                </div>
+                
+                <div class="rhythm-card" data-rhythm="sertanejo">
+                    <div class="rhythm-title">Sertanejo</div>
+                    <div class="rhythm-badges">
+                        <span class="rhythm-badge">4/4</span>
+                        <span class="rhythm-badge">Intermediário</span>
+                    </div>
+                    <p>Batida para músicas sertanejas.</p>
+                    <div class="rhythm-pattern">↓↑ ↓↑ ↓↑ ↓↑</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Controle do Andamento</h2>
+            
+            <div class="tempo-settings">
+                <button class="tempo-btn" data-tempo="decrease"><i class="fas fa-minus"></i></button>
+                <input type="range" min="40" max="200" value="80" class="tempo-slider" id="tempoSlider">
+                <button class="tempo-btn" data-tempo="increase"><i class="fas fa-plus"></i></button>
+                <div class="tempo-value">80 BPM</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Visualização do Ritmo</h2>
+            
+            <div class="visualization" id="rhythmVisualization">
+                <!-- Beat markers will be added dynamically -->
+                <div class="rhythm-visual-guide">
+                    <div class="rhythm-guide-item">
+                        <div class="rhythm-guide-color rhythm-guide-accent"></div>
+                        <span>Tempo forte</span>
+                    </div>
+                    <div class="rhythm-guide-item">
+                        <div class="rhythm-guide-color rhythm-guide-down"></div>
+                        <span>Batida ↓</span>
+                    </div>
+                    <div class="rhythm-guide-item">
+                        <div class="rhythm-guide-color rhythm-guide-up"></div>
+                        <span>Batida ↑</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rhythm-controls">
+                <button id="playButton" class="control-btn"><i class="fas fa-play"></i> Iniciar</button>
+                <button id="stopButton" class="control-btn secondary-btn"><i class="fas fa-stop"></i> Parar</button>
+            </div>
+            
+            <div class="beat-counter" id="beatCounter">-</div>
+            
+            <div class="feedback-message" id="feedbackMessage">
+                Vibrações funcionando! Sinta o ritmo no seu dispositivo.
+            </div>
+        </div>
+
+        <div class="card tips-section">
+            <h2>💡 Dicas para Praticar</h2>
+            
+            <h3>Como tirar máximo proveito do Modo Ritmo Guiado:</h3>
+            
+            <ul class="feature-list">
+                <li>Comece com um andamento lento e aumente gradualmente</li>
+                <li>Palme junto com a batida antes de pegar o violão</li>
+                <li>Pratique primeiro os movimentos da mão direita sem tocar as cordas</li>
+                <li>Ao usar o violão, foque inicialmente apenas no ritmo, não na mudança de acordes</li>
+                <li>Use a função de vibração para realmente "sentir" o pulso rítmico</li>
+            </ul>
+            
+            <p>Pratique diariamente por apenas 5 minutos e você perceberá uma enorme evolução no seu senso rítmico!</p>
+        </div>
+    </div>
+
+
+
+    <a href="../../index.html" class="scroll-top-btn" id="homeBtn"><i class="fas fa-home"></i></a>
+
+    <script>
+        // DOM Elements
+        const playButton = document.getElementById('playButton');
+        const stopButton = document.getElementById('stopButton');
+        // const countInButton = document.getElementById('countInButton'); // Removed: Element does not exist
+        const tempoSlider = document.getElementById('tempoSlider');
+        const tempoValue = document.querySelector('.tempo-value');
+        const rhythmCards = document.querySelectorAll('.rhythm-card');
+        const visualization = document.getElementById('rhythmVisualization');
+        const beatCounter = document.getElementById('beatCounter');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        const homeBtn = document.getElementById('homeBtn'); // Corrigido de scrollTopBtn para homeBtn
+        
+        // App State
+        let isPlaying = false;
+        let tempo = 80;
+        let selectedRhythm = 'pop';
+        let intervalId = null;
+        let currentBeat = 0;
+        let countInActive = false;
+        let soundsLoaded = false;
+        
+        // Buffer de áudio para os sons
+        const audioBuffers = {
+            click: null,
+            accent: null,
+            down: null,
+            up: null
+        };
+        
+        // Criando os sons com o Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Carrega samples de áudio para melhor qualidade de som
+        async function loadSounds() {
+            try {
+                // Criar sons de alta qualidade diretamente no código
+                // Em vez de depender de arquivos externos, vamos gerar sons de melhor qualidade
+                
+                // 1. Som de clique normal (click)
+                const clickBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.1, audioContext.sampleRate);
+                const clickData = clickBuffer.getChannelData(0);
+                for (let i = 0; i < clickData.length; i++) {
+                    // Criar um som semelhante a uma batida na madeira do violão
+                    const t = i / audioContext.sampleRate;
+                    if (t < 0.005) {
+                        clickData[i] = Math.sin(2 * Math.PI * 800 * t) * 0.8;
+                    } else {
+                        clickData[i] = Math.sin(2 * Math.PI * 800 * t) * Math.exp(-15 * t);
+                    }
+                }
+                audioBuffers.click = clickBuffer;
+                
+                // 2. Som de acento (accent) - mais forte e com mais graves
+                const accentBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.2, audioContext.sampleRate);
+                const accentData = accentBuffer.getChannelData(0);
+                for (let i = 0; i < accentData.length; i++) {
+                    const t = i / audioContext.sampleRate;
+                    if (t < 0.01) {
+                        accentData[i] = Math.sin(2 * Math.PI * 500 * t) * 1.0 + Math.sin(2 * Math.PI * 250 * t) * 0.5; // Adicionado harmônico mais grave
+                    } else {
+                        accentData[i] = (Math.sin(2 * Math.PI * 500 * t) + Math.sin(2 * Math.PI * 250 * t) * 0.5) * Math.exp(-10 * t);
+                    }
+                }
+                audioBuffers.accent = accentBuffer;
+                
+                // 3. Som de batida para baixo (down) - simular batida para baixo no violão
+                const downBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.3, audioContext.sampleRate);
+                const downData = downBuffer.getChannelData(0);
+                for (let i = 0; i < downData.length; i++) {
+                    const t = i / audioContext.sampleRate;
+                    const freq = 400 - 200 * t; // Som descendente para simular batida para baixo
+                    if (t < 0.01) {
+                        downData[i] = Math.sin(2 * Math.PI * freq * t) * 0.9;
+                    } else {
+                        downData[i] = Math.sin(2 * Math.PI * freq * t) * Math.exp(-8 * t);
+                    }
+                }
+                audioBuffers.down = downBuffer;
+                
+                // 4. Som de batida para cima (up) - simular batida para cima no violão
+                const upBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.2, audioContext.sampleRate);
+                const upData = upBuffer.getChannelData(0);
+                for (let i = 0; i < upData.length; i++) {
+                    const t = i / audioContext.sampleRate;
+                    const freq = 350 + 150 * t; // Som ascendente para simular batida para cima
+                    if (t < 0.008) {
+                        upData[i] = Math.sin(2 * Math.PI * freq * t) * 0.7;
+                    } else {
+                        upData[i] = Math.sin(2 * Math.PI * freq * t) * Math.exp(-12 * t);
+                    }
+                }
+                audioBuffers.up = upBuffer;
+                
+                soundsLoaded = true;
+                console.log("Sons carregados com sucesso!");
+            } catch (error) {
+                console.error("Erro ao carregar os sons:", error);
+                // Fallback para o método anterior caso os sons não carreguem
+                createFallbackSounds();
+            }
+        }
+        
+        // Método de backup caso o carregamento dos sons falhe
+        function createFallbackSounds() {
+            soundsLoaded = true;
+            console.log("Usando sons de fallback");
+        }
+        
+        // Iniciar carregamento de sons
+        loadSounds();
+        
+        // Função para tocar som a partir do buffer
+        function playSound(soundType) {
+            if (!soundsLoaded) {
+                // Se os sons ainda não foram carregados, use o método antigo
+                createClickSound(soundType === 'accent');
+                return;
+            }
+            
+            const source = audioContext.createBufferSource();
+            const gainNode = audioContext.createGain();
+            
+            // Selecionar o buffer correto com base no tipo de som
+            switch(soundType) {
+                case 'accent':
+                    source.buffer = audioBuffers.accent;
+                    gainNode.gain.value = 1.0;
+                    break;
+                case 'down':
+                    source.buffer = audioBuffers.down;
+                    gainNode.gain.value = 0.8;
+                    break;
+                case 'up':
+                    source.buffer = audioBuffers.up;
+                    gainNode.gain.value = 0.6;
+                    break;
+                default: // 'click' ou qualquer outro
+                    source.buffer = audioBuffers.click;
+                    gainNode.gain.value = 0.7;
+            }
+            
+            // Adicionar um pouco de equalização para simular as características acústicas do violão
+            const eq = audioContext.createBiquadFilter();
+            eq.type = 'peaking';
+            eq.frequency.value = 500;
+            eq.Q.value = 1;
+            
+            if (soundType === 'down') {
+                // Batidas para baixo tem mais graves
+                eq.gain.value = 3;
+                
+                // Segundo filtro para acentuar médio-graves
+                const lowMid = audioContext.createBiquadFilter();
+                lowMid.type = 'peaking';
+                lowMid.frequency.value = 250;
+                lowMid.gain.value = 2;
+                lowMid.Q.value = 1;
+                
+                // Conectar os filtros em série
+                source.connect(gainNode);
+                gainNode.connect(eq);
+                eq.connect(lowMid);
+                lowMid.connect(audioContext.destination);
+            } else if (soundType === 'up') {
+                // Batidas para cima tem mais médio-agudos
+                eq.frequency.value = 800;
+                eq.gain.value = 2;
+                
+                // Segundo filtro para acentuar agudos
+                const highMid = audioContext.createBiquadFilter();
+                highMid.type = 'highshelf';
+                highMid.frequency.value = 2000;
+                highMid.gain.value = 3;
+                
+                // Conectar os filtros em série
+                source.connect(gainNode);
+                gainNode.connect(eq);
+                eq.connect(highMid);
+                highMid.connect(audioContext.destination);
+            } else {
+                // Para cliques e acentos, adicionar um pouco de reverberação
+                const compressor = audioContext.createDynamicsCompressor();
+                compressor.threshold.setValueAtTime(-24, audioContext.currentTime);
+                compressor.ratio.setValueAtTime(12, audioContext.currentTime);
+                
+                source.connect(gainNode);
+                gainNode.connect(eq);
+                eq.connect(compressor);
+                compressor.connect(audioContext.destination);
+            }
+            
+            // Iniciar o som com um pequeno fade-in para evitar cliques
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(gainNode.gain.value, audioContext.currentTime + 0.005);
+            
+            source.start(0);
+        }
+        
+        // Função legada para criar som de clique (caso os buffers não carreguem)
+        function createClickSound(isAccent) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // Melhorar configuração do oscilador
+            oscillator.type = isAccent ? 'triangle' : 'sine';
+            oscillator.frequency.setValueAtTime(isAccent ? 900 : 700, audioContext.currentTime);
+            
+            // Melhorar envelope do som
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(isAccent ? 0.8 : 0.6, audioContext.currentTime + 0.002);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + (isAccent ? 0.15 : 0.10));
+            
+            // Adicionar um filtro para som mais suave
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = isAccent ? 2000 : 1500;
+            filter.Q.value = 0.5;
+            
+            // Conectar os nós com o filtro
+            oscillator.connect(gainNode);
+            gainNode.connect(filter);
+            filter.connect(audioContext.destination);
+            
+            // Iniciar e parar o oscilador
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + (isAccent ? 0.15 : 0.10));
+        }
+        
+        // Funções de reprodução de som
+        function playClickSound() {
+            playSound('click');
+        }
+        
+        function playAccentSound() {
+            playSound('accent');
+        }
+        
+        function playDownSound() {
+            playSound('down');
+        }
+        
+        function playUpSound() {
+            playSound('up');
+        }
+        
+        // Rhythm Patterns melhorados (1 = accent/batida para baixo forte, 0 = batida normal para baixo, 
+        // 0.5 = batida para cima, -1 = pausa)
+        const rhythmPatterns = {
+            pop: [1, 0, 0.5, 0, 0, 0, 0.5, 0],
+            popDancing: [1, 0, 0.5, 1, 0, 0.5, 1, 0.5],
+            bossaNova: [1, -1, 0.5, 1, 0, -1, 0.5, 1],
+            sertanejo: [1, 0.5, 0, 0.5, 0, 0.5, 0, 0.5]
+        };
+        
+        // Event Listeners
+        rhythmCards.forEach(card => {
+            card.addEventListener('click', () => {
+                rhythmCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedRhythm = card.dataset.rhythm;
+                resetVisualization();
+            });
+        });
+        
+        playButton.addEventListener('click', () => {
+            // Iniciar o contexto de áudio se estiver suspenso (necessário em alguns navegadores)
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            
+            if (!isPlaying) {
+                startPlayback();
+                playButton.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+            } else {
+                stopPlayback();
+                playButton.innerHTML = '<i class="fas fa-play"></i> Iniciar';
+            }
+        });
+        
+        stopButton.addEventListener('click', () => {
+            stopPlayback();
+            resetVisualization();
+            playButton.innerHTML = '<i class="fas fa-play"></i> Iniciar';
+            beatCounter.textContent = '-';
+        });
+        
+        tempoSlider.addEventListener('input', () => {
+            tempo = parseInt(tempoSlider.value);
+            tempoValue.textContent = `${tempo} BPM`;
+            
+            if (isPlaying) {
+                stopPlayback();
+                startPlayback();
+            }
+        });
+
+        // Botões de tempo + e -
+        const tempoButtons = document.querySelectorAll('.tempo-btn');
+        tempoButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const action = btn.getAttribute('data-tempo');
+                if (action === 'increase' && tempo < 200) {
+                    tempo += 5;
+                } else if (action === 'decrease' && tempo > 40) {
+                    tempo -= 5;
+                }
+                tempoSlider.value = tempo;
+                tempoValue.textContent = `${tempo} BPM`;
+                
+                if (isPlaying) {
+                    stopPlayback();
+                    startPlayback();
+                }
+            });
+        });
+        
+        // Functions
+        function startPlayback() {
+            isPlaying = true;
+            const beatDuration = 60000 / (tempo * 2); // Convertendo para milissegundos (colcheias)
+            
+            // Limpar intervalo anterior se existir
+            if (intervalId) clearInterval(intervalId);
+            
+            // Usar requestAnimationFrame para melhor sincronização em vez de setInterval
+            let lastTime = performance.now();
+            const tick = (currentTime) => {
+                if (!isPlaying) return;
+                
+                const elapsed = currentTime - lastTime;
+                if (elapsed >= beatDuration) {
+                    playBeat();
+                    currentBeat = (currentBeat + 1) % rhythmPatterns[selectedRhythm].length;
+                    lastTime = currentTime - (elapsed % beatDuration); // Ajuste para manter o tempo preciso
+                }
+                
+                requestAnimationFrame(tick);
+            };
+            
+            requestAnimationFrame(tick);
+        }
+        
+        function stopPlayback() {
+            isPlaying = false;
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+            beatCounter.classList.remove('active'); // Remove active class on stop
+        }
+        
+        function playBeat() {
+            const beatType = rhythmPatterns[selectedRhythm][currentBeat];
+            
+            if (beatType !== -1) { // Pular pausas
+                // Mostrar batida atual
+                updateBeatCounter();
+                
+                // Criar marcador visual
+                createBeatMarker(beatType === 1, false, beatType === 0.5);
+                
+                // Tocar som
+                if (beatType === 1) {
+                    playAccentSound();
+                } else if (beatType === 0.5) {
+                    playUpSound();
+                } else {
+                    playDownSound();
+                }
+            }
+        }
+        
+        function createBeatMarker(isAccent, isCountIn = false, isUpStroke = false) {
+            const marker = document.createElement('div');
+            marker.classList.add('beat-marker');
+            
+            // Estilização diferente para os diferentes tipos de batida
+            if (isAccent) {
+                marker.classList.add('accent');
+                marker.style.boxShadow = '0 0 15px rgba(205, 133, 63, 0.7)';
+            } else if (isUpStroke) {
+                marker.style.backgroundColor = '#CD853F';
+                marker.style.opacity = '0.8';
+                // Adicionar uma seta para indicar batida para cima
+                const arrow = document.createElement('div');
+                arrow.style.position = 'absolute';
+                arrow.style.top = '-15px';
+                arrow.style.left = '50%';
+                arrow.style.transform = 'translateX(-50%)';
+                arrow.style.fontSize = '12px';
+                arrow.style.color = '#fff';
+                arrow.innerHTML = '↑';
+                marker.appendChild(arrow);
+            } else {
+                // Para batida para baixo, adicionar uma seta
+                const arrow = document.createElement('div');
+                arrow.style.position = 'absolute';
+                arrow.style.bottom = '-15px';
+                arrow.style.left = '50%';
+                arrow.style.transform = 'translateX(-50%)';
+                arrow.style.fontSize = '12px';
+                arrow.style.color = '#fff';
+                arrow.innerHTML = '↓';
+                marker.appendChild(arrow);
+            }
+            
+            // Posicionamento do marcador - agora com movimento mais suave da esquerda para a direita
+            const totalWidth = visualization.offsetWidth;
+            const beatWidth = totalWidth / rhythmPatterns[selectedRhythm].length;
+            const leftPosition = (isCountIn) 
+                ? Math.random() * (totalWidth - 10) // Posicionamento aleatório para contagem
+                : (currentBeat * beatWidth) + (beatWidth / 2); // Posicionamento ordenado para ritmos
+            
+            marker.style.left = `${leftPosition}px`;
+            
+            // Altura aleatória para efeito visual mais dinâmico
+            const heightPercent = isAccent ? 90 + Math.random() * 10 : 40 + Math.random() * 60;
+            marker.style.height = `${heightPercent}%`;
+            marker.style.top = `${100 - heightPercent}%`;
+            
+            // Adicionar ao elemento de visualização
+            visualization.appendChild(marker);
+            
+            // Vibração no dispositivo se suportado (apenas para batidas acentuadas)
+            if (isAccent && 'vibrate' in navigator) {
+                try {
+                    navigator.vibrate(50); // Vibração curta
+                } catch (e) {
+                    // Alguns navegadores podem gerar erro mesmo com suporte
+                    console.log("Vibração não suportada ou permissão negada");
+                }
+            }
+            
+            // Animar e remover marcador com transição mais suave
+            setTimeout(() => {
+                marker.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                marker.style.opacity = '0';
+                marker.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    if (visualization.contains(marker)) {
+                        visualization.removeChild(marker);
+                    }
+                }, 500);
+            }, 300);
+        }
+        
+        function updateBeatCounter() {
+            // Calcular o número da batida (baseado em 1)
+            const beatNumber = Math.floor(currentBeat / 2) + 1;
+            beatCounter.textContent = beatNumber.toString();
+            beatCounter.classList.add('active'); // Add active class for animation
+            
+            // Adicionar uma pequena animação ao contador de batida
+            beatCounter.style.transform = 'scale(1.1)';
+        }
+        
+        function resetVisualization() {
+            currentBeat = 0;
+            beatCounter.textContent = '-';
+            beatCounter.classList.remove('active'); // Remove active class on reset
+            
+            // Limpar todos os marcadores
+            while (visualization.firstChild) {
+                visualization.removeChild(visualization.firstChild);
+            }
+        }
+        
+        // Inicializar com o primeiro ritmo selecionado
+        rhythmCards[0].classList.add('selected');
+        
+        // Iniciar o AudioContext quando a página for interagida pelo usuário
+        document.addEventListener('click', () => {
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>

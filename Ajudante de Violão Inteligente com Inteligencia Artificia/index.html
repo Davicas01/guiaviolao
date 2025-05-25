@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajudante de Violão Inteligente com IA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B4513; /* Marrom escuro */
+            --secondary-color: #A0522D; /* Marrom médio */
+            --accent-color: #CD853F; /* Marrom claro */
+            --light-accent: #DEB887; /* Bege */
+            --dark-text: #442C1E; /* Marrom muito escuro para texto */
+            --light-text: #FFF8E1; /* Texto claro */
+            --bg-light: #FAF0E6; /* Fundo claro */
+            --border-color: #D3C1AE;
+            --shadow: 0 5px 15px rgba(139, 69, 19, 0.15);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+            --bg-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px; /* Added padding for container */
+        }
+        
+        header {
+            background: var(--bg-gradient);
+            color: var(--light-text);
+            padding: 3rem 1rem; /* Adjusted padding */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 5px solid var(--accent-color);
+        }
+        
+        /* Removed header::before for cleaner look */
+        
+        header h1 {
+            font-family: 'Poppins', sans-serif; /* Changed font */
+            font-weight: 700;
+            font-size: 2.5rem; /* Adjusted size */
+            margin-bottom: 1rem; /* Adjusted margin */
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text {
+            font-size: 1.1rem; /* Adjusted size */
+            max-width: 700px;
+            margin: 0 auto 2rem; /* Adjusted margin */
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        /* Estilos para o menu de categorias */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .category-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Estilos para a barra de pesquisa */
+        .search-container {
+            margin: 20px 0 30px 0;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+        }
+        
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            color: var(--secondary-color);
+        }
+        
+        #globalSearch {
+            flex-grow: 1;
+            padding: 12px 20px 12px 45px;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        #globalSearch:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.2);
+        }
+        
+        #searchBtn {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .popular-searches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            padding-left: 5px;
+            align-items: center;
+        }
+        
+        .popular-searches span {
+            font-size: 0.85rem;
+            color: #666;
+            margin-right: 5px;
+        }
+        
+        .search-tag {
+            background-color: var(--bg-light);
+            color: var(--dark-text);
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .search-tag:hover {
+            background-color: var(--light-accent);
+            transform: translateY(-1px);
+        }
+        
+        .hero-cta {
+            position: relative;
+            z-index: 1;
+        }
+        
+        main {
+            padding: 40px 0; /* Adjusted padding */
+        }
+        
+        section {
+            margin-bottom: 40px; /* Adjusted margin */
+            background-color: #fff;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        h2 {
+            font-family: 'Poppins', sans-serif; /* Changed font */
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.8rem; /* Adjusted size */
+            margin-bottom: 1.5rem; /* Adjusted margin */
+            text-align: left; /* Align left */
+            position: relative;
+            padding-bottom: 10px; /* Adjusted padding */
+            border-bottom: 2px solid var(--border-color); /* Add border bottom */
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        /* Removed h2::after */
+
+        .ai-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .camera-area, .feedback-area {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .camera-area h3, .feedback-area h3, #exercise-section h3, #chat-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .camera-area h3 i, .feedback-area h3 i, #exercise-section h3 i, #chat-section h3 i {
+            margin-right: 8px;
+        }
+
+        #cameraFeed {
+            width: 100%;
+            height: auto;
+            background-color: #333;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+        }
+        
+        #feedbackArea {
+            min-height: 200px; /* Ensure minimum height */
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: var(--radius);
+            border: 1px dashed var(--border-color);
+            font-size: 0.95rem;
+            overflow-y: auto; /* Add scroll if content overflows */
+        }
+        
+        .feedback-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .feedback-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .feedback-item.positive { color: #2E7D32; }
+        .feedback-item.negative { color: #B22222; }
+        .feedback-item strong { color: var(--dark-text); }
+
+        #exercise-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #exercise-section li {
+            background: var(--bg-light);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+        }
+        
+        #chat-section {
+            margin-top: 30px;
+        }
+
+        /* Styles for Suggested Questions */
+        #suggestedQuestions {
+            padding: 1rem 1rem 0.5rem 1rem; /* Add padding */
+            background-color: #fff; /* Match input area background */
+            border: 1px solid var(--border-color);
+            border-bottom: none; /* Remove bottom border to merge with input area */
+            border-top-left-radius: var(--radius);
+            border-top-right-radius: var(--radius);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #suggestedQuestions h4 {
+            width: 100%;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .suggested-question-btn {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            color: var(--dark-text);
+            padding: 6px 12px;
+            border-radius: 20px; /* Pill shape */
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .suggested-question-btn:hover {
+            background-color: var(--light-accent);
+            border-color: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+        /* End Styles for Suggested Questions */
+
+        #chatInterface {
+            display: flex;
+            flex-direction: column;
+            height: 400px; /* Fixed height for chat */
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background-color: #fff;
+            /* Remove top border radius if suggested questions are added */
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        
+        #chatMessages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: var(--bg-light);
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius);
+            max-width: 80%;
+        }
+        
+        .message.user {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+            margin-left: auto;
+            text-align: right;
+        }
+        
+        .message.ai {
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--dark-text);
+            margin-right: auto;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .message.ai i {
+            color: var(--primary-color);
+            margin-top: 3px;
+        }
+        
+        #inputArea {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            background-color: #fff;
+        }
+        
+        #userInput {
+            flex-grow: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            background: var(--primary-color);
+            color: var(--light-text);
+            padding: 0.8rem 1.5rem; /* Adjusted padding */
+            border-radius: var(--radius); /* Adjusted radius */
+            text-decoration: none;
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 1rem; /* Adjusted size */
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+            gap: 8px; /* Space between icon and text */
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-secondary {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+        }
+        .btn-secondary:hover {
+            background-color: var(--light-accent);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 1.5rem 1rem; /* Adjusted padding */
+            margin-top: 40px; /* Adjusted margin */
+            border-top: 5px solid var(--accent-color);
+        }
+        
+        .home-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 100;
+            border: none;
+        }
+        
+        .home-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+        }
+        
+        .home-btn i {
+            font-size: 24px;
+        }
+        
+        @media (max-width: 992px) {
+            .ai-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-text {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+
+            #cameraFeed {
+                min-height: 200px; /* Adjust height for smaller screens */
+            }
+            
+            #chatInterface {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .btn {
+                padding: 0.5rem 0.8rem; /* Further reduced padding */
+                font-size: 0.85rem; /* Further reduced font size */
+            }
+            #userInput {
+                font-size: 0.85rem; /* Further reduced font size */
+                padding: 0.5rem; /* Further reduced padding */
+            }
+            #chatInterface {
+                height: 280px; /* Further reduce height */
+            }
+            .message {
+                padding: 0.5rem 0.7rem; /* Further reduce message padding */
+                font-size: 0.85rem; /* Further reduce message font size */
+                max-width: 85%; /* Allow slightly wider messages */
+            }
+            #suggestedQuestions {
+                padding: 0.6rem 0.6rem 0.3rem 0.6rem; /* Further reduce padding */
+                max-height: 120px; /* Limit height more */
+            }
+            .suggested-question-btn {
+                padding: 4px 8px; /* Further reduce button padding */
+                font-size: 0.75rem; /* Further reduce button font size */
+            }
+            #inputArea {
+                padding: 0.6rem; /* Further reduce input area padding */
+            }
+            section#chat-section {
+                 padding: 0.8rem; /* Further reduce section padding */
+            }
+             h2 {
+                font-size: 1.2rem; /* Further reduce heading size */
+                margin-bottom: 0.8rem; /* Further reduce margin */
+                padding-bottom: 8px; /* Adjust padding */
+            }
+             #chat-section h3 {
+                font-size: 1rem; /* Further reduce subheading size */
+                margin-bottom: 0.6rem; /* Further reduce margin */
+            }
+            .home-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .home-btn i {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-robot"></i> Ajudante de Violão Inteligente</h1>
+            <p class="hero-text">Receba feedback em tempo real e acelere seu aprendizado com IA</p>
+            <!-- Adicionado menu de navegação por categorias -->
+            <div class="category-nav">
+                <button class="category-btn" data-category="acordes"><i class="fas fa-music"></i> Acordes</button>
+                <button class="category-btn" data-category="tecnicas"><i class="fas fa-hand-paper"></i> Técnicas</button>
+                <button class="category-btn" data-category="ritmos"><i class="fas fa-drum"></i> Ritmos</button>
+                <button class="category-btn" data-category="teoria"><i class="fas fa-book"></i> Teoria</button>
+                <button class="category-btn" data-category="repertorio"><i class="fas fa-guitar"></i> Repertório</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Barra de pesquisa global -->
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="globalSearch" placeholder="Pesquise por acordes, técnicas, músicas...">
+                <button id="searchBtn" class="btn btn-sm"><i class="fas fa-arrow-right"></i></button>
+            </div>
+            <div class="popular-searches">
+                <span>Buscas populares:</span>
+                <a href="#" class="search-tag">Acorde F</a>
+                <a href="#" class="search-tag">Pestana</a>
+                <a href="#" class="search-tag">Músicas fáceis</a>
+                <a href="#" class="search-tag">Batidas</a>
+            </div>
+        </div>
+
+        <section id="chat-section">
+            <h2><i class="fas fa-comments"></i> Converse com a IA</h2>
+            <h3><i class="fas fa-question-circle"></i> Tire suas dúvidas</h3>
+            <div id="suggestedQuestions">
+                <h4>Experimente perguntar:</h4>
+                <!-- Suggested question buttons will be inserted here by JS -->
+            </div>
+            <div id="chatInterface">
+                <div id="chatMessages">
+                    <div class="message ai">
+                        <i class="fas fa-robot"></i>
+                        <span>Olá! Sou seu Ajudante de Violão Inteligente. Como posso ajudar você com seus estudos hoje? Pergunte sobre acordes, ritmos, técnicas, teoria ou peça dicas!</span>
+                    </div>
+                    <!-- Chat messages will be inserted here by JS -->
+                </div>
+                <div id="inputArea">
+                    <input type="text" id="userInput" placeholder="Digite sua pergunta aqui...">
+                    <button id="sendMessageBtn" class="btn"><i class="fas fa-paper-plane"></i> Enviar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            &copy; 2025 Domine o Violao - Todos os direitos reservados
+        </div>
+    </footer>
+
+    <button class="home-btn" onclick="window.location.href='../index.html'"> <!-- Link to main index.html -->
+        <i class="fas fa-home"></i>
+    </button>
+
+    <script>
+// Função que será executada quando a página estiver carregada
+document.addEventListener('DOMContentLoaded', function() {
+    // Obter referências aos elementos importantes
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const userInput = document.getElementById('userInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const suggestedQuestionsContainer = document.getElementById('suggestedQuestions');
+    const searchInput = document.getElementById('globalSearch');
+    const searchBtn = document.getElementById('searchBtn');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const searchTags = document.querySelectorAll('.search-tag');
+    
+    // Categorias de perguntas organizadas por tópico
+    const perguntasPorCategoria = {
+        acordes: [
+            "Como fazer o acorde de Fá Maior (F)?",
+            "Como tocar o acorde de Sol menor (Gm)?",
+            "Quais são os acordes essenciais para iniciantes?",
+            "Como fazer acordes com pestana?",
+            "Como tocar o acorde de Ré Maior (D)?",
+            "Acordes para música sertaneja",
+            "O que são acordes suspensos?",
+            "Como fazer acordes com 7ª?"
+        ],
+        tecnicas: [
+            "Como melhorar a velocidade dos dedos?",
+            "Como fazer dedilhado básico?",
+            "Dicas para melhorar a técnica de palhetada",
+            "Como fazer bend no violão?",
+            "Técnica para hammer-on e pull-off",
+            "Como fazer pestana corretamente?",
+            "Técnica de palm muting",
+            "Exercícios para independência dos dedos"
+        ],
+        ritmos: [
+            "Como tocar batida de samba no violão?",
+            "Batida básica de MPB",
+            "Como fazer levada de reggae?",
+            "Ritmos essenciais para iniciantes",
+            "Batida de pop/rock simples",
+            "Como fazer a batida de bossa nova?",
+            "Dicas para manter o ritmo constante",
+            "Como combinar diferentes ritmos?"
+        ],
+        teoria: [
+            "O que é campo harmônico?",
+            "Como entender as escalas básicas?",
+            "O que é modo maior e menor?",
+            "Progressões harmônicas para iniciantes",
+            "Como funciona o círculo das quintas?",
+            "O que são tensões harmônicas?",
+            "Como transpor uma música?",
+            "Como entender cifras e partituras?"
+        ],
+        repertorio: [
+            "Músicas fáceis para iniciantes no violão",
+            "Músicas com 3 acordes para praticar",
+            "Músicas para treinar mudança de acordes",
+            "Músicas brasileiras fáceis para violão",
+            "Baladas simples para tocar e cantar",
+            "Músicas com dedilhado para praticar",
+            "Músicas para treinar acordes com pestana",
+            "Repertório essencial para violonista iniciante"
+        ]
+    };
+    
+    // Lista completa de perguntas sugeridas
+    const todasPerguntas = [
+        "Como fazer o acorde de Fá Maior (F)?",
+        "Como melhorar a velocidade dos dedos?",
+        "Quais são os acordes essenciais para iniciantes?",
+        "Como tocar batida de samba no violão?",
+        "Me ensine um dedilhado simples",
+        "Como praticar com metrônomo?",
+        "Como tocar o acorde de Sol menor (Gm)?",
+        "Músicas fáceis para iniciantes no violão",
+        "Qual a diferença entre violão de nylon e aço?",
+        "Me dê uma dica para a pestana não falhar",
+        "Como afinar o violão sem afinador?",
+        "Como evitar dor nos dedos ao tocar violão?",
+        "O que é campo harmônico?",
+        "Dicas para manter o ritmo constante",
+        "Como improvisar no violão?"
+    ];
+    
+    // Função para exibir perguntas sugeridas por categoria
+    function mostrarPerguntasPorCategoria(categoria) {
+        // Limpar o container
+        suggestedQuestionsContainer.innerHTML = '<h4>Sugestões da categoria ' + categoria.charAt(0).toUpperCase() + categoria.slice(1) + ':</h4>';
+        
+        // Obter perguntas da categoria selecionada
+        const perguntas = perguntasPorCategoria[categoria];
+        
+        // Criar botões para cada pergunta
+        perguntas.forEach(function(pergunta) {
+            const button = document.createElement('button');
+            button.className = 'suggested-question-btn';
+            button.textContent = pergunta;
+            button.addEventListener('click', function() {
+                userInput.value = pergunta;
+                enviarMensagem();
+            });
+            suggestedQuestionsContainer.appendChild(button);
+        });
+        
+        // Adicionar botão para mais sugestões
+        const refreshButton = document.createElement('button');
+        refreshButton.className = 'suggested-question-btn refresh-btn';
+        refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Mais sugestões';
+        refreshButton.addEventListener('click', mostrarPerguntasSugeridas);
+        suggestedQuestionsContainer.appendChild(refreshButton);
+        
+        // Destacar o botão de categoria ativo
+        categoryBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.getAttribute('data-category') === categoria) {
+                btn.classList.add('active');
+            }
+        });
+    }
+    
+    // Exibir perguntas sugeridas aleatórias na interface
+    function mostrarPerguntasSugeridas() {
+        // Limpar o container
+        suggestedQuestionsContainer.innerHTML = '<h4>Experimente perguntar:</h4>';
+        
+        // Selecionar 8 perguntas aleatórias
+        const perguntasSelecionadas = [];
+        while (perguntasSelecionadas.length < 8) {
+            const randomIndex = Math.floor(Math.random() * todasPerguntas.length);
+            const pergunta = todasPerguntas[randomIndex];
+            if (!perguntasSelecionadas.includes(pergunta)) {
+                perguntasSelecionadas.push(pergunta);
+            }
+        }
+        
+        // Criar botões para cada pergunta
+        perguntasSelecionadas.forEach(function(pergunta) {
+            const button = document.createElement('button');
+            button.className = 'suggested-question-btn';
+            button.textContent = pergunta;
+            button.addEventListener('click', function() {
+                userInput.value = pergunta;
+                enviarMensagem();
+            });
+            suggestedQuestionsContainer.appendChild(button);
+        });
+        
+        // Adicionar botão para mais sugestões
+        const refreshButton = document.createElement('button');
+        refreshButton.className = 'suggested-question-btn refresh-btn';
+        refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Mais sugestões';
+        refreshButton.addEventListener('click', mostrarPerguntasSugeridas);
+        suggestedQuestionsContainer.appendChild(refreshButton);
+        
+        // Remover destaque dos botões de categoria
+        categoryBtns.forEach(btn => {
+            btn.classList.remove('active');
+        });
+    }
+    
+    // Inicializar a interface com sugestões aleatórias
+    mostrarPerguntasSugeridas();
+    
+    // Adicionar evento de clique aos botões de categoria
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const categoria = this.getAttribute('data-category');
+            mostrarPerguntasPorCategoria(categoria);
+        });
+    });
+    
+    // Adicionar evento de clique às tags de busca populares
+    searchTags.forEach(tag => {
+        tag.addEventListener('click', function(e) {
+            e.preventDefault();
+            const termo = this.textContent;
+            searchInput.value = termo;
+            realizarBusca(termo);
+        });
+    });
+    
+    // Função para realizar busca
+    function realizarBusca(termo) {
+        userInput.value = termo;
+        enviarMensagem();
+    }
+    
+    // Adicionar evento de clique ao botão de busca
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function() {
+            const termo = searchInput.value.trim();
+            if (termo !== '') {
+                realizarBusca(termo);
+                searchInput.value = '';
+            }
+        });
+    }
+    
+    // Adicionar evento de tecla Enter ao campo de busca
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const termo = this.value.trim();
+                if (termo !== '') {
+                    realizarBusca(termo);
+                    this.value = '';
+                }
+            }
+        });
+    }
+    
+    // Adicionar evento de clique ao botão de enviar
+    if (sendMessageBtn) {
+        sendMessageBtn.addEventListener('click', enviarMensagem);
+    }
+    
+    // Adicionar evento de tecla Enter ao campo de entrada
+    if (userInput) {
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                enviarMensagem();
+            }
+        });
+    }
+    
+    // Função para mostrar as perguntas sugeridas
+    function mostrarPerguntasSugeridas() {
+        // Limpar o container
+        suggestedQuestionsContainer.innerHTML = '<h4>Experimente perguntar:</h4>';
+        
+        // Selecionar 8 perguntas aleatórias
+        const perguntasSelecionadas = [];
+        while (perguntasSelecionadas.length < 8) {
+            const randomIndex = Math.floor(Math.random() * todasPerguntas.length);
+            const pergunta = todasPerguntas[randomIndex];
+            if (!perguntasSelecionadas.includes(pergunta)) {
+                perguntasSelecionadas.push(pergunta);
+            }
+        }
+        
+        // Criar botões para cada pergunta
+        perguntasSelecionadas.forEach(function(pergunta) {
+            const button = document.createElement('button');
+            button.className = 'suggested-question-btn';
+            button.textContent = pergunta;
+            button.addEventListener('click', function() {
+                userInput.value = pergunta;
+                enviarMensagem();
+            });
+            suggestedQuestionsContainer.appendChild(button);
+        });
+        
+        // Adicionar botão para mais sugestões
+        const refreshButton = document.createElement('button');
+        refreshButton.className = 'suggested-question-btn refresh-btn';
+        refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Mais sugestões';
+        refreshButton.addEventListener('click', mostrarPerguntasSugeridas);
+        suggestedQuestionsContainer.appendChild(refreshButton);
+    }
+    
+    // Função para enviar mensagem
+    function enviarMensagem() {
+        const text = userInput.value.trim();
+        if (text === '') return; // Não enviar mensagens vazias
+        
+        // Adicionar mensagem do usuário ao chat
+        adicionarMensagemAoChat(text, 'user');
+        
+        // Limpar campo de entrada
+        userInput.value = '';
+        
+        // Mostrar indicador de "pensando"
+        mostrarIndicadorDePensamento();
+        
+        // Simular resposta após 500ms
+        setTimeout(function() {
+            // Remover indicador de pensamento
+            removerIndicadorDePensamento();
+            
+            // Gerar e adicionar resposta da IA
+            const resposta = gerarResposta(text);
+            adicionarMensagemAoChat(resposta, 'ai');
+        }, 500);
+    }
+    
+    // Função para adicionar mensagens ao chat
+    function adicionarMensagemAoChat(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message ' + sender;
+        
+        if (sender === 'ai') {
+            // Formato para mensagens da IA (com ícone)
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-robot';
+            
+            const span = document.createElement('span');
+            span.innerHTML = text.replace(/\n/g, '<br>'); // Converter quebras de linha
+            
+            messageDiv.appendChild(icon);
+            messageDiv.appendChild(span);
+        } else {
+            // Formato simples para mensagens do usuário
+            messageDiv.textContent = text;
+        }
+        
+        // Adicionar ao chat e rolar para a parte inferior
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Função para mostrar indicador de pensamento
+    function mostrarIndicadorDePensamento() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message ai thinking';
+        loadingDiv.id = 'thinking-indicator';
+        
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-robot';
+        loadingDiv.appendChild(icon);
+        
+        const span = document.createElement('span');
+        span.textContent = 'Pensando...';
+        loadingDiv.appendChild(span);
+        
+        chatMessages.appendChild(loadingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Função para remover indicador de pensamento
+    function removerIndicadorDePensamento() {
+        const indicator = document.getElementById('thinking-indicator');
+        if (indicator) {
+            indicator.remove();
+        }
+    }
+    
+    // Função para gerar respostas baseadas na entrada do usuário
+    function gerarResposta(mensagem) {
+        const mensagemLower = mensagem.toLowerCase();
+        
+        // Verificar palavras-chave para determinar a resposta
+        if (mensagemLower.includes('pestana') || mensagemLower.includes('fá maior') || mensagemLower.includes('acorde f')) {
+            return `Ah, a famosa pestana! É um desafio, mas você vai conseguir dominar! 💪\n\n**Para o Fá Maior (F):**\n1. **Dedo 1 (Indicador):** Pressione todas as 6 cordas na 1ª casa em forma de pestana\n2. **Dedo 2 (Médio):** Na 2ª casa da corda G (3ª corda)\n3. **Dedo 3 (Anelar):** Na 3ª casa da corda A (5ª corda)\n4. **Dedo 4 (Mínimo):** Na 3ª casa da corda D (4ª corda)\n\n**Dicas Cruciais:**\n* **Posição do Indicador:** Use a lateral do dedo (parte mais "óssea"), não a ponta ou parte macia\n* **Polegar Oposto:** Coloque o polegar atrás do braço do violão, aplicando contra-pressão\n* **Altura do Pulso:** Mantenha o pulso elevado e o antebraço mais alinhado com o braço do violão\n* **Distância do Traste:** Posicione o dedo bem próximo ao traste de metal (sem estar em cima dele)\n* **Comece devagar:** Pratique verificando se todas as cordas estão soando limpas, uma por uma`;
+        }
+        else if (mensagemLower.includes('velocidade') && (mensagemLower.includes('dedo') || mensagemLower.includes('mão'))) {
+            return `**Como Melhorar a Velocidade dos Dedos:**\n\nA velocidade vem da precisão e relaxamento, não da força. Aqui está um plano prático:\n\n**Exercício 1: Cromático Básico (3-5 min diários)**\n- Em uma única corda, posicione os dedos 1-2-3-4 nas casas consecutivas\n- Use metrônomo começando em 60 BPM, uma nota por batida\n- Mantenha os dedos próximos às cordas (não os levante muito)\n- Quando conseguir tocar sem erros por 1 minuto, aumente 5 BPM\n\n**Exercício 2: Aranha (3-5 min diários)**\n- Dedo 1 na casa 1/corda 6, dedo 2 na casa 2/corda 5, etc.\n- Toque uma nota por vez, mantendo cada dedo pressionado até usar todos os 4 dedos\n- Depois, mova o padrão para as próximas cordas\n\n**Exercício 3: Independência (para nível intermediário)**\n- Mantenha o dedo 1 pressionado na casa 1/corda 6\n- Toque alternadamente com os dedos 2, 3 e 4 na casa 3 da mesma corda\n- Repita em todas as cordas\n\n**Dica importante:** Pratique devagar e com precisão. Velocidade vem da eficiência de movimento, não da força.`;
+        }
+        else if (mensagemLower.includes('acordes') && mensagemLower.includes('iniciante')) {
+            return `**Os 8 Acordes Essenciais para Iniciantes:**\n\n1. **C (Dó Maior)** - x32010 - Forma um triângulo na primeira posição\n2. **G (Sol Maior)** - 320003 - Use os dedos 2, 1 e 3 para formar o triângulo básico\n3. **D (Ré Maior)** - xx0232 - Mantenha os dedos em formato triangular na segunda casa\n4. **A (Lá Maior)** - x02220 - Todos os dedos ficam alinhados na segunda casa\n5. **E (Mi Maior)** - 022100 - Similar ao A, mas uma corda abaixo\n6. **Am (Lá menor)** - x02210 - Como o A maior, mas com a 3ª corda na 1ª casa\n7. **Em (Mi menor)** - 022000 - O mais fácil! Apenas dois dedos na segunda casa\n8. **Dm (Ré menor)** - xx0231 - Como o D maior, mas com a 2ª corda na 3ª casa\n\n**Plano de Prática:**\n• Comece pelos acordes mais simples: Em, Am, e C\n• Dedique 5 minutos para cada acorde, tocando cada corda individualmente\n• **Prática de transição:** C→G, G→D, Am→E, Em→G\n• Use músicas simples como "Asa Branca" (G, C, D) para praticar mudanças`;
+        }
+        else if (mensagemLower.includes('música') || mensagemLower.includes('fácil') || mensagemLower.includes('facil') || mensagemLower.includes('musica') || mensagemLower.includes('simples')) {
+            return `**7 Músicas Perfeitas para Iniciantes:**\n\n1. **"Asa Branca" (Luiz Gonzaga)**\n   *Acordes:* C, G7, F (ou G, D, C se quiser evitar pestana)\n   *Ritmo:* Baião simplificado ↓↑↓↑↓↑\n   *Por que é boa:* Apenas 3 acordes e ritmo repetitivo\n\n2. **"Knockin' on Heaven's Door" (Bob Dylan)**\n   *Acordes:* G, D, Am, C\n   *Ritmo:* Batida simples ↓↓↑↑\n\n3. **"Parabéns Pra Você"**\n   *Acordes:* D, A7\n   *Ritmo:* ↓↓↓↓\n   *Por que é boa:* Apenas 2 acordes!\n\n4. **"Love Me Do" (The Beatles)**\n   *Acordes:* G, C\n   *Ritmo:* ↓↑↓↑\n\n5. **"Pra Não Dizer Que Não Falei das Flores" (Geraldo Vandré)**\n   *Acordes:* Am, G, C, F (pode substituir F por C ou D7)\n   *Ritmo:* Batida em 2 tempos\n\n6. **"Stand By Me" (Ben E. King)**\n   *Acordes:* G, Em, C, D\n   *Ritmo:* ↓↑↑↓\n\n7. **"Marcha Soldado"**\n   *Acordes:* C, G7\n   *Ritmo:* Marcha simples\n\n**Dica:** Escolha apenas UMA música e domine-a completamente antes de passar para outra. É melhor tocar uma música inteira bem do que várias pela metade!`;
+        }
+        else if (mensagemLower.includes('dor') && (mensagemLower.includes('dedo') || mensagemLower.includes('mão') || mensagemLower.includes('dedos'))) {
+            return `**Como Evitar Dor nos Dedos ao Tocar Violão:**\n\n**É normal sentir desconforto no início, mas dor intensa não!**\n\n**Causas comuns e soluções:**\n\n1. **Dedos sem calosidade**\n   • **Solução:** Comece com sessões curtas (10-15 min) e aumente gradualmente\n   • As pontas dos dedos vão endurecer naturalmente com o tempo\n\n2. **Pressão excessiva nas cordas**\n   • **Solução:** Use apenas a força mínima necessária para produzir um som limpo\n   • Você provavelmente está pressionando com força demais (comum em iniciantes)\n\n3. **Altura das cordas (action)**\n   • **Solução:** Verifique se seu violão está bem regulado\n   • Cordas muito altas exigem mais força e causam mais dor\n\n4. **Postura incorreta**\n   • **Solução:** Mantenha o polegar no meio da parte de trás do braço do violão\n   • Seus dedos devem formar um "C" ao redor do braço\n\n5. **Usar a ponta dos dedos**\n   • **Solução:** Pressione as cordas com a parte "carnuda" das pontas dos dedos\n\n**Dica extra:** Cordas de nylon são mais suaves para os dedos do que as de aço. Se a dor persistir por mais de 30 minutos após parar de tocar, descanse por 1-2 dias.`;
+        }
+        else if (mensagemLower.includes('afinar') || mensagemLower.includes('afinação')) {
+            return `**Como Afinar o Violão Sem Afinador:**\n\n**Método 1: Afinação Relativa (5ª casa)**\n\nIniciando com a 6ª corda (Mi grave):\n1. **Mi (6ª corda):** Afine usando referência (outro instrumento, diapasão ou vídeo online)\n2. **Lá (5ª corda):** Deve soar igual à 6ª corda pressionada na 5ª casa\n3. **Ré (4ª corda):** Deve soar igual à 5ª corda pressionada na 5ª casa\n4. **Sol (3ª corda):** Deve soar igual à 4ª corda pressionada na 5ª casa\n5. **Si (2ª corda):** Deve soar igual à 3ª corda pressionada na 4ª casa (exceção!)\n6. **Mi (1ª corda):** Deve soar igual à 2ª corda pressionada na 5ª casa\n\n**Método 2: Harmônicos na 5ª e 7ª casas**\n1. **Mi e Lá:** Compare o harmônico da 6ª corda na 5ª casa com a 5ª corda solta\n2. **Lá e Ré:** Compare o harmônico da 5ª corda na 5ª casa com a 4ª corda solta\n3. E assim por diante\n\n**Dicas:**\n• Os harmônicos são produzidos tocando levemente a corda sobre o traste (sem pressionar)\n• Ajuste lentamente as tarraxas até os sons coincidirem\n• Aplicativos gratuitos de afinador são uma opção mais precisa`;
+        }
+        else if (mensagemLower.includes('campo harmônico') || mensagemLower.includes('campo harmonico')) {
+            return `**O que é Campo Harmônico:**\n\n**Definição:** O campo harmônico é o conjunto de acordes formados a partir das notas de uma escala musical.\n\n**Campo Harmônico Maior (exemplo em C):**\n\n1. **C (Dó Maior)** - Acorde de tônica (I)\n2. **Dm (Ré menor)** - Acorde de segunda (ii)\n3. **Em (Mi menor)** - Acorde de terça (iii)\n4. **F (Fá Maior)** - Acorde de subdominante (IV)\n5. **G (Sol Maior)** - Acorde de dominante (V)\n6. **Am (Lá menor)** - Acorde de sexta/relativa menor (vi)\n7. **B° (Si diminuto)** - Acorde de sétima (vii°)\n\n**Como usar na prática:**\n\n• **Progressões comuns:** I-IV-V (C-F-G), I-vi-IV-V (C-Am-F-G)\n• **Substituições:** Substitua acordes com funções similares (vi no lugar do I)\n• **Modulação:** Use acordes comuns para mudar de tonalidade\n\n**Aplicação diária:**\nSe você conhece o campo harmônico de uma tonalidade, pode prever quais acordes provavelmente aparecerão juntos em músicas naquela tonalidade.\n\n**Dica inicial:** Memorize o campo harmônico de C (sem acidentes) e depois aprenda a transportar para outras tonalidades usando o ciclo das quintas.`;
+        }
+        else if (mensagemLower.includes('ritmo') || mensagemLower.includes('batida') || mensagemLower.includes('constante')) {
+            return `**Dicas para Manter o Ritmo Constante:**\n\n**1. Use um metrônomo regularmente**\n• Comece lento (60-70 BPM)\n• Pratique tocar exatamente junto com as batidas\n• Aumente a velocidade gradualmente só depois de dominar o ritmo lento\n\n**2. Desenvolva sua percepção rítmica**\n• Bata palmas junto com suas músicas favoritas\n• Conte os tempos em voz alta enquanto toca (1-2-3-4)\n• Toque apenas cordas soltas no ritmo desejado antes de adicionar acordes\n\n**3. Divida as batidas complexas**\n• Use sílabas para representar cada movimento (ex: "TUM-chi-TUM-chi")\n• Pratique apenas o movimento da mão direita sem a esquerda\n• Adicione acordes somente quando o ritmo estiver "no automático"\n\n**4. Técnicas específicas**\n• **Abafe as cordas** levemente com a palma da mão para marcar o tempo\n• Utilize o **pulso como pêndulo** para manter o tempo constante\n• **Movimente o pé** marcando o tempo (cuidado para não criar ruído)\n\n**5. Exercício prático**\nToque a mesma batida por 5 minutos sem parar, mantendo o tempo constante. Se errar, não pare, apenas volte ao ritmo na próxima batida. Isso treina sua recuperação.`;
+        }
+        else if (mensagemLower.includes('diferença') && (mensagemLower.includes('nylon') || mensagemLower.includes('aço') || mensagemLower.includes('aco'))) {
+            return `**Diferenças entre Violão de Nylon e Aço:**\n\n**Violão de Nylon:**\n\n• **Som:** Mais suave, quente e encorpado\n• **Cordas:** Mais macias, menos tensão, mais confortáveis para iniciantes\n• **Braço:** Geralmente mais largo, facilitando dedilhados\n• **Estilo:** Ideal para música clássica, flamenco, bossa nova e MPB\n• **Técnica:** Tradicionalmente tocado com os dedos, sem palheta\n• **Durabilidade das cordas:** 2-3 meses com uso regular\n• **Para iniciantes:** Mais gentil com os dedos, menos doloroso\n\n**Violão de Aço:**\n\n• **Som:** Mais brilhante, metálico e projetado\n• **Cordas:** Maior tensão, exigem mais força dos dedos\n• **Braço:** Geralmente mais estreito\n• **Estilo:** Ideal para rock, pop, country, folk\n• **Técnica:** Versátil, pode usar palheta ou dedos\n• **Durabilidade das cordas:** 1-2 meses com uso regular\n• **Captação:** Mais fácil de amplificar sem microfone\n\n**Qual escolher?**\nSe você é iniciante e quer tocar MPB, música brasileira ou clássica, o nylon é uma ótima escolha. Para rock, pop e música americana em geral, o aço oferece o timbre característico desses estilos.\n\n**Observação:** É possível tocar qualquer estilo em ambos, mas certos gêneros soarão mais autênticos no instrumento apropriado.`;
+        }
+        else if (mensagemLower.includes('metrônomo') || mensagemLower.includes('metronomo')) {
+            return `**Como Praticar com Metrônomo:**\n\n**Por que usar metrônomo:**\n• Desenvolve seu senso rítmico interno\n• Expõe problemas técnicos escondidos\n• Permite progresso gradual e mensurável\n• Essencial para tocar com outros músicos\n\n**Guia passo a passo:**\n\n**1. Comece lento**\n• Defina um BPM confortável (60-70 para iniciantes)\n• Se estiver com dificuldade, diminua ainda mais\n\n**2. Pratique em camadas:**\n• **Nível 1:** Apenas bata palmas junto com o metrônomo\n• **Nível 2:** Toque apenas cordas soltas no ritmo\n• **Nível 3:** Adicione trocas de acordes simples\n• **Nível 4:** Execute a música ou exercício completo\n\n**3. Exercício de subdivisão**\n• Configure o metrônomo para 60 BPM\n• Toque uma nota a cada clique (semínimas)\n• Depois toque duas notas por clique (colcheias)\n• Em seguida, quatro notas por clique (semicolcheias)\n\n**4. Aumente a velocidade gradualmente**\n• Aumente apenas 3-5 BPM quando estiver consistente\n• Volte ao andamento lento se perder a precisão\n\n**Dica profissional:** Pratique com o metrônomo marcando apenas o 2º e 4º tempos (em compasso 4/4) para desenvolver ainda mais sua estabilidade rítmica.`;
+        }
+        else if (mensagemLower.includes('improvisa') || mensagemLower.includes('improvisar') || mensagemLower.includes('solo')) {
+            return `**Como Improvisar no Violão:**\n\n**Para iniciantes:**\n\n**1. Comece com a escala pentatônica menor**\n• Na tonalidade de Am: Use as notas A, C, D, E, G\n• Posição básica: 5ª casa da corda E (Mi) até a 8ª casa\n• Esta escala funciona em muitos contextos musicais\n\n**2. Aprenda os padrões da escala no braço**\n• Estude o formato da escala (disponível em diagramas online)\n• Pratique subindo e descendo lentamente primeiro\n\n**3. Improvisação rítmica**\n• Comece improvisando usando apenas 2-3 notas\n• Foque no ritmo mais que nas notas\n• Use pausas (o silêncio é tão importante quanto as notas)\n\n**4. Técnicas expressivas simples**\n• **Bend:** Pressione uma nota e empurre a corda para cima para elevar o tom\n• **Slide:** Deslize de uma nota para outra\n• **Hammer-on/Pull-off:** Articulações sem tocar novamente a corda\n\n**5. Exercício prático para começar**\n• Toque a progressão Am-G-F-E em loop (ou peça para alguém tocar)\n• Improvise usando apenas as notas da escala pentatônica de Am\n• Comece com frases curtas, repita motivos e desenvolva-os gradualmente\n\n**Lembre-se:** Bom improviso não é tocar rápido ou muitas notas, mas sim criar frases musicais com significado e expressão.`;
+        }
+        else if (mensagemLower.includes('dedilhado') || mensagemLower.includes('arpejo')) {
+            return `**Dedilhado Simples para Iniciantes:**\n\n**Padrão básico de dedilhado (arpejo)**\nUsando os dedos: p (polegar), i (indicador), m (médio), a (anelar)\n\n**Técnica correta:**\n• **Mão direita:** Mantenha o pulso levemente arqueado\n• **Posição dos dedos:** Curvados naturalmente, perpendiculares às cordas\n• **Unhas:** Para dedilhado clássico, use uma combinação de polpa do dedo e unha\n\n**Padrão 1 - Básico (4/4)**\np i m a (repetir)\nPolegar na 6ª, 5ª ou 4ª corda, demais dedos nas 3ª, 2ª e 1ª cordas\n\n**Padrão 2 - Balada**\np i m a m i (repetir)\n\n**Padrão 3 - Valsa (3/4)**\np i m  p i m  (repetir)\n\n**Exercício prático:**\n1. Use o acorde de C maior (é fácil de formar)\n2. Toque lentamente, garantindo que cada nota soe clara\n3. Mantenha um ritmo constante (use metrônomo em 60 BPM)\n4. Quando dominar um padrão, tente outro acorde\n\n**Progressão ideal para praticar:**\nC - G - Am - F (um compasso para cada acorde)\n\n**Dica importante:** Comece muito lento e com precisão. A velocidade virá naturalmente conforme a técnica melhora.`;
+        }
+        else if (mensagemLower.includes('gm') || mensagemLower.includes('sol menor')) {
+            return `**Como Tocar o Acorde de Sol menor (Gm):**\n\n**Formato padrão (com pestana):**\n1. **Dedo 1 (indicador):** Pestana na 3ª casa cobrindo as 6 cordas\n2. **Dedo 3 (anelar):** 5ª casa da 2ª corda (B)\n3. **Dedo 4 (mínimo):** 5ª casa da 1ª corda (E)\n\n**Versão simplificada (sem pestana):**\n1. **Dedo 1 (indicador):** 3ª casa da 6ª corda (E)\n2. **Dedo 2 (médio):** 3ª casa da 5ª corda (A)\n3. **Dedo 3 (anelar):** 3ª casa da 4ª corda (D)\n4. Toque apenas das cordas 1-4 (evite as cordas 1 e 2)\n\n**Versão alternativa (forma de Em deslocada):**\n1. **Dedo 1 (indicador):** 3ª casa da 1ª corda (E)\n2. **Dedo 2 (médio):** 3ª casa da 2ª corda (B) \n3. Toque apenas as 4 cordas mais agudas\n\n**Transições comuns envolvendo Gm:**\n• Gm → Cm (ambos com pestana)\n• Gm → D (mova apenas 2 dedos)\n• Gm → F (desça dois trastes com a pestana)\n\n**Músicas populares com Gm:**\n• \"Que País é Este\" - Legião Urbana (Gm - C - D)\n• \"Admirável Gado Novo\" - Zé Ramalho (Gm - F - Cm - D)`;
+        }
+        else if (mensagemLower.includes('samba') && (mensagemLower.includes('batida') || mensagemLower.includes('ritmo'))) {
+            return `**Como Tocar Batida de Samba no Violão:**\n\n**Batida de samba básica (para destros):**\n\n**Padrão principal:**\n• **Notação:** ↓(B) ↑ ↓ ↑ ↓(B) ↑\n• **Onde (B) = batida percussiva com polegar/lateral da mão**\n\n**Passo a passo:**\n\n**1. Posição da mão direita:**\n• Polegar para baixo nas cordas graves (6ª, 5ª, 4ª)\n• Dedos (ou lateral do indicador) para cima nas cordas agudas\n• Mantenha o pulso flexível e solto\n\n**2. Movimento básico (sem cordas):**\n• Treine fazendo o movimento "baixo-cima-baixo-cima-baixo-cima"\n• Adicione a percussão batendo levemente no tampo com o polegar\n\n**3. Contagem:**\n• 1 **e** 2 **e** 3 **e** (em compasso 3/4)\n• Bata no tampo nos tempos 1 e 3\n\n**4. Acordes comuns no samba:**\n• A7, D7, G7, Dm, E7, Am\n• Experimente com a progressão: Am - E7 - Am - A7 - Dm - G7 - C - E7\n\n**5. Variações rítmicas:**\n• Experimente acentuar diferentes partes do padrão\n• Adicione "fantasmas" (toques muito leves entre os principais)\n\n**Dica profissional:** Ouça muito samba! A batida está no ouvido tanto quanto nas mãos. Escute João Gilberto, Paulinho da Viola e outros mestres.`;
+        }
+        else {
+            return `Obrigado pela sua pergunta sobre "${mensagem}"!\n\nPosso ajudar com diversos temas relacionados ao violão:\n\n• **Acordes e posições** - aprenda novos acordes ou aperfeiçoe os que já conhece\n• **Técnicas específicas** - dedilhado, pestanas, hammer-ons, palm muting, etc.\n• **Ritmos e batidas** - do pop ao samba, passando por rock, MPB e muito mais\n• **Exercícios práticos** - para melhorar velocidade, precisão e coordenação\n• **Teoria musical** - escalas, campo harmônico, progressões de acordes\n• **Repertório** - músicas para iniciantes, intermediários ou avançados\n\nExperimente clicar em uma das sugestões acima para ver exemplos específicos ou me pergunte algo como:\n\n- "Como fazer o acorde de Mi menor?"\n- "Quais ritmos são fáceis para começar?"\n- "Dicas para trocar acordes mais rápido"\n- "Músicas com apenas 3 acordes"`;
+        }
+    }
+    
+    // Adicionar botão para limpar o chat
+    const clearChatBtn = document.createElement('button');
+    clearChatBtn.className = 'btn btn-secondary';
+    clearChatBtn.innerHTML = '<i class="fas fa-trash"></i> Limpar conversa';
+    clearChatBtn.style.marginTop = '20px';
+    clearChatBtn.style.width = '100%';
+    clearChatBtn.style.backgroundColor = '#a0522d';
+    
+    clearChatBtn.addEventListener('click', function() {
+        // Manter apenas a primeira mensagem (boas-vindas)
+        while (chatMessages.children.length > 1) {
+            chatMessages.removeChild(chatMessages.lastChild);
+        }
+        // Rolar para o topo
+        chatMessages.scrollTop = 0;
+    });
+    
+    // Adicionar o botão abaixo do chat
+    document.getElementById('chatInterface').parentNode.appendChild(clearChatBtn);
+});
+
+// Estilo adicional para animação de "pensando"
+document.head.insertAdjacentHTML('beforeend', `
+<style>
+    .message.thinking span {
+        display: inline-flex;
+        align-items: center;
+        font-style: italic;
+        color: var(--secondary-color);
+    }
+    .message.thinking span::after {
+        content: '';
+        width: 12px;
+        height: 12px;
+        margin-left: 8px;
+        border: 2px solid var(--border-color);
+        border-radius: 50%;
+        border-top-color: var(--primary-color);
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .refresh-btn {
+        background-color: var(--accent-color) !important;
+        color: var(--light-text) !important;
+    }
+    
+    .refresh-btn:hover {
+        background-color: var(--secondary-color) !important;
+    }
+    
+    #suggestedQuestions {
+        max-height: 150px;
+        overflow-y: auto;
+        padding-bottom: 12px;
+    }
+</style>
+`);
+</script>
+</body>
+</html>

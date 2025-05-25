@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interativo dos Acordes Mágicos - Kit Violão Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+                :root {
+            --primary-color: #8B4513; /* Marrom escuro (SaddleBrown) */
+            --secondary-color: #A0522D; /* Marrom médio (Sienna) */
+            --accent-color: #CD853F; /* Marrom claro (Peru) */
+            --dark-color: #3E2723; /* Marrom muito escuro */
+            --light-color: #FAF0E6; /* Bege clarinho com tom marrom (Linen) */
+            --light-bg: #FFF8E1; /* Tom bege claro */
+            --border-color: #D3C1AE; /* Borda em tom marrom claro */
+            --footer-color: #5D4037; /* Tom marrom escuro para rodapé */
+            --shadow: 0 5px 15px rgba(139, 69, 19, 0.15);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --wood-texture: linear-gradient(135deg, #CD853F, #A0522D);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-color);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--gradient);
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        /* Estilo para o botão fixo no canto inferior direito */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px; /* Alterado de left para right */
+            width: 60px;
+            height: 60px;
+            background-color: #8B4513;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.8rem;
+            z-index: 1000;
+        }
+        
+        .back-button:hover {
+            background-color: #A0522D;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .intro-card {
+            background-color: #fff;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .card {
+            background-color: #fff;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .tonality-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tonality-btn {
+            background: linear-gradient(135deg, #FAF0E6, #F5F0E6);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(139, 69, 19, 0.12);
+            color: var(--primary-color);
+        }
+        
+        .tonality-btn:hover {
+            background: linear-gradient(135deg, #EFEBE9, #D7CCC8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-color: var(--secondary-color);
+        }
+        
+        .tonality-btn.active {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            border-color: #3E2723;
+            color: #FFF8E1;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(139, 69, 19, 0.3);
+        }
+        
+        .chord-map-container {
+            position: relative;
+            height: 500px;
+            margin: 2rem 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23f5efe9" width="100" height="100"/><g fill="%23e6d7c3"><rect width="100" height="1" y="20"/><rect width="100" height="1" y="40"/><rect width="100" height="1" y="60"/><rect width="100" height="1" y="80"/><rect width="1" height="100" x="20"/><rect width="1" height="100" x="40"/><rect width="1" height="100" x="60"/><rect width="1" height="100" x="80"/></g></svg>');
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 20px rgba(93, 64, 55, 0.15);
+            overflow: hidden;
+        }
+        
+        .chord-wheel {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, #CD853F 0%, #A0522D 80%, #8B4513 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.8rem;
+            box-shadow: 0 6px 15px rgba(139, 69, 19, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+            cursor: pointer;
+            border: 3px solid rgba(255,255,255,0.25);
+            text-shadow: 0 2px 3px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .chord-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid var(--border-color);
+            /* Transformação para trazer os sub-acordes 30% mais próximos do centro */
+            transform: translate(
+                calc(var(--x-position, 0px) * 0.7),
+                calc(var(--y-position, 0px) * 0.7)
+            );
+        }
+        
+        /* Modificar o efeito hover para compatibilidade com a nova transformação */
+        .chord-node:hover {
+            transform: translate(
+                calc(var(--x-position, 0px) * 0.7),
+                calc(var(--y-position, 0px) * 0.7)
+            ) scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+        
+        /* Modificar o estado selected para compatibilidade com a nova transformação */
+        .chord-node.selected {
+            transform: translate(
+                calc(var(--x-position, 0px) * 0.7),
+                calc(var(--y-position, 0px) * 0.7)
+            ) scale(1.2);
+            box-shadow: 0 6px 12px rgba(93, 64, 55, 0.4);
+            z-index: 5;
+            border-width: 3px;
+            animation: none; /* Desativar animação original para não interferir */
+            background-color: #8D6E63;
+            color: white;
+        }
+        
+        /* Adicionar nova animação pulse compatível com a transformação */
+        .chord-node.selected {
+            animation: pulse-transformed 1.5s infinite;
+        }
+
+        @keyframes pulse-transformed {
+            0% {
+                box-shadow: 0 0 0 0 rgba(93, 64, 55, 0.8);
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.7),
+                    calc(var(--y-position, 0px) * 0.7)
+                );
+            }
+            50% {
+                box-shadow: 0 0 0 12px rgba(93, 64, 55, 0);
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.7),
+                    calc(var(--y-position, 0px) * 0.7)
+                ) scale(1.15);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(93, 64, 55, 0);
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.7),
+                    calc(var(--y-position, 0px) * 0.7)
+                );
+            }
+        }
+
+        /* Responsividade - aproximar ainda mais em telas menores */
+        @media (max-width: 768px) {
+            .chord-node {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.6),
+                    calc(var(--y-position, 0px) * 0.6)
+                );
+                width: 55px;
+                height: 55px;
+            }
+            
+            .chord-node:hover {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.6),
+                    calc(var(--y-position, 0px) * 0.6)
+                ) scale(1.1);
+            }
+            
+            .chord-node.selected {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.6),
+                    calc(var(--y-position, 0px) * 0.6)
+                ) scale(1.2);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chord-node {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.5),
+                    calc(var(--y-position, 0px) * 0.5)
+                );
+                width: 50px;
+                height: 50px;
+            }
+            
+            .chord-node:hover {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.5),
+                    calc(var(--y-position, 0px) * 0.5)
+                ) scale(1.1);
+            }
+            
+            .chord-node.selected {
+                transform: translate(
+                    calc(var(--x-position, 0px) * 0.5),
+                    calc(var(--y-position, 0px) * 0.5)
+                ) scale(1.2);
+            }
+        }
+
+        .chord-diagram {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .chord-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .chord-description {
+            color: var(--secondary-color);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chord-fretboard {
+            display: inline-block;
+            position: relative;
+            width: 220px; /* Increased width slightly */
+            height: 250px; /* Increased height slightly */
+            /* Enhanced wood gradient */
+            background: linear-gradient(140deg, #BCAAA4 0%, #8D6E63 50%, #6D4C41 100%);
+            border-radius: 8px; /* Slightly larger radius */
+            padding: 25px 5px 15px 5px; /* Adjusted padding */
+            margin: 15px auto; /* Increased margin */
+            /* More defined shadow */
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,0,0,0.2); /* Darker border */
+        }
+        
+        .chord-string {
+            position: relative;
+            height: 38px; /* Keep height for spacing */
+            width: 100%;
+            /* Thinner, more metallic string appearance */
+            border-bottom: 1px solid rgba(224, 224, 224, 0.4); 
+            display: flex;
+            align-items: center;
+        }
+        
+        .chord-string:last-child {
+            border-bottom: none;
+        }
+        
+        .chord-fret {
+            position: relative;
+            width: 25%;
+            height: 100%;
+            /* Thinner, metallic fret appearance */
+            border-right: 2px solid rgba(210, 210, 210, 0.25); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chord-fret:last-child {
+            border-right: none;
+        }
+        
+        /* Estilos para melhorar a visualização de acordes */
+        .position-indicator {
+            position: absolute;
+            left: -45px; /* Adjusted position further left */
+            top: 0px; /* Align with top padding */
+            font-size: 0.9rem; /* Slightly larger */
+            background-color: var(--primary-color); /* Use primary color */
+            padding: 3px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .barre-indicator {
+            position: absolute; /* Ensure absolute positioning */
+            height: 20px; /* Thicker barre */
+            background-color: rgba(255, 255, 255, 0.7); /* Brighter barre */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.35);
+            border: 1px solid rgba(0,0,0,0.15);
+            pointer-events: none; /* Prevent interaction */
+        }
+
+        .barre-dot { /* Style for dots under a barre */
+            background: rgba(0, 0, 0, 0.6); /* Darker dot under barre */
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Adicione ao seu CSS para diagramas de acordes mais claros */
+        .chord-dot {
+            width: 32px; /* Larger dots */
+            height: 32px;
+            border-radius: 50%;
+            /* More pronounced gradient */
+            background: radial-gradient(circle, #FFFFFF 40%, #D0D0D0 100%); 
+            color: #212121; /* Darker text */
+            /* Sharper shadow */
+            box-shadow: 0 3px 5px rgba(0,0,0,0.4), inset 0 1px 2px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700; /* Bolder finger number */
+            font-size: 1.2rem; /* Larger finger number */
+            border: 1px solid rgba(0,0,0,0.2);
+            cursor: default; /* Default cursor as it's informational */
+            transition: transform 0.1s ease;
+        }
+        
+        .chord-dot:hover { /* Subtle hover effect */
+             transform: scale(1.05);
+        }
+
+
+        .open-string, .muted-string {
+            position: absolute;
+            top: -22px; /* Position slightly higher */
+            font-size: 1.2rem; /* Larger symbols */
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .open-string {
+             color: #FAFAFA; /* Brighter open string */
+        }
+        
+        .muted-string {
+             color: #EF5350; /* Brighter red for muted */
+             font-weight: bold;
+        }
+
+        /* Melhorias no design do diagrama do braço */
+        .chord-string-labels {
+            display: flex;
+            justify-content: space-around;
+            width: 220px; /* Match new fretboard width */
+            margin: 10px auto 0; /* Adjusted margin */
+        }
+        
+        .string-label {
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem; /* Larger */
+            color: var(--dark-color); /* Ensure good contrast */
+            opacity: 0.9; /* More prominent */
+        }
+        
+        .chord-fret-labels {
+            position: absolute;
+            left: -35px; /* Adjusted position */
+            top: 25px; /* Align with top padding */
+            height: calc(100% - 40px); /* Match fretboard playable area */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        
+        .fret-label {
+            width: 25px; /* Wider */
+            height: 38px; /* Match string height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem; /* Larger fret number */
+            color: var(--dark-color); /* Darker color for contrast */
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        .chord-info {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background-color: var(--light-bg);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .chord-info h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .chord-info p {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+        
+        /* Estilos para melhorar a visualização de progressões */
+.progression-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.progression-card {
+    background-color: #fff;
+    border-radius: var(--radius);
+    padding: 12px 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
+}
+
+.progression-chords {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.chord-button {
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: 600;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chord-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.progression-arrow {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.progression-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+}
+
+.play-progression {
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.play-progression:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+        .progression-examples {
+            margin-top: 1.2rem;
+        }
+        
+        .progression-tag {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            margin: 0.35rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .progression-tag:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .button-row {
+            display: flex;
+            gap: 1rem;
+            margin: 1.2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 3px 6px rgba(139, 69, 19, 0.2);
+        }
+        
+        .action-btn:hover {
+            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(139, 69, 19, 0.3);
+        }
+        
+        .action-btn.secondary {
+            background: linear-gradient(135deg, var(--accent-color), #8D6E63);
+        }
+        
+        .action-btn.secondary:hover {
+            background: linear-gradient(135deg, #8D6E63, #6D4C41);
+        }
+        
+        .chord-suggestions {
+            margin: 1.5rem 0;
+        }
+        
+        .suggestion-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+        
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .suggestion-card {
+            padding: 1.2rem;
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .suggestion-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: var(--secondary-color);
+        }
+        
+        .suggestion-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .suggestion-card p {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+        }
+        
+        .instructions-section {
+            background-color: #fff;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .step-box {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .step-box:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .tip-box {
+            background-color: #EFEBE9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 3px 6px rgba(93, 64, 55, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: var(--footer-color);
+            color: #fff;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        /* Botão para reprodução de progressões */
+        .play-progression-btn {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #6D4C41, #8D6E63);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .play-progression-btn:hover {
+            background: linear-gradient(135deg, #5D4037, #6D4C41);
+            transform: translateY(-2px);
+        }
+        
+        /* Estilos para o Modal de Músicas */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            color: var(--dark-color);
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .modal-body li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .modal-body li:last-child {
+            border-bottom: none;
+        }
+
+        .modal-body li strong {
+            color: var(--secondary-color);
+        }
+
+        /* Estilos para o Popup de Progressões */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 3000; /* Acima do modal de músicas */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-overlay.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .popup-overlay.visible .popup-content {
+            transform: scale(1);
+        }
+
+        .popup-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .popup-close-btn:hover {
+            color: var(--dark-color);
+        }
+
+        .popup-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .popup-body {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: var(--dark-color);
+        }
+
+        .popup-body p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .progression-chords-popup {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .chord-pill {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+
+        .chord-arrow {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .popup-footer {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-button"><i class="fas fa-home"></i></a>
+    <header>
+        <div class="container">
+            <h1>🗺️ Mapa Interativo dos Acordes Mágicos</h1>
+            <div class="subtitle">Descubra combinações harmônicas perfeitas e desbloqueie sua criatividade musical</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>Ferramenta de Exploração Harmônica</h2>
+            <p>Este mapa interativo mostra as relações entre os acordes que soam bem juntos em qualquer tonalidade. Clique nos acordes para ver suas formas, ouvir como soam e descobrir progressões populares onde eles são usados.</p>
+            <p><strong>Como usar:</strong> Selecione a tonalidade desejada e explore o mapa de acordes clicando nos círculos. Para cada acorde, você verá informações sobre como tocá-lo e combinações poderosas para usar em suas músicas.</p>
+        </div>
+
+        <div class="instructions-section">
+            <h2>Como Utilizar o Mapa de Acordes</h2>
+            
+            <div class="step-box">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Escolha uma Tonalidade</h3>
+                    <p>Selecione entre as tonalidades disponíveis nos botões abaixo. Isso definirá quais acordes serão mostrados no mapa interativo. Uma nova tonalidade criará uma nova "constelação" de acordes relacionados.</p>
+                </div>
+            </div>
+            
+            <div class="step-box">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Explore os Acordes Relacionados</h3>
+                    <p>Clique em qualquer acorde no mapa para ver sua posição no braço do violão, ouvir como ele soa e descobrir informações detalhadas sobre seu uso musical.</p>
+                </div>
+            </div>
+            
+            <div class="step-box">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Descubra Progressões Harmônicas</h3>
+                    <p>Para cada acorde selecionado, você verá progressões harmônicas populares onde ele é utilizado. Clique nas sugestões de acordes complementares para criar suas próprias sequências musicais.</p>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <h4>💡 Dica de mestre</h4>
+                <p>Entender como os acordes se relacionam dentro de uma tonalidade é o segredo para criar progressões harmônicas interessantes. Tente seguir os padrões circulares do mapa para descobrir sequências que fluem naturalmente.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Selecione a Tonalidade</h2>
+            <div class="tonality-selector">
+                <button class="tonality-btn active" data-tonality="C">C (Dó)</button>
+                <button class="tonality-btn" data-tonality="G">G (Sol)</button>
+                <button class="tonality-btn" data-tonality="D">D (Ré)</button>
+                <button class="tonality-btn" data-tonality="A">A (Lá)</button>
+                <button class="tonality-btn" data-tonality="E">E (Mi)</button>
+                <button class="tonality-btn" data-tonality="B">B (Si)</button>
+                <button class="tonality-btn" data-tonality="F">F (Fá)</button>
+                <button class="tonality-btn" data-tonality="Bb">Bb (Sib)</button>
+                <button class="tonality-btn" data-tonality="Eb">Eb (Mib)</button>
+                <button class="tonality-btn" data-tonality="Ab">Ab (Láb)</button>
+                <button class="tonality-btn" data-tonality="Am">Am (Lá menor)</button>
+                <button class="tonality-btn" data-tonality="Em">Em (Mi menor)</button>
+            </div>
+
+            <div class="chord-map-container">
+                <div class="chord-wheel">
+                    <div class="wheel-center" data-chord="C">C</div>
+                    <!-- Chord nodes will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="chord-diagram" id="chordDisplay">
+                <div class="chord-title">C (Dó Maior)</div>
+                <div class="chord-description">Acorde básico, perfeito para iniciar uma progressão</div>
+                <div class="chord-fretboard" id="fretboard">
+                    <div class="chord-fret-labels">
+                        <div class="fret-label">1</div>
+                        <div class="fret-label">2</div>
+                        <div class="fret-label">3</div>
+                        <div class="fret-label">4</div>
+                    </div>
+                    <!-- As cordas e casas serão desenhadas dinamicamente pelo JS -->
+                </div>
+                <div class="chord-string-labels">
+                    <div class="string-label">E</div>
+                    <div class="string-label">A</div>
+                    <div class="string-label">D</div>
+                    <div class="string-label">G</div>
+                    <div class="string-label">B</div>
+                    <div class="string-label">e</div>
+                </div>
+                <div class="button-row">
+                    <button class="action-btn" id="playChordBtn"><i class="fas fa-play"></i> Tocar Acorde</button>
+                    <button class="action-btn secondary" id="seeExamplesBtn"><i class="fas fa-music"></i> Ver Músicas com Este Acorde</button>
+                </div>
+                <button class="play-progression-btn" id="playProgressionBtn"><i class="fas fa-play-circle"></i> Tocar Progressão</button>
+            </div>
+
+            <div class="chord-info">
+                <h3>Sobre o Acorde C (Dó Maior)</h3>
+                <p>O acorde de Dó Maior (C) é a pedra angular da tonalidade de C. Formado pelas notas C (tônica), E (terça maior) e G (quinta justa), ele transmite uma sensação de estabilidade, brilho e resolução completa. É o ponto de partida e chegada mais comum em músicas populares, servindo como o 'lar' harmônico onde a música encontra repouso.</p>
+                <p><strong>Como usar:</strong> Ideal como acorde de tônica em músicas na tonalidade de C. Também funciona bem em progressões com F e G.</p>
+                
+                <div class="progression-examples">
+                    <h4>Progressões populares com C:</h4>
+                    <span class="progression-tag">C - G - Am - F</span>
+                    <span class="progression-tag">C - F - G</span>
+                    <span class="progression-tag">C - Am - F - G</span>
+                    <span class="progression-tag">C - E7 - Am - G</span>
+                </div>
+            </div>
+
+            <div class="chord-suggestions">
+                <div class="suggestion-title">Acordes que combinam bem com <span id="currentChordName">C</span> (Clique para explorar):</div>                <div class="suggestions-grid">
+                    <div class="suggestion-card" data-chord="F">
+                        <h4>F (Fá maior)</h4>
+                        <p>Subdominante - Sensação de movimento</p>
+                    </div>
+                    <div class="suggestion-card" data-chord="G">
+                        <h4>G (Sol maior)</h4>
+                        <p>Dominante - Cria tensão</p>
+                    </div>
+                    <div class="suggestion-card" data-chord="Am">
+                        <h4>Am (Lá menor)</h4>
+                        <p>Relativo menor - Tom melancólico</p>
+                    </div>
+                    <div class="suggestion-card" data-chord="Dm">
+                        <h4>Dm (Ré menor)</h4>
+                        <p>Subdominante menor - Tom contemplativo</p>
+                    </div>
+                    <div class="suggestion-card" data-chord="Em">
+                        <h4>Em (Mi menor)</h4>
+                        <p>Contraste emotivo e dinâmico</p>
+                    </div>
+                    <div class="suggestion-card" data-chord="C7">
+                        <h4>C7 (Dó com sétima)</h4>
+                        <p>Variação com mais tensão</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="songModal" class="modal-overlay">
+            <div class="modal-content">
+                <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
+                <h3 id="modalTitle" class="modal-title">Músicas com o Acorde X</h3>
+                <div id="modalBody" class="modal-body">
+                    <ul>
+                        <!-- Song list will be populated here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup para Progressões -->
+        <div id="progressionPopup" class="popup-overlay">
+            <div class="popup-content">
+                <button id="popupCloseBtn" class="popup-close-btn">&times;</button>
+                <h4 id="popupTitle" class="popup-title">Progressão</h4>
+                <div id="popupBody" class="popup-body">
+                    <p id="popupText"></p>
+                    <div class="progression-chords-popup">
+                        <!-- Acordes da progressão serão inseridos aqui -->
+                    </div>
+                    <div class="popup-footer">
+                        <button class="play-progression-btn" id="playPopupProgressionBtn">
+                            <i class="fas fa-play-circle"></i> Tocar Progressão
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- End of main container -->
+
+    <footer>
+        <div class="container">
+            <p>Domine o Violão</p>
+            <p>Use este mapa para descobrir novas possibilidades musicais em suas composições e arranjos!</p>
+        </div>
+    </footer>
+
+    <script>
+// Data for chord positioning and relationships
+const chordData = {
+    C: {
+        name: "C (Dó Maior)",
+        description: "Acorde básico, perfeito para iniciar uma progressão",
+        relatives: ["F", "G", "Am", "Dm", "Em", "C7"],
+        position: { x: 0, y: 0 }, // Center
+        fingering: [[0,1,0,2,3,0], [3,1,0,2,3,0]], // Alternative fingerings
+        progressions: ["C - G - Am - F", "C - F - G", "C - Am - F - G", "C - E7 - Am - G"],
+        about: "O acorde de Dó Maior (C) é a pedra angular da tonalidade de C. Formado pelas notas C (tônica), E (terça maior) e G (quinta justa), ele transmite uma sensação de estabilidade, brilho e resolução completa. É o ponto de partida e chegada mais comum em músicas populares, servindo como o 'lar' harmônico onde a música encontra repouso.",
+        songs: [
+            "Pra Você Guardei o Amor - Nando Reis (MPB)", 
+            "Velha Infância - Tribalistas (Pop/MPB)", 
+            "Ainda é Cedo - Legião Urbana (Rock BR)",
+            "Let It Be - The Beatles (Rock Clássico)", 
+            "Stand By Me - Ben E. King (Soul)",
+            "Knockin' on Heaven's Door - Bob Dylan (Folk Rock)",
+            "Imagine - John Lennon (Pop)"
+        ]
+    },
+    G: {
+        name: "G (Sol Maior)",
+        description: "Dominante de C, cria tensão que resolve bem em C",
+        relatives: ["C", "D", "Em", "Am", "Bm"],
+        position: { angle: 60, distance: 150 },
+        fingering: [[3,2,0,0,0,3], [3,2,0,0,3,3]],
+        progressions: ["G - C - D", "G - Em - C - D", "G - D - Em - C"],
+        about: "Sol Maior (G) é o acorde dominante na tonalidade de C. Composto por G (tônica), B (terça maior) e D (quinta justa), ele cria uma forte tensão harmônica que naturalmente 'pede' para resolver de volta em C. Essencial para criar movimento e expectativa antes de retornar ao acorde tônico (cadência V-I). Também é a tônica da tonalidade de G.",
+        songs: [
+            "Asa Branca - Luiz Gonzaga (Baião)", 
+            "Sozinho - Caetano Veloso (MPB)", 
+            "Metamorfose Ambulante - Raul Seixas (Rock BR)",
+            "Sweet Home Alabama - Lynyrd Skynyrd (Southern Rock)", 
+            "Wish You Were Here - Pink Floyd (Rock Progressivo)",
+            "Good Riddance (Time of Your Life) - Green Day (Punk Acústico)",
+            "Patience - Guns N' Roses (Hard Rock Acústico)"
+        ]
+    },
+    F: {
+        name: "F (Fá Maior)",
+        description: "Subdominante de C, cria sensação de movimento",
+        relatives: ["C", "Bb", "Dm", "Gm"],
+        position: { angle: 300, distance: 150 },
+        fingering: [[1,1,2,3,3,1], [1,1,2,3,3,-1]],
+        progressions: ["F - C - G", "F - Bb - C", "F - G - Am - G"],
+        about: "Fá Maior (F) atua como o acorde subdominante (IV grau) em C. Formado por F (tônica), A (terça maior) e C (quinta justa), ele oferece uma sensação de afastamento suave da tônica, criando uma sonoridade 'brilhante' e preparando o terreno para o dominante (G) ou retornando ao C (cadência IV-I, ou Plagal). É um acorde fundamental, apesar da pestana inicial poder ser desafiadora para iniciantes.",
+        songs: [
+            "Chão de Giz - Zé Ramalho (MPB/Folk)", 
+            "Tente Outra Vez - Raul Seixas (Rock BR)", 
+            "Como Nossos Pais - Elis Regina (MPB)",
+            "Hey Jude - The Beatles (Rock Clássico)", 
+            "Wonderwall - Oasis (Britpop)",
+            "House of the Rising Sun - The Animals (Folk Rock)",
+            "Every Breath You Take - The Police (New Wave)"
+        ]
+    },
+    Am: {
+        name: "Am (Lá menor)",
+        description: "Relativo menor de C, adiciona tom melancólico",
+        relatives: ["C", "E", "G", "Dm", "Em"],
+        position: { angle: 120, distance: 150 },
+        fingering: [[0,1,2,2,0,0], [0,1,3,2,0,0]],
+        progressions: ["Am - F - C - G", "Am - G - F - E", "Am - Dm - E - Am"],
+        about: "Lá menor (Am) é o relativo menor (vi grau) de C Maior. Contém as notas A (tônica), C (terça menor) e E (quinta justa). Compartilha duas notas com C (C e E), criando uma ligação forte, mas soa mais melancólico, introspectivo ou sério. É perfeito para adicionar contraste emocional e profundidade às progressões em C, muito comum na famosa sequência C-G-Am-F.",
+        songs: [
+            "Eduardo e Mônica - Legião Urbana (Rock BR)", 
+            "Monte Castelo - Legião Urbana (Rock BR)", 
+            "Angie - The Rolling Stones (Rock Clássico)",
+            "Stairway to Heaven - Led Zeppelin (Hard Rock/Folk Rock)", 
+            "Nothing Else Matters - Metallica (Heavy Metal Acústico)",
+            "Losing My Religion - R.E.M. (Alternative Rock)",
+            "Hurt - Johnny Cash (Country/Alternative)"
+        ]
+    },
+    Dm: {
+        name: "Dm (Ré menor)",
+        description: "Subdominante menor de C, tom contemplativo",
+        relatives: ["F", "C", "Am", "Bb"],
+        position: { angle: 240, distance: 150 },
+        fingering: [[-1,0,0,2,3,1], [-1,-1,0,2,3,1]],
+        progressions: ["Dm - G - C", "Dm - Am - E - Am", "Dm - F - C"],
+        about: "Ré menor (Dm) é o acorde supertônico (ii grau) na tonalidade de C, funcionando como subdominante menor. Com as notas D (tônica), F (terça menor) e A (quinta justa), ele traz uma cor mais sombria, suave e contemplativa em comparação com o F maior. Frequentemente usado na progressão ii-V-I (Dm-G-C), uma das mais importantes na música ocidental.",
+        songs: [
+            "Faroeste Caboclo - Legião Urbana (Rock BR/Narrativa)", 
+            "Tempo Perdido - Legião Urbana (Rock BR)", 
+            "O Bêbado e a Equilibrista - Elis Regina (MPB)",
+            "Sultans of Swing - Dire Straits (Rock)", 
+            "Come As You Are - Nirvana (Grunge)",
+            "Like a Rolling Stone - Bob Dylan (Folk Rock)",
+            "Another Brick in the Wall, Pt. 2 - Pink Floyd (Rock Progressivo)"
+        ]
+    },
+    Em: {
+        name: "Em (Mi menor)",
+        description: "Relativo menor de G, contraste emotivo",
+        relatives: ["G", "Am", "C", "D"],
+        position: { angle: 180, distance: 150 },
+        fingering: [[0,0,0,2,2,0], [0,0,0,0,2,0]],
+        progressions: ["Em - D - C", "Em - G - C - D", "Em - Am - D - G"],
+        about: "Mi menor (Em) funciona como o acorde mediante (iii grau) na tonalidade de C e também é o relativo menor de G Maior. Suas notas são E (tônica), G (terça menor) e B (quinta justa). Ele adiciona uma cor diferente, menos conclusiva que C, F ou G, muitas vezes usada para criar uma ponte, um contraste suave ou um momento de passagem dentro da tonalidade de C.",
+        songs: [
+            "Dias de Luta, Dias de Glória - Charlie Brown Jr. (Rock BR)", 
+            "Primeiros Erros - Capital Inicial (Rock BR)", 
+            "Lanterna dos Afogados - Paralamas do Sucesso (Rock BR)",
+            "Zombie - The Cranberries (Alternative Rock)", 
+            "Wish You Were Here - Pink Floyd (Rock Progressivo)",
+            "One - U2 (Rock Alternativo)",
+            "Hotel California - Eagles (Rock Clássico) - (Verso)"
+        ]
+    },
+    G7: {
+        name: "G7 (Sol com Sétima)",
+        description: "Dominante com mais tensão, resolve forte em C",
+        relatives: ["C", "F", "Am", "Dm"],
+        position: { angle: 60, distance: 220 }, // Example position
+        fingering: [[3,2,0,0,0,1], [3,2,0,0,0,1]],
+        progressions: ["C - G7 - C", "Am - Dm - G7 - C"],
+        about: "Sol com Sétima (G7) é a versão dominante com sétima do G (V7 grau). Adiciona a nota F (sétima menor) às notas G, B e D. Essa sétima cria uma dissonância (trítono entre B e F) que intensifica dramaticamente a necessidade de resolução em C. Essencial em blues, jazz, bossa nova e para dar mais força e direcionamento à cadência V-I.",
+        songs: [
+            "Garota de Ipanema - Tom Jobim (Bossa Nova)", 
+            "Chega de Saudade - Tom Jobim (Bossa Nova)", 
+            "Sampa - Caetano Veloso (MPB)",
+            "Jambalaya - Hank Williams (Country)", 
+            "Sitting on the Dock of the Bay - Otis Redding (Soul)",
+            "Folsom Prison Blues - Johnny Cash (Country)",
+            "Brown Eyed Girl - Van Morrison (Pop Rock)"
+        ]
+    },
+    C7: {
+        name: "C7 (Dó com Sétima)",
+        description: "Dominante de F, usado em blues e jazz",
+        relatives: ["F", "Bb", "Dm", "Gm"],
+        position: { angle: 0, distance: 220 }, // Example position
+        fingering: [[0,1,3,2,3,0], [0,1,3,2,4,0]],
+        progressions: ["C7 - F", "G7 - C7 - F"],
+        about: "Dó com Sétima (C7) transforma o acorde tônico C em um dominante secundário (V7/IV), geralmente para preparar e conduzir ao acorde F (subdominante). Adiciona a nota Bb (sétima menor) às notas C, E e G. Cria uma sonoridade 'bluesy' característica e é fundamental para progressões de blues (I7-IV-V), jazz, ou para modular temporariamente para a tonalidade de F.",
+        songs: [
+            "Samba de Uma Nota Só - Tom Jobim (Bossa Nova)", 
+            "O Barquinho - Roberto Menescal (Bossa Nova)", 
+            "Desde que o Samba é Samba - Caetano Veloso (MPB)",
+            "Sweet Georgia Brown - Jazz Standard (Jazz)", 
+            "Crazy Little Thing Called Love - Queen (Rockabilly)",
+            "Hound Dog - Elvis Presley (Rock and Roll)",
+            "Georgia On My Mind - Ray Charles (Soul/Jazz)"
+        ]
+    },
+    A7: {
+        name: "A7 (Lá com Sétima)",
+        description: "Dominante de D, comum em blues e rock",
+        relatives: ["D", "G", "Bm", "Em"],
+        position: { angle: 0, distance: 0 }, 
+        fingering: [[0,2,0,2,0,0], [0,2,0,1,0,0]],
+        progressions: ["D - A7 - D", "G - D - A7 - D"],
+        about: "Lá com Sétima (A7) funciona como dominante secundário para Dm ou D (V7/ii ou V7/II). Adiciona a nota G (sétima menor) às notas A, C# (terça maior) e E. Cria uma forte tensão que resolve naturalmente em Dm (o ii grau de C) ou D maior (usado em modulações ou empréstimo modal). Comum em blues, rock, country e para adicionar um sabor harmônico mais rico.",
+        songs: [
+            "Sangue Latino - Secos & Molhados (Rock BR Progressivo)", 
+            "Maluco Beleza - Raul Seixas (Rock BR)", 
+            "Não Quero Dinheiro - Tim Maia (Soul/Funk BR)",
+            "Johnny B. Goode - Chuck Berry (Rock and Roll)", 
+            "Sweet Caroline - Neil Diamond (Pop)",
+            "Cross Road Blues - Robert Johnson (Blues)",
+            "I Saw Her Standing There - The Beatles (Rock and Roll)"
+        ]
+    },
+    D7: {
+        name: "D7 (Ré com Sétima)",
+        description: "Dominante de G, muito usado em folk e country",
+        relatives: ["G", "C", "Em", "Am"],
+        position: { angle: 0, distance: 0 },
+        fingering: [[0,0,0,2,1,2], [0,0,0,2,1,3]],
+        progressions: ["G - D7 - G", "C - G - D7 - G"],
+        about: "Ré com Sétima (D7) é o dominante secundário para G (V7/V). Adiciona a nota C (sétima menor) às notas D, F# (terça maior) e A. Cria uma forte atração harmônica para o acorde G (o V grau de C), muito usado em folk, country, blues e para dar mais força à cadência II-V-I (Dm-G7-C) quando usado no lugar de Dm ou como preparação para G.",
+        songs: [
+            "Morena Tropicana - Alceu Valença (Frevo/MPB)", 
+            "Vambora - Adriana Calcanhotto (MPB)", 
+            "Anunciação - Alceu Valença (MPB/Forró)",
+            "Take Me Home, Country Roads - John Denver (Country/Folk)", 
+            "Sweet Home Chicago - Robert Johnson (Blues)",
+            "Me and Bobby McGee - Janis Joplin (Folk Rock)",
+            "Ring of Fire - Johnny Cash (Country)"
+        ]
+    },
+    E7: {
+        name: "E7 (Mi com Sétima)",
+        description: "Dominante de A, essencial em blues e rockabilly",
+        relatives: ["A", "D", "F#m", "Bm"],
+        position: { angle: 0, distance: 0 },
+        fingering: [[0,0,1,0,2,0], [0,0,1,0,2,0]],
+        progressions: ["A - E7 - A", "D - A - E7 - A"],
+        about: "Mi com Sétima (E7) atua como dominante secundário para Am (V7/vi). Adiciona a nota D (sétima menor) às notas E, G# (terça maior) e B. Cria uma tensão poderosa que resolve perfeitamente em Am (o vi grau de C), sendo crucial em blues, rockabilly, flamenco e para dar um toque dramático à cadência V-i em Lá menor ou dentro da tonalidade de C.",
+        songs: [
+            "Eu Sei - Papas da Língua (Pop Rock BR)", 
+            "Que País É Este - Legião Urbana (Rock BR)", 
+            "Ciúme - Ultraje a Rigor (Rock BR)",
+            "Blue Suede Shoes - Carl Perkins (Rockabilly)", 
+            "Hey Joe - Jimi Hendrix (Blues Rock)",
+            "All My Loving - The Beatles (Pop Rock)",
+            "(Sittin' On) The Dock of the Bay - Otis Redding (Soul) - (Ponte)"
+        ]
+    },
+    Bm: {
+        name: "Bm (Si menor)",
+        description: "Relativo menor de D, tom introspectivo",
+        relatives: ["D", "G", "Em", "A", "F#m"],
+        position: { angle: 0, distance: 0 },
+        fingering: [[2,2,4,4,3,2], [1,1,3,4,2,1]],
+        progressions: ["Bm - G - D - A", "Bm - A - G - F#"],
+        about: "Si menor (Bm) é o relativo menor de D Maior (iii grau em G). Contém as notas B (tônica), D (terça menor) e F# (quinta justa). Embora não pertença diretamente ao campo harmônico diatônico de C maior (que tem Bdim - Si diminuto), ele pode aparecer através de empréstimo modal (vindo de G maior ou E menor, por exemplo) ou em modulações, trazendo uma sonoridade mais escura, rica e sofisticada.",
+        songs: [
+            "Além do Horizonte - Jota Quest (Pop Rock BR)", 
+            "Pais e Filhos - Legião Urbana (Rock BR)", 
+            "Índios - Legião Urbana (Rock BR)",
+            "Hotel California - Eagles (Rock Clássico)", 
+            "Tears in Heaven - Eric Clapton (Soft Rock)",
+            "Drive - Incubus (Alternative Rock)",
+            "Nutshell - Alice in Chains (Grunge Acústico)"
+        ]
+    },
+    B7: {
+        name: "B7 (Si com Sétima)",
+        description: "Dominante de E, cria forte tensão",
+        relatives: ["E", "A", "C#m", "F#m"],
+        position: { angle: 0, distance: 0 },
+        fingering: [[2,1,2,0,2,0], [2,1,3,0,4,0]],
+        progressions: ["E - B7 - E", "A - E - B7 - E"],
+        about: "Si com Sétima (B7) é o dominante secundário para Em (V7/iii). Adiciona a nota A (sétima menor) às notas B, D# (terça maior) e F#. Cria uma forte resolução para Em (o iii grau de C), frequentemente usado em blues, jazz, música brasileira (como Bossa Nova) e para adicionar cor e tensão antes de um acorde de Mi menor, mesmo dentro da tonalidade de C.",
+        songs: [
+            "Manhã de Carnaval - Luiz Bonfá (Bossa Nova)", 
+            "Tequila - Expressão Verbal (Surf Music BR)", // Adaptação
+            "A Felicidade - Tom Jobim (Bossa Nova)",
+            "La Bamba - Ritchie Valens (Rock and Roll)", 
+            "Pride and Joy - Stevie Ray Vaughan (Blues Rock)",
+            "Something - The Beatles (Pop Rock)",
+            "(Sittin' On) The Dock of the Bay - Otis Redding (Soul) - (Ponte)"
+        ]
+    }
+    // ... other chords ...
+};
+
+// Improved chord frequencies for more accurate guitar sound
+const chordNotes = {
+    'C': [130.81, 261.63, 329.63, 392.00, 523.25],
+    'F': [174.61, 220.00, 261.63, 349.23, 440.00],
+    'G': [196.00, 246.94, 392.00, 493.88, 587.33],
+    'Am': [110.00, 220.00, 261.63, 329.63, 440.00],
+    'Dm': [146.83, 174.61, 220.00, 293.66, 440.00],
+    'Em': [82.41, 164.81, 196.00, 246.94, 329.63],
+    'G7': [196.00, 246.94, 370.00, 392.00, 493.88],
+    'C7': [130.81, 261.63, 311.13, 392.00, 523.25],
+    'E7': [82.41, 196.00, 246.94, 311.13, 329.63],
+    'A7': [110.00, 220.00, 277.18, 330.00, 440.00],
+    'D7': [146.83, 220.00, 293.66, 349.23, 440.00],
+    'B7': [123.47, 246.94, 370.00, 493.88, 587.33],
+    'Bm': [123.47, 246.94, 370.00, 493.88, 587.33]
+};
+
+// Variáveis globais
+let currentTonality = 'C';
+let currentChord = 'C';
+let chordHistory = [];
+
+// Funções principais
+function playChord(chord) {
+    // Verificações iniciais
+    if (!audioContext) {
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.error('Web Audio API não suportada:', e);
+            alert('Seu navegador não suporta a reprodução de áudio. Tente usar Chrome ou Firefox atualizados.');
+            return;
+        }
+    }
+    
+    // Reativar contexto de áudio se estiver suspenso (políticas de autoplay do navegador)
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+    
+    // Efeito visual no acorde sendo tocado
+    const chordNode = document.querySelector(`.chord-node[data-chord="${chord}"], .wheel-center[data-chord="${chord}"]`);
+    if (chordNode) {
+        chordNode.classList.add('playing');
+        setTimeout(() => {
+            chordNode.classList.remove('playing');
+        }, 1000);
+    }
+    
+    // Efeito visual no diagrama do acorde
+    const fretboard = document.querySelector('.chord-fretboard');
+    fretboard.classList.add('playing');
+    setTimeout(() => {
+        fretboard.classList.remove('playing');
+    }, 1000);
+    
+    // Usar as frequências definidas ou um conjunto padrão
+    const frequencies = chordNotes[chord] || [196.00, 246.94, 293.66, 392.00, 493.88];
+    
+    // Master compressor para melhor qualidade de áudio
+    const compressor = audioContext.createDynamicsCompressor();
+    compressor.threshold.setValueAtTime(-24, audioContext.currentTime);
+    compressor.knee.setValueAtTime(30, audioContext.currentTime);
+    compressor.ratio.setValueAtTime(12, audioContext.currentTime);
+    compressor.attack.setValueAtTime(0.003, audioContext.currentTime);
+    compressor.release.setValueAtTime(0.25, audioContext.currentTime);
+    compressor.connect(audioContext.destination);
+    
+    // Tocar cada nota do acorde com um pequeno arpejo e melhor envelope sonoro
+    frequencies.forEach((freq, index) => {
+        setTimeout(() => {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // Misturar tipos diferentes para som mais rico
+            if (index % 3 === 0) {
+                oscillator.type = 'triangle';
+            } else if (index % 3 === 1) {
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.value = freq * 0.5; // Oitava abaixo para Sawtooth
+            } else {
+                oscillator.type = 'sine';
+            }
+            
+            oscillator.frequency.value = freq;
+            oscillator.detune.value = Math.random() * 8 - 4; // Variação melhorada para som mais natural
+            
+            // Envelope ADSR melhorado para som mais realista de violão
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.25, audioContext.currentTime + 0.005);
+            gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.03);
+            gainNode.gain.exponentialRampToValueAtTime(0.1, audioContext.currentTime + 0.6);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.8);
+            
+            // Filtro passa-baixa para simular ressonância do violão
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 3000 - (index * 200); // Filtro diferente por nota
+            filter.Q.value = 0.8;
+            
+            // Conectar os nós de áudio
+            oscillator.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(compressor);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1.8);
+        }, index * 30); // Arpejo mais natural
+    });
+    
+    // Adicionar ao histórico
+    if (!chordHistory.includes(chord)) {
+        chordHistory.push(chord);
+        if (chordHistory.length > 10) {
+            chordHistory.shift();
+        }
+        updateHistoryDisplay();
+    }
+}
+
+function toggleFavorite(chord) {
+    let favorites = JSON.parse(localStorage.getItem('favoriteChords') || '[]');
+    
+    if (favorites.includes(chord)) {
+        favorites = favorites.filter(c => c !== chord);
+    } else {
+        favorites.push(chord);
+    }
+    
+    localStorage.setItem('favoriteChords', JSON.stringify(favorites));
+    updateFavoritesDisplay();
+}
+
+function updateFavoritesDisplay() {
+    const favoritesContainer = document.getElementById('favorite-chords');
+    if (!favoritesContainer) return;
+    
+    const favorites = JSON.parse(localStorage.getItem('favoriteChords') || '[]');
+    
+    favoritesContainer.innerHTML = '';
+    
+    if (favorites.length === 0) {
+        favoritesContainer.innerHTML = '<p>Você ainda não tem acordes favoritos.</p>';
+        return;
+    }
+    
+    favorites.forEach(chord => {
+        const chip = document.createElement('span');
+        chip.className = 'favorite-chip';
+        chip.textContent = chord;
+        chip.addEventListener('click', () => updateChordDisplay(chord));
+        favoritesContainer.appendChild(chip);
+    });
+}
+
+function updateHistoryDisplay() {
+    const historyContainer = document.getElementById('chord-history');
+    if (!historyContainer) return;
+    
+    historyContainer.innerHTML = '';
+    
+    chordHistory.slice().reverse().forEach(historyChord => {
+        const chip = document.createElement('span');
+        chip.className = 'history-chip';
+        chip.textContent = historyChord;
+        chip.addEventListener('click', () => updateChordDisplay(historyChord));
+        historyContainer.appendChild(chip);
+    });
+}
+
+function playProgression(progression) {
+    // Split the progression string to get individual chords
+    const chords = progression.split(' - ');
+    
+    // Play each chord with a delay between them
+    chords.forEach((chord, index) => {
+        setTimeout(() => {
+            playChord(chord);
+        }, index * 1500); // 1.5 second between chords
+    });
+}
+
+function updateChordWheel(tonality) {
+    const wheelCenter = document.querySelector('.wheel-center');
+    wheelCenter.textContent = tonality;
+    wheelCenter.setAttribute('data-chord', tonality);
+    
+    // Clear existing chord nodes
+    document.querySelectorAll('.chord-node').forEach(node => {
+        node.remove();
+    });
+    
+    // Add chord nodes based on the selected tonality
+    const chords = getRelatedChords(tonality);
+    
+    chords.forEach((chord, index) => {
+        createChordNode(chord, index, chords.length);
+    });
+    
+    // Set the center chord as current
+    updateChordDisplay(tonality);
+    
+    // Add event listener to center chord
+    wheelCenter.addEventListener('click', function() {
+        updateChordDisplay(this.getAttribute('data-chord'));
+    });
+}
+
+function createChordNode(chord, index, total) {
+    const node = document.createElement('div');
+    node.classList.add('chord-node');
+    
+    // Add class based on chord type
+    if (chord.includes('m') && !chord.includes('maj')) {
+        node.classList.add('minor');
+    } else if (chord.includes('dim') || chord.includes('°')) {
+        node.classList.add('diminished');
+    } else {
+        node.classList.add('major');
+    }
+    
+    node.textContent = chord;
+    node.setAttribute('data-chord', chord);
+    
+    // Position the node in a circle
+    const angle = (360 / total) * index;
+    const radian = angle * Math.PI / 180;
+    const radius = 150; // Distance from center
+    
+    const x = Math.cos(radian) * radius;
+    const y = Math.sin(radian) * radius;
+    
+    // Armazenar posições originais como variáveis CSS
+    node.style.setProperty('--x-position', x + 'px');
+    node.style.setProperty('--y-position', y + 'px');
+    
+    // Posicionamento base (será ajustado pelo CSS transform)
+    node.style.top = 'calc(50% - 30px)';
+    node.style.left = 'calc(50% - 30px)';
+    
+    // Add event listener
+    node.addEventListener('click', function() {
+        updateChordDisplay(this.getAttribute('data-chord'));
+    });
+    
+    document.querySelector('.chord-wheel').appendChild(node);
+}
+
+function getRelatedChords(tonality) {
+    // Simplified chord relationships by tonality
+    const relationships = {
+        'C': ['F', 'G', 'Am', 'Dm', 'Em', 'G7'],
+        'G': ['C', 'D', 'Em', 'Am', 'Bm', 'D7'],
+        'D': ['G', 'A', 'Bm', 'Em', 'F#m', 'A7'],
+        'A': ['D', 'E', 'F#m', 'Bm', 'C#m', 'E7'],
+        'E': ['A', 'B', 'C#m', 'F#m', 'G#m', 'B7'],
+        'B': ['E', 'F#', 'G#m', 'C#m', 'D#m', 'F#7'],
+        'F': ['Bb', 'C', 'Dm', 'Gm', 'Am', 'C7'],
+        'Bb': ['Eb', 'F', 'Gm', 'Cm', 'Dm', 'F7'],
+        'Eb': ['Ab', 'Bb', 'Cm', 'Fm', 'Gm', 'Bb7'],
+        'Ab': ['Db', 'Eb', 'Fm', 'Bbm', 'Cm', 'Eb7'],
+        'Am': ['Dm', 'Em', 'F', 'G', 'C', 'E7'],
+        'Em': ['Am', 'Bm', 'C', 'D', 'G', 'B7']
+    };
+    
+    return relationships[tonality] || ['C', 'F', 'G', 'Am', 'Dm', 'Em']; // Default to C if not found
+}
+
+function updateChordDisplay(chord) {
+    currentChord = chord;
+    
+    // Update all nodes to remove selected state
+    document.querySelectorAll('.chord-node').forEach(node => {
+        node.classList.remove('selected');
+    });
+    
+    // Add selected state to current chord node
+    const selectedNode = document.querySelector(`.chord-node[data-chord="${chord}"]`);
+    if (selectedNode) {
+        selectedNode.classList.add('selected');
+    }
+    
+    // Update chord display title and description
+    const chordInfo = chordData[chord] || {
+        name: chord,
+        description: "Acorde complementar na tonalidade",
+        about: `O acorde ${chord} é parte desta tonalidade.`
+    };
+    
+    document.querySelector('.chord-title').textContent = chordInfo.name || chord;
+    document.querySelector('.chord-description').textContent = chordInfo.description || "";
+    
+    // Update chord info section
+    document.querySelector('.chord-info h3').textContent = `Sobre o Acorde ${chord}`;
+    document.querySelector('.chord-info p').textContent = chordInfo.about || "";
+    
+    // Atualizar o nome do acorde na seção de sugestões
+    document.getElementById('currentChordName').textContent = chord;
+    
+    // Update suggested chords
+    updateChordSuggestions(chord);
+    
+    // Update chord diagram
+    updateChordDiagram(chord);
+    
+       
+    // Update progression tags
+    updateProgressionTags(chord);
+}
+
+function updateChordDiagram(chord) {
+    // Dados dos shapes dos acordes
+    const chordShapes = {
+        'C': [[0,1,0,2,3,0], [3,1,0,2,3,0], []],
+        'F': [[1,1,2,3,3,1], [1,1,2,3,3,1], [{fromString: 1, toString: 6, fret: 1}]],
+        'G': [[3,2,0,0,0,3], [3,2,0,0,0,3], []],
+        'Am': [[0,1,2,2,0,0], [0,1,3,2,0,0], []],
+        'Dm': [[-1,0,0,2,3,1], [-1,0,0,2,3,1], []],
+        'Em': [[0,0,0,2,2,0], [0,0,0,1,2,0], []],
+        'G7': [[3,2,0,0,0,1], [3,2,0,0,0,1], []],
+        'C7': [[0,1,3,2,3,0], [0,1,3,2,4,0], []],
+        'A7': [[0,2,0,2,0,0], [0,2,0,1,0,0], []],
+        'D7': [[0,0,0,2,1,2], [0,0,0,2,1,3], []],
+        'E7': [[0,0,1,0,2,0], [0,0,1,0,2,0], []],
+        'Bm': [[2,2,4,4,3,2], [1,1,3,4,2,1], [{fromString: 1, toString: 2, fret: 2}]],
+        'B7': [[2,1,2,0,2,0], [2,1,3,0,4,0], []]
+    };
+    const fretboard = document.getElementById('fretboard');
+    // Limpa o conteúdo do fretboard
+    fretboard.innerHTML = '<div class="chord-fret-labels">\n<div class="fret-label">1</div>\n<div class="fret-label">2</div>\n<div class="fret-label">3</div>\n<div class="fret-label">4</div>\n</div>';
+    if (chordShapes[chord]) {
+        const frets = chordShapes[chord][0];
+        const fingers = chordShapes[chord][1];
+        const barres = chordShapes[chord][2];
+        // Encontrar a menor casa pressionada
+        const pressedFrets = frets.filter(f => f > 0);
+        const minFret = pressedFrets.length > 0 ? Math.min(...pressedFrets) : 1;
+        // Adiciona indicador de posição se necessário
+        if (minFret > 1) {
+            const positionIndicator = document.createElement('div');
+            positionIndicator.className = 'position-indicator';
+            positionIndicator.textContent = minFret + 'ª casa';
+            fretboard.appendChild(positionIndicator);
+        }
+        // Renderiza as cordas (6 cordas)
+        for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
+            const stringDiv = document.createElement('div');
+            stringDiv.className = 'chord-string';
+            // Renderiza as casas (4 casas)
+            for (let fretIdx = 0; fretIdx < 4; fretIdx++) {
+                const fretDiv = document.createElement('div');
+                fretDiv.className = 'chord-fret';
+                // Se o dedo está nesta casa
+                if (frets[stringIdx] - 1 === fretIdx) {
+                    const dot = document.createElement('div');
+                    dot.className = 'chord-dot';
+                    // Verifica pestana
+                    let isBarre = false;
+                    barres.forEach(barre => {
+                        if (barre.fret === frets[stringIdx] && stringIdx >= barre.fromString - 1 && stringIdx <= barre.toString - 1) {
+                            isBarre = true;
+                            dot.classList.add('barre-dot');
+                       
+                        }
+                    });
+                    if (!isBarre && fingers[stringIdx]) {
+                        dot.textContent = fingers[stringIdx];
+                    }
+                    fretDiv.appendChild(dot);
+                }
+                stringDiv.appendChild(fretDiv);
+            }
+            fretboard.appendChild(stringDiv);
+        }
+        // Indicadores de corda aberta/muda
+        for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
+            if (frets[stringIdx] === 0) {
+                const openIndicator = document.createElement('div');
+                openIndicator.className = 'open-string';
+                openIndicator.textContent = 'o';
+                openIndicator.style.left = `${stringIdx * 33 + 10}px`;
+                fretboard.appendChild(openIndicator);
+            } else if (frets[stringIdx] === -1) {
+                const mutedIndicator = document.createElement('div');
+                mutedIndicator.className = 'muted-string';
+                mutedIndicator.textContent = 'x';
+                mutedIndicator.style.left = `${stringIdx * 33 + 10}px`;
+                fretboard.appendChild(mutedIndicator);
+            }
+        }
+        // Pestana
+        barres.forEach(barre => {
+            const barreIndicator = document.createElement('div');
+            barreIndicator.className = 'barre-indicator';
+            const width = (barre.toString - barre.fromString + 1) * 33;
+            barreIndicator.style.width = width + 'px';
+            barreIndicator.style.left = ((barre.fromString - 1) * 33 + 10) + 'px';
+            barreIndicator.style.top = ((barre.fret - 1) * 38) + 19 + 'px';
+            fretboard.appendChild(barreIndicator);
+        });
+    }
+}
+
+function updateChordSuggestions(chord) {
+    const suggestionsGrid = document.querySelector('.suggestions-grid');
+    if (!suggestionsGrid) return;
+    
+    suggestionsGrid.innerHTML = ''; // Clear existing suggestions
+    
+    // Get related chords based on the current chord
+    const relatedChords = getRelatedChords(chord);
+    
+    relatedChords.forEach(relatedChord => {
+        if (relatedChord !== chord) {
+            const card = document.createElement('div');
+            card.classList.add('suggestion-card');
+            card.setAttribute('data-chord', relatedChord);
+            
+            card.innerHTML = `
+                <h4>${relatedChord}</h4>
+                <p>Complemento harmônico</p>
+            `;
+            
+            card.addEventListener('click', function() {
+                updateChordDisplay(this.getAttribute('data-chord'));
+            });
+            
+            suggestionsGrid.appendChild(card);
+        }
+    });
+}
+
+function updateProgressionTags(chord) {
+    const progressionExamples = document.querySelector('.progression-examples');
+    if (!progressionExamples) return;
+    
+    // Get progressions from chord data or use defaults
+    const chordInfo = chordData[chord];
+    const progressions = (chordInfo && chordInfo.progressions) ? 
+        chordInfo.progressions : 
+        [
+            `${chord} - ${getRelatedChords(chord)[0]} - ${getRelatedChords(chord)[1]}`,
+            `${chord} - ${getRelatedChords(chord)[2]} - ${getRelatedChords(chord)[0]}`
+        ];
+    
+    progressionExamples.innerHTML = `<h4>Progressões populares com ${chord}:</h4>`;
+    
+    progressions.forEach(progression => {
+        const tag = document.createElement('span');
+        tag.className = 'progression-tag';
+        tag.textContent = progression;
+        tag.addEventListener('click', function() {
+            // Substituir o alert pelo popup
+            showProgressionPopup(progression, chord);
+        });
+        progressionExamples.appendChild(tag);
+    });
+}
+
+// --- Modal Functions ---
+const songModal = document.getElementById('songModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+const modalOverlay = document.querySelector('.modal-overlay');
+
+function openSongModal(chord) {
+    const chordInfo = chordData[chord];
+    const songs = (chordInfo && chordInfo.songs && chordInfo.songs.length > 0)
+                  ? chordInfo.songs
+                  : ["Nenhuma música de exemplo encontrada para este acorde."];
+
+    // Categorias com base no tipo do acorde
+    let categories = "Popular | Rock | Folk";
+    if (chord.includes('7')) {
+        categories = "Blues | Rock | Jazz";
+    } else if (chord.includes('m')) {
+        categories = "Rock | Baladas | Folk";
+    }
+    
+    modalTitle.textContent = `Músicas Populares com ${chord}`;
+    
+    modalBody.innerHTML = `
+        <div class="chord-category-tags" style="margin-bottom: 15px;">
+            <span style="font-size: 0.8rem; color: var(--secondary-color);">Categorias:</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px;">
+                ${categories.split('|').map(cat => 
+                    `<span style="background-color: var(--light-bg); padding: 3px 8px; 
+                    border-radius: 12px; font-size: 0.8rem;">${cat.trim()}</span>`
+                ).join('')}
+            </div>
+        </div>
+
+        <h4 style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); 
+                  padding-bottom: 8px;">
+            Exemplos de Músicas:
+        </h4>
+        
+        <ul style="list-style-type: none; padding: 0;">
+            ${songs.map(song => {
+                // Separar artista da música
+                const parts = song.split(' - ');
+                if (parts.length > 1) {
+                    return `<li style="margin-bottom: 10px; display: flex; align-items: center;">
+                        <i class="fas fa-music" style="margin-right: 10px; color: var(--accent-color);"></i>
+                        <div>
+                            <strong>${parts[0]}</strong>
+                            <div style="font-size: 0.85rem; color: var(--secondary-color);">${parts[1]}</div>
+                        </div>
+                    </li>`;
+                }
+                return `<li style="margin-bottom: 8px; display: flex; align-items: center;">
+                    <i class="fas fa-music" style="margin-right: 10px; color: var(--accent-color);"></i>
+                    ${song}
+                </li>`;
+            }).join('')}
+        </ul>
+        
+        <div style="margin-top: 15px; text-align: center, font-size: 0.9rem;">
+            <button id="playModalChord" class="action-btn" style="padding: 8px 15px; margin: 0 auto;">
+                <i class="fas fa-play"></i> Ouvir o Acorde ${chord}
+            </button>
+        </div>
+    `;
+    
+    // Adiciona evento para tocar o acorde a partir do modal
+    setTimeout(() => {
+        const playModalChordBtn = document.getElementById('playModalChord');
+        if (playModalChordBtn) {
+            playModalChordBtn.addEventListener('click', () => {
+                playChord(chord);
+            });
+        }
+    }, 100);
+    
+    songModal.classList.add('visible');
+}
+
+function closeSongModal() {
+    songModal.classList.remove('visible');
+}
+
+// Event listeners for modal
+modalCloseBtn.addEventListener('click', closeSongModal);
+modalOverlay.addEventListener('click', function(event) {
+    // Close only if clicked on the overlay itself, not the content
+    if (event.target === modalOverlay) {
+        closeSongModal();
+    }
+});
+// --- End Modal Functions ---
+
+// --- Popup Functions for Progressions ---
+const progressionPopup = document.getElementById('progressionPopup');
+const progressionPopupTitle = document.getElementById('popupTitle');
+const progressionPopupText = document.getElementById('popupText');
+const progressionPopupChordsContainer = document.querySelector('#progressionPopup .progression-chords-popup');
+const progressionPopupCloseBtn = document.getElementById('popupCloseBtn');
+const playPopupProgressionBtn = document.getElementById('playPopupProgressionBtn');
+
+// Variável para armazenar o handler do botão de tocar, para poder removê-lo depois
+let currentPlayPopupHandler = null;
+
+// Helper function to get specific text for progressions
+function getProgressionInfo(progression, chord) {
+    let style = "<strong>rock</strong>, <strong>pop</strong> e <strong>baladas acústicas</strong>";
+    let rhythm = "<strong>BAIXO-BAIXO-CIMA-BAIXO-CIMA</strong> (4/4)";
+    let feel = "Esta é uma progressão muito versátil!";
+
+    // Example customization based on chords
+    if (progression.includes('Am') || progression.includes('Em') || progression.includes('Dm')) {
+        style = "<strong>rock</strong>, <strong>baladas</strong> e <strong>música folk</strong>";
+        rhythm = "<strong>BAIXO-cima-baixo-CIMA-baixo-cima</strong> (Variação Pop/Rock)";
+        feel = "Traz uma sensação mais melancólica ou introspectiva.";
+    }
+    if (progression.includes('G7') || progression.includes('C7') || progression.includes('E7') || progression.includes('A7') || progression.includes('D7') || progression.includes('B7')) {
+        style = "<strong>blues</strong>, <strong>jazz</strong>, <strong>rock clássico</strong> e <strong>MPB</strong>";
+        rhythm = "<strong>BAIXO-cima-abafa-CIMA-baixo-abafa</strong> (Levada Blues/Shuffle)";
+        feel = "A sétima dominante adiciona tensão e um sabor 'bluesy'.";
+    }
+     if (progression.includes('F') && progression.includes('C') && progression.includes('G')) {
+        style = "<strong>pop-rock</strong>, <strong>sertanejo universitário</strong> e <strong>música gospel</strong>";
+        rhythm = "<strong>BAIXO-BAIXO-CIMA-CIMA-BAIXO-CIMA</strong> (Ritmo Pop Comum)";
+         feel = "Uma das progressões mais comuns e agradáveis.";
+    }
+     if (chord === 'G' && progression.includes('C') && progression.includes('D')) {
+         style = "<strong>country</strong>, <strong>folk</strong> e <strong>rock clássico</strong>";
+         rhythm = "<strong>BAIXO-cima-BAIXO-cima-BAIXO-cima</strong> (Ritmo Folk)";
+         feel = "Progressão fundamental em G, muito usada em músicas animadas.";
+     }
+
+    return { style, rhythm, feel };
+}
+
+
+function showProgressionPopup(progression, chord) {
+    if (!progressionPopup || !progressionPopupTitle || !progressionPopupText || !progressionPopupChordsContainer || !playPopupProgressionBtn) {
+        console.error("Elementos do popup de progressão não encontrados.");
+        return;
+    }
+
+    // Get specific info
+    const info = getProgressionInfo(progression, chord);
+
+    // Configurar o conteúdo
+    progressionPopupTitle.textContent = `Progressão: ${progression}`;
+    // Use the specific info here
+    progressionPopupText.innerHTML = `Esta progressão é muito usada em: ${info.style}!<br>
+                          ${info.feel}<br><br>
+                          Tente tocar com ritmo de ${info.rhythm}`;
+
+    // Configurar os acordes da progressão como pílulas
+    progressionPopupChordsContainer.innerHTML = '';
+    const chords = progression.split(' - ');
+    
+    chords.forEach((chordName, index) => {
+        // Adicionar pílula de acorde
+        const pill = document.createElement('div');
+        pill.className = 'chord-pill';
+        pill.textContent = chordName;
+        progressionPopupChordsContainer.appendChild(pill);
+        
+        // Adicionar seta entre acordes, exceto após o último
+        if (index < chords.length - 1) {
+            const arrow = document.createElement('div');
+            arrow.className = 'chord-arrow';
+            arrow.innerHTML = '<i class="fas fa-arrow-right"></i>';
+            progressionPopupChordsContainer.appendChild(arrow);
+        }
+    });
+    
+    // Configurar botão para tocar a progressão (sem clonar)
+    // 1. Remover o listener anterior, se existir
+    if (currentPlayPopupHandler) {
+        playPopupProgressionBtn.removeEventListener('click', currentPlayPopupHandler);
+    }
+    // 2. Criar o novo handler
+    currentPlayPopupHandler = () => {
+        playProgression(progression);
+    };
+    // 3. Adicionar o novo listener
+    playPopupProgressionBtn.addEventListener('click', currentPlayPopupHandler);
+    
+    // Mostrar o popup
+    progressionPopup.classList.add('visible');
+}
+
+function closeProgressionPopup() {
+    if (progressionPopup) {
+        progressionPopup.classList.remove('visible');
+    }
+    // Opcional: Remover o listener do botão de play ao fechar para limpar
+    if (currentPlayPopupHandler && playPopupProgressionBtn) {
+        playPopupProgressionBtn.removeEventListener('click', currentPlayPopupHandler);
+        currentPlayPopupHandler = null;
+    }
+}
+
+// Adicionar event listeners para o popup de progressão (fora do DOMContentLoaded para usar variáveis globais)
+if (progressionPopupCloseBtn) {
+    progressionPopupCloseBtn.addEventListener('click', closeProgressionPopup);
+}
+if (progressionPopup) {
+    progressionPopup.addEventListener('click', function(event) {
+        // Fecha apenas se clicar no fundo (overlay), não no conteúdo
+        if (event.target === progressionPopup) {
+            closeProgressionPopup();
+        }
+    });
+}
+// --- End Popup Functions ---
+
+
+// Inicialização
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar o AudioContext no primeiro clique do usuário para compatibilidade com navegadores
+    document.addEventListener('click', initAudioContext, { once: true });
+    
+    function initAudioContext() {
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.error('Web Audio API não suportada:', e);
+        }
+    }
+    
+    // Set up tonality buttons
+    document.querySelectorAll('.tonality-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // Update active state
+
+            document.querySelectorAll('.tonality-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+            
+            // Update current tonality
+            currentTonality = this.getAttribute('data-tonality');
+            updateChordWheel(currentTonality);
+        });
+    });
+    
+    // Initial chord wheel setup
+    updateChordWheel(currentTonality);
+    
+    // Set up play chord button
+    const playChordBtn = document.getElementById('playChordBtn');
+    if (playChordBtn) {
+        playChordBtn.addEventListener('click', function() {
+            playChord(currentChord);
+        });
+    }
+    
+    // Set up see examples button (MODIFIED)
+    const seeExamplesBtn = document.getElementById('seeExamplesBtn');
+    if (seeExamplesBtn) {
+        seeExamplesBtn.addEventListener('click', function() {
+            // Instead of alert, open the modal
+            openSongModal(currentChord);
+        });
+    }
+    
+    // Set up play progression button (initial one below diagram)
+    const playProgressionBtnInitial = document.getElementById('playProgressionBtn'); // Renomeado para evitar conflito
+    if (playProgressionBtnInitial) {
+        playProgressionBtnInitial.addEventListener('click', function() {
+            // Pega a primeira progressão como exemplo para tocar
+            const firstProgressionTag = document.querySelector('.progression-tag');
+            if (firstProgressionTag) {
+                playProgression(firstProgressionTag.textContent);
+            }
+        });
+    }
+});
+    </script>
+
+    <!-- Adiciona o botão de navegação flutuante -->
+    <script>
+    (function() {
+        const pathToRoot = window.location.pathname.split('/').filter(segment => segment.length > 0).length - 1;
+        let path = '';
+        for (let i = 0; i < pathToRoot; i++) path += '../';
+        const script = document.createElement('script');
+        script.src = path + 'violao-nav.js';
+        document.body.appendChild(script);
+    })();
+    </script>
+</body>
+</html>

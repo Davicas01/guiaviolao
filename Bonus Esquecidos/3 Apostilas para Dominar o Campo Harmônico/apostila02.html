@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campo Harmônico Menor - Apostila 02</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --accent-color: #66cfbd;
+            --text-color: #333;
+            --light-bg: #f5f9ff;
+            --border-color: #ddd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 100%;
+            padding: 0;
+            background-color: white;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+            margin: 20px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .intro {
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 20px 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        th {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .note-box {
+            background-color: #f0f7ff;
+            border-left: 3px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .exercise {
+            background-color: #f0fff5;
+            border: 1px solid var(--secondary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .exercise h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .notes-space {
+            background-color: #f9f9f9;
+            border: 1px dashed var(--border-color);
+            padding: 15px;
+            margin: 20px 0;
+            min-height: 150px;
+        }
+        
+        .notes-space p {
+            color: #999;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .summary-section {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+        .checklist {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        
+        .checklist label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .next-steps {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .icon {
+            margin-right: 5px;
+            font-size: 1.2em;
+            color: var(--primary-color);
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-color), transparent);
+            margin: 30px 0;
+        }
+        
+        .diagram {
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: block;
+            max-width: 100%;
+            text-align: center;
+        }
+        
+        .diagram img {
+            max-width: 100%;
+        }
+        
+        .compare-table {
+            margin: 20px 0;
+        }
+        
+        .compare-table td:first-child {
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                font-size: 12pt;
+            }
+            
+            section, .exercise, .note-box {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 15px;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📘 Apostila 02 – Campo Harmônico Menor</h1>
+            <p class="subtitle">Fundamentos Musicais para Violão</p>
+        </header>
+
+        <section class="intro">
+            <h2>🎵 Introdução aos Campos Harmônicos Menores</h2>
+            <p>Bem-vindo(a) à segunda apostila sobre Campo Harmônico! Nesta apostila, vamos explorar os campos harmônicos menores, suas variações e aplicações práticas.</p>
+            <p>Diferentemente do campo harmônico maior, o campo harmônico menor possui três variações principais: menor natural, menor harmônico e menor melódico. Cada um deles oferece sonoridades distintas que enriquecem as possibilidades harmônicas.</p>
+            <p><strong>Ao final deste estudo, você será capaz de:</strong></p>
+            <ul>
+                <li>Compreender as diferenças entre as escalas menores (natural, harmônica e melódica)</li>
+                <li>Formar o campo harmônico para cada tipo de escala menor</li>
+                <li>Identificar acordes característicos dos campos harmônicos menores</li>
+                <li>Aplicar progressões harmônicas típicas das tonalidades menores</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🔍 Os Três Tipos de Escalas Menores</h2>
+            <p>As escalas menores possuem três variações principais, cada uma com características próprias que afetam diretamente os acordes formados em seu campo harmônico.</p>
+            
+            <h3>Escala Menor Natural</h3>
+            <p>A escala menor natural (também chamada de modo eólio) é derivada do sexto grau da escala maior relativa. Por exemplo, a escala de Lá menor natural é formada pelas mesmas notas da escala de Dó maior, começando pela nota Lá:</p>
+            <p style="text-align: center; font-size: 1.2em; letter-spacing: 5px;">
+                <strong>A - B - C - D - E - F - G - A</strong>
+            </p>
+            <p>Seu padrão de intervalos é: tom - semitom - tom - tom - semitom - tom - tom.</p>
+            
+            <h3>Escala Menor Harmônica</h3>
+            <p>A escala menor harmônica é uma variação da escala menor natural onde o sétimo grau é elevado em um semitom (sensível). Esta alteração cria um intervalo de segunda aumentada entre o sexto e o sétimo graus:</p>
+            <p style="text-align: center; font-size: 1.2em; letter-spacing: 5px;">
+                <strong>A - B - C - D - E - F - G# - A</strong>
+            </p>
+            <p>Seu padrão de intervalos é: tom - semitom - tom - tom - semitom - tom e meio - semitom.</p>
+            
+            <h3>Escala Menor Melódica</h3>
+            <p>A escala menor melódica eleva tanto o sexto quanto o sétimo graus da escala menor natural em um semitom (na forma ascendente). Na forma descendente, tradicionalmente, retorna-se à escala menor natural:</p>
+            <p style="text-align: center; font-size: 1.2em; letter-spacing: 5px;">
+                <strong>A - B - C - D - E - F# - G# - A</strong>
+            </p>
+            <p>Seu padrão de intervalos ascendente é: tom - semitom - tom - tom - tom - tom - semitom.</p>
+            
+            <div class="note-box">
+                <p><strong>Nota:</strong> Na música moderna, especialmente no jazz e na música popular, frequentemente utiliza-se a forma ascendente da escala menor melódica em ambas as direções (ascendente e descendente).</p>
+            </div>
+            
+            <div class="diagram">
+                <h4>Comparação Visual das Três Escalas Menores em Lá</h4>
+                <table class="compare-table">
+                    <tr>
+                        <th>Tipo</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                    </tr>
+                    <tr>
+                        <td>Natural</td>
+                        <td>A</td>
+                        <td>B</td>
+                        <td>C</td>
+                        <td>D</td>
+                        <td>E</td>
+                        <td>F</td>
+                        <td>G</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td>Harmônica</td>
+                        <td>A</td>
+                        <td>B</td>
+                        <td>C</td>
+                        <td>D</td>
+                        <td>E</td>
+                        <td>F</td>
+                        <td>G#</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td>Melódica</td>
+                        <td>A</td>
+                        <td>B</td>
+                        <td>C</td>
+                        <td>D</td>
+                        <td>E</td>
+                        <td>F#</td>
+                        <td>G#</td>
+                        <td>A</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎹 Formando os Campos Harmônicos Menores</h2>
+            <h3>Campo Harmônico Menor Natural</h3>
+            <p>Assim como no campo harmônico maior, formamos os acordes empilhando terças a partir de cada nota da escala menor natural:</p>
+            
+            <table>
+                <tr>
+                    <th>Grau</th>
+                    <th>Acorde</th>
+                    <th>Tipo</th>
+                </tr>
+                <tr>
+                    <td>i</td>
+                    <td>Am</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>ii°</td>
+                    <td>B°</td>
+                    <td>diminuto</td>
+                </tr>
+                <tr>
+                    <td>III</td>
+                    <td>C</td>
+                    <td>maior</td>
+                </tr>
+                <tr>
+                    <td>iv</td>
+                    <td>Dm</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>v</td>
+                    <td>Em</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>VI</td>
+                    <td>F</td>
+                    <td>maior</td>
+                </tr>
+                <tr>
+                    <td>VII</td>
+                    <td>G</td>
+                    <td>maior</td>
+                </tr>
+            </table>
+            
+            <p>A fórmula do campo harmônico menor natural é:</p>
+            <div style="text-align: center; padding: 15px; background-color: var(--light-bg); border-radius: 8px; margin: 20px 0;">
+                <p style="font-size: 1.3em; font-weight: bold; letter-spacing: 2px;">
+                    i - ii° - III - iv - v - VI - VII
+                </p>
+                <p style="font-size: 1.2em;">
+                    <strong>m - dim - M - m - m - M - M</strong>
+                </p>
+            </div>
+            
+            <h3>Campo Harmônico Menor Harmônico</h3>
+            <p>Ao elevar o sétimo grau da escala menor natural, criamos novas harmonias no campo harmônico menor harmônico:</p>
+            
+            <table>
+                <tr>
+                    <th>Grau</th>
+                    <th>Acorde</th>
+                    <th>Tipo</th>
+                </tr>
+                <tr>
+                    <td>i</td>
+                    <td>Am</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>ii°</td>
+                    <td>B°</td>
+                    <td>diminuto</td>
+                </tr>
+                <tr>
+                    <td>III+</td>
+                    <td>C+</td>
+                    <td>aumentado</td>
+                </tr>
+                <tr>
+                    <td>iv</td>
+                    <td>Dm</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>V</td>
+                    <td>E</td>
+                    <td>maior</td>
+                </tr>
+                <tr>
+                    <td>VI</td>
+                    <td>F</td>
+                    <td>maior</td>
+                </tr>
+                <tr>
+                    <td>vii°</td>
+                    <td>G#°</td>
+                    <td>diminuto</td>
+                </tr>
+            </table>
+            
+            <p>A fórmula do campo harmônico menor harmônico é:</p>
+            <div style="text-align: center; padding: 15px; background-color: var(--light-bg); border-radius: 8px; margin: 20px 0;">
+                <p style="font-size: 1.3em; font-weight: bold; letter-spacing: 2px;">
+                    i - ii° - III+ - iv - V - VI - vii°
+                </p>
+                <p style="font-size: 1.2em;">
+                    <strong>m - dim - aug - m - M - M - dim</strong>
+                </p>
+            </div>
+            
+            <div class="note-box">
+                <p><strong>Observação importante:</strong> Note que o acorde dominante (V grau) no campo harmônico menor harmônico é maior, criando uma cadência V-i mais forte que a do campo harmônico menor natural (v-i).</p>
+            </div>
+            
+            <h3>Campo Harmônico Menor Melódico</h3>
+            <p>Ao elevar o sexto e o sétimo graus da escala menor natural, formamos o campo harmônico menor melódico:</p>
+            
+            <table>
+                <tr>
+                    <th>Grau</th>
+                    <th>Acorde</th>
+                    <th>Tipo</th>
+                </tr>
+                <tr>
+                    <td>i</td>
+                    <td>Am</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>ii</td>
+                    <td>Bm</td>
+                    <td>menor</td>
+                </tr>
+                <tr>
+                    <td>III+</td>
+                    <td>C+</td>
+                    <td>aumentado</td>
+                </tr>
+                <tr>
+                    <td>IV</td>
+                    <td>D</td>
+                    <td>maior</td>
+                </tr>
+                <tr>
+                    <td>V</td>
+                    <td>E</td>
+                    <td>maior</td>
+                </tr>
+                <tr>
+                    <td>vi°</td>
+                    <td>F#°</td>
+                    <td>diminuto</td>
+                </tr>
+                <tr>
+                    <td>vii°</td>
+                    <td>G#°</td>
+                    <td>meio-diminuto</td>
+                </tr>
+            </table>
+            
+            <p>A fórmula do campo harmônico menor melódico é:</p>
+            <div style="text-align: center; padding: 15px; background-color: var(--light-bg); border-radius: 8px; margin: 20px 0;">
+                <p style="font-size: 1.3em; font-weight: bold; letter-spacing: 2px;">
+                    i - ii - III+ - IV - V - vi° - viiø
+                </p>
+                <p style="font-size: 1.2em;">
+                    <strong>m - m - aug - M - M - dim - m7b5</strong>
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>📊 Tabela dos Campos Harmônicos em Tonalidades Menores</h2>
+            <p>Abaixo está uma tabela com os campos harmônicos menores naturais nas principais tonalidades:</p>
+            
+            <div style="overflow-x: auto;">
+                <table>
+                    <tr>
+                        <th>Tonalidade</th>
+                        <th>i (m)</th>
+                        <th>ii° (dim)</th>
+                        <th>III (M)</th>
+                        <th>iv (m)</th>
+                        <th>v (m)</th>
+                        <th>VI (M)</th>
+                        <th>VII (M)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Am</strong></td>
+                        <td>Am</td>
+                        <td>B°</td>
+                        <td>C</td>
+                        <td>Dm</td>
+                        <td>Em</td>
+                        <td>F</td>
+                        <td>G</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Em</strong></td>
+                        <td>Em</td>
+                        <td>F#°</td>
+                        <td>G</td>
+                        <td>Am</td>
+                        <td>Bm</td>
+                        <td>C</td>
+                        <td>D</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bm</strong></td>
+                        <td>Bm</td>
+                        <td>C#°</td>
+                        <td>D</td>
+                        <td>Em</td>
+                        <td>F#m</td>
+                        <td>G</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td><strong>F#m</strong></td>
+                        <td>F#m</td>
+                        <td>G#°</td>
+                        <td>A</td>
+                        <td>Bm</td>
+                        <td>C#m</td>
+                        <td>D</td>
+                        <td>E</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C#m</strong></td>
+                        <td>C#m</td>
+                        <td>D#°</td>
+                        <td>E</td>
+                        <td>F#m</td>
+                        <td>G#m</td>
+                        <td>A</td>
+                        <td>B</td>
+                    </tr>
+                    <tr>
+                        <td><strong>G#m</strong></td>
+                        <td>G#m</td>
+                        <td>A#°</td>
+                        <td>B</td>
+                        <td>C#m</td>
+                        <td>D#m</td>
+                        <td>E</td>
+                        <td>F#</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dm</strong></td>
+                        <td>Dm</td>
+                        <td>E°</td>
+                        <td>F</td>
+                        <td>Gm</td>
+                        <td>Am</td>
+                        <td>Bb</td>
+                        <td>C</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gm</strong></td>
+                        <td>Gm</td>
+                        <td>A°</td>
+                        <td>Bb</td>
+                        <td>Cm</td>
+                        <td>Dm</td>
+                        <td>Eb</td>
+                        <td>F</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cm</strong></td>
+                        <td>Cm</td>
+                        <td>D°</td>
+                        <td>Eb</td>
+                        <td>Fm</td>
+                        <td>Gm</td>
+                        <td>Ab</td>
+                        <td>Bb</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="note-box">
+                <p>Para obter o campo harmônico menor harmônico, eleve o VII grau em meio tom (por exemplo, em Am: G → G#).</p>
+                <p>Para obter o campo harmônico menor melódico, eleve o VI e VII graus em meio tom (por exemplo, em Am: F → F# e G → G#).</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎸 Aplicação em Músicas Populares</h2>
+            <p>Os campos harmônicos menores são amplamente utilizados na música popular, especialmente para expressar sentimentos mais melancólicos, dramáticos ou intensos.</p>
+            
+            <h3>Exemplos de Músicas em Tonalidade Menor</h3>
+            <ul>
+                <li><strong>Música: "Nothing Else Matters" (Metallica)</strong> - Am (i) - Em (v) - F (VI) - G (VII)</li>
+                <li><strong>Música: "Hallelujah" (Leonard Cohen)</strong> - Cm (i) - G (V) - Am (vi)</li>
+                <li><strong>Música: "Garota de Ipanema" (Tom Jobim)</strong> - Fm (i) - Bb7 (IV7) - Eb7 (VII7)</li>
+            </ul>
+            
+            <h3>Características dos Diferentes Campos Harmônicos Menores</h3>
+            <div class="exercise">
+                <h4>Campo Harmônico Menor Natural</h4>
+                <p>Muito usado em música folk, rock e pop. Cria um som mais "modal" e menos tensionado.</p>
+                <p><strong>Exemplo de progressão:</strong> Am (i) - F (VI) - C (III) - G (VII) - Am (i)</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>Campo Harmônico Menor Harmônico</h4>
+                <p>Muito comum na música clássica e flamenca. O acorde dominante maior (V) cria uma forte tensão para resolver na tônica.</p>
+                <p><strong>Exemplo de progressão:</strong> Am (i) - Dm (iv) - E (V) - Am (i)</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>Campo Harmônico Menor Melódico</h4>
+                <p>Muito utilizado no jazz e na música contemporânea. Oferece possibilidades harmônicas mais sofisticadas.</p>
+                <p><strong>Exemplo de progressão:</strong> Am (i) - D (IV) - E (V) - Am (i)</p>
+            </div>
+            
+            <div class="note-box">
+                <p>Na prática musical moderna, é comum misturar elementos dos três campos harmônicos menores na mesma música, aproveitando as características únicas de cada um.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎯 Exercícios de Fixação</h2>
+            <p>Vamos praticar com alguns exercícios para fixar o conhecimento sobre os campos harmônicos menores:</p>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 1: Identificação de Campos Harmônicos</h4>
+                <p>Para cada progressão abaixo, identifique de qual campo harmônico menor ela provavelmente vem:</p>
+                <ul>
+                    <li>Am - Dm - E - Am</li>
+                    <li>Em - G - D - Em</li>
+                    <li>Cm - Fm - G - Cm</li>
+                    <li>Dm - F - C - Bb - Dm</li>
+                </ul>
+                <div class="notes-space">
+                    <p>Anote suas respostas aqui...</p>
+                </div>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 2: Tocando Progressões em Diferentes Tonalidades</h4>
+                <p>Toque as seguintes progressões do campo harmônico menor harmônico em diferentes tonalidades:</p>
+                <ul>
+                    <li>Em Lá menor: Am (i) - Dm (iv) - E (V) - Am (i)</li>
+                    <li>Em Mi menor: Em (i) - Am (iv) - B (V) - Em (i)</li>
+                    <li>Em Ré menor: Dm (i) - Gm (iv) - A (V) - Dm (i)</li>
+                </ul>
+                <p>Observe como a mesma progressão soa em diferentes tonalidades.</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 3: Criação de Progressão Híbrida</h4>
+                <p>Crie uma progressão que combine elementos dos diferentes campos harmônicos menores. Por exemplo, em Lá menor:</p>
+                <ul>
+                    <li>Use o i grau do menor natural (Am)</li>
+                    <li>Use o V grau do menor harmônico (E)</li>
+                    <li>Use o IV grau do menor melódico (D)</li>
+                </ul>
+                <p>Experimente diferentes combinações e anote abaixo as que você mais gostar:</p>
+                <div class="notes-space">
+                    <p>Anote suas progressões favoritas aqui...</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎼 Diagramas Simples</h2>
+            <p>Abaixo estão representadas as digitações básicas para os acordes da tonalidade de Lá menor (Am) em seus três tipos de campos harmônicos:</p>
+            
+            <div class="diagram">
+                <h4>Campo Harmônico de Lá Menor Natural</h4>
+                <p>i = Am | ii° = B° | III = C | iv = Dm | v = Em | VI = F | VII = G</p>
+                <p><em>Acordes mais usados: Am, Dm, Em, F, G</em></p>
+            </div>
+            
+            <div class="diagram">
+                <h4>Campo Harmônico de Lá Menor Harmônico</h4>
+                <p>i = Am | ii° = B° | III+ = C+ | iv = Dm | V = E | VI = F | vii° = G#°</p>
+                <p><em>Acordes mais usados: Am, Dm, E, F</em></p>
+            </div>
+            
+            <div class="diagram">
+                <h4>Campo Harmônico de Lá Menor Melódico</h4>
+                <p>i = Am | ii = Bm | III+ = C+ | IV = D | V = E | vi° = F#° | vii° = G#°</p>
+                <p><em>Acordes mais usados: Am, D, E</em></p>
+            </div>
+            
+            <div class="note-box">
+                <p>Lembre-se que você pode usar a pestana para formar acordes menores em diferentes posições do braço do violão, facilitando a execução em diferentes tonalidades.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>✏️ Espaço para Anotações</h2>
+            <p>Use este espaço para fazer suas próprias anotações, observações ou dúvidas que surgirem durante o estudo:</p>
+            
+            <div class="notes-space">
+                <p>Suas anotações aqui...</p>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+
+        <section class="summary-section">
+            <h2>💡 Resumo Rápido</h2>
+            <ul>
+                <li>Existem três tipos de campos harmônicos menores: natural, harmônico e melódico.</li>
+                <li>O campo harmônico menor natural deriva da escala relativa maior (mesmo conjunto de notas da escala maior relativa).</li>
+                <li>O campo harmônico menor harmônico eleva o sétimo grau, criando um V grau maior.</li>
+                <li>O campo harmônico menor melódico eleva o sexto e o sétimo graus.</li>
+                <li>A fórmula do campo harmônico menor natural é: i - ii° - III - iv - v - VI - VII.</li>
+                <li>Na música moderna, é comum misturar elementos dos três campos harmônicos.</li>
+            </ul>
+            
+            <div class="checklist">
+                <h3>📝 Checklist de Fixação</h3>
+                <label><input type="checkbox"> Compreendi as diferenças entre os três tipos de escalas menores</label>
+                <label><input type="checkbox"> Sei formar os acordes dos campos harmônicos menores</label>
+                <label><input type="checkbox"> Memorizei as fórmulas dos três campos harmônicos menores</label>
+                <label><input type="checkbox"> Consigo identificar os acordes dos campos harmônicos nas principais tonalidades menores</label>
+                <label><input type="checkbox"> Pratiquei as progressões harmônicas sugeridas</label>
+                <label><input type="checkbox"> Consigo reconhecer o uso dos campos harmônicos menores em músicas</label>
+            </div>
+            
+            <div class="next-steps">
+                <h3>📍 Próximos Passos</h3>
+                <ul>
+                    <li>Pratique as progressões em diferentes tonalidades menores</li>
+                    <li>Experimente misturar elementos dos diferentes campos harmônicos</li>
+                    <li>Tente identificar o uso de harmonias menores em suas músicas favoritas</li>
+                    <li>Avance para a Apostila 03 - Campo Harmônico Aplicado + Progressões</li>
+                </ul>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Kit Violão Profissional - Apostila 02: Campo Harmônico Menor</p>
+            <p>© 2025 - Todos os direitos reservados</p>
+        </footer>
+    </div>
+</body>
+</html>

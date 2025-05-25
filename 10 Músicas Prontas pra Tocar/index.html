@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Músicas Prontas pra Tocar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #A0522D;
+            --accent-color: #CD853F;
+            --dark-color: #3E2723;
+            --light-color: #F5F5DC;
+            --background: #FAF0E6;
+            --shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-color);
+            padding: 3rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "🎸";
+            position: absolute;
+            font-size: 120px;
+            right: -20px;
+            top: -20px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--light-color);
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .intro-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: -40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            border-left: 5px solid var(--accent-color);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2rem;
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--accent-color);
+            color: var(--primary-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .song-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .song-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .song-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(139, 69, 19, 0.2);
+        }
+
+        .song-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+        }
+
+        .difficulty {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .easy { background: #E8F5E9; color: #2E7D32; }
+        .medium { background: #FFF3E0; color: #EF6C00; }
+        .hard { background: #FFEBEE; color: #C62828; }
+
+        .song-tag {
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--primary-color);
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+        }
+
+        .song-details {
+            margin: 1rem 0;
+        }
+
+        .chord-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .chord {
+            background: var(--background);
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+
+        .song-video {
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            height: 0;
+            padding-bottom: 56.25%;
+            background: #e2d5c7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .song-video img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            opacity: 1;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        .action-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .cifra {
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .tips-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .key-tips {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tip-card {
+            flex: 1;
+            min-width: 250px;
+            background: var(--background);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .tip-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary-color);
+            background: rgba(139, 69, 19, 0.05);
+            margin-top: 3rem;
+            border-top: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .footer-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .footer-link:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        
+        /* Estilo para o botão flutuante de voltar */
+        .back-to-home {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+            text-decoration: none;
+        }
+        
+        .back-to-home:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        .back-to-home i {
+            font-size: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .song-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-button {
+                top: 10px;
+                left: 10px;
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .back-to-home {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .intro-section {
+                margin-top: -20px;
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>10 Músicas Prontas pra Tocar</h1>
+        <p>Aprenda a tocar músicas completas de forma simples e prática!</p>
+    </header>
+
+    <div class="container">
+        <div class="intro-section">
+            <h2><i class="fas fa-guitar"></i> Toque Agora Mesmo!</h2>
+            <p>Estas 10 músicas foram selecionadas para você começar a tocar violão sem complicação. Cada música vem com cifras simplificadas, dicas de execução e vídeo explicativo.</p>
+        </div>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="nacional">Nacionais</button>
+            <button class="filter-btn" data-filter="internacional">Internacionais</button>
+            <button class="filter-btn" data-filter="easy">Fáceis</button>
+            <button class="filter-btn" data-filter="medium">Médias</button>
+        </div>
+    
+        <div class="song-grid">
+            <div class="song-card" data-category="nacional easy">
+                <div class="song-header">
+                    <h3>Evidências</h3>
+                    <span class="difficulty easy">Fácil</span>
+                </div>
+                <span class="song-tag">Sertanejo</span>
+                <div class="song-details">
+                    <p>Chitãozinho & Xororó</p>
+                    <div class="chord-list">
+                        <span class="chord">G</span>
+                        <span class="chord">D/F#</span>
+                        <span class="chord">Em</span>
+                        <span class="chord">C</span>
+                        <span class="chord">D</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="evidencias">
+                    <img src="https://img.youtube.com/vi/ePjtnSPFWK8/hqdefault.jpg" alt="Miniatura Evidências">
+                </div>
+                <a href="#" class="action-btn" data-song="evidencias">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="nacional easy">
+                <div class="song-header">
+                    <h3>Trem-Bala</h3>
+                    <span class="difficulty easy">Fácil</span>
+                </div>
+                <span class="song-tag">MPB</span>
+                <div class="song-details">
+                    <p>Ana Vilela</p>
+                    <div class="chord-list">
+                        <span class="chord">G</span>
+                        <span class="chord">D</span>
+                        <span class="chord">Em</span>
+                        <span class="chord">C</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="trembala">
+                    <img src="https://img.youtube.com/vi/sWhy1VcvvgY/hqdefault.jpg" alt="Miniatura Trem-Bala">
+                </div>
+                <a href="#" class="action-btn" data-song="trembala">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="internacional easy">
+                <div class="song-header">
+                    <h3>Perfect</h3>
+                    <span class="difficulty easy">Fácil</span>
+                </div>
+                <span class="song-tag">Pop Internacional</span>
+                <div class="song-details">
+                    <p>Ed Sheeran</p>
+                    <div class="chord-list">
+                        <span class="chord">G</span>
+                        <span class="chord">Em</span>
+                        <span class="chord">C</span>
+                        <span class="chord">D</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="perfect">
+                    <img src="https://img.youtube.com/vi/2Vv-BfVoq4g/hqdefault.jpg" alt="Miniatura Perfect">
+                </div>
+                <a href="#" class="action-btn" data-song="perfect">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="nacional medium">
+                <div class="song-header">
+                    <h3>Ainda Bem</h3>
+                    <span class="difficulty medium">Médio</span>
+                </div>
+                <span class="song-tag">MPB</span>
+                <div class="song-details">
+                    <p>Marisa Monte</p>
+                    <div class="chord-list">
+                        <span class="chord">F</span>
+                        <span class="chord">Am</span>
+                        <span class="chord">Bb</span>
+                        <span class="chord">C</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="aindabem">
+                    <img src="https://img.youtube.com/vi/KVHLmDVFTJ0/hqdefault.jpg" alt="Miniatura Ainda Bem">
+                </div>
+                <a href="#" class="action-btn" data-song="aindabem">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="internacional easy">
+                <div class="song-header">
+                    <h3>Knockin' on Heaven's Door</h3>
+                    <span class="difficulty easy">Fácil</span>
+                </div>
+                <span class="song-tag">Rock</span>
+                <div class="song-details">
+                    <p>Bob Dylan (Guns N' Roses)</p>
+                    <div class="chord-list">
+                        <span class="chord">G</span>
+                        <span class="chord">D</span>
+                        <span class="chord">Am</span>
+                        <span class="chord">C</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="knockin">
+                    <img src="https://img.youtube.com/vi/f8OHybVhQwc/hqdefault.jpg" alt="Miniatura Knockin' on Heaven's Door">
+                </div>
+                <a href="#" class="action-btn" data-song="knockin">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="nacional medium">
+                <div class="song-header">
+                    <h3>Velha Infância</h3>
+                    <span class="difficulty medium">Médio</span>
+                </div>
+                <span class="song-tag">MPB</span>
+                <div class="song-details">
+                    <p>Tribalistas</p>
+                    <div class="chord-list">
+                        <span class="chord">G</span>
+                        <span class="chord">C</span>
+                        <span class="chord">D</span>
+                        <span class="chord">Em</span>
+                        <span class="chord">Bm</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="velhainfancia">
+                    <img src="https://img.youtube.com/vi/eeNj3F5y8V8/hqdefault.jpg" alt="Miniatura Velha Infância">
+                </div>
+                <a href="#" class="action-btn" data-song="velhainfancia">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="internacional easy">
+                <div class="song-header">
+                    <h3>Let It Be</h3>
+                    <span class="difficulty easy">Fácil</span>
+                </div>
+                <span class="song-tag">Rock</span>
+                <div class="song-details">
+                    <p>The Beatles</p>
+                    <div class="chord-list">
+                        <span class="chord">C</span>
+                        <span class="chord">G</span>
+                        <span class="chord">Am</span>
+                        <span class="chord">F</span>
+                        <span class="chord">Em</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="letitbe">
+                    <img src="https://img.youtube.com/vi/QDYfEBY9NM4/hqdefault.jpg" alt="Miniatura Let It Be">
+                </div>
+                <a href="#" class="action-btn" data-song="letitbe">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="nacional easy">
+                <div class="song-header">
+                    <h3>Ai Se Eu Te Pego</h3>
+                    <span class="difficulty easy">Fácil</span>
+                </div>
+                <span class="song-tag">Sertanejo</span>
+                <div class="song-details">
+                    <p>Michel Teló</p>
+                    <div class="chord-list">
+                        <span class="chord">Am</span>
+                        <span class="chord">F</span>
+                        <span class="chord">C</span>
+                        <span class="chord">G</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="aiseeutepego">
+                    <img src="https://img.youtube.com/vi/hcm55lU9knw/hqdefault.jpg" alt="Miniatura Ai Se Eu Te Pego">
+                </div>
+                <a href="#" class="action-btn" data-song="aiseeutepego">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="internacional medium">
+                <div class="song-header">
+                    <h3>Wonderwall</h3>
+                    <span class="difficulty medium">Médio</span>
+                </div>
+                <span class="song-tag">Rock</span>
+                <div class="song-details">
+                    <p>Oasis</p>
+                    <div class="chord-list">
+                        <span class="chord">Em</span>
+                        <span class="chord">G</span>
+                        <span class="chord">D</span>
+                        <span class="chord">A7sus4</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="wonderwall">
+                    <img src="https://img.youtube.com/vi/bx1Bh8ZvH84/hqdefault.jpg" alt="Miniatura Wonderwall">
+                </div>
+                <a href="#" class="action-btn" data-song="wonderwall">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+
+            <div class="song-card" data-category="nacional medium">
+                <div class="song-header">
+                    <h3>Eduardo e Mônica</h3>
+                    <span class="difficulty medium">Médio</span>
+                </div>
+                <span class="song-tag">Rock Nacional</span>
+                <div class="song-details">
+                    <p>Legião Urbana</p>
+                    <div class="chord-list">
+                        <span class="chord">G</span>
+                        <span class="chord">Em</span>
+                        <span class="chord">C</span>
+                        <span class="chord">D</span>
+                    </div>
+                </div>
+                <div class="song-video" data-song="eduardoemonica">
+                    <img src="https://img.youtube.com/vi/kCNNPQoc7b8/hqdefault.jpg" alt="Miniatura Eduardo e Mônica">
+                </div>
+                <a href="#" class="action-btn" data-song="eduardoemonica">
+                    <i class="fas fa-music"></i>
+                    Ver cifra completa
+                </a>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h2>Dicas para Aprender as Músicas</h2>
+            <div class="key-tips">
+                <div class="tip-card">
+                    <h4 class="tip-title"><i class="fas fa-lightbulb"></i> Dica de Prática</h4>
+                    <p>Comece praticando cada música lentamente, focando nas transições entre os acordes. Aumente a velocidade gradualmente conforme ganhar confiança.</p>
+                </div>
+                <div class="tip-card">
+                    <h4 class="tip-title"><i class="fas fa-guitar"></i> Dica de Acordes</h4>
+                    <p>Se um acorde estiver difícil, procure versões simplificadas dele. O importante é manter o ritmo e a continuidade da música.</p>
+                </div>
+                <div class="tip-card">
+                    <h4 class="tip-title"><i class="fas fa-music"></i> Dica de Repertório</h4>
+                    <p>É melhor dominar completamente 3 músicas do que aprender mal várias músicas. Escolha suas favoritas e pratique bastante.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para exibir cifras -->
+    <div class="modal" id="cifraModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Cifra da Música</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <pre id="cifraContent" class="cifra"></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão flutuante para voltar à página principal -->
+    <a href="/" class="back-to-home">
+        <i class="fas fa-home"></i>
+    </a>
+    
+    <script>
+        // Cifras das músicas
+        const cifras = {
+            evidencias: `[Intro] G  D  Em  C  G  D  C
+
+[Verso 1]
+G                    D/F#
+Quando eu digo que deixei de te amar
+Em                  C
+É porque eu te amo
+G                    D/F#
+Quando eu digo que não quero mais você
+          C
+É porque eu te quero
+
+[Pré-refrão]
+D                            C
+São só palavras e o que eu sinto mesmo
+          Em
+É que eu não consigo é ficar sem você
+         D
+O teu amor é tudo
+                G - D7
+Que eu preciso para viver
+
+[Refrão]
+D                  C
+Eu tenho medo de te dar meu coração
+        Em              D            G
+E confessar que não sei viver sem teu amor
+
+[Verso 2]
+G                    D/F#
+Quando eu digo não me toque mais assim
+Em                C
+É porque eu me derreto
+G                    D/F#
+O teu beijo que ainda está aqui
+          C
+É tudo o que eu desejo
+
+[Pré-refrão]
+D                            C
+São só palavras e o que eu sinto mesmo
+          Em
+É que eu não consigo é ficar sem você
+         D
+O teu amor é tudo
+                G - D7
+Que eu preciso para viver
+
+[Refrão]
+D                  C
+Eu tenho medo de te dar meu coração
+        Em              D            G
+E confessar que não sei viver sem teu amor
+
+[Solo] D  C  Em  D  G  D  C  G
+
+[Pré-refrão]
+D                            C
+São só palavras e o que eu sinto mesmo
+          Em
+É que eu não consigo é ficar sem você
+         D
+O teu amor é tudo
+                G - D7
+Que eu preciso para viver
+
+[Refrão - Repetir 2x]
+D                  C
+Eu tenho medo de te dar meu coração
+        Em              D            G
+E confessar que não sei viver sem teu amor`,
+            trembala: `[Intro] G D/F# Em C G D Em C
+
+[Verso 1]
+G                 D/F#            Em
+Não é sobre ter todas as pessoas do mundo pra si
+C             G                 D                Em           C
+É sobre saber que em algum lugar alguém zela por ti
+G                 D/F#                Em
+É sobre cantar e poder escutar mais do que a própria voz
+C             G           D            Em         C
+É sobre dançar na chuva de vida que cai sobre nós
+
+[Refrão]
+G                 D/F#                 Em
+É saber se sentir infinito num universo tão vasto e bonito
+C          G                    D              Em        C
+É saber sonhar, e então fazer valer a pena cada verso daquele poema sobre acreditar
+
+[Verso 2]
+G                   D/F#              Em
+Não é sobre chegar no topo do mundo e saber que venceu
+C              G                D               Em           C
+É sobre escalar e sentir que o caminho te fortaleceu
+G                 D/F#                     Em
+É sobre ser abrigo e também ter morada em outros corações
+C           G          D              Em           C
+E assim ter amigos contigo em todas as situações
+
+[Refrão]
+G                  D/F#                    Em
+A gente não pode ter tudo, qual seria graça do mundo se fosse assim?
+C             G                 D                Em           C
+Por isso eu prefiro sorrisos e os presentes que a vida trouxe pra perto de mim
+
+[Ponte]
+Am                 C
+Não é sobre tudo que o seu dinheiro é capaz de comprar
+G                      D
+E sim sobre cada momento sorriso a se compartilhar
+Am                 C
+Também não é sobre correr contra o tempo pra ter sempre mais
+G                      D
+Porque quando menos se espera a vida já ficou pra trás
+
+[Verso 3]
+G                 D/F#            Em
+Segura teu filho no colo, sorria e abrace teus pais enquanto estão aqui
+C              G                  D               Em           C
+Que a vida é trem-bala, parceiro, e a gente é só passageiro prestes a partir
+
+[Refrão Final]
+G                 D/F#                 Em
+Laiá, laiá, laiá, laiá, laiá, laiá, laiá, laiá
+C          G                    D              Em        C
+Laiá, laiá, laiá, laiá, laiá, laiá, laiá, laiá`,
+            perfect: `[Intro] G Em C D G Em C D
+
+[Verso 1]
+       G                     Em
+Amando pode machucar, amando pode ferir às vezes
+        C                     D               Em
+Mas é a única coisa que eu sei, quando fica difícil
+           G                 Em
+Você sabe que pode ficar ruim às vezes
+          C                  D               Em
+É a única coisa que nos faz sentir vivos
+
+[Refrão]
+        G                                    Em
+Nós encontramos o amor bem aqui em circunstâncias duvidosas
+     C                         D
+Nós somos apenas crianças, mas estamos tão apaixonados
+        G                      Em
+Lutando contra todas essas probabilidades
+      C                         D             Em
+Eu sei que ficaremos bem dessa vez, querida, só me abrace
+
+[Verso 2]
+         G                            Em
+Bem, eu encontrei uma mulher, mais forte que qualquer um que eu conheço
+       C                           D                 Em
+Ela compartilha meus sonhos, espero que algum dia eu compartilhe seu lar
+         G                      Em
+Encontrei um amor, para além do que poderia portar
+        C                     D                Em
+Ela é linda e doce, nunca estive tão seguro assim
+
+[Refrão 2]
+       G                                 Em
+Nós ainda somos crianças, mas estamos tão apaixonados
+         C                     D
+Lutando contra todas essas probabilidades
+           G                       Em
+Eu sei que ficaremos bem dessa vez, querida
+         C              D                   Em
+Apenas segure minha mão, seja minha garota, eu verei o seu futuro em seus olhos
+
+[Ponte]
+G Em C D
+Hmm... Baby
+
+[Verso 3]
+         G                           Em
+Eu tenho fé no que vejo, agora eu sei que encontrei um anjo
+    C                      D
+De pessoa, e ela é perfeita
+ G               Em
+Não mereço isso
+            C                      D               G
+Você é perfeita esta noite`,
+            knockin: `[Intro] G  D  Am  G  D  C
+
+[Verso 1]
+G              D              Am
+Mama, take this badge off of me
+G          D             C
+I can't use it anymore
+G           D                  Am
+It's getting dark, too dark to see
+G         D                 C
+I feel I'm knocking on heaven's door
+
+[Refrão]
+G            D                  Am
+Knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door
+G            D                  Am
+Knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door
+
+[Verso 2]
+G               D                Am
+Mama, put my guns in the ground
+G           D                 C
+I can't shoot them anymore
+G           D                      Am
+That cold black cloud is coming down
+G         D                 C
+I feel I'm knocking on heaven's door
+
+[Refrão]
+G            D                  Am
+Knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door
+G            D                  Am
+Knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door
+
+[Solo] G  D  Am  C  (repita várias vezes)
+
+[Refrão Final]
+G            D                  Am
+Knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door
+G            D                  Am
+Feel I'm knock, knock, knocking on heaven's door
+G            D                  C
+Knock, knock, knocking on heaven's door`,
+            letitbe: `[Intro] C G Am F C G F C
+
+[Verso 1]
+C              G                 Am          F
+When I find myself in times of trouble, Mother Mary comes to me
+C                 G              F  C
+Speaking words of wisdom, let it be
+C              G                 Am          F
+And in my hour of darkness, she is standing right in front of me
+C                 G              F  C
+Speaking words of wisdom, let it be
+
+[Refrão]
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
+Whisper words of wisdom, let it be
+
+[Verso 2]
+C               G                  Am         F
+And when the broken hearted people living in the world agree
+C                 G              F  C
+There will be an answer, let it be
+C                G                 Am             F
+For though they may be parted, there is still a chance that they will see
+C                 G              F  C
+There will be an answer, let it be
+
+[Refrão]
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
+There will be an answer, let it be
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
+Whisper words of wisdom, let it be
+
+[Solo] C G Am F C G F C (com melodia)
+
+[Verso 3]
+C              G                  Am         F
+And when the night is cloudy there is still a light that shines on me
+C             G                F  C
+Shine until tomorrow, let it be
+C              G                    Am        F
+I wake up to the sound of music, Mother Mary comes to me
+C                 G              F  C
+Speaking words of wisdom, let it be
+
+[Refrão Final]
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
+There will be an answer, let it be
+Am         G          F          C
+Let it be, let it be, let it be, let it be
+C                 G              F  C
+Whisper words of wisdom, let it be`,
+            aiseeutepego: `[Intro] Am F C G (2x)
+
+[Verso 1]
+Am               F
+Nossa, nossa! Assim você me mata
+C                    G
+Ai, se eu te pego, ai, ai, se eu te pego
+Am               F
+Delícia, delícia! Assim você me mata
+C                    G
+Ai, se eu te pego, ai, ai, se eu te pego
+
+[Refrão]
+Am         F
+Sábado na balada
+C                          G
+A galera começou a dançar
+Am             F
+E passou a menina mais linda
+C                          G
+Tomei coragem e comecei a falar
+
+[Verso 2]
+Am               F
+Nossa, nossa! Assim você me mata
+C                    G
+Ai, se eu te pego, ai, ai, se eu te pego
+Am               F
+Delícia, delícia! Assim você me mata
+C                    G
+Ai, se eu te pego, ai, ai, se eu te pego
+
+[Refrão]
+Am         F
+Sábado na balada
+C                          G
+A galera começou a dançar
+Am             F
+E passou a menina mais linda
+C                          G
+Tomei coragem e comecei a falar
+
+[Ponte]
+F                 G
+Olá, tudo bem? Tô a fim de você
+Am                G
+E esse seu jeito de olhar 
+F              G                 Am
+Que dá vontade de amar, sem parar, sem parar
+
+[Refrão Final]
+Am         F
+Sábado na balada
+C                          G
+A galera começou a dançar
+Am             F
+E passou a menina mais linda
+C                          G
+Tomei coragem e comecei a falar`,
+            wonderwall: `[Intro] Em G D A  x2
+
+[Verso 1]
+Em     G       D        A
+Today is gonna be the day 
+Em        G        D      A
+That they're gonna throw it back to you
+Em     G       D           A
+By now you should've somehow
+Em         G      D      A
+Realized what you gotta do
+Em              G           D          A
+I don't believe that anybody feels the way 
+      Em G D A
+I do about you now
+
+[Refrão 1]
+C        D           Em
+And all the roads we have to walk are winding
+C        D           Em
+And all the lights that lead us there are blinding
+C      D            G        D/F# Em
+There are many things that I would like to 
+D/F#    G
+Say to you, but I don't know how
+
+[Verso 2]
+Em          G        D        A
+Because maybe, you're gonna be the one
+Em        G       D       A
+That saves me, and after all
+Em       G        D      A
+You're my wonderwall
+
+Em          G        D        A
+Today was gonna be the day
+Em          G      D         A
+But they'll never throw it back to you
+Em       G         D              A
+By now you should've somehow
+Em            G       D      A
+Realized what you're not to do
+Em              G           D          A
+I don't believe that anybody feels the way 
+      Em G D A
+I do about you now
+
+[Refrão 2]
+C        D           Em
+And all the roads that lead you there were winding
+C        D           Em
+And all the lights that light the way are blinding
+C      D            G        D/F# Em
+There are many things that I would like to 
+D/F#    G
+Say to you, but I don't know how
+
+[Bridge]
+Em          G        D        A
+I said maybe, you're gonna be the one
+Em        G       D       A
+That saves me, and after all
+Em       G        D      A
+You're my wonderwall
+
+[Solo] Em G D A (repetir)
+
+[Verso 3]
+Em          G        D        A
+I said maybe, you're gonna be the one
+Em        G       D       A
+That saves me, and after all
+Em       G        D      A
+You're my wonderwall
+Em          G        D        A
+I said maybe (I said maybe)
+Em        G       D       A    Em
+You're gonna be the one that saves me`,
+            eduardoemonica: `[Intro] G  Em  C  D  (2x)
+
+[Verso 1]
+G        Em    C         D
+Quem um dia irá dizer que existe razão
+G       Em      C           D
+Nas coisas feitas pelo coração?
+G          Em      C        D
+E quem irá dizer que não existe razão?
+
+[Refrão]
+G        D/F#      Em
+Eduardo abriu os olhos, mas não quis se levantar
+C         G                D
+Ficou deitado e viu que horas eram
+G          D/F#         Em
+Enquanto Mônica tomava um conhaque
+C          G           D
+No outro canto da cidade, como eles disseram
+
+[Verso 2]
+G        Em     C         D
+Eduardo e Mônica um dia se encontraram sem querer
+G        Em    C          D
+E conversaram muito mesmo pra tentar se conhecer
+G       Em         C             D
+Um carinha do cursinho do Eduardo que disse
+G        Em         C             D
+"Tem uma festa legal e a gente quer se divertir"
+
+[Refrão]
+G       D/F#         Em
+Festa estranha, com gente esquisita
+C             G              D
+"Eu não estou legal, não aguento mais"
+G           D/F#           Em
+E a Mônica riu e quis saber um pouco mais
+C              G            D
+Sobre o boyzinho que tentava impressionar
+
+[Verso 3]
+G        Em     C         D
+E o Eduardo, meio tonto, só pensava em ir pra casa
+G      Em         C           D
+"É quase duas, eu vou me ferrar"
+G       Em       C           D
+E a Mônica, meio alta, resolveu ficar
+G      Em         C              D
+E se divertia com o efeito do álcool
+
+[Ponte]
+Am           D           G
+O Eduardo e a Mônica eram nada parecidos
+Am         D         G
+Ela era de Leão e ele tinha dezesseis
+Am           D         G
+Ela fazia Medicina e falava alemão
+Am           D              Em
+E ele ainda nas aulinhas de inglês
+
+[Verso 4]
+G        Em    C         D
+Ela gostava do Bandeira e do Bauhaus
+G        Em     C             D
+De Van Gogh e dos Mutantes, de Caetano e de Rimbaud
+G       Em      C           D
+E o Eduardo gostava de novela
+G      Em        C            D
+E jogava futebol de botão com seu avô
+
+[Final]
+G       D/F#         Em
+Eduardo e Mônica fizeram natação, fotografia
+C             G              D
+Teatro, artesanato, e foram viajar
+G           D/F#           Em
+A Mônica explicava pro Eduardo
+C              G            D
+Coisas sobre o céu, a terra, a água e o ar`,
+            aindabem: `[Intro] F  Am  Bb  C  (2x)
+
+[Verso 1]
+F                    Am                Bb              C
+Ainda bem, que você vive comigo, porque senão como é que ficaria?
+F                   Am                Bb              C
+Este inverno e os apagões da vida, sem você pra me aquecer, sem você
+
+[Refrão]
+F     Am       Bb             C
+Ainda bem, que você existe, ah!
+F     Am       Bb             C
+Ainda bem, que você existe
+
+[Verso 2]
+F                    Am                 Bb                C
+Você é o colo que acolhe, você é a mão que afaga, você é tudo o que me resta
+F                     Am              Bb              C
+Uma insônia de verão, um tomate maduro, desses de antiga horta
+
+[Refrão]
+F     Am       Bb             C
+Ainda bem, que você existe, ah!
+F     Am       Bb             C
+Ainda bem, que você existe
+
+[Ponte]
+Dm                    Am
+Você é mais do que sei dizer 
+Bb                     C
+Você é mais do que posso crer
+
+[Verso 3]
+F                    Am                Bb              C
+Você pode me fazer sorrir quando eu não quero, e me fazer tão bem
+F                  Am                 Bb              C
+Seu olhar descobre em mim, cores que eu não sabia que eu tenho
+F                  Am            Bb                C
+E me faz tão bem, gosto de você, e gosto de ficar com você
+
+[Refrão Final]
+F     Am       Bb             C
+Ainda bem, que você existe, ah!
+F     Am       Bb             C
+Ainda bem, que você existe, eu!
+
+[Finalização] F  Am  Bb  C  (2x)`,
+            velhainfancia: `[Intro] G  C  G  D  (2x)
+
+[Verso 1]
+G               C     G          D
+Você é assim, um sonho pra mim
+G                 C               G        D
+Quero te encher de beijos, eu entendo você
+G               C      G              D
+Você é assim, um sonho pra mim
+G                C              G    D      Em   Bm  C  D
+Quero te encher de beijos, eu entendo você
+
+[Refrão]
+G                C               G     D
+E a gente vive junto, e a gente se dá bem
+G              C               G      D
+E a gente não vacila, nem faz cara de desdém`
+        };
+
+        // Filtros de músicas
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Atualizar botões de filtro
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filtrar os cards
+                document.querySelectorAll('.song-card').forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Modal de cifras
+        const modal = document.getElementById('cifraModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const cifraContent = document.getElementById('cifraContent');
+        
+        // Abrir modal ao clicar no botão de cifra
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const song = this.getAttribute('data-song');
+                const songName = this.closest('.song-card').querySelector('h3').textContent;
+                
+                modalTitle.textContent = `${songName} - Cifra`;
+                cifraContent.textContent = cifras[song] || 'Cifra em breve disponível';
+                modal.style.display = 'block';
+            });
+        });
+        
+        // Fechar modal
+        document.querySelector('.modal-close').addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Fechar modal clicando fora
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

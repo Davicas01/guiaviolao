@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎸 Exercícios para Melhorar o Dedilhado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a4b8c;
+            --secondary-color: #4a90e2;
+            --accent-color: #e6a23c;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --border-color: #ddd;
+            --footer-color: #666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #ffffff;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .intro {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        .exercise {
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .exercise-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .exercise-number {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .exercise-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .exercise-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .meta-item svg, .meta-item i {
+            margin-right: 5px;
+            color: var(--secondary-color);
+        }
+        
+        .difficulty {
+            display: flex;
+            align-items: center;
+        }
+        
+        .difficulty-level {
+            display: flex;
+            margin-left: 5px;
+        }
+        
+        .difficulty-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 3px;
+            background-color: var(--border-color);
+        }
+        
+        .difficulty-dot.filled {
+            background-color: var(--secondary-color);
+        }
+        
+        .tab-notation {
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .finger-diagram {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .finger {
+            width: 40px;
+            height: 60px;
+            margin: 0 5px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .finger-number {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-weight: bold;
+        }
+        
+        .finger-tip {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f9d7a7;
+            border: 2px solid #e6a23c;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background-color: #e8f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 3px solid var(--secondary-color);
+        }
+        
+        .tip-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .progress-section {
+            margin: 40px 0;
+        }
+        
+        .level-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .level-nav a {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .level-nav a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .exercise-goal {
+            background-color: #f0fff5;
+            border-left: 3px solid #34a853;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .common-mistakes {
+            background-color: #fef8e7;
+            border-left: 3px solid #fbbc05;
+            padding: 10px 15px;
+            margin-top: 20px;
+        }
+        
+        .common-mistakes h4 {
+            color: #d78b06;
+            margin-bottom: 10px;
+        }
+        
+        .notes-section {
+            background-color: var(--light-bg);
+            border: 1px dashed var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+        .notes-section h3 {
+            margin-top: 0;
+        }
+        
+        .notes-lines {
+            height: 150px;
+            background-image: linear-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 100% 2rem;
+            padding: 0 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--footer-color);
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .motivation {
+            background-color: #fef7e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+            font-style: italic;
+            color: #5f6368;
+        }
+        
+        .progress-tracker {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .progress-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .progress-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .progress-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid var(--border-color);
+            margin-right: 10px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .progress-checkbox.checked {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .progress-checkbox.checked::after {
+            content: "✓";
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .exercise-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .tab-notation {
+                font-size: 12px;
+            }
+            
+            .finger-diagram {
+                transform: scale(0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎸 Exercícios para Melhorar o Dedilhado</h1>
+        <p class="subtitle">Técnicas e práticas diárias para aumentar sua precisão, velocidade e flexibilidade</p>
+    </header>
+    
+    <section class="intro">
+        <p>Bem-vindo ao guia de exercícios de dedilhado! A técnica de dedilhado é fundamental para executar peças com clareza, expressividade e fluidez no violão. Este material reúne exercícios progressivos que irão desenvolver sua coordenação, independência dos dedos e musicalidade.</p>
+        <p>Dedique pelo menos 15-20 minutos diários a esses exercícios, sempre começando lentamente e aumentando a velocidade gradualmente. Com prática consistente, você notará melhoras significativas em poucas semanas!</p>
+    </section>
+    
+    <section class="navigation">
+        <h2>🎯 Níveis de Exercícios</h2>
+        <div class="level-nav">
+            <a href="#beginner">Iniciante</a>
+            <a href="#intermediate">Intermediário</a>
+            <a href="#advanced">Avançado</a>
+            <a href="#arpeggios">Arpejos</a>
+            <a href="#rhythm">Padrões Rítmicos</a>
+            <a href="#chord-melody">Chord Melody</a>
+        </div>
+    </section>
+
+    <section id="beginner" class="level-section">
+        <h2>👶 Exercícios para Iniciantes</h2>
+        <p>Estes exercícios ajudam a construir uma base sólida de dedilhado, focando na posição correta dos dedos e movimentos simples.</p>
+        
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">1</div>
+                <div class="exercise-title">Independência dos Dedos</div>
+            </div>
+            <div class="exercise-meta">
+                <div class="meta-item">
+                    <span>⏱️ Tempo: 5 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <div class="difficulty">
+                        <span>Dificuldade:</span>
+                        <div class="difficulty-level">
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="exercise-goal">
+                Objetivo: Desenvolver controle individual de cada dedo da mão direita
+            </div>
+            <p>Posicione sua mão direita sobre as cordas, mantendo o pulso levemente arqueado. Toque cada corda com um dedo específico, seguindo o padrão:</p>
+            <div class="tab-notation">
+e|----p----p----p----p----|
+B|-------i-------i--------|
+G|----------m----------m--|
+D|-------------a----------|
+A|----p----p----p----p----|
+E|-------i-------i--------|
+            </div>
+            <p>Legenda: p = polegar, i = indicador, m = médio, a = anelar</p>
+            <p>Comece lentamente e gradualmente aumente a velocidade. Mantenha todos os outros dedos estáveis enquanto move apenas um dedo por vez.</p>
+            <div class="common-mistakes">
+                <h4>⚠️ Erros Comuns</h4>
+                <ul>
+                    <li>Tensionar demais a mão</li>
+                    <li>Mover outros dedos além do dedo ativo</li>
+                    <li>Perder o ritmo constante</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">2</div>
+                <div class="exercise-title">Alternância Simples</div>
+            </div>
+            <div class="exercise-meta">
+                <div class="meta-item">
+                    <span>⏱️ Tempo: 5 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <div class="difficulty">
+                        <span>Dificuldade:</span>
+                        <div class="difficulty-level">
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="exercise-goal">
+                Objetivo: Desenvolver coordenação entre o polegar e os dedos indicador/médio
+            </div>
+            <p>Este exercício trabalha a alternância entre o polegar e os outros dedos:</p>
+            <div class="tab-notation">
+e|-------i-------i-------|
+B|-------------m---------|
+G|-------i-------i-------|
+D|-------------m---------|
+A|----p-------p----------|
+E|----------p-------p----|
+            </div>
+            <p>Pratique usando o polegar (p) nas cordas graves (4ª, 5ª e 6ª) enquanto alterna entre o indicador (i) e o médio (m) nas cordas agudas.</p>
+            <div class="tip-box">
+                <h4>💡 Dica</h4>
+                <p>Mantenha seu pulso estável e dedos levemente curvados. Toque com a ponta dos dedos, não com as unhas (a menos que esteja usando técnica clássica).</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="intermediate" class="level-section">
+        <h2>🔄 Exercícios Intermediários</h2>
+        <p>Estes exercícios aumentam a complexidade, trabalhando coordenação entre todos os dedos em padrões mais elaborados.</p>
+        
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">3</div>
+                <div class="exercise-title">Arpejo Simples</div>
+            </div>
+            <div class="exercise-meta">
+                <div class="meta-item">
+                    <span>⏱️ Tempo: 10 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <div class="difficulty">
+                        <span>Dificuldade:</span>
+                        <div class="difficulty-level">
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="exercise-goal">
+                Objetivo: Desenvolver um padrão de arpejo fluido com todos os dedos
+            </div>
+            <p>Usando acordes simples (ex: C, G, Am, F), pratique este padrão de arpejo:</p>
+            <div class="tab-notation">
+// Padrão com acorde C
+e|----3i-------3i-------|
+B|-------1m-------1m----|
+G|----------0a-------0a-|
+D|-------------2p-------|
+A|----------------3p----|
+E|----------------------|
+            </div>
+            <p>Mantenha um ritmo constante e toque cada nota claramente antes de passar para a próxima.</p>
+            <div class="common-mistakes">
+                <h4>⚠️ Erros Comuns</h4>
+                <ul>
+                    <li>Tocar algumas notas mais fortes que outras</li>
+                    <li>Perder a sincronia rítmica</li>
+                    <li>Não preparar o próximo dedo enquanto toca</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">4</div>
+                <div class="exercise-title">Padrão Alternado</div>
+            </div>
+            <div class="exercise-meta">
+                <div class="meta-item">
+                    <span>⏱️ Tempo: 8 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <div class="difficulty">
+                        <span>Dificuldade:</span>
+                        <div class="difficulty-level">
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>Este exercício intercala o polegar com outros dedos em um padrão contínuo:</p>
+            <div class="tab-notation">
+// Com acorde G
+e|----3i-------------3i----|
+B|----------0m-------------|
+G|----------------0a-------|
+D|-------0p----------------|
+A|--------------------2p---|
+E|------3p-----------------|
+            </div>
+            <div class="tip-box">
+                <h4>💡 Dica</h4>
+                <p>Tente manter um movimento contínuo, como se estivesse "varrendo" as cordas suavemente com seus dedos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="advanced" class="level-section">
+        <h2>🚀 Exercícios Avançados</h2>
+        <p>Estes exercícios desafiam sua técnica com padrões complexos, movimentos rápidos e combinações mais sofisticadas.</p>
+        
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">5</div>
+                <div class="exercise-title">Tremolo</div>
+            </div>
+            <div class="exercise-meta">
+                <div class="meta-item">
+                    <span>⏱️ Tempo: 10 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <div class="difficulty">
+                        <span>Dificuldade:</span>
+                        <div class="difficulty-level">
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="exercise-goal">
+                Objetivo: Desenvolver velocidade e controle para criar efeito de nota sustentada
+            </div>
+            <p>O tremolo é uma técnica clássica onde você toca uma nota repetidamente com vários dedos em sequência, criando a ilusão de uma nota contínua:</p>
+            <div class="tab-notation">
+// Tremolo clássico
+e|--a-m-i-p--a-m-i-p--a-m-i-p--|
+B|----------------------------|
+G|----------------------------|
+D|----------------------------|
+A|----------------------------|
+E|--p-------p-------p---------|
+            </div>
+            <p>Comece muito devagar, garantindo uniformidade nas notas, e aumente a velocidade gradualmente.</p>
+        </div>
+        
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">6</div>
+                <div class="exercise-title">Rasgueio</div>
+            </div>
+            <div class="exercise-meta">
+                <div class="meta-item">
+                    <span>⏱️ Tempo: 8 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <div class="difficulty">
+                        <span>Dificuldade:</span>
+                        <div class="difficulty-level">
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot filled"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>O rasgueio é uma técnica de dedilhado espanhola/flamenca onde você "raspa" as cordas em um movimento rápido:</p>
+            <p>Pratique o padrão básico usando um acorde como Em:</p>
+            <div class="tab-notation">
+// d = para baixo, u = para cima
+Em
+↓ ↑↓ ↑↓  ↓ ↑↓ ↑↓
+1 & 2 & 3 & 4 &
+            </div>
+            <div class="tip-box">
+                <h4>💡 Dica</h4>
+                <p>No rasgueio, o movimento vem mais do pulso do que dos dedos individuais. Mantenha a mão relaxada para conseguir maior velocidade.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="progress-section">
+        <h2>📊 Acompanhe Seu Progresso</h2>
+        <p>Dedique-se a um exercício a cada dia e marque cada vez que completar uma sessão prática:</p>
+        <div class="progress-tracker">
+            <div class="progress-title">Exercícios Completados:</div>
+            <div class="progress-items">
+                <div class="progress-item">
+                    <div class="progress-checkbox"></div>
+                    <span>Exercício 1</span>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-checkbox"></div>
+                    <span>Exercício 2</span>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-checkbox"></div>
+                    <span>Exercício 3</span>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-checkbox"></div>
+                    <span>Exercício 4</span>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-checkbox"></div>
+                    <span>Exercício 5</span>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-checkbox"></div>
+                    <span>Exercício 6</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="tip-box">
+        <h4>💡 Dica para Prática Eficiente</h4>
+        <p>Sempre pratique com um metrônomo, começando lentamente (60-70 BPM) e aumentando gradualmente. É melhor dominar um exercício em velocidade mais baixa do que executá-lo mal em velocidade alta.</p>
+    </div>
+    
+    <div class="motivation">
+        "A técnica perfeita não vem da quantidade de horas praticadas, mas da qualidade de cada minuto de prática. Seja paciente com seus dedos - eles estão aprendendo uma linguagem nova."
+    </div>
+    
+    <section class="notes-section">
+        <h3>✏️ Meu diário de prática:</h3>
+        <div class="notes-lines">
+            <!-- Espaço para anotações do usuário -->
+        </div>
+    </section>
+    
+    <footer>
+        <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+        <p class="signature">Com carinho, equipe do Kit Violão Profissional</p>
+    </footer>
+</body>
+</html>

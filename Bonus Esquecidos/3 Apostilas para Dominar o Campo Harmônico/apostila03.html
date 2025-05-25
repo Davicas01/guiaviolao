@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campo Harmônico Aplicado + Progressões - Apostila 03</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --accent-color: #66cfbd;
+            --text-color: #333;
+            --light-bg: #f5f9ff;
+            --border-color: #ddd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 100%;
+            padding: 0;
+            background-color: white;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+            margin: 20px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .intro {
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 20px 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        th {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .note-box {
+            background-color: #f0f7ff;
+            border-left: 3px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .exercise {
+            background-color: #f0fff5;
+            border: 1px solid var(--secondary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .exercise h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .notes-space {
+            background-color: #f9f9f9;
+            border: 1px dashed var(--border-color);
+            padding: 15px;
+            margin: 20px 0;
+            min-height: 150px;
+        }
+        
+        .notes-space p {
+            color: #999;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .summary-section {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+        .checklist {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        
+        .checklist label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .next-steps {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .icon {
+            margin-right: 5px;
+            font-size: 1.2em;
+            color: var(--primary-color);
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-color), transparent);
+            margin: 30px 0;
+        }
+
+        .progression-example {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .progression-name {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .progression-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chord-box {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-align: center;
+            min-width: 50px;
+            position: relative;
+        }
+
+        .chord-box::after {
+            content: "→";
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .chord-box:last-child::after {
+            content: "";
+        }
+        
+        .chord-degree {
+            font-size: 0.8em;
+            color: #666;
+            display: block;
+        }
+
+        .chord-notation {
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .song-example {
+            margin-top: 5px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .two-column {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .modulacao-diagram {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                font-size: 12pt;
+            }
+            
+            section, .exercise, .note-box {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 15px;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+
+            .two-column {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📘 Apostila 03 – Campo Harmônico Aplicado + Progressões</h1>
+            <p class="subtitle">Fundamentos Musicais para Violão</p>
+        </header>
+
+        <section class="intro">
+            <h2>🎵 Campo Harmônico na Prática</h2>
+            <p>Bem-vindo(a) à terceira e última apostila sobre Campo Harmônico! Nas apostilas anteriores, exploramos a teoria dos campos harmônicos maiores e menores. Agora, vamos aplicar esse conhecimento na prática, com foco especial em progressões harmônicas, criação de arranjos e exemplos reais.</p>
+            <p>O objetivo desta apostila é transformar o conhecimento teórico em habilidade prática para que você possa criar músicas, improvisar com confiança e entender melhor as músicas que toca.</p>
+            <p><strong>Ao final deste estudo, você será capaz de:</strong></p>
+            <ul>
+                <li>Reconhecer e utilizar as progressões harmônicas mais comuns da música popular</li>
+                <li>Criar arranjos simples usando o conhecimento de campo harmônico</li>
+                <li>Analisar a estrutura harmônica de músicas conhecidas</li>
+                <li>Experimentar com modulações entre tonalidades vizinhas</li>
+                <li>Aplicar o conhecimento adquirido em sua própria criação musical</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🎸 Progressões Harmônicas Mais Usadas</h2>
+            <p>As progressões harmônicas são sequências de acordes que criam movimento na música. Algumas progressões são tão comuns que se tornaram verdadeiros "padrões" da música popular. Vamos explorar as mais importantes:</p>
+            
+            <h3>Progressões em Tonalidade Maior</h3>
+            
+            <div class="progression-example">
+                <p class="progression-name">1. Progressão I - IV - V - I</p>
+                <div class="progression-diagram">
+                    <div class="chord-box">G <span class="chord-degree">I</span></div>
+                    <div class="chord-box">C <span class="chord-degree">IV</span></div>
+                    <div class="chord-box">D <span class="chord-degree">V</span></div>
+                    <div class="chord-box">G <span class="chord-degree">I</span></div>
+                </div>
+                <p>Esta é uma das progressões mais fundamentais na música ocidental. Estabelece claramente a tonalidade e cria um movimento forte de resolução.</p>
+                <p class="song-example">Exemplos: "La Bamba" (Ritchie Valens), "Twist and Shout" (The Beatles)</p>
+            </div>
+            
+            <div class="progression-example">
+                <p class="progression-name">2. Progressão I - vi - IV - V</p>
+                <div class="progression-diagram">
+                    <div class="chord-box">C <span class="chord-degree">I</span></div>
+                    <div class="chord-box">Am <span class="chord-degree">vi</span></div>
+                    <div class="chord-box">F <span class="chord-degree">IV</span></div>
+                    <div class="chord-box">G <span class="chord-degree">V</span></div>
+                </div>
+                <p>Conhecida como "progressão dos anos 50" por sua popularidade na música dessa época.</p>
+                <p class="song-example">Exemplos: "Stand By Me" (Ben E. King), "Earth Angel" (The Penguins)</p>
+            </div>
+            
+            <div class="progression-example">
+                <p class="progression-name">3. Progressão I - V - vi - IV</p>
+                <div class="progression-diagram">
+                    <div class="chord-box">G <span class="chord-degree">I</span></div>
+                    <div class="chord-box">D <span class="chord-degree">V</span></div>
+                    <div class="chord-box">Em <span class="chord-degree">vi</span></div>
+                    <div class="chord-box">C <span class="chord-degree">IV</span></div>
+                </div>
+                <p>Chamada de "progressão dos quatro acordes", é extremamente comum na música pop moderna.</p>
+                <p class="song-example">Exemplos: "Don't Stop Believin'" (Journey), "Let It Be" (The Beatles)</p>
+            </div>
+            
+            <div class="progression-example">
+                <p class="progression-name">4. Progressão I - IV - vi - V</p>
+                <div class="progression-diagram">
+                    <div class="chord-box">D <span class="chord-degree">I</span></div>
+                    <div class="chord-box">G <span class="chord-degree">IV</span></div>
+                    <div class="chord-box">Bm <span class="chord-degree">vi</span></div>
+                    <div class="chord-box">A <span class="chord-degree">V</span></div>
+                </div>
+                <p>Uma progressão versátil que funciona bem em diversos estilos musicais, do pop ao rock.</p>
+                <p class="song-example">Exemplos: "Photograph" (Ed Sheeran), "Zombie" (The Cranberries)</p>
+            </div>
+            
+            <div class="progression-example">
+                <p class="progression-name">5. Progressão ii - V - I</p>
+                <div class="progression-diagram">
+                    <div class="chord-box">Dm <span class="chord-degree">ii</span></div>
+                    <div class="chord-box">G7 <span class="chord-degree">V7</span></div>
+                    <div class="chord-box">C <span class="chord-degree">I</span></div>
+                </div>
+                <p>A progressão mais importante no jazz e na bossa nova, frequentemente expandida para ii7 - V7 - Imaj7.</p>
+                <p class="song-example">Exemplos: "Garota de Ipanema" (Tom Jobim), diversos standards de jazz</p>
+            </div>
+            
+            <h3>Progressões em Tonalidade Menor</h3>
+            
+            <div class="progression-example">
+                <p class="progression-name">1. Progressão i - iv - V - i</p>
+                <div class="progression-diagram">
+                    <div class="chord-box">Am <span class="chord-degree">i</span></div>
+                    <div class="chord-box">Dm <span class="chord-degree">iv</span></div>
+                    <div class="chord-box">E <span class="chord-degree">V</span></div>
+                    <div class="chord-box">Am <span class="chord-degree">i</span></div>
+                </div>
+                <p>Usa o V maior (do campo harmônico menor harmônico) para criar tensão antes da resolução.</p>
+                <p class="song-example">Exemplos: "Hit the Road Jack" (Ray Charles), muitas músicas flamenco</p>
+            </div>
+            
+            <div class="progression-example">
+                <p class="progression-name">2. Progressão i - VI - VII - i (Progressão Andaluza)</p>
+                <div class="progression-diagram">
+                    <div class="chord-box">Am <span class="chord-degree">i</span></div>
+                    <div class="chord-box">F <span class="chord-degree">VI</span></div>
+                    <div class="chord-box">G <span class="chord-degree">VII</span></div>
+                    <div class="chord-box">Am <span class="chord-degree">i</span></div>
+                </div>
+                <p>Muito comum na música latina, flamenca e rock.</p>
+                <p class="song-example">Exemplos: "Entre Dos Aguas" (Paco de Lucía), "Californication" (Red Hot Chili Peppers)</p>
+            </div>
+            
+            <div class="progression-example">
+                <p class="progression-name">3. Progressão i - iv - VI - V</p>
+                <div class="progression-diagram">
+                    <div class="chord-box">Em <span class="chord-degree">i</span></div>
+                    <div class="chord-box">Am <span class="chord-degree">iv</span></div>
+                    <div class="chord-box">C <span class="chord-degree">VI</span></div>
+                    <div class="chord-box">B <span class="chord-degree">V</span></div>
+                </div>
+                <p>Uma progressão dramática muito usada em baladas de rock e metal.</p>
+                <p class="song-example">Exemplos: "Nothing Else Matters" (Metallica), "Stairway to Heaven" (Led Zeppelin - parte)</p>
+            </div>
+            
+            <div class="note-box">
+                <p><strong>Dica:</strong> Uma maneira eficiente de treinar progressões harmônicas é tocar a mesma progressão em várias tonalidades. Isso ajuda a internalizar os padrões e a ganhar fluência em todo o instrumento.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎼 Aplicação em Músicas Reais</h2>
+            <p>Vamos analisar algumas músicas populares para ver como os campos harmônicos são aplicados na prática:</p>
+            
+            <div class="exercise">
+                <h4>📝 Análise 1: "Paz e Amor" (Os Paralamas do Sucesso)</h4>
+                <p>Tonalidade: E Maior</p>
+                <p>Progressão principal: E - B - C#m - A (I - V - vi - IV)</p>
+                <p>Esta é a famosa "progressão dos quatro acordes" na tonalidade de Mi maior. A música mantém essa progressão durante quase toda sua duração, criando uma base estável para a melodia.</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Análise 2: "Cheia de Manias" (Raça Negra)</h4>
+                <p>Tonalidade: G Maior</p>
+                <p>Progressão principal: G - D - Em - C (I - V - vi - IV)</p>
+                <p>Outra exemplo da "progressão dos quatro acordes", desta vez em Sol maior. Esta progressão é tão versátil que funciona em diversos gêneros musicais, do rock ao pagode.</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Análise 3: "Garota de Ipanema" (Tom Jobim)</h4>
+                <p>Tonalidade: F Maior</p>
+                <p>Progressão principal: Fmaj7 - G7 - Gm7 - C7 (Imaj7 - II7 - ii7 - V7 da subdominante)</p>
+                <p>Esta música usa uma progressão harmônica mais elaborada, característica da bossa nova. Observe o uso de acordes com sétima e a modulação temporária para a região da subdominante (Gm7 - C7 são ii - V em F).</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Análise 4: "Sweet Child O' Mine" (Guns N' Roses)</h4>
+                <p>Tonalidade: D Maior</p>
+                <p>Progressão introdução/verso: D - C - G - D (I - bVII - IV - I)</p>
+                <p>Progressão refrão: A - G - D - A (V - IV - I - V)</p>
+                <p>Esta música usa um acorde emprestado de outra tonalidade (C = bVII), um recurso comum no rock. Observe como a música muda para uma progressão baseada no V grau no refrão, criando contraste.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>📝 Dicas para Criação de Arranjos</h2>
+            <p>O conhecimento do campo harmônico é uma ferramenta poderosa para criar arranjos. Aqui estão algumas dicas práticas:</p>
+            
+            <div class="two-column">
+                <div class="column">
+                    <h3>1. Substituição de Acordes</h3>
+                    <p>Você pode substituir acordes por outros que compartilham notas em comum:</p>
+                    <ul>
+                        <li><strong>Substituição por relativos:</strong> Trocar um acorde maior pelo seu relativo menor (vi) e vice-versa (ex: C por Am)</li>
+                        <li><strong>Substituição diatônica:</strong> Usar outro acorde do campo harmônico em seu lugar (ex: substituir um IV por um ii)</li>
+                        <li><strong>Adicionar sétimas:</strong> Transformar acordes maiores em maj7 e menores em m7 para enriquecer a sonoridade</li>
+                        <li><strong>Substituições de dominante:</strong> Substituir o V7 por um bII7 (ex: substituir G7 por Db7 antes de C)</li>
+                    </ul>
+                </div>
+                
+                <div class="column">
+                    <h3>2. Variações Rítmicas</h3>
+                    <p>Mesmo mantendo os mesmos acordes, você pode variar:</p>
+                    <ul>
+                        <li>A divisão rítmica (mudar de 4/4 para 3/4 ou 6/8)</li>
+                        <li>O padrão de acompanhamento (trocar levada por arpejos)</li>
+                        <li>A acentuação dos tempos (destacar contratempos)</li>
+                        <li>O andamento (tornar mais lento ou mais rápido)</li>
+                        <li>Adicionar pausas ou síncopes entre os acordes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="two-column">
+                <div class="column">
+                    <h3>3. Enriquecimento Harmônico</h3>
+                    <p>Técnicas para tornar a progressão mais interessante:</p>
+                    <ul>
+                        <li>Usar acordes de passagem entre os acordes principais</li>
+                        <li>Adicionar baixos diferentes (inversões ou baixo pedal)</li>
+                        <li>Incluir acordes com tensões (9as, 11as, 13as)</li>
+                        <li>Empregar empréstimo modal (acordes de outros modos)</li>
+                        <li>Utilizar dominantes secundárias (V7 do V, V7 do IV, etc.)</li>
+                    </ul>
+                </div>
+                
+                <div class="column">
+                    <h3>4. Estrutura do Arranjo</h3>
+                    <p>Pense em como organizar seu arranjo:</p>
+                    <ul>
+                        <li>Criar uma introdução baseada no refrão ou no final da música</li>
+                        <li>Variar a intensidade entre verso e refrão (dinâmica)</li>
+                        <li>Usar progressões diferentes para cada parte da música</li>
+                        <li>Incluir uma ponte contrastante com acordes diferentes</li>
+                        <li>Finalizar com uma cadência conclusiva (V - I ou V7 - I)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="note-box">
+                <p><strong>Dica prática:</strong> Ao criar um arranjo, comece identificando os acordes principais da música, depois experimente substituições simples antes de tentar técnicas mais avançadas. Lembre-se de que menos é mais: nem sempre as harmonias mais complexas soam melhor!</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🔄 Modulação Entre Tonalidades Vizinhas</h2>
+            <p>A modulação é a mudança de uma tonalidade para outra dentro da mesma música. Quando bem executada, cria interesse e revitaliza a progressão harmônica.</p>
+            
+            <h3>Tonalidades Vizinhas</h3>
+            <p>Tonalidades vizinhas são aquelas que compartilham a maioria dos acordes, facilitando a transição. As principais tonalidades vizinhas são:</p>
+            <ul>
+                <li>A tonalidade da dominante (V grau)</li>
+                <li>A tonalidade da subdominante (IV grau)</li>
+                <li>A tonalidade relativa menor (vi grau) ou maior (III grau da menor)</li>
+            </ul>
+            
+            <h3>Técnicas de Modulação</h3>
+            <p>Existem várias técnicas para realizar uma modulação suave:</p>
+            
+            <div class="progression-example">
+                <p class="progression-name">1. Modulação por acorde pivot</p>
+                <p>Use um acorde comum às duas tonalidades como "ponte" para a transição.</p>
+                <p class="chord-notation">Exemplo (C para G):
+C - Am - Em (vi em C, ii em G) - D - G
+
+O acorde de Em serve como pivot: é o iii de C e o vi de G.</p>
+            </div>
+            
+            <div class="progression-example">
+                <p class="progression-name">2. Modulação por dominante secundária</p>
+                <p>Introduza o V7 da nova tonalidade para estabelecê-la com mais força.</p>
+                <p class="chord-notation">Exemplo (G para D):
+G - Em - A7 (V7 de D) - D
+
+O acorde de A7 não pertence à tonalidade de G, mas prepara fortemente a entrada em D maior.</p>
+            </div>
+            
+            <div class="progression-example">
+                <p class="progression-name">3. Modulação direta</p>
+                <p>Mude para a nova tonalidade sem preparação, criando um efeito de surpresa.</p>
+                <p class="chord-notation">Exemplo (C para Eb):
+C - G - C | Eb - Bb - Eb
+
+Esse tipo de modulação funciona bem para criar contraste entre seções (por exemplo, entre verso e refrão).</p>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exemplo Prático: Modulação em "Eu Sei Que Vou Te Amar" (Tom Jobim)</h4>
+                <p>Esta canção começa em D maior e modula para G maior na segunda parte:</p>
+                <p class="chord-notation">Parte em D maior:
+D - F#7 - Bm - E7 - A7 - D
+
+Transição/Modulação:
+D - D7 (V7 de G) - G
+
+Parte em G maior:
+G - B7 - Em - A7 - D7 - G</p>
+                <p>Observe como o D7 serve como acorde pivot: é o I7 da primeira tonalidade e o V7 da segunda.</p>
+            </div>
+            
+            <div class="note-box">
+                <p><strong>Dica para modulações:</strong> As modulações para tonalidades mais agudas (1 a 5 sustenidos a mais) geralmente trazem sensação de "elevação" ou "brilho", enquanto modulações para tonalidades mais graves (1 a 5 bemóis a mais) costumam trazer sensação de "relaxamento" ou "intimidade".</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎯 Exercícios Práticos de Aplicação</h2>
+            <p>Vamos praticar o conhecimento adquirido com exercícios que você pode fazer com seu violão:</p>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 1: Reconhecimento de Progressões</h4>
+                <p>Escolha três músicas que você gosta e tente identificar:</p>
+                <ul>
+                    <li>A tonalidade principal</li>
+                    <li>Os graus dos acordes usados (I, IV, V, etc.)</li>
+                    <li>O tipo de progressão (se é uma das progressões comuns que estudamos)</li>
+                    <li>Se há modulação e para qual tonalidade</li>
+                </ul>
+                <div class="notes-space">
+                    <p>Anote suas análises aqui...</p>
+                </div>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 2: Criação de Variações</h4>
+                <p>Pegue uma progressão simples (como I - IV - V - I) e crie três variações diferentes:</p>
+                <ul>
+                    <li>Variação 1: Substituindo alguns acordes por seus relativos</li>
+                    <li>Variação 2: Adicionando sétimas e outras tensões</li>
+                    <li>Variação 3: Incluindo acordes de passagem entre os acordes principais</li>
+                </ul>
+                <div class="notes-space">
+                    <p>Anote suas variações aqui...</p>
+                </div>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 3: Arranjo Simplificado</h4>
+                <p>Escolha uma música que você conhece e crie um arranjo simplificado:</p>
+                <ul>
+                    <li>Identifique os acordes originais</li>
+                    <li>Crie uma introdução baseada na progressão principal</li>
+                    <li>Defina um padrão de acompanhamento (levada ou arpejo)</li>
+                    <li>Experimente uma modulação para o refrão ou para a ponte</li>
+                </ul>
+                <div class="notes-space">
+                    <p>Descreva seu arranjo aqui...</p>
+                </div>
+            </div>
+            
+            <div class="exercise">
+                <h4>📝 Exercício 4: Composição com Progressão Definida</h4>
+                <p>Crie uma pequena composição usando uma das seguintes progressões:</p>
+                <ul>
+                    <li>Em tonalidade maior: I - vi - IV - V - I</li>
+                    <li>Em tonalidade menor: i - iv - V - VI - V - i</li>
+                    <li>Com modulação: I - IV - V - I (tonalidade original) - IV - V - I (nova tonalidade)</li>
+                </ul>
+                <div class="notes-space">
+                    <p>Descreva sua composição aqui...</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>✏️ Espaço para Anotações</h2>
+            <p>Use este espaço para fazer suas próprias anotações, observações ou dúvidas que surgirem durante o estudo:</p>
+            
+            <div class="notes-space">
+                <p>Suas anotações aqui...</p>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+
+        <section class="summary-section">
+            <h2>💡 Resumo Rápido</h2>
+            <ul>
+                <li>As progressões harmônicas mais comuns em tonalidade maior são: I-IV-V-I, I-vi-IV-V, I-V-vi-IV, ii-V-I.</li>
+                <li>As progressões harmônicas mais comuns em tonalidade menor são: i-iv-V-i, i-VI-VII-i (andaluza), i-iv-VI-V.</li>
+                <li>O conhecimento do campo harmônico permite criar arranjos através de substituições de acordes, variações rítmicas e enriquecimento harmônico.</li>
+                <li>A análise harmônica de músicas conhecidas ajuda a entender como os compositores aplicam os conceitos de campo harmônico na prática.</li>
+                <li>A modulação para tonalidades vizinhas pode ser feita usando acordes pivot, dominantes secundárias ou de forma direta.</li>
+                <li>As tonalidades vizinhas mais comuns são a dominante (V), subdominante (IV) e relativa menor/maior.</li>
+                <li>A aplicação criativa do campo harmônico abre possibilidades ilimitadas para composição e arranjo.</li>
+            </ul>
+            
+            <div class="checklist">
+                <h3>📝 Checklist Final de Aprendizado</h3>
+                <label><input type="checkbox"> Consigo reconhecer progressões harmônicas em músicas populares</label>
+                <label><input type="checkbox"> Compreendo como criar variações de progressões básicas</label>
+                <label><input type="checkbox"> Sei como substituir acordes mantendo a função harmônica</label>
+                <label><input type="checkbox"> Consigo analisar a estrutura harmônica de músicas</label>
+                <label><input type="checkbox"> Entendo os princípios básicos de modulação entre tonalidades</label>
+                <label><input type="checkbox"> Sou capaz de identificar tonalidades vizinhas</label>
+                <label><input type="checkbox"> Consigo aplicar o conhecimento do campo harmônico em arranjos simples</label>
+                <label><input type="checkbox"> Experimentei criar minhas próprias progressões e composições</label>
+            </div>
+            
+            <div class="next-steps">
+                <h3>📍 Próximos Passos</h3>
+                <ul>
+                    <li>Estude as progressões harmônicas de seus artistas favoritos</li>
+                    <li>Experimente criar arranjos de músicas conhecidas em diferentes estilos</li>
+                    <li>Pratique a transposição de músicas para diferentes tonalidades</li>
+                    <li>Explore a criação de progressões mais complexas com empréstimos modais</li>
+                    <li>Combine seu conhecimento harmônico com técnicas de improvisação</li>
+                    <li>Grave seus próprios arranjos e composições para análise e melhoria contínua</li>
+                </ul>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Kit Violão Profissional - Apostila 03: Campo Harmônico Aplicado + Progressões</p>
+            <p>© 2025 - Todos os direitos reservados</p>
+        </footer>
+    </div>
+</body>
+</html>

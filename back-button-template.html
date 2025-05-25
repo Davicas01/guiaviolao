@@ -1,0 +1,35 @@
+<!-- 
+    TEMPLATE PARA BOTÃO DE VOLTAR
+    Instruções de uso:
+    1. Copie o código abaixo e cole no início do <body> de qualquer página de bônus
+    2. Não precisa ajustar o número de "../" - o script agora faz isso automaticamente
+-->
+
+<a href="#" id="dynamic-back-button" class="back-button">
+    <i class="fas fa-home"></i> Voltar à Página Inicial
+</a>
+
+<script>
+    // Script para calcular o caminho correto para a raiz
+    (function() {
+        function getPathToRoot() {
+            const currentPath = window.location.pathname;
+            const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
+            if (pathSegments.length <= 1) return '';
+            const depth = pathSegments.length - 1;
+            return '../'.repeat(depth);
+        }
+        
+        // Configurar o link de volta corretamente
+        document.getElementById('dynamic-back-button').href = getPathToRoot() + 'index.html';
+    })();
+</script>
+
+<!-- 
+    IMPORTANTE: Se esta página não tiver o FontAwesome importado,
+    adicione também a tag abaixo ao <head> do arquivo HTML:
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+-->
+
+<!-- Você pode continuar usando o estilo CSS abaixo se não estiver incluindo style.css -->

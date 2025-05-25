@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Relâmpago: Como Gravar Seu Primeiro Cover de Violão</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513; /* Marrom SaddleBrown */
+            --secondary-color: #A0522D; /* Marrom Sienna */
+            --accent-color: #D2691E; /* Marrom Chocolate */
+            --background-light: #F5F5DC; /* Bege */
+            --background-dark: #DEB887; /* BurlyWood */
+            --text-color: #333;
+            --text-light: #555;
+            --white: #fff;
+            --border-color: #CD853F; /* Marrom Peru */
+            --shadow-color: rgba(139, 69, 19, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 3rem 0 4rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        /* Novo estilo para o botão home */
+        .home-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: var(--transition);
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .home-button:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .module {
+            background-color: var(--white);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .module-header {
+            background-color: var(--background-dark);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .module-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+            width: 50px;
+            text-align: center;
+        }
+
+        .module-title h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .module-title p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .module-content {
+            padding: 2rem;
+        }
+
+        .module-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 0.8rem;
+        }
+
+        .module-content p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .module-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        .module-content li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .module-content li::before {
+            content: '\f00c'; /* Font Awesome check icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: var(--accent-color);
+        }
+
+        .tip-box {
+            background-color: #fffaf0; /* FloralWhite */
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-color);
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+        }
+
+        .tip-box strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modificando os estilos do audio-example para não ter download */
+        .audio-example {
+            background-color: #f8f8f8;
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .audio-example i {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .audio-example-content {
+            flex: 1;
+        }
+
+        .audio-example h4 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        /* Removendo estilos para botão de download */
+        .resource-download {
+            display: none;
+        }
+
+        .progress-container {
+            background-color: #f5f5f5;
+            border-radius: 20px;
+            margin: 2rem 0;
+            height: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .module-header {
+                padding: 1rem 1.5rem;
+            }
+            .module-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-guitar"></i> Curso Relâmpago</h1>
+            <p class="subtitle">Como Gravar Seu Primeiro Cover de Violão com Qualidade Profissional 🎸🎧</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Módulo 1: Equipamentos Essenciais -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-tools"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 1: Equipamentos Essenciais</h2>
+                    <p>O que você realmente precisa para começar (sem gastar muito!)</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>O Básico para Gravar</h3>
+                <p>Vamos desmistificar os equipamentos. Você não precisa de um estúdio profissional para ter um bom resultado. Focaremos no essencial e acessível.</p>
+                <ul>
+                    <li>Seu violão (acústico ou elétrico)</li>
+                    <li>Computador com placa de som ou interface de áudio</li>
+                    <li>Microfone (dinâmico ou condensador)</li>
+                    <li>Fones de ouvido de monitoração (fechados)</li>
+                    <li>Software de gravação (DAW): Reaper, Audacity (gratuito), GarageBand (Mac)</li>
+                    <li>Cabos e um pedestal para microfone</li>
+                </ul>
+                <h3>Nível Iniciante vs. Intermediário</h3>
+                <ul>
+                    <li>Iniciante: Microfone USB (ATR2100, Blue Snowball) + Audacity</li>
+                    <li>Intermediário: Interface de áudio (Focusrite Scarlett) + Microfone XLR (Shure SM58)</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Dica de Ouro:</strong> A qualidade da gravação depende mais da técnica e ambiente do que de equipamentos caros. Um bom setup básico pode te levar muito longe!
+                </div>
+                <div class="audio-example">
+                    <i class="fas fa-headphones"></i>
+                    <div class="audio-example-content">
+                        <h4>Compare os resultados:</h4>
+                        <p>Diferentes equipamentos produzem resultados distintos. A técnica e o ambiente são tão importantes quanto os equipamentos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulo 2: Preparação e Ambiente -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-record-vinyl"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 2: Preparação e Ambiente</h2>
+                    <p>Criando condições ideais para uma gravação de qualidade</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>Preparando o Ambiente</h3>
+                <p>O ambiente de gravação é tão importante quanto o equipamento. Pequenos ajustes podem melhorar drasticamente a qualidade do áudio.</p>
+                <ul>
+                    <li>Encontre um local silencioso e com boa acústica</li>
+                    <li>Use cobertores, travesseiros ou painéis acústicos para reduzir reverberação</li>
+                    <li>Evite cômodos com muitas superfícies duras (vidro, azulejo)</li>
+                    <li>Considere um escudo de isolamento para microfone</li>
+                    <li>Desligue ventiladores, ar-condicionado ou dispositivos barulhentos</li>
+                </ul>
+                <h3>Posicionando o Microfone</h3>
+                <p>O segredo para uma boa gravação de violão é o posicionamento correto do microfone.</p>
+                <ul>
+                    <li>Para violão acústico: direcione o microfone para a 12ª casa (entre o braço e a boca)</li>
+                    <li>Distância: 20-30cm do instrumento</li>
+                    <li>Evite apontar diretamente para a boca do violão (excesso de graves)</li>
+                    <li>Use pop filter se estiver cantando junto</li>
+                    <li>Experimente diferentes posições para encontrar seu "ponto doce"</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Técnica Avançada:</strong> Use dois microfones para captura em estéreo - um mais próximo às cordas agudas, outro nas graves. Isso cria uma imagem estéreo mais ampla e natural.
+                </div>
+                <div class="audio-example">
+                    <i class="fas fa-microphone-alt"></i>
+                    <div class="audio-example-content">
+                        <h4>Guia de posicionamento:</h4>
+                        <p>Teste diferentes posições do microfone em relação ao violão para encontrar o som que melhor se adequa ao seu estilo e instrumento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulo 3: Configuração da DAW e Gravação -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-sliders-h"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 3: Configuração da DAW e Gravação</h2>
+                    <p>Do setup ao processo de gravação: tudo o que você precisa saber</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>Configurando seu Software</h3>
+                <p>A configuração correta é crucial para evitar problemas de latência e qualidade.</p>
+                <ul>
+                    <li>Taxa de amostragem: 44.1kHz ou 48kHz (padrão da indústria)</li>
+                    <li>Profundidade de bits: 24-bit para melhor faixa dinâmica</li>
+                    <li>Buffer Size: encontre um equilíbrio (256-512 samples)</li>
+                    <li>Crie múltiplas pistas: separar violão, voz, base (playback)</li>
+                    <li>Configure monitoração para ouvir enquanto grava</li>
+                </ul>
+                <h3>Processo de Gravação</h3>
+                <p>Uma abordagem metódica resultará em gravações mais limpas e profissionais.</p>
+                <ul>
+                    <li>Faça um teste de níveis (evite distorção/clipping)</li>
+                    <li>Mantenha níveis de entrada em torno de -12dB a -6dB de pico</li>
+                    <li>Use um metrônomo ou base para manter o tempo</li>
+                    <li>Grave várias tomadas (takes) para escolher a melhor</li>
+                    <li>Grave em camadas se necessário (partes complexas)</li>
+                    <li>Use marcadores para identificar seções da música</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Abordagem Recomendada:</strong> Grave primeiro uma versão guia simples com metrônomo. Depois, grave o violão final com mais expressividade, e por último a voz (se aplicável).
+                </div>
+                <div class="audio-example">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="audio-example-content">
+                        <h4>Dicas para DAWs populares:</h4>
+                        <p>Cada software tem suas particularidades. Explore as configurações específicas do seu DAW preferido para obter os melhores resultados.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulo 4: Edição e Mixagem -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-magic"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 4: Edição e Mixagem de Áudio</h2>
+                    <p>Transformando uma gravação bruta em uma produção profissional</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>Edição Básica</h3>
+                <p>A edição é onde organizamos e limpamos nossas gravações para prepará-las para a mixagem.</p>
+                <ul>
+                    <li>Remoção de ruídos indesejados (cliques, respirações)</li>
+                    <li>Corte de seções desnecessárias</li>
+                    <li>Alinhamento de múltiplas tomadas</li>
+                    <li>Correção de pequenas imperfeições de tempo</li>
+                    <li>Compilação da melhor versão (comping de takes)</li>
+                </ul>
+                <h3>Mixagem para Violão</h3>
+                <p>A mixagem para violão acústico requer um toque delicado para manter o som natural.</p>
+                <ul>
+                    <li>EQ: Corte frequências problemáticas (100-200Hz para reduzir "boom")</li>
+                    <li>Compressão: Suave (ratio 2:1 a 3:1) para nivelar dinâmica</li>
+                    <li>Reverb: Um toque sutil para adicionar espacialidade</li>
+                    <li>Delay: Opcional para adicionar profundidade</li>
+                    <li>Automação: Ajuste volumes de diferentes seções</li>
+                    <li>Balanço estéreo: Posicionamento na imagem sonora</li>
+                </ul>
+                <h3>Finalização (Masterização Básica)</h3>
+                <ul>
+                    <li>Limitador para aumentar o volume geral</li>
+                    <li>EQ final para ajustes sutis</li>
+                    <li>Exportação em alta qualidade (.wav) e comprimido (.mp3)</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Regra de Ouro:</strong> Faça pausas frequentes para "resetar" seus ouvidos. A fadiga auditiva pode levar a decisões ruins na mixagem. Sempre compare com músicas de referência.
+                </div>
+                <div class="audio-example">
+                    <i class="fas fa-file-audio"></i>
+                    <div class="audio-example-content">
+                        <h4>Processo de mixagem:</h4>
+                        <p>Uma boa mixagem equilibra todos os elementos sonoros para criar uma experiência coesa e profissional. Comece com ajustes amplos e vá refinando aos poucos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulo 5: Compartilhamento e Próximos Passos -->
+        <section class="module">
+            <div class="module-header">
+                <div class="module-icon"><i class="fas fa-share-alt"></i></div>
+                <div class="module-title">
+                    <h2>Módulo 5: Compartilhamento e Próximos Passos</h2>
+                    <p>Publicando seu trabalho e evoluindo como músico</p>
+                </div>
+            </div>
+            <div class="module-content">
+                <h3>Plataformas para Compartilhar</h3>
+                <p>Escolha as melhores plataformas para compartilhar seu cover de violão.</p>
+                <ul>
+                    <li>SoundCloud: Ideal para áudio, comunidade musical ativa</li>
+                    <li>Bandcamp: Opção para monetização e downloads</li>
+                    <li>YouTube (áudio apenas): Alcance maior público com visualização estática</li>
+                    <li>Instagram: Trechos curtos para promover seu trabalho</li>
+                    <li>Plataformas de streaming (Spotify, Apple Music) via distribuidoras</li>
+                </ul>
+                <h3>Construindo sua Identidade Musical</h3>
+                <p>Transforme seus covers em uma jornada de crescimento musical.</p>
+                <ul>
+                    <li>Desenvolva um estilo próprio ao interpretar músicas</li>
+                    <li>Crie uma série de covers com a mesma qualidade e estética</li>
+                    <li>Mantenha consistência na publicação (cronograma)</li>
+                    <li>Colete feedback para melhorar constantemente</li>
+                    <li>Considere composições próprias baseadas no que aprendeu</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Próximo Nível:</strong> Considere colaborações remotas com outros músicos. Envie sua faixa de violão para um vocalista, baixista ou pianista adicionar suas partes. Isso expande seu alcance e rede de contatos.
+                </div>
+                <div class="audio-example">
+                    <i class="fas fa-rocket"></i>
+                    <div class="audio-example-content">
+                        <h4>Crescimento contínuo:</h4>
+                        <p>Cada gravação é uma oportunidade de aprendizado. Analise seus resultados, identifique pontos de melhoria e aplique esse conhecimento nos próximos projetos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <a href="../index.html" class="home-button">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <script>
+        // Script para animar a barra de progresso
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('progressBar').style.width = '100%';
+            }, 500);
+        }
+
+        // Script para marcar seções como concluídas
+        document.querySelectorAll('.module-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.closest('.module').classList.toggle('completed');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Evolução do Aluno e Exercícios Avançados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a4b8c;
+            --secondary-color: #4a90e2;
+            --accent-color: #e6a23c;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --border-color: #ddd;
+            --footer-color: #666;
+            --success-color: #2dce89;
+            --warning-color: #fb6340;
+            --danger-color: #f5365c;
+            --info-color: #11cdef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+            padding: 0;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin: 20px 0 10px;
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin: 15px 0 10px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .intro {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        section {
+            margin-bottom: 50px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-icon {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .student-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .progress-section {
+            margin-top: 30px;
+        }
+        
+        .progress-tracker {
+            margin-bottom: 25px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .progress-title {
+            font-weight: 600;
+        }
+        
+        .progress-date {
+            font-size: 0.85rem;
+            color: var(--footer-color);
+        }
+        
+        .progress-bar-container {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+        }
+        
+        .exercise-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: var(--light-bg);
+        }
+        
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .exercise-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .exercise-level {
+            font-size: 0.8rem;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        .exercise-content {
+            margin-bottom: 15px;
+        }
+        
+        .exercise-notation {
+            font-family: monospace;
+            white-space: pre;
+            background-color: white;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid #e0e0e0;
+            margin: 15px 0;
+        }
+        
+        .exercise-tips {
+            background-color: rgba(74, 144, 226, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        
+        .harmonics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .harmonics-table th, .harmonics-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px 8px;
+            text-align: center;
+        }
+        
+        .harmonics-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .harmonics-table tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        
+        .chord-degrees {
+            margin: 30px 0;
+        }
+        
+        .chord-degree-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            background-color: var(--light-bg);
+        }
+        
+        .chord-degree-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .chord-application {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .application-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .progressBar-editable {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .progressBar-editable:hover::after {
+            content: '← Clique para ajustar';
+            position: absolute;
+            right: -130px;
+            top: 0;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        .notes-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff9e6;
+            border-radius: 8px;
+        }
+        
+        .notes-lines {
+            height: 120px;
+            background: linear-gradient(transparent, transparent 27px, var(--border-color) 28px);
+            background-size: 100% 28px;
+            padding-top: 5px;
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--footer-color);
+            background-color: var(--light-bg);
+            margin-top: 40px;
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .print-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        .print-btn:hover {
+            background-color: #143d72;
+        }
+        
+        @media (max-width: 768px) {
+            .student-info {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .exercise-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .exercise-level {
+                margin-top: 5px;
+            }
+        }
+        
+        @media print {
+            body {
+                font-size: 12pt;
+                background: white;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            header {
+                padding: 20px;
+                background-color: white !important;
+                color: var(--primary-color);
+                margin-bottom: 20px;
+            }
+            
+            .section, .exercise-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .print-btn, .progressBar-editable:hover::after {
+                display: none;
+            }
+            
+            section {
+                box-shadow: none;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎸 Ficha de Evolução e Exercícios Avançados</h1>
+            <p class="subtitle">Acompanhe o progresso dos seus alunos e aprimore as técnicas com exercícios de alto nível</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="intro">
+            <p>Este material foi desenvolvido para ajudar professores de violão a acompanhar o desenvolvimento técnico dos alunos e oferecer exercícios avançados para prática independente. Utilize a ficha de evolução para manter um registro claro do progresso, e os exercícios técnicos para estimular a prática diária.</p>
+            <button onclick="window.print()" class="print-btn"><i class="fas fa-print"></i> Imprimir/Salvar como PDF</button>
+        </div>
+        
+        <!-- Seção 1: Ficha de Evolução do Aluno -->
+        <section id="student-progress">
+            <h2><i class="fas fa-chart-line section-icon"></i>Ficha de Evolução do Aluno</h2>
+            
+            <div class="student-info">
+                <div class="form-group">
+                    <label for="student-name">Nome do aluno:</label>
+                    <input type="text" id="student-name" placeholder="Digite o nome do aluno">
+                </div>
+                <div class="form-group">
+                    <label for="teacher-name">Professor responsável:</label>
+                    <input type="text" id="teacher-name" placeholder="Digite seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="start-date">Data de início:</label>
+                    <input type="date" id="start-date">
+                </div>
+                <div class="form-group">
+                    <label for="current-date">Data da avaliação:</label>
+                    <input type="date" id="current-date">
+                </div>
+            </div>
+            
+            <div class="progress-section">
+                <h3>Evolução Técnica</h3>
+                
+                <div class="progress-tracker">
+                    <div class="progress-header">
+                        <span class="progress-title">Técnica de Mão Direita</span>
+                        <span class="progress-date">Última atualização: <input type="date" style="width: auto;"></span>
+                    </div>
+                    <div class="progress-bar-container progressBar-editable">
+                        <div class="progress-bar" style="width: 65%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Iniciante</span>
+                        <span>Intermediário</span>
+                        <span>Avançado</span>
+                    </div>
+                </div>
+                
+                <div class="progress-tracker">
+                    <div class="progress-header">
+                        <span class="progress-title">Técnica de Mão Esquerda</span>
+                        <span class="progress-date">Última atualização: <input type="date" style="width: auto;"></span>
+                    </div>
+                    <div class="progress-bar-container progressBar-editable">
+                        <div class="progress-bar" style="width: 40%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Iniciante</span>
+                        <span>Intermediário</span>
+                        <span>Avançado</span>
+                    </div>
+                </div>
+                
+                <div class="progress-tracker">
+                    <div class="progress-header">
+                        <span class="progress-title">Conhecimento de Acordes</span>
+                        <span class="progress-date">Última atualização: <input type="date" style="width: auto;"></span>
+                    </div>
+                    <div class="progress-bar-container progressBar-editable">
+                        <div class="progress-bar" style="width: 75%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Iniciante</span>
+                        <span>Intermediário</span>
+                        <span>Avançado</span>
+                    </div>
+                </div>
+                
+                <div class="progress-tracker">
+                    <div class="progress-header">
+                        <span class="progress-title">Leitura de Cifras</span>
+                        <span class="progress-date">Última atualização: <input type="date" style="width: auto;"></span>
+                    </div>
+                    <div class="progress-bar-container progressBar-editable">
+                        <div class="progress-bar" style="width: 85%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Iniciante</span>
+                        <span>Intermediário</span>
+                        <span>Avançado</span>
+                    </div>
+                </div>
+                
+                <div class="progress-tracker">
+                    <div class="progress-header">
+                        <span class="progress-title">Teoria Musical</span>
+                        <span class="progress-date">Última atualização: <input type="date" style="width: auto;"></span>
+                    </div>
+                    <div class="progress-bar-container progressBar-editable">
+                        <div class="progress-bar" style="width: 50%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Iniciante</span>
+                        <span>Intermediário</span>
+                        <span>Avançado</span>
+                    </div>
+                </div>
+                
+                <div class="progress-tracker">
+                    <div class="progress-header">
+                        <span class="progress-title">Técnicas de Pestana</span>
+                        <span class="progress-date">Última atualização: <input type="date" style="width: auto;"></span>
+                    </div>
+                    <div class="progress-bar-container progressBar-editable">
+                        <div class="progress-bar" style="width: 30%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Iniciante</span>
+                        <span>Intermediário</span>
+                        <span>Avançado</span>
+                    </div>
+                </div>
+                
+                <div class="progress-tracker">
+                    <div class="progress-header">
+                        <span class="progress-title">Ritmos e Batidas</span>
+                        <span class="progress-date">Última atualização: <input type="date" style="width: auto;"></span>
+                    </div>
+                    <div class="progress-bar-container progressBar-editable">
+                        <div class="progress-bar" style="width: 60%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Iniciante</span>
+                        <span>Intermediário</span>
+                        <span>Avançado</span>
+                    </div>
+                </div>
+                
+                <h3>Repertório Dominado</h3>
+                <div class="form-group">
+                    <label for="repertoire">Liste as músicas que o aluno já domina:</label>
+                    <textarea id="repertoire" rows="5" placeholder="Ex: Evidências (Chitãozinho e Xororó), Trem Bala (Ana Vilela)..."></textarea>
+                </div>
+                
+                <h3>Objetivos de Desenvolvimento</h3>
+                <div class="form-group">
+                    <label for="goals">Defina os próximos objetivos técnicos/musicais:</label>
+                    <textarea id="goals" rows="5" placeholder="Ex: Aprimorar técnica de pestanas, Dominar batida de reggae, Iniciar solfejos..."></textarea>
+                </div>
+                
+                <h3>Observações Importantes</h3>
+                <div class="form-group">
+                    <label for="notes">Informações adicionais sobre o aluno:</label>
+                    <textarea id="notes" rows="5" placeholder="Ex: Aluno demonstra facilidade em ritmos, mas dificuldade em acordes com pestana. Preferência por MPB..."></textarea>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção 2: Pacote de Exercícios Avançados -->
+        <section id="advanced-exercises">
+            <h2><i class="fas fa-dumbbell section-icon"></i>Pacote de Exercícios Avançados para Prática Solo</h2>
+            
+            <p>Este conjunto de exercícios foi desenvolvido para ajudar alunos intermediários e avançados a desenvolverem técnicas específicas. Recomenda-se praticar cada exercício lentamente, aumentando gradualmente a velocidade à medida que ganha confiança.</p>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 1: Independência de Dedos</div>
+                    <div class="exercise-level">Intermediário</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Este exercício trabalha a independência dos dedos da mão esquerda, fortalecendo cada dedo e desenvolvendo flexibilidade para acordes complexos.</p>
+                    <div class="exercise-notation">
+e|--1--2--3--4--|--4--3--2--1--|--1--3--2--4--|--4--2--3--1--|
+B|--------------|--------------|--------------|--------------|
+G|--------------|--------------|--------------|--------------|
+D|--------------|--------------|--------------|--------------|
+A|--------------|--------------|--------------|--------------|
+E|--------------|--------------|--------------|--------------|
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> Mantenha os dedos próximos às cordas e pressione com a ponta dos dedos. Pratique lentamente, garantindo que cada nota soe limpa e clara antes de aumentar a velocidade.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 2: Arpejos com Dedilhado P-I-M-A</div>
+                    <div class="exercise-level">Intermediário</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Este exercício desenvolve a coordenação entre os dedos da mão direita usando o padrão polegar (p), indicador (i), médio (m) e anelar (a).</p>
+                    <div class="exercise-notation">
+e|----------3a---------|----------3a---------|
+B|-------2m------------|-------2m------------|
+G|----1i---------------|----1i---------------|
+D|---------------------|---------------------|
+A|---------------------|---------------------|
+E|--0p----------------|--0p----------------|
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> Mantenha o pulso relaxado e os dedos levemente curvados. Toque cada corda com um movimento controlado, procurando obter um som equilibrado entre todas as notas.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 3: Ligados Ascendentes e Descendentes</div>
+                    <div class="exercise-level">Avançado</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Este exercício aprimora a técnica de ligados (hammer-on e pull-off), essencial para solos fluidos e rápidos.</p>
+                    <div class="exercise-notation">
+e|--0h1p0--0h2p0--0h3p0--0h4p0--|--1h3p1--1h4p1--|
+B|--------------------------------|----------------|
+G|--------------------------------|----------------|
+D|--------------------------------|----------------|
+A|--------------------------------|----------------|
+E|--------------------------------|----------------|
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> No ligado ascendente (h), o dedo deve cair com força suficiente para produzir o som. No ligado descendente (p), puxe levemente a corda para baixo antes de soltar, produzindo o som sem precisar tocar novamente.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 4: Saltos de Cordas com Palhetada Alternada</div>
+                    <div class="exercise-level">Avançado</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Desenvolve a precisão na troca de cordas com palheta, usando palhetadas alternadas (para baixo ↓ e para cima ↑).</p>
+                    <div class="exercise-notation">
+e|---------------|---------------|
+B|---------------|---------------|
+G|----0--2-------|----0--3-------|
+D|----------3--0-|----------2--0-|
+A|---------------|---------------|
+E|---------------|---------------|
+     ↓↑↓↑ ↓↑↓↑    ↓↑↓↑ ↓↑↓↑
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> Mantenha a palheta em um ângulo suave em relação às cordas e use movimentos controlados do pulso. Foque na precisão e limpeza das notas antes de aumentar a velocidade.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 5: Pestanas Parciais em Progressão</div>
+                    <div class="exercise-level">Avançado</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Treina o uso de pestanas parciais em diferentes posições do braço, fortalecendo os músculos necessários para esta técnica.</p>
+                    <div class="exercise-notation">
+e|--1---------------|--3---------------|
+B|--1---------------|--3---------------|
+G|--1---------------|--3---------------|
+D|--3---------------|--5---------------|
+A|--3---------------|--5---------------|
+E|--1---------------|--3---------------|
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> Posicione o dedo indicador firme, mas sem tensão excessiva. O segredo da pestana limpa está mais na posição do dedo do que na força aplicada. Pratique cada posição até que todas as notas soem com clareza.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 6: Padrão Rítmico Sincopado</div>
+                    <div class="exercise-level">Intermediário</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Este exercício desenvolve a capacidade de manter ritmos sincopados, comuns em gêneros como bossa nova e samba.</p>
+                    <div class="exercise-notation">
+     Am              Em              
+e|--0-------0-------|--0-------0-------|
+B|----1-------1-----|----0-------0-----|
+G|------2-------2---|------0-------0---|
+D|--------2---------|--------2---------|
+A|--0---------------|--0---------------|
+E|------------------|-----------------| 
+     B↓   P↑  I↓     B↓   P↑  I↓
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> B = batida para baixo, P = polegar, I = indicador. Mantenha um tempo constante, dando ênfase aos contratempos. Pratique lentamente até internalizar o padrão rítmico.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 7: Técnica de Bend e Release</div>
+                    <div class="exercise-level">Avançado</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Aperfeiçoa a técnica de dobra (bend) e retorno (release), essencial para expressividade em solos de blues, rock e outros estilos.</p>
+                    <div class="exercise-notation">
+e|------------------------------|
+B|------------------------------|
+G|--7--7b9--9r7--7--7b9r7--5---|
+D|------------------------------|
+A|------------------------------|
+E|------------------------------|
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> Use múltiplos dedos para dar suporte ao bend quando necessário. A afinação do bend é crucial - certifique-se que chegue exatamente à nota desejada (meio tom ou tom inteiro). Pratique bend-e-hold para desenvolver força e controle.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 8: Escalas Cromáticas com Alternância de Dedos</div>
+                    <div class="exercise-level">Avançado</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Desenvolve velocidade e precisão usando escalas cromáticas com dedos alternados da mão esquerda.</p>
+                    <div class="exercise-notation">
+e|--1--2--3--4--5--6--7--8--9--10--11--12--|
+B|------------------------------------------|
+G|------------------------------------------|
+D|------------------------------------------|
+A|------------------------------------------|
+E|------------------------------------------|
+     1  2  3  4  1  2  3  4  1   2   3   4
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> Mantenha os dedos próximos ao braço para movimentos mais eficientes. Pratique com metrônomo, começando lentamente e aumentando gradualmente a velocidade. O objetivo é manter a precisão em velocidades mais altas.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 9: Técnica de Slap Acústico</div>
+                    <div class="exercise-level">Avançado</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Introduz a técnica de percussão no violão, combinando notas tocadas com batidas no tampo e nas cordas.</p>
+                    <div class="exercise-notation">
+     Am (x = percussão no tampo, o = nota normal)
+e|--o--------------o--------------|
+B|------o-----------o-------------|
+G|--------o-----------o-----------|
+D|------------------o-------------|
+A|--o-------------o---------------|
+E|--------------------------------|
+     o  x  o  x  o  o  x  o  x  o
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> Desenvolva cada elemento do slap separadamente: batidas no tampo, golpes nas cordas e notas normais. A chave é o timing - mantenha um ritmo constante enquanto alterna entre técnicas.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-title">Exercício 10: Acordes com Extensões</div>
+                    <div class="exercise-level">Avançado</div>
+                </div>
+                <div class="exercise-content">
+                    <p>Pratica acordes complexos com extensões (7ª, 9ª), desenvolve elasticidade e força nos dedos.</p>
+                    <div class="exercise-notation">
+     Cmaj7       Dmaj9       Am7      Em9
+e|--0----------2---------0---------0-------|
+B|--0----------3---------1---------0-------|
+G|--0----------2---------0---------0-------|
+D|--2----------0---------2---------2-------|
+A|--3----------0---------0---------2-------|
+E|--0----------2---------0---------0-------|
+    </div>
+                    <div class="exercise-tips">
+                        <strong>Dica do professor:</strong> Pratique a troca entre esses acordes, procurando a posição mais eficiente para cada mudança. Tente identificar dedos "guia" que podem servir de âncora durante as transições.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção 3: Campo Harmônico -->
+        <section id="harmonic-field">
+            <h2><i class="fas fa-music section-icon"></i>Tabela de Campo Harmônico Prática + Guia de Aplicação</h2>
+            
+            <p>O campo harmônico é uma ferramenta fundamental para entender a relação entre acordes e suas funções em uma tonalidade. Além de memorizar a teoria, é essencial saber aplicá-la de forma prática em situações musicais reais.</p>
+            
+            <h3>Campo Harmônico Maior</h3>
+            
+            <table class="harmonics-table">
+                <thead>
+                    <tr>
+                        <th>Grau</th>
+                        <th>Função</th>
+                        <th>Tom de C</th>
+                        <th>Tom de G</th>
+                        <th>Tom de D</th>
+                        <th>Tom de A</th>
+                        <th>Tom de E</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>I</td>
+                        <td>Tônica</td>
+                        <td>C (Maior)</td>
+                        <td>G (Maior)</td>
+                        <td>D (Maior)</td>
+                        <td>A (Maior)</td>
+                        <td>E (Maior)</td>
+                    </tr>
+                    <tr>
+                        <td>ii</td>
+                        <td>Subdominante</td>
+                        <td>Dm (menor)</td>
+                        <td>Am (menor)</td>
+                        <td>Em (menor)</td>
+                        <td>Bm (menor)</td>
+                        <td>F#m (menor)</td>
+                    </tr>
+                    <tr>
+                        <td>iii</td>
+                        <td>Tônica/Dominante</td>
+                        <td>Em (menor)</td>
+                        <td>Bm (menor)</td>
+                        <td>F#m (menor)</td>
+                        <td>C#m (menor)</td>
+                        <td>G#m (menor)</td>
+                    </tr>
+                    <tr>
+                        <td>IV</td>
+                        <td>Subdominante</td>
+                        <td>F (Maior)</td>
+                        <td>C (Maior)</td>
+                        <td>G (Maior)</td>
+                        <td>D (Maior)</td>
+                        <td>A (Maior)</td>
+                    </tr>
+                    <tr>
+                        <td>V</td>
+                        <td>Dominante</td>
+                        <td>G (Maior)</td>
+                        <td>D (Maior)</td>
+                        <td>A (Maior)</td>
+                        <td>E (Maior)</td>
+                        <td>B (Maior)</td>
+                    </tr>
+                    <tr>
+                        <td>vi</td>
+                        <td>Tônica/Subdominante</td>
+                        <td>Am (menor)</td>
+                        <td>Em (menor)</td>
+                        <td>Bm (menor)</td>
+                        <td>F#m (menor)</td>
+                        <td>C#m (menor)</td>
+                    </tr>
+                    <tr>
+                        <td>vii°</td>
+                        <td>Dominante</td>
+                        <td>B° (dim)</td>
+                        <td>F#° (dim)</td>
+                        <td>C#° (dim)</td>
+                        <td>G#° (dim)</td>
+                        <td>D#° (dim)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Campo Harmônico Menor Natural</h3>
+            
+            <table class="harmonics-table">
+                <thead>
+                    <tr>
+                        <th>Grau</th>
+                        <th>Função</th>
+                        <th>Tom de Am</th>
+                        <th>Tom de Em</th>
+                        <th>Tom de Bm</th>
+                        <th>Tom de F#m</th>
+                        <th>Tom de Cm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>i</td>
+                        <td>Tônica</td>
+                        <td>Am (menor)</td>
+                        <td>Em (menor)</td>
+                        <td>Bm (menor)</td>
+                        <td>F#m (menor)</td>
+                        <td>Cm (menor)</td>
+                    </tr>
+                    <tr>
+                        <td>ii°</td>
+                        <td>Subdominante</td>
+                        <td>B° (dim)</td>
+                        <td>F#° (dim)</td>
+                        <td>C#° (dim)</td>
+                        <td>G#° (dim)</td>
+                        <td>D° (dim)</td>
+                    </tr>
+                    <tr>
+                        <td>III</td>
+                        <td>Tônica</td>
+                        <td>C (Maior)</td>
+                        <td>G (Maior)</td>
+                        <td>D (Maior)</td>
+                        <td>A (Maior)</td>
+                        <td>Eb (Maior)</td>
+                    </tr>
+                    <tr>
+                        <td>iv</td>
+                        <td>Subdominante</td>
+                        <td>Dm (menor)</td>
+                        <td>Am (menor)</td>
+                        <td>Em (menor)</td>
+                        <td>Bm (menor)</td>
+                        <td>Fm (menor)</td>
+                    </tr>
+                    <tr>
+                        <td>v</td>
+                        <td>Dominante/Subdominante</td>
+                        <td>Em (menor)</td>
+                        <td>Bm (menor)</td>
+                        <td>F#m (menor)</td>
+                        <td>C#m (menor)</td>
+                        <td>Gm (menor)</td>
+                    </tr>
+                    <tr>
+                        <td>VI</td>
+                        <td>Subdominante/Tônica</td>
+                        <td>F (Maior)</td>
+                        <td>C (Maior)</td>
+                        <td>G (Maior)</td>
+                        <td>D (Maior)</td>
+                        <td>Ab (Maior)</td>
+                    </tr>
+                    <tr>
+                        <td>VII</td>
+                        <td>Dominante/Subtônica</td>
+                        <td>G (Maior)</td>
+                        <td>D (Maior)</td>
+                        <td>A (Maior)</td>
+                        <td>E (Maior)</td>
+                        <td>Bb (Maior)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Entendendo as Funções dos Acordes</h3>
+            
+            <div class="chord-degrees">
+                <div class="chord-degree-item">
+                    <div class="chord-degree-title">Acordes Tônicos (I, iii, vi em maior / i, III em menor)</div>
+                    <p>São os acordes que dão a sensação de repouso e estabilidade. A música geralmente começa e termina nestes acordes, especialmente no I grau (tônica).</p>
+                </div>
+                
+                <div class="chord-degree-item">
+                    <div class="chord-degree-title">Acordes Subdominantes (ii, IV em maior / iv, VI em menor)</div>
+                    <p>Geram tensão moderada e um movimento para longe da tônica. Servem como preparação para os acordes dominantes.</p>
+                </div>
+                
+                <div class="chord-degree-item">
+                    <div class="chord-degree-title">Acordes Dominantes (V, vii° em maior / V7 em menor)</div>
+                    <p>Criam tensão máxima e uma forte expectativa de resolução para a tônica. O acorde de V grau é particularmente importante nesse papel.</p>
+                </div>
+            </div>
+            
+            <h3>Aplicações Práticas do Campo Harmônico</h3>
+            
+            <div class="chord-application">
+                <div class="application-title">1. Progressões Comuns em Música Popular</div>
+                <p><strong>Progressão I - IV - V:</strong> A progressão mais básica e utilizada (Ex: C - F - G em Dó maior)</p>
+                <p><strong>Progressão I - vi - IV - V:</strong> Base de muitas canções pop (Ex: C - Am - F - G)</p>
+                <p><strong>Progressão ii - V - I:</strong> Extremamente comum no jazz (Ex: Dm7 - G7 - CMaj7)</p>
+                <p><strong>Progressão i - VI - VII:</strong> Frequente em rock e baladas menores (Ex: Am - F - G)</p>
+            </div>
+            
+            <div class="chord-application">
+                <div class="application-title">2. Substituições Harmônicas</div>
+                <p>Você pode substituir acordes de mesma função harmônica para criar variações:</p>
+                <p><strong>Substituição de Tônica:</strong> I ↔ iii ↔ vi (Ex: C ↔ Em ↔ Am)</p>
+                <p><strong>Substituição de Subdominante:</strong> ii ↔ IV (Ex: Dm ↔ F)</p>
+                <p><strong>Substituição de Dominante:</strong> V ↔ vii° (Ex: G ↔ Bdim)</p>
+            </div>
+            
+            <div class="chord-application">
+                <div class="application-title">3. Criando Variações com Extensões</div>
+                <p>Enriqueça seus acordes adicionando extensões (7ª, 9ª, 11ª):</p>
+                <p><strong>Tônica com 7ª maior:</strong> CMaj7 (Em vez de C)</p>
+                <p><strong>Subdominante com 7ª:</strong> Fmaj7 ou Dm7 (Em vez de F ou Dm)</p>
+                <p><strong>Dominante com 7ª:</strong> G7 (Em vez de G) - Aumenta a tensão e desejo de resolução</p>
+                <p><strong>Dominante com 9ª:</strong> G9 - Adiciona cor ao acorde dominante</p>
+            </div>
+            
+            <div class="chord-application">
+                <div class="application-title">4. Exercício Prático: Harmonização de Melodia</div>
+                <p>Para praticar o uso do campo harmônico, tente harmonizar uma melodia simples seguindo estes passos:</p>
+                <p>1. Identifique a tonalidade da melodia (observe quais notas são mais frequentes ou onde ela termina)</p>
+                <p>2. Identifique os pontos de repouso (onde usar acordes tônicos)</p>
+                <p>3. Identifique os pontos de tensão (onde usar dominantes e subdominantes)</p>
+                <p>4. Experimente diferentes sequências de acordes do campo harmônico que sustentem as notas da melodia</p>
+            </div>
+            
+            <div class="chord-application">
+                <div class="application-title">5. Dica para Composição</div>
+                <p>Para criar composições interessantes, experimente estas ideias:</p>
+                <p>• Inicie com uma progressão básica (I - IV - V) e substitua gradualmente alguns acordes por outros do mesmo grupo funcional</p>
+                <p>• Adicione acordes de empréstimo modal (acordes que pertencem ao campo harmônico de outra tonalidade)</p>
+                <p>• Experimente modulações temporárias para outras tonalidades relacionadas</p>
+                <p>• Use inversões de acordes para criar linhas de baixo mais fluidas e interessantes</p>
+            </div>
+        </section>
+        
+        <div class="notes-section">
+            <h3>✏️ Minhas anotações:</h3>
+            <div class="notes-lines">
+                <!-- Espaço para anotações do usuário -->
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+        <p class="signature">Com carinho, equipe do Kit Violão Profissional</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar data atual nos campos de data
+            const today = new Date().toISOString().split('T')[0];
+            const currentDateInputs = document.querySelectorAll('input[type="date"]');
+            currentDateInputs.forEach(input => {
+                input.value = today;
+            });
+            
+            // Tornar barras de progresso editáveis
+            const progressBars = document.querySelectorAll('.progress-bar-container.progressBar-editable');
+            progressBars.forEach(container => {
+                container.addEventListener('click', function(e) {
+                    const bar = this.querySelector('.progress-bar');
+                    const containerWidth = this.offsetWidth;
+                    const clickPosition = e.offsetX;
+                    const percentage = Math.round((clickPosition / containerWidth) * 100);
+                    
+                    bar.style.width = percentage + '%';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

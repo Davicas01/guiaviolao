@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-curso "Destravando os Dedos" - Kit Violão Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --primary-dark: #6B3610;
+            --accent-color: #D2691E;
+            --bg-light: #FDF5E6;
+            --text-dark: #3E2723;
+            --text-light: #795548;
+            --border-radius: 8px;
+            --card-shadow: 0 4px 16px rgba(139, 69, 19, 0.15);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+        
+        .back-button {
+            display: flex; /* Use flexbox for centering */
+            align-items: center; /* Center icon vertically */
+            justify-content: center; /* Center icon horizontally */
+            width: 50px; /* Set fixed width */
+            height: 50px; /* Set fixed height */
+            background-color: var(--primary-color); /* Brown background */
+            color: white;
+            text-decoration: none;
+            border-radius: 50%; /* Make it a circle */
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: fixed; /* Fixed position relative to viewport */
+            bottom: 20px; /* Position from bottom */
+            right: 20px; /* Position from right */
+            z-index: 100; /* Ensure it's above other content */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow like image */
+        }
+        
+        .back-button:hover {
+            background-color: var(--primary-dark); /* Darker brown on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 0 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M95,45 L100,50 L95,55" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="2"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .intro-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: -3rem;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .intro-card h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #f1f1f1;
+            padding-bottom: 0.5rem;
+        }
+        
+        .intro-card p {
+            margin-bottom: 1rem;
+        }
+        
+        .highlight {
+            background-color: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .highlight strong {
+            color: var(--accent-color);
+        }
+        
+        .course-content {
+            padding: 3rem 0;
+        }
+        
+        .module-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        
+        .module-card.locked {
+            opacity: 0.6;
+            pointer-events: none; /* Disable clicks on locked modules */
+        }
+
+        .module-card.locked .view-module-btn {
+            background-color: #aaa; /* Grey button for locked modules */
+            cursor: not-allowed;
+        }
+
+        .module-card.completed .module-header {
+             background: linear-gradient(135deg, var(--accent-color) 0%, #a55417 100%); /* Change header for completed */
+        }
+
+        .module-card.completed .view-module-btn {
+            background-color: var(--accent-color); /* Change button color for completed */
+            cursor: default; /* Change cursor for completed button */
+        }
+        
+        .module-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .module-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .module-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+        
+        .module-content {
+            padding: 1.5rem;
+        }
+        
+        .exercise-list {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .exercise-item {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .exercise-item:last-child {
+            border-bottom: none;
+        }
+        
+        .exercise-item:hover {
+            background-color: rgba(32, 191, 107, 0.05);
+        }
+        
+        .exercise-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .exercise-details {
+            flex-grow: 1;
+        }
+        
+        .exercise-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-dark);
+        }
+        
+        .exercise-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .exercise-meta {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .duration {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+        
+        .duration i, .difficulty i {
+            margin-right: 0.3rem;
+        }
+        
+        .difficulty-easy {
+            color: #27ae60;
+        }
+        
+        .difficulty-medium {
+            color: #f39c12;
+        }
+        
+        .difficulty-hard {
+            color: #e74c3c;
+        }
+        
+        .module-footer {
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-top: 1px solid #f1f1f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .module-progress {
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-bar {
+            width: 100px;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .view-module-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        .view-module-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .view-module-btn i {
+            margin-left: 0.5rem;
+        }
+        
+        .exercise-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(30px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .exercise-modal.show .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            background-color: var(--primary-color);
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        
+        .exercise-illustration {
+            margin: 0 auto 1.5rem;
+            max-width: 300px;
+        }
+        
+        .hand-diagram {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2));
+        }
+        
+        .exercise-description-detailed {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #FDF5E6;
+            border-left: 4px solid #8B4513;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .gif-container {
+            background-color: #FFF8EB;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: inset 0 0 5px rgba(139, 69, 19, 0.1);
+        }
+        
+        .instruction-steps {
+            margin-bottom: 1.5rem;
+        }
+        
+        .instruction-steps h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .step-list {
+            list-style-type: none;
+        }
+        
+        .step-item {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .tips-section {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+        
+        .tips-section h4 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            color: var(--accent-color);
+        }
+        
+        .tips-section h4 i {
+            margin-right: 0.5rem;
+        }
+        
+        .tips-list {
+            list-style-type: none;
+        }
+        
+        .tip-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px dashed #e9ecef;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .tip-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .tip-icon {
+            color: var(--accent-color);
+            margin-right: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 0.3rem;
+        }
+        
+        .progress-tracker {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 3rem;
+        }
+        
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tracker-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .overall-progress {
+            display: flex;
+            align-items: center;
+        }
+        
+        .overall-progress .progress-bar {
+            width: 150px;
+            height: 10px;
+        }
+        
+        .progress-percentage {
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        
+        .tracker-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .tracker-module {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .module-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        
+        .module-name {
+            font-weight: 600;
+        }
+        
+        .module-status {
+            font-size: 0.85rem;
+        }
+        
+        .status-incomplete {
+            color: #e74c3c;
+        }
+        
+        .status-in-progress {
+            color: #f39c12;
+        }
+        
+        .status-complete {
+            color: #A0522D;
+        }
+        
+        .module-bar {
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .module-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+        }
+        
+        .certificate-section {
+            background: linear-gradient(135deg, #8B4513 0%, #6B3610 100%);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            color: white;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .certificate-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50,20 L80,50 L50,80 L20,50 Z" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="2"/></svg>');
+            opacity: 0.2;
+        }
+        
+        .certificate-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .certificate-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .certificate-description {
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .certificate-btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .certificate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .certificate-btn.disabled {
+            background-color: rgba(255,255,255,0.5);
+            cursor: not-allowed;
+            color: rgba(11, 158, 89, 0.7);
+        }
+        
+        .certificate-btn.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        footer {
+            background-color: #3E2723;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-content p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .next-prev-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .module-header {
+                padding: 1.2rem;
+            }
+            
+            .module-title {
+                font-size: 1.2rem;
+            }
+            
+            .module-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .exercise-icon {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .certificate-title {
+                font-size: 1.5rem;
+            }
+            
+            .tracker-modules {
+                grid-template-columns: 1fr;
+            }
+            
+            .next-prev-nav {
+                flex-direction: column;
+            }
+
+            .module-footer {
+                flex-direction: column;
+                align-items: flex-start; /* Align items to the start */
+                gap: 1rem; /* Add some space between stacked items */
+            }
+
+            .view-module-btn {
+                align-self: flex-end; /* Move button to the right */
+            }
+
+            .tracker-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+
+            .overall-progress {
+                width: 100%; /* Make progress take full width */
+            }
+
+            .overall-progress .progress-bar {
+                width: 100%; /* Make bar take full width */
+                flex-grow: 1; /* Allow bar to grow */
+                margin-right: 0.5rem;
+            }
+
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .modal-close {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../../index.html" class="back-button"><i class="fas fa-home"></i></a>
+        <div class="container header-content">
+            <h1>🎯 Mini-curso "Destravando os Dedos"</h1>
+            <p class="subtitle">Desenvolva coordenação e independência dos dedos com exercícios práticos e animações explicativas</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>Bem-vindo ao mini-curso "Destravando os Dedos"</h2>
+            <p>Este mini-curso foi desenvolvido especialmente para ajudar violonistas iniciantes a superarem um dos maiores desafios: a falta de agilidade e independência dos dedos. Com exercícios específicos, animações detalhadas e instruções claras, você desenvolverá a coordenação necessária para tocar com mais fluidez e precisão.</p>
+            
+            <div class="highlight">
+                <strong>Por que este mini-curso é diferente?</strong>
+                <p>Cada exercício foi cuidadosamente criado para trabalhar problemas específicos de coordenação, com GIFs animados que mostram exatamente como executar os movimentos. Você não precisa adivinhar se está fazendo corretamente!</p>
+            </div>
+        </div>
+
+        <div class="course-content">
+            <div class="module-card" id="module-1">
+                <div class="module-header">
+                    <div class="module-number">1</div>
+                    <h3 class="module-title">Fundamentos da Independência Digital</h3>
+                    <p class="module-subtitle">Exercícios básicos para despertar seus dedos</p>
+                </div>
+                <div class="module-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item" onclick="openExerciseModal('Aquecimento para Dedos', 'Prepare suas mãos antes de começar a praticar', 'aquecimento')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-hand-sparkles"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Aquecimento para Dedos</h4>
+                                <p class="exercise-description">Prepare suas mãos antes de começar a praticar</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>5 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-easy">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Fácil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="exercise-item" onclick="openExerciseModal('Exercício do Spider', 'Movimentos independentes como uma aranha', 'spider')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-spider"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Exercício do Spider</h4>
+                                <p class="exercise-description">Movimentos independentes como uma aranha</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>7 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-easy">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Fácil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="exercise-item" onclick="openExerciseModal('Hammer-on e Pull-off Básico', 'Aprenda a técnica essencial para agilidade', 'hammerpull')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-hammer"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Hammer-on e Pull-off Básico</h4>
+                                <p class="exercise-description">Aprenda a técnica essencial para agilidade</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>8 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-medium">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Médio</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="module-footer">
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0% Concluído</div>
+                    </div>
+                    <button class="view-module-btn" data-module-id="1">
+                        Iniciar <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="module-card" id="module-2">
+                <div class="module-header">
+                    <div class="module-number">2</div>
+                    <h3 class="module-title">Exercícios para Força e Resistência</h3>
+                    <p class="module-subtitle">Desenvolva músculos e resistência nos dedos</p>
+                </div>
+                <div class="module-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item" onclick="openExerciseModal('Treinamento de Sustentação', 'Aprenda a sustentar acordes sem fadiga', 'sustentacao')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Treinamento de Sustentação</h4>
+                                <p class="exercise-description">Aprenda a sustentar acordes sem fadiga</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>6 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-medium">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Médio</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="exercise-item" onclick="openExerciseModal('Exercício de Extensão', 'Aumentando a amplitude entre os dedos', 'extensao')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-arrows-alt-h"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Exercício de Extensão</h4>
+                                <p class="exercise-description">Aumentando a amplitude entre os dedos</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>5 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-medium">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Médio</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="exercise-item" onclick="openExerciseModal('Treinamento de Dedos Fracos', 'Fortalecimento específico do anelar e mindinho', 'dedosfracos')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-hand-rock"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Treinamento de Dedos Fracos</h4>
+                                <p class="exercise-description">Fortalecimento específico do anelar e mindinho</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>10 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-hard">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Difícil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="module-footer">
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                         <div class="progress-text">0% Concluído</div>
+                    </div>
+                    <button class="view-module-btn" data-module-id="2">
+                        Iniciar <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="module-card" id="module-3">
+                <div class="module-header">
+                    <div class="module-number">3</div>
+                    <h3 class="module-title">Coordenação e Velocidade</h3>
+                    <p class="module-subtitle">Técnicas para aumentar velocidade sem tensão</p>
+                </div>
+                <div class="module-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item" onclick="openExerciseModal('Treino Cronometrado', 'Exercícios progressivos com metrônomo', 'cronometrado')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-stopwatch"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Treino Cronometrado</h4>
+                                <p class="exercise-description">Exercícios progressivos com metrônomo</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>12 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-medium">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Médio</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="exercise-item" onclick="openExerciseModal('Exercício das Escalas Cruzadas', 'Sincronização entre as duas mãos', 'escalascruzadas')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-random"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Exercício das Escalas Cruzadas</h4>
+                                <p class="exercise-description">Sincronização entre as duas mãos</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>8 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-hard">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Difícil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="exercise-item" onclick="openExerciseModal('Padrões Rítmicos para Dedilhado', 'Desenvolva precisão rítmica nos dedos', 'ritmos')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-drum"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Padrões Rítmicos para Dedilhado</h4>
+                                <p class="exercise-description">Desenvolva precisão rítmica nos dedos</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>10 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-hard">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Difícil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="module-footer">
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                         <div class="progress-text">0% Concluído</div>
+                    </div>
+                    <button class="view-module-btn" data-module-id="3">
+                        Iniciar <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="module-card" id="module-4">
+                <div class="module-header">
+                    <div class="module-number">4</div>
+                    <h3 class="module-title">Aplicação Prática</h3>
+                    <p class="module-subtitle">Colocando tudo em prática em músicas reais</p>
+                </div>
+                <div class="module-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item" onclick="openExerciseModal('Trechos Musicais para Iniciantes', 'Pratique com músicas fáceis e efetivas', 'trechosbasicos')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Trechos Musicais para Iniciantes</h4>
+                                <p class="exercise-description">Pratique com músicas fáceis e efetivas</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>15 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-easy">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Fácil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="exercise-item" onclick="openExerciseModal('Desafio de Transição de Acordes', 'Fluidez nas mudanças entre acordes', 'transicao')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Desafio de Transição de Acordes</h4>
+                                <p class="exercise-description">Fluidez nas mudanças entre acordes</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>12 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-medium">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Médio</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="exercise-item" onclick="openExerciseModal('Rotina de Prática Diária', 'Consolide seu aprendizado em apenas 15 minutos por dia', 'rotina')">
+                            <div class="exercise-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="exercise-details">
+                                <h4 class="exercise-title">Rotina de Prática Diária</h4>
+                                <p class="exercise-description">Consolide seu aprendizado em apenas 15 minutos por dia</p>
+                                <div class="exercise-meta">
+                                    <div class="duration">
+                                        <i class="far fa-clock"></i>
+                                        <span>15 min</span>
+                                    </div>
+                                    <div class="difficulty difficulty-medium">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Médio</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="module-footer">
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                         <div class="progress-text">0% Concluído</div>
+                    </div>
+                    <button class="view-module-btn" data-module-id="4">
+                        Iniciar <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-tracker">
+            <div class="tracker-header">
+                <h3 class="tracker-title">Seu progresso no mini-curso</h3>
+                <div class="overall-progress">
+                    <div class="progress-bar" id="overall-progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-percentage" id="overall-progress-percentage">0% Concluído</span>
+                </div>
+            </div>
+            <div class="tracker-modules">
+                <div class="tracker-module" id="tracker-module-1">
+                    <div class="module-info">
+                        <div class="module-name">Módulo 1</div>
+                        <div class="module-status status-incomplete">Não iniciado</div>
+                    </div>
+                    <div class="module-bar">
+                        <div class="module-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="tracker-module" id="tracker-module-2">
+                    <div class="module-info">
+                        <div class="module-name">Módulo 2</div>
+                        <div class="module-status status-incomplete">Não iniciado</div>
+                    </div>
+                    <div class="module-bar">
+                        <div class="module-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="tracker-module" id="tracker-module-3">
+                    <div class="module-info">
+                        <div class="module-name">Módulo 3</div>
+                        <div class="module-status status-incomplete">Não iniciado</div>
+                    </div>
+                    <div class="module-bar">
+                        <div class="module-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="tracker-module" id="tracker-module-4">
+                    <div class="module-info">
+                        <div class="module-name">Módulo 4</div>
+                        <div class="module-status status-incomplete">Não iniciado</div>
+                    </div>
+                    <div class="module-bar">
+                        <div class="module-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Domine o Violão - Todos os direitos reservados.</p>
+                <p>Pratique regularmente os exercícios para obter melhores resultados. Este mini-curso é parte do programa Domine o Violão.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Exercise Modal -->
+    <div class="exercise-modal" id="exerciseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Título do Exercício</h3>
+                <p class="modal-subtitle">Descrição do exercício</p>
+                <button class="modal-close" onclick="closeExerciseModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="gif-container">
+                    <div class="exercise-illustration">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" class="hand-diagram" id="exerciseIllustration">
+                            <!-- Representação SVG da mão e dedos -->
+                            <rect x="50" y="80" width="200" height="10" fill="#8B4513" /> <!-- Braço do violão -->
+                            <line x1="50" y1="90" x2="250" y2="90" stroke="#795548" stroke-width="1" />
+                            <line x1="50" y1="100" x2="250" y2="100" stroke="#795548" stroke-width="1" />
+                            <line x1="50" y1="110" x2="250" y2="110" stroke="#795548" stroke-width="1" />
+                            <line x1="50" y1="120" x2="250" y2="120" stroke="#795548" stroke-width="1" />
+                            <line x1="50" y1="130" x2="250" y2="130" stroke="#795548" stroke-width="1" />
+                            <line x1="50" y1="140" x2="250" y2="140" stroke="#795548" stroke-width="1" />
+                            <!-- Linhas verticais para trastes -->
+                            <line x1="50" y1="80" x2="50" y2="150" stroke="#3E2723" stroke-width="2" />
+                            <line x1="100" y1="80" x2="100" y2="150" stroke="#3E2723" stroke-width="2" />
+                            <line x1="150" y1="80" x2="150" y2="150" stroke="#3E2723" stroke-width="2" />
+                            <line x1="200" y1="80" x2="200" y2="150" stroke="#3E2723" stroke-width="2" />
+                            <line x1="250" y1="80" x2="250" y2="150" stroke="#3E2723" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <div class="exercise-description-detailed"></div>
+                </div>
+                
+                <div class="instruction-steps">
+                    <h4>Como executar este exercício:</h4>
+                    <ul class="step-list">
+                        <li class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Posicione sua mão conforme mostrado na ilustração.</div>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Execute os movimentos lentamente, prestando atenção na precisão.</div>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Aumente gradualmente a velocidade conforme se sentir confortável.</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="tips-section">
+                    <h4><i class="fas fa-lightbulb"></i> Dicas para melhor resultado</h4>
+                    <ul class="tips-list">
+                        <li class="tip-item">
+                            <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
+                            <div>Mantenha o pulso relaxado durante todo o exercício.</div>
+                        </li>
+                        <li class="tip-item">
+                            <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
+                            <div>Não pressione as cordas com muita força - use apenas a pressão necessária.</div>
+                        </li>
+                        <li class="tip-item">
+                            <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
+                            <div>Se sentir tensão ou dor, pare imediatamente e descanse.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados dos exercícios com ilustrações específicas
+        const exerciseData = {
+            "aquecimento": {
+                "title": "Aquecimento para Dedos",
+                "description": "Prepare suas mãos antes de começar a praticar",
+                "svgConfig": {
+                    "dedos": [
+                        {"x": 80, "y": 40, "ativo": true},
+                        {"x": 120, "y": 40, "ativo": true},
+                        {"x": 160, "y": 40, "ativo": true},
+                        {"x": 200, "y": 40, "ativo": true}
+                    ],
+                    "movimento": "circular"
+                },
+                "detailedDescription": "Este exercício de aquecimento prepara suas mãos para a prática, prevenindo lesões e aumentando a circulação sanguínea nos dedos.",
+                "steps": [
+                    "Esfregue as mãos por 30 segundos para aquecer",
+                    "Estique cada dedo individualmente por 5 segundos",
+                    "Faça movimentos circulares com os pulsos em ambas direções"
+                ],
+                "tips": [
+                    "Nunca force além do ponto confortável",
+                    "Realize este aquecimento antes de qualquer prática",
+                    "Respiração calma e profunda ajuda no relaxamento"
+                ]
+            },
+            "spider": {
+                "title": "Exercício do Spider",
+                "description": "Movimentos independentes como uma aranha",
+                "svgConfig": {
+                    "dedos": [
+                        {"x": 80, "y": 90, "ativo": true, "casa": 1, "corda": 1},
+                        {"x": 120, "y": 100, "ativo": true, "casa": 2, "corda": 2},
+                        {"x": 160, "y": 110, "ativo": true, "casa": 3, "corda": 3},
+                        {"x": 200, "y": 120, "ativo": true, "casa": 4, "corda": 4}
+                    ],
+                    "movimento": "individual"
+                },
+                "detailedDescription": "O exercício 'Spider' trabalha a independência dos dedos simulando o movimento de uma aranha, com cada dedo movendo-se independentemente.",
+                "steps": [
+                    "Posicione os dedos nas casas 1, 2, 3 e 4 da 6ª corda",
+                    "Pressione e solte um dedo por vez, mantendo os outros firmes",
+                    "Repita o padrão em todas as cordas, subindo e descendo"
+                ],
+                "tips": [
+                    "Foque na independência de cada dedo",
+                    "Mantenha o movimento preciso mesmo que lento inicialmente",
+                    "Tente não levantar excessivamente os dedos da escala"
+                ]
+            },
+            "hammerpull": {
+                "title": "Hammer-on e Pull-off Básico",
+                "description": "Aprenda a técnica essencial para agilidade",
+                "svgConfig": {
+                    "dedos": [
+                        {"x": 80, "y": 100, "ativo": true, "casa": 1, "corda": 2},
+                        {"x": 120, "y": 100, "ativo": true, "casa": 2, "corda": 2}
+                    ],
+                    "movimento": "hammerpull",
+                    "linhaMovimento": {"x1": 80, "y1": 100, "x2": 120, "y2": 100}
+                },
+                "detailedDescription": "Hammer-on e Pull-off são técnicas fundamentais que permitem tocar notas sem usar a mão direita novamente, criando fluidez e velocidade.",
+                "steps": [
+                    "Toque a nota com um dedo e 'martele' o próximo dedo na casa seguinte sem tocar novamente a corda",
+                    "Para o pull-off, remova o segundo dedo com uma pequena puxada na corda",
+                    "Pratique a sequência 1-2, 1-3, 1-4, usando diferentes pares de dedos"
+                ],
+                "tips": [
+                    "O hammer-on deve ser firme mas não exagerado",
+                    "O pull-off precisa ter um pequeno 'belisco' para soar claramente",
+                    "Pratique lentamente até conseguir sons claros e consistentes"
+                ]
+            },
+            "sustentacao": {
+                "title": "Treinamento de Sustentação",
+                "description": "Aprenda a sustentar acordes sem fadiga",
+                "svgConfig": {
+                    "dedos": [
+                        {"x": 80, "y": 110, "ativo": true, "casa": 1, "corda": 3},
+                        {"x": 120, "y": 100, "ativo": true, "casa": 2, "corda": 2},
+                        {"x": 160, "y": 90, "ativo": true, "casa": 3, "corda": 1}
+                    ],
+                    "movimento": "sustentacao",
+                    "acorde": "Am"
+                },
+                "detailedDescription": "Desenvolva resistência para sustentar acordes por longos períodos sem fadiga ou tensão excessiva, essencial para tocar músicas completas.",
+                "steps": [
+                    "Forme um acorde básico como Lá menor",
+                    "Sustente o acorde por 30 segundos, relaxe por 15 segundos",
+                    "Repita o ciclo 4 vezes, aumentando o tempo gradualmente"
+                ],
+                "tips": [
+                    "Mantenha apenas a pressão necessária, não force",
+                    "Procure tensão desnecessária nos ombros ou pulsos e relaxe",
+                    "Respire normalmente durante a sustentação"
+                ]
+            },
+            "extensao": {
+                "title": "Exercício de Extensão",
+                "description": "Aumentando a amplitude entre os dedos",
+                "svgConfig": {
+                    "dedos": [
+                        {"x": 80, "y": 90, "ativo": true, "casa": 1, "corda": 1},
+                        {"x": 200, "y": 90, "ativo": true, "casa": 4, "corda": 1}
+                    ],
+                    "movimento": "extensao",
+                    "linhaMovimento": {"x1": 200, "y1": 90, "x2": 250, "y2": 90}
+                },
+                "detailedDescription": "Este exercício aumenta a flexibilidade entre os dedos, permitindo alcançar acordes com extensões maiores e posições mais complexas.",
+                "steps": [
+                    "Posicione o dedo 1 na 1ª casa e o dedo 4 na 4ª casa",
+                    "Mova o dedo 4 para a 5ª casa, depois 6ª, voltando à posição inicial",
+                    "Repita em diferentes cordas"
+                ],
+                "tips": [
+                    "Nunca estique a ponto de sentir dor",
+                    "Mantenha o polegar em posição relaxada atrás do braço",
+                    "É normal sentir um leve desconforto, mas nunca dor aguda"
+                ]
+            },
+            "dedosfracos": {
+                "title": "Treinamento de Dedos Fracos",
+                "description": "Fortalecimento específico do anelar e mindinho",
+                "svgConfig": {
+                    "dedos": [
+                        {"x": 80, "y": 90, "ativo": false, "casa": 1, "corda": 1},
+                        {"x": 120, "y": 90, "ativo": false, "casa": 2, "corda": 1},
+                        {"x": 160, "y": 90, "ativo": true, "casa": 3, "corda": 1},
+                        {"x": 200, "y": 90, "ativo": true, "casa": 4, "corda": 1}
+                    ],
+                    "movimento": "dedosfracos"
+                },
+                "detailedDescription": "Exercício focado em fortalecer os dedos anelar e mindinho, que naturalmente são mais fracos e menos independentes.",
+                "steps": [
+                    "Posicione os dedos 3 e 4 (anelar e mindinho) nas cordas",
+                    "Pratique movimentos isolados apenas desses dois dedos",
+                    "Tente alternar entre eles sem mover os outros dedos"
+                ],
+                "tips": [
+                    "Tenha paciência, esse exercício é desafiador no início",
+                    "Foque na qualidade do movimento, não na velocidade",
+                    "Pratique diariamente, mesmo que por apenas 5 minutos"
+                ]
+            },
+            "cronometrado": {
+                "title": "Treino Cronometrado",
+                "description": "Exercícios progressivos com metrônomo",
+                "svgConfig": {
+                    "dedos": [
+                        {"x": 80, "y": 90, "ativo": true, "casa": 1, "corda": 1},
+                        {"x": 120, "y": 100, "ativo": true, "casa": 2, "corda": 2},
+                        {"x": 160, "y": 110, "ativo": true, "casa": 3, "corda": 3},
+                        {"x": 200, "y": 120, "ativo": true, "casa": 4, "corda": 4}
+                    ],
+                    "movimento": "cronometrado",
+                    "metronomoAtivo": true
+                },
+                "detailedDescription": "Utilizando um metrônomo, este exercício desenvolve precisão rítmica e velocidade gradual, sincronizando os movimentos dos dedos.",
+                "steps": [
+                    "Configure o metrônomo para 60 BPM",
+                    "Toque um padrão repetitivo de 4 notas em sincronia com o metrônomo",
+                    "A cada 2 minutos, aumente 5 BPM até atingir seu limite máximo"
+                ],
+                "tips": [
+                    "Precisão é mais importante que velocidade",
+                    "Mantenha o ritmo constante mesmo em BPMs mais baixos",
+                    "Anote sua velocidade máxima e tente superá-la gradualmente"
+                ]
+            }
+        };
+
+        // Função para abrir o modal de exercício
+        function openExerciseModal(title, description, exerciseId) {
+            const modal = document.getElementById('exerciseModal');
+            const modalTitle = document.querySelector('.modal-title');
+            const modalSubtitle = document.querySelector('.modal-subtitle');
+            const stepList = document.querySelector('.step-list');
+            const tipsList = document.querySelector('.tips-list');
+            const detailedDesc = document.querySelector('.exercise-description-detailed');
+            
+            modalTitle.textContent = title;
+            modalSubtitle.textContent = description;
+            
+            // Se temos dados para este exercício
+            if (exerciseData[exerciseId]) {
+                const exercise = exerciseData[exerciseId];
+                
+                // Atualiza a ilustração SVG com base na configuração do exercício
+                updateSVGIllustration(exercise.svgConfig);
+                
+                // Adiciona a descrição detalhada
+                detailedDesc.textContent = exercise.detailedDescription;
+                
+                // Atualiza os passos
+                stepList.innerHTML = '';
+                exercise.steps.forEach((step, index) => {
+                    stepList.innerHTML += `
+                        <li class="step-item">
+                            <div class="step-number">${index + 1}</div>
+                            <div class="step-text">${step}</div>
+                        </li>
+                    `;
+                });
+                
+                // Atualiza as dicas
+                tipsList.innerHTML = '';
+                exercise.tips.forEach(tip => {
+                    tipsList.innerHTML += `
+                        <li class="tip-item">
+                            <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
+                            <div>${tip}</div>
+                        </li>
+                    `;
+                });
+            }
+            
+            modal.classList.add('show');
+        }
+        
+        // Função para atualizar a ilustração SVG com base na configuração do exercício
+        function updateSVGIllustration(config) {
+            const svg = document.getElementById('exerciseIllustration');
+            
+            // Limpa elementos antigos (exceto o braço do violão e trastes/cordas)
+            const elementsToRemove = svg.querySelectorAll('circle, text:not(.static-text), path, animateTransform, animate');
+            elementsToRemove.forEach(el => el.remove());
+            
+            // Adiciona os dedos conforme a configuração
+            if (config.dedos) {
+                config.dedos.forEach((dedo, index) => {
+                    // Cria o círculo para o dedo
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle.setAttribute("cx", dedo.x);
+                    circle.setAttribute("cy", dedo.y);
+                    circle.setAttribute("r", "12");
+                    circle.setAttribute("fill", dedo.ativo ? "#D2691E" : "#A0522D");
+                    svg.appendChild(circle);
+                    
+                    // Adiciona o número do dedo
+                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                    text.setAttribute("x", dedo.x);
+                    text.setAttribute("y", dedo.y + 5);
+                    text.setAttribute("text-anchor", "middle");
+                    text.setAttribute("fill", "white");
+                    text.setAttribute("font-family", "Arial");
+                    text.setAttribute("font-size", "12");
+                    text.textContent = index + 1;
+                    svg.appendChild(text);
+                    
+                    // Adiciona linha conectando ao braço do violão
+                    if (dedo.casa && dedo.corda) {
+                        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        line.setAttribute("x1", dedo.x);
+                        line.setAttribute("y1", dedo.y);
+                        line.setAttribute("x2", dedo.x);
+                        line.setAttribute("y2", 80 + (dedo.corda * 10));
+                        line.setAttribute("stroke", "#6B3610");
+                        line.setAttribute("stroke-width", "2");
+                        svg.appendChild(line);
+                    }
+                });
+            }
+            
+            // Adiciona elementos específicos com base no tipo de movimento
+            if (config.movimento) {
+                switch(config.movimento) {
+                    case "hammerpull":
+                        if (config.linhaMovimento) {
+                            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                            path.setAttribute("d", `M${config.linhaMovimento.x1},${config.linhaMovimento.y1 - 15} C${config.linhaMovimento.x1 + 20},${config.linhaMovimento.y1 - 40} ${config.linhaMovimento.x2 - 20},${config.linhaMovimento.y2 - 40} ${config.linhaMovimento.x2},${config.linhaMovimento.y2 - 15}`);
+                            path.setAttribute("stroke", "#D2691E");
+                            path.setAttribute("stroke-width", "2");
+                            path.setAttribute("fill", "none");
+                            path.setAttribute("stroke-dasharray", "5,3");
+                            svg.appendChild(path);
+                            
+                            const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                            arrow.setAttribute("d", `M${config.linhaMovimento.x2},${config.linhaMovimento.y2 - 15} L${config.linhaMovimento.x2 - 5},${config.linhaMovimento.y2 - 20} L${config.linhaMovimento.x2 - 2},${config.linhaMovimento.y2 - 15} L${config.linhaMovimento.x2 - 5},${config.linhaMovimento.y2 - 10} Z`);
+                            arrow.setAttribute("fill", "#D2691E");
+                            svg.appendChild(arrow);
+                        }
+                        break;
+                        
+                    case "extensao":
+                        if (config.linhaMovimento) {
+                            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                            path.setAttribute("d", `M${config.linhaMovimento.x1},${config.linhaMovimento.y1} L${config.linhaMovimento.x2},${config.linhaMovimento.y2}`);
+                            path.setAttribute("stroke", "#D2691E");
+                            path.setAttribute("stroke-width", "2");
+                            path.setAttribute("stroke-dasharray", "5,3");
+                            svg.appendChild(path);
+                            
+                            const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                            arrow.setAttribute("d", `M${config.linhaMovimento.x2},${config.linhaMovimento.y2} L${config.linhaMovimento.x2 - 10},${config.linhaMovimento.y2 - 5} L${config.linhaMovimento.x2 - 10},${config.linhaMovimento.y2 + 5} Z`);
+                            arrow.setAttribute("fill", "#D2691E");
+                            svg.appendChild(arrow);
+                        }
+                        break;
+                        
+                    case "sustentacao":
+                        // Adiciona texto para o acorde
+                        if (config.acorde) {
+                            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                            text.setAttribute("x", "150");
+                            text.setAttribute("y", "40");
+                            text.setAttribute("text-anchor", "middle");
+                            text.setAttribute("fill", "#8B4513");
+                            text.setAttribute("font-family", "Arial");
+                            text.setAttribute("font-size", "18");
+                            text.setAttribute("font-weight", "bold");
+                            text.textContent = config.acorde;
+                            svg.appendChild(text);
+                        }
+                        
+                        // Adiciona relógio para indicar sustentação
+                        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        circle.setAttribute("cx", "230");
+                        circle.setAttribute("cy", "40");
+                        circle.setAttribute("r", "15");
+                        circle.setAttribute("stroke", "#8B4513");
+                        circle.setAttribute("stroke-width", "2");
+                        circle.setAttribute("fill", "none");
+                        svg.appendChild(circle);
+                        
+                        // Ponteiros do relógio
+                        const hourHand = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        hourHand.setAttribute("x1", "230");
+                        hourHand.setAttribute("y1", "40");
+                        hourHand.setAttribute("x2", "230");
+                        hourHand.setAttribute("y2", "30");
+                        hourHand.setAttribute("stroke", "#8B4513");
+                        hourHand.setAttribute("stroke-width", "2");
+                        svg.appendChild(hourHand);
+                        
+                        const minuteHand = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        minuteHand.setAttribute("x1", "230");
+                        minuteHand.setAttribute("y1", "40");
+                        minuteHand.setAttribute("x2", "240");
+                        minuteHand.setAttribute("y2", "40");
+                        minuteHand.setAttribute("stroke", "#8B4513");
+                        minuteHand.setAttribute("stroke-width", "1");
+                        svg.appendChild(minuteHand);
+                        
+                        // Animação para o ponteiro dos minutos
+                        const animate = document.createElementNS("http://www.w3.org/2000/svg", "animateTransform");
+                        animate.setAttribute("attributeName", "transform");
+                        animate.setAttribute("attributeType", "XML");
+                        animate.setAttribute("type", "rotate");
+                        animate.setAttribute("from", "0 230 40");
+                        animate.setAttribute("to", "360 230 40");
+                        animate.setAttribute("dur", "60s");
+                        animate.setAttribute("repeatCount", "indefinite");
+                        minuteHand.appendChild(animate);
+                        break;
+                        
+                    case "cronometrado":
+                        if (config.metronomoAtivo) {
+                            // Adiciona metrônomo
+                            const metronome = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                            metronome.setAttribute("d", "M200,30 L215,60 L185,60 Z");
+                            metronome.setAttribute("fill", "#8B4513");
+                            svg.appendChild(metronome);
+                            
+                            // Pêndulo
+                            const pendulum = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                            pendulum.setAttribute("x1", "200");
+                            pendulum.setAttribute("y1", "40");
+                            pendulum.setAttribute("x2", "200");
+                            pendulum.setAttribute("y2", "60");
+                            pendulum.setAttribute("stroke", "#D2691E");
+                            pendulum.setAttribute("stroke-width", "2");
+                            svg.appendChild(pendulum);
+                            
+                            // Animação do pêndulo
+                            const animatePendulum = document.createElementNS("http://www.w3.org/2000/svg", "animateTransform");
+                            animatePendulum.setAttribute("attributeName", "transform");
+                            animatePendulum.setAttribute("attributeType", "XML");
+                            animatePendulum.setAttribute("type", "rotate");
+                            animatePendulum.setAttribute("from", "-30 200 40");
+                            animatePendulum.setAttribute("to", "30 200 40");
+                            animatePendulum.setAttribute("dur", "1s");
+                            animatePendulum.setAttribute("repeatCount", "indefinite");
+                            animatePendulum.setAttribute("additive", "sum");
+                            animatePendulum.setAttribute("calcMode", "spline");
+                            animatePendulum.setAttribute("keySplines", "0.42 0 0.58 1; 0.42 0 0.58 1");
+                            animatePendulum.setAttribute("keyTimes", "0; 0.5; 1");
+                            animatePendulum.setAttribute("values", "-30 200 40; 30 200 40; -30 200 40");
+                            pendulum.appendChild(animatePendulum);
+                            
+                            // Texto BPM
+                            const bpmText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                            bpmText.setAttribute("x", "200");
+                            bpmText.setAttribute("y", "75");
+                            bpmText.setAttribute("text-anchor", "middle");
+                            bpmText.setAttribute("fill", "#8B4513");
+                            bpmText.setAttribute("font-family", "Arial");
+                            bpmText.setAttribute("font-size", "12");
+                            bpmText.textContent = "60 BPM";
+                            svg.appendChild(bpmText);
+                        }
+                        break;
+                        
+                    case "dedosfracos":
+                        // Destaca visualmente os dedos fracos
+                        const highlight1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        highlight1.setAttribute("cx", "160");
+                        highlight1.setAttribute("cy", "90");
+                        highlight1.setAttribute("r", "16");
+                        highlight1.setAttribute("fill", "none");
+                        highlight1.setAttribute("stroke", "#D2691E");
+                        highlight1.setAttribute("stroke-width", "2");
+                        highlight1.setAttribute("stroke-dasharray", "3,3");
+                        svg.appendChild(highlight1);
+                        
+                        const highlight2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        highlight2.setAttribute("cx", "200");
+                        highlight2.setAttribute("cy", "90");
+                        highlight2.setAttribute("r", "16");
+                        highlight2.setAttribute("fill", "none");
+                        highlight2.setAttribute("stroke", "#D2691E");
+                        highlight2.setAttribute("stroke-width", "2");
+                        highlight2.setAttribute("stroke-dasharray", "3,3");
+                        svg.appendChild(highlight2);
+                        break;
+                }
+            }
+        }
+        
+        // Função para fechar o modal de exercício
+        function closeExerciseModal() {
+            const modal = document.getElementById('exerciseModal');
+            modal.classList.remove('show');
+        }
+        
+        // Fechar modal ao clicar fora do conteúdo
+        document.getElementById('exerciseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeExerciseModal();
+            }
+        });
+
+        // --- Progress Tracking Logic ---
+        const totalModules = 4;
+        let courseProgress = {
+            completedModules: [] // Array of completed module IDs (e.g., [1, 2])
+        };
+
+        // Load progress from localStorage
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('destravandoDedosProgress');
+            if (savedProgress) {
+                courseProgress = JSON.parse(savedProgress);
+            }
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            localStorage.setItem('destravandoDedosProgress', JSON.stringify(courseProgress));
+        }
+
+        // Update UI based on progress
+        function updateUI() {
+            let completedCount = courseProgress.completedModules.length;
+            let overallPercentage = Math.round((completedCount / totalModules) * 100);
+
+            // Update overall progress bar
+            const overallBarFill = document.querySelector('#overall-progress-bar .progress-fill');
+            const overallPercentageText = document.getElementById('overall-progress-percentage');
+            if (overallBarFill) overallBarFill.style.width = `${overallPercentage}%`;
+            if (overallPercentageText) overallPercentageText.textContent = `${overallPercentage}% Concluído`;
+
+            // Update each module card and tracker item
+            for (let i = 1; i <= totalModules; i++) {
+                const moduleCard = document.getElementById(`module-${i}`);
+                const trackerModule = document.getElementById(`tracker-module-${i}`);
+                const moduleButton = moduleCard?.querySelector('.view-module-btn');
+                const moduleProgressFill = moduleCard?.querySelector('.module-progress .progress-fill');
+                const moduleProgressText = moduleCard?.querySelector('.module-progress .progress-text');
+                const trackerStatus = trackerModule?.querySelector('.module-status');
+                const trackerFill = trackerModule?.querySelector('.module-fill');
+
+                if (!moduleCard || !trackerModule) continue;
+
+                moduleCard.classList.remove('locked', 'completed'); // Reset classes
+
+                if (courseProgress.completedModules.includes(i)) {
+                    // Module is completed
+                    moduleCard.classList.add('completed');
+                    if (moduleButton) {
+                         moduleButton.innerHTML = 'Revisar <i class="fas fa-check"></i>';
+                         moduleButton.onclick = () => { /* Maybe scroll to module or do nothing */ };
+                    }
+                    if (moduleProgressFill) moduleProgressFill.style.width = '100%';
+                    if (moduleProgressText) moduleProgressText.textContent = '100% Concluído';
+                    if (trackerStatus) {
+                        trackerStatus.textContent = 'Completo';
+                        trackerStatus.className = 'module-status status-complete';
+                    }
+                     if (trackerFill) trackerFill.style.width = '100%';
+
+                } else if (i === 1 || courseProgress.completedModules.includes(i - 1)) {
+                    // Module is active (first module or previous is completed)
+                     if (moduleButton) {
+                         moduleButton.innerHTML = 'Concluir Módulo <i class="fas fa-arrow-right"></i>';
+                         moduleButton.onclick = () => completeModule(i);
+                     }
+                     if (moduleProgressFill) moduleProgressFill.style.width = '0%'; // Or show partial progress if needed
+                     if (moduleProgressText) moduleProgressText.textContent = '0% Concluído';
+                     if (trackerStatus) {
+                         trackerStatus.textContent = 'Em andamento';
+                         trackerStatus.className = 'module-status status-in-progress';
+                     }
+                     if (trackerFill) trackerFill.style.width = '0%'; // Or show partial progress
+
+                } else {
+                    // Module is locked
+                    moduleCard.classList.add('locked');
+                     if (moduleButton) {
+                         moduleButton.innerHTML = 'Bloqueado <i class="fas fa-lock"></i>';
+                         moduleButton.onclick = null; // Remove click handler
+                     }
+                     if (moduleProgressFill) moduleProgressFill.style.width = '0%';
+                     if (moduleProgressText) moduleProgressText.textContent = '0% Concluído';
+                     if (trackerStatus) {
+                         trackerStatus.textContent = 'Não iniciado';
+                         trackerStatus.className = 'module-status status-incomplete';
+                     }
+                     if (trackerFill) trackerFill.style.width = '0%';
+                }
+            }
+        }
+
+        // Function to mark a module as complete
+        function completeModule(moduleId) {
+            if (!courseProgress.completedModules.includes(moduleId)) {
+                courseProgress.completedModules.push(moduleId);
+                courseProgress.completedModules.sort((a, b) => a - b); // Keep the array sorted
+                saveProgress();
+                updateUI();
+                // Optional: Scroll to the next module
+                const nextModule = document.getElementById(`module-${moduleId + 1}`);
+                if (nextModule) {
+                    nextModule.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+        // Initial setup on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            updateUI();
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Toque Agora com IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Variáveis globais */
+        :root {
+            --primary-color: #8B4513; /* Marrom escuro */
+            --secondary-color: #A0522D; /* Marrom médio */
+            --accent-color: #CD853F; /* Marrom claro */
+            --light-accent: #DEB887; /* Bege */
+            --dark-text: #442C1E; /* Marrom muito escuro para texto */
+            --light-text: #ffffff; /* Texto claro */
+            --background-color: #FAF0E6; /* Fundo claro com tom marrom */
+            --card-bg: #FFFFFF; /* Fundo dos cards */
+            --shadow: 0 8px 16px rgba(139, 69, 19, 0.15); /* Sombra com tom marrom */
+            --border-radius: 12px; /* Borda arredondada para elementos */
+            --border-color: rgba(139, 69, 19, 0.1); /* Cor da borda com tom marrom */
+            --hover-transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--dark-text);
+            line-height: 1.6;
+            background-image: linear-gradient(45deg, rgba(139, 69, 19, 0.03) 25%, transparent 25%, transparent 75%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03)),
+                              linear-gradient(45deg, rgba(139, 69, 19, 0.03) 25%, transparent 25%, transparent 75%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03));
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+        
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--gradient);
+            color: var(--light-text);
+            padding: 2.5rem 0;
+            position: relative;
+            border-bottom-left-radius: 30% 5%;
+            border-bottom-right-radius: 30% 5%;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+        
+        main.container {
+            padding: 2rem 1rem;
+        }
+        
+        /* Estilização dos cards */
+        .intro-card, .result-card, .stat-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            padding: 2rem;
+            transition: var(--hover-transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .intro-card:hover, .result-card:hover, .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(139, 69, 19, 0.2);
+        }
+        
+        .intro-card {
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: -1rem;
+            border-left: 6px solid var(--primary-color);
+        }
+        
+        .intro-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            color: var(--light-text);
+            font-size: 2rem;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            margin: 1.5rem 0;
+            text-align: left;
+            max-width: 500px;
+            margin: 1.5rem auto;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0 0.5rem 2rem;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .action-wrapper {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Botões */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--hover-transition);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            z-index: -1;
+        }
+        
+        .primary-btn {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 0.9rem 2rem;
+        }
+        
+        .primary-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(139, 69, 19, 0.25);
+        }
+        
+        .secondary-btn {
+            background-color: rgba(139, 69, 19, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .secondary-btn:hover {
+            background-color: rgba(139, 69, 19, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(139, 69, 19, 0.15);
+        }
+        
+        .action-btn {
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .action-btn:hover {
+            background-color: #BC7A38;
+            transform: translateY(-2px);
+        }
+        
+        /* Animação de pulso para o botão principal */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(139, 69, 19, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(139, 69, 19, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(139, 69, 19, 0);
+            }
+        }
+        
+        /* Cards de resultado */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .result-card {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .result-card .card-badge {
+            position: absolute;
+            top: 0;
+            right: 1.5rem;
+            background: var(--gradient);
+            color: var(--light-text);
+            padding: 0.4rem 1rem;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(139, 69, 19, 0.15);
+        }
+        
+        .result-card .card-content {
+            padding-top: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .result-card h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            padding-right: 6rem;
+        }
+        
+        /* Estilos específicos para o card de cifra */
+        .cifra-card {
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .cifra-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--secondary-color);
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .cifra-display {
+            background: rgba(139, 69, 19, 0.03);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: monospace;
+            overflow-x: auto;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            flex-grow: 1;
+        }
+        
+        /* Estilos específicos para o card de ritmo */
+        .rhythm-card {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .rhythm-notation {
+            background: rgba(139, 69, 19, 0.05);
+            padding: 1rem 0.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 0.8rem;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .beat {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .beat.accent {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .rhythm-description {
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .metronome {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(139, 69, 19, 0.05);
+            border-radius: var(--border-radius);
+        }
+        
+        .metronome-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .metronome-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--hover-transition);
+        }
+        
+        .metronome-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none; /* Adicionado para compatibilidade */
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e5d6c7;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: var(--secondary-color);
+            transform: scale(1.2);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* Estilos específicos para o card de missão */
+        .mission-card {
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .mission-description {
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+        
+        .mission-steps {
+            margin-bottom: 1.2rem;
+        }
+        
+        .mission-steps h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        .mission-steps ul {
+            list-style: none;
+        }
+        
+        .mission-steps li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .mission-steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+        
+        .mission-complete {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: rgba(139, 69, 19, 0.05);
+            border-radius: var(--border-radius);
+        }
+        
+        .mission-complete input[type="checkbox"] {
+            margin-right: 1rem;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--secondary-color);
+        }
+        
+        .mission-timer {
+            margin-top: 1rem;
+        }
+        
+        .timer-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            transition: var(--hover-transition);
+        }
+        
+        .timer-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .timer-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .timer-display span {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .timer-controls button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--primary-color);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--hover-transition);
+        }
+        
+        .timer-controls button:hover {
+            background: rgba(139, 69, 19, 0.2);
+            transform: scale(1.1);
+        }
+        
+        /* Seção de compartilhamento */
+        .share-section {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(139, 69, 19, 0.05);
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+        
+        .share-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.8rem;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--hover-transition);
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        .share-btn[data-platform="whatsapp"] { background-color: #25D366; }
+        .share-btn[data-platform="telegram"] { background-color: #0088cc; }
+        .share-btn[data-platform="facebook"] { background-color: #3b5998; }
+        .share-btn[data-platform="twitter"] { background-color: #1DA1F2; }
+        .share-btn[data-platform="email"] { background-color: #D44638; }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(3px);
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 10vh auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 800px;
+            animation: slideIn 0.3s ease-out;
+            overflow: hidden;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            background: var(--gradient);
+            color: var(--light-text);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: var(--hover-transition);
+        }
+        
+        .modal-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .modal-body {
+            padding: 2rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .full-cifra {
+            font-family: monospace;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .history-item {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Utilidades */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #8B7765;
+            font-size: 0.9rem;
+            background-color: rgba(139, 69, 19, 0.05);
+            border-top: 1px solid rgba(139, 69, 19, 0.1);
+            margin-top: 2rem;
+        }
+        
+        /* Media queries */
+        @media (max-width: 768px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .intro-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .intro-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.6rem;
+            }
+            
+            .chart-container {
+                height: 150px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 5vh auto;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .share-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .rhythm-notation {
+                font-size: 1.4rem;
+                letter-spacing: 0.5rem;
+            }
+        }
+        
+        /* Estilos para os diagramas de acordes */
+        .chord-diagrams {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+        
+        .chord-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+            background-color: rgba(139, 69, 19, 0.03);
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            width: 80px;
+        }
+        
+        .chord-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .chord-grid {
+            width: 60px;
+            height: 80px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            position: relative;
+        }
+        
+        .chord-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(to bottom, transparent, transparent 13px, #999 13px, #999 14px),
+                repeating-linear-gradient(to right, transparent, transparent 9px, #999 9px, #999 10px);
+            background-position: 0 13px, 10px 0;
+            background-size: 100% 14px, 10px 100%;
+            background-repeat: repeat-y, repeat-x;
+            z-index: 0;
+        }
+        
+        .chord-grid .string {
+            grid-column: span 1;
+            grid-row: span 6;
+            width: 2px;
+            background-color: #444;
+            justify-self: center;
+            z-index: 1;
+        }
+        
+        .chord-grid .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        
+        .chord-grid .mute, .chord-grid .open {
+            position: absolute;
+            top: -10px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .chord-grid .mute {
+            color: #d44;
+        }
+        
+        .chord-grid .open {
+            color: #4a4;
+        }
+        
+        /* Estilos para a animação de ritmo */
+        .rhythm-animation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1.5rem 0;
+            position: relative;
+            height: 100px;
+        }
+        
+        .rhythm-stroke {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            width: 100%;
+        }
+        
+        .stroke-indicator {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            margin: 0 0.2rem;
+            border-radius: 50%;
+            background-color: rgba(139, 69, 19, 0.1);
+            position: relative;
+            text-align: center;
+            line-height: 40px;
+        }
+        
+        .stroke-indicator.active {
+            background-color: var(--accent-color);
+            color: white;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
+        }
+        
+        .stroke-indicator.accent {
+            border: 2px solid var(--secondary-color);
+        }
+        
+        .hand-icon {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        /* Tutorial modal upgrade */
+        .tutorial-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .tutorial-section {
+            padding: 1rem;
+            background-color: rgba(139, 69, 19, 0.03);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        .tutorial-section h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tutorial-image {
+            width: 100%;
+            height: 180px;
+            background-color: #f5f5f5;
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .tutorial-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .tutorial-image .placeholder-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            opacity: 0.5;
+        }
+        
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 22px;
+            height: 22px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tips-box {
+            background-color: rgba(139, 69, 19, 0.05);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .tips-box h5 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        /* Estilos para animação da mão do violão */
+        .guitar-hand {
+            width: 100%;
+            height: 120px;
+            background-color: rgba(139, 69, 19, 0.03);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .guitar-strings {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .guitar-string {
+            height: 2px;
+            width: 100%;
+            background-color: rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .guitar-string:nth-child(1) { background-color: rgba(0,0,0,0.2); }
+        .guitar-string:nth-child(2) { background-color: rgba(0,0,0,0.25); }
+        .guitar-string:nth-child(3) { background-color: rgba(0,0,0,0.3); }
+        .guitar-string:nth-child(4) { background-color: rgba(0,0,0,0.35); }
+        .guitar-string:nth-child(5) { background-color: rgba(0,0,0,0.4); }
+        .guitar-string:nth-child(6) { background-color: rgba(0,0,0,0.45); }
+        
+        .guitar-hand-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: var(--secondary-color);
+            opacity: 0.7;
+        }
+        
+        @keyframes handDown {
+            0% { transform: translate(-50%, -80%); opacity: 0.3; }
+            100% { transform: translate(-50%, -20%); opacity: 1; }
+        }
+        
+        @keyframes handUp {
+            0% { transform: translate(-50%, -20%); opacity: 1; }
+            100% { transform: translate(-50%, -80%); opacity: 0.3; }
+        }
+        
+        .guitar-hand .down {
+            animation: handDown 0.5s ease-in-out;
+        }
+        
+        .guitar-hand .up {
+            animation: handUp 0.5s ease-in-out;
+        }
+        
+        /* Badge de progressão indicando nível do usuário */
+        .user-progression {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 0.8rem;
+            background: var(--gradient);
+            color: var(--light-text);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 1rem 0;
+        }
+        
+        .user-progression i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Novos estilos para feedback e motivação */
+        .completion-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1rem 0;
+        }
+        
+        .badge-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+        }
+        
+        .badge-text {
+            text-align: center;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        /* Estilos para o modal de visualização de acordes */
+        .chord-viewer-modal .modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .chord-large {
+            width: 200px;
+            margin-bottom: 2rem;
+        }
+        
+        .finger-positions {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(139, 69, 19, 0.03);
+            border-radius: var(--border-radius);
+        }
+        
+        .finger-positions h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .finger-tips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        
+        .finger-tip {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        .finger-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Botão Voltar para Home */
+        .back-to-home {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: var(--light-text);
+            border: none;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-decoration: none; /* Adicionado para remover sublinhado do link */
+        }
+
+        .back-to-home:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(139, 69, 19, 0.4);
+        }
+
+        /* Estilos para o banner principal */
+        .banner {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .banner-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .banner-title {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .banner-image {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .banner-image:hover {
+            transform: scale(1.03);
+        }
+
+        .banner-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .banner-text {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .banner-title {
+                font-size: 1.8rem;
+            }
+            
+            .banner-image {
+                max-width: 280px;
+            }
+            
+            .banner-text {
+                font-size: 1rem;
+                max-width: 100%;
+            }
+            
+            .back-to-home {
+                width: 50px;
+                height: 50px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Estilos para os desenhos de ritmo e violão (substitutos das imagens) */
+        .rhythm-pattern-drawing {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            padding: 1rem;
+        }
+        
+        .rhythm-drawing-title {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .rhythm-beats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .rhythm-beat {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            background-color: rgba(139, 69, 19, 0.05);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .rhythm-beat.down {
+            border: 2px solid var(--primary-color);
+        }
+        
+        .rhythm-beat.up-down {
+            display: flex;
+            flex-direction: column;
+            font-size: 1.4rem;
+            line-height: 0.8;
+            border: 2px dashed var(--primary-color);
+        }
+        
+        .rhythm-staff {
+            width: 100%;
+            position: relative;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .staff-line {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(139, 69, 19, 0.3);
+        }
+        
+        .staff-beat {
+            position: absolute;
+            bottom: -20px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 600;
+            border-radius: 50%;
+        }
+        
+        .staff-beat:nth-child(5) { left: 12.5%; }
+        .staff-beat:nth-child(6) { left: 37.5%; }
+        .staff-beat:nth-child(7) { left: 62.5%; }
+        .staff-beat:nth-child(8) { left: 87.5%; }
+        
+        /* Desenho da mão no violão */
+        .hand-guitar-drawing {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(to bottom, #f2e6d9 0%, #e6d0b9 100%);
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+        }
+        
+        .guitar-neck {
+            width: 80%;
+            height: 60px;
+            background: linear-gradient(to right, #8B4513, #A0522D);
+            border-radius: 5px;
+            position: relative;
+            margin-bottom: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        
+        .guitar-neck .guitar-string {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .guitar-body {
+            width: 120px;
+            height: 40px;
+            background: linear-gradient(to right, #8B4513, #A0522D);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .guitar-hand {
+            position: relative;
+            text-align: center;
+            margin-top: -20px;
+            z-index: 2;
+        }
+        
+        .hand-emoji {
+            font-size: 3rem;
+            transform: rotate(-10deg);
+            margin-bottom: 0.3rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hand-position-text {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .hand-arrow {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-robot"></i> Modo "Toque Agora" com IA</h1>
+                <p class="subtitle">Seu assistente inteligente para prática diária de violão</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="intro-card">
+            <div class="intro-icon"><i class="fas fa-magic"></i></div>
+            <h2>Como Funciona</h2>
+            <p>A inteligência artificial criará um desafio personalizado para sua prática diária, combinando:</p>
+            <ul class="feature-list">
+                <li><strong>Uma cifra</strong> adequada ao seu nível</li>
+                <li><strong>Um ritmo</strong> para trabalhar sua mão direita</li>
+                <li><strong>Uma missão do dia</strong> para desenvolvimento técnico</li>
+            </ul>
+            <div class="user-progression">
+                <i class="fas fa-star"></i> Seu nível: Intermediário
+            </div>
+            <div class="action-wrapper">
+                <button id="generateBtn" class="btn primary-btn pulse">Gerar Desafio do Dia</button>
+            </div>
+        </div>
+
+        <div id="result-container" class="hidden">
+            <div class="section-header">
+                <h2>Seu Desafio de Hoje</h2>
+                <div class="date">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span id="currentDate"></span>
+                </div>
+            </div>
+            
+            <div class="result-grid">
+                <div class="result-card cifra-card">
+                    <div class="card-badge"><i class="fas fa-music"></i> Cifra</div>
+                    <div class="card-content">
+                        <h3 id="cifraTitle">Título da Música</h3>
+                        <p id="cifraArtist">Nome do Artista</p>
+                        <div class="cifra-meta">
+                            <span id="cifraGenre" class="tag">Gênero</span>
+                            <span id="cifraTonality" class="tag">Tom: C</span>
+                            <span id="cifraDifficulty" class="tag">Intermediário</span>
+                        </div>
+                        <div class="cifra-display" id="cifraDisplay">
+                            <!-- A cifra será carregada aqui -->
+                        </div>
+                        <div class="chord-diagrams" id="mainChords">
+                            <!-- Diagramas dos principais acordes serão carregados aqui -->
+                        </div>
+                        <button class="btn action-btn" id="viewFullCifraBtn">
+                            <i class="fas fa-file-music"></i> Ver cifra completa com todos os acordes
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="result-card rhythm-card">
+                    <div class="card-badge"><i class="fas fa-drum"></i> Ritmo</div>
+                    <div class="card-content">
+                        <h3 id="rhythmName">Nome do Ritmo</h3>
+                        <div class="rhythm-display">
+                            <div class="rhythm-notation" id="rhythmNotation">
+                                <!-- Notação do ritmo será carregada aqui -->
+                            </div>
+                            <div class="guitar-hand" id="rhythmAnimation">
+                                <div class="guitar-strings">
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                </div>
+                                <div class="guitar-hand-icon">
+                                    <i class="fas fa-hand-paper"></i>
+                                </div>
+                            </div>
+                            <div class="rhythm-description" id="rhythmDescription">
+                                <!-- Descrição do ritmo será carregada aqui -->
+                            </div>
+                        </div>
+                        <div class="metronome">
+                            <div class="metronome-display">
+                                <span id="tempoValue">80</span> BPM
+                                <button id="toggleMetronome" class="metronome-btn">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                            </div>
+                            <input type="range" id="tempoSlider" min="40" max="200" step="1" value="80">
+                        </div>
+                        <button class="btn action-btn" id="viewRhythmTutorial">
+                            <i class="fas fa-graduation-cap"></i> Ver tutorial detalhado com exemplos
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="result-card mission-card">
+                    <div class="card-badge"><i class="fas fa-flag"></i> Missão do Dia</div>
+                    <div class="card-content">
+                        <h3 id="missionTitle">Título da Missão</h3>
+                        <div class="mission-description" id="missionDescription">
+                            <!-- Descrição da missão será carregada aqui -->
+                        </div>
+                        <div class="mission-steps">
+                            <h4>Passos para completar:</h4>
+                            <ul id="missionSteps">
+                                <!-- Os passos serão carregados aqui -->
+                            </ul>
+                        </div>
+                        <div class="tips-box">
+                            <h5><i class="fas fa-lightbulb"></i> Dica do professor</h5>
+                            <p id="missionTip">A consistência é mais importante que o tempo de prática. Melhor 20 minutos todos os dias do que 3 horas uma vez por semana!</p>
+                        </div>
+                        <div class="mission-complete">
+                            <input type="checkbox" id="missionComplete">
+                            <label for="missionComplete">Marcar como concluída</label>
+                        </div>
+                        <div class="mission-timer">
+                            <button id="startTimer" class="timer-btn"><i class="fas fa-stopwatch"></i> Iniciar Temporizador</button>
+                            <div class="timer-display hidden">
+                                <span id="timerValue">15:00</span>
+                                <div class="timer-controls">
+                                    <button id="pauseTimer"><i class="fas fa-pause"></i></button>
+                                    <button id="resetTimer"><i class="fas fa-redo"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div id="completionBadge" class="completion-badge hidden">
+                <div class="badge-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="badge-text">
+                    Parabéns! Você completou o desafio de hoje
+                </div>
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+        <!-- Removida a seção de estatísticas de prática -->
+    </main>
+
+    <!-- Modal para cifra completa -->
+    <div id="cifraModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalCifraTitle">Título da Música</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="fullCifraContent" class="full-cifra"></div>
+                <div class="chord-diagrams" id="allChords">
+                    <!-- Todos os diagramas de acordes serão carregados aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para histórico -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Histórico de Desafios</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="history-list">
+                    <!-- O histórico será carregado aqui via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Novo modal para o tutorial de ritmo -->
+    <div id="rhythmTutorialModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalRhythmTitle">Tutorial de Ritmo</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tutorial-content">
+                    <div class="tutorial-section">
+                        <h4><i class="fas fa-info-circle"></i> Sobre este ritmo</h4>
+                        <p id="tutorialRhythmDesc">Descrição detalhada do ritmo.</p>
+                        <div class="tutorial-image">
+                            <!-- Substituindo a imagem por um desenho de padrão de ritmo com CSS -->
+                            <div class="rhythm-pattern-drawing">
+                                <div class="rhythm-drawing-title">Padrão de Ritmo</div>
+                                <div class="rhythm-beats">
+                                    <div class="rhythm-beat down">↓</div>
+                                    <div class="rhythm-beat down">↓</div>
+                                    <div class="rhythm-beat up-down"><span>↑</span><span>↓</span></div>
+                                    <div class="rhythm-beat up-down"><span>↑</span><span>↓</span></div>
+                                </div>
+                                <div class="rhythm-staff">
+                                    <div class="staff-line"></div>
+                                    <div class="staff-line"></div>
+                                    <div class="staff-line"></div>
+                                    <div class="staff-line"></div>
+                                    <div class="staff-beat">1</div>
+                                    <div class="staff-beat">2</div>
+                                    <div class="staff-beat">3</div>
+                                    <div class="staff-beat">4</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-section">
+                        <h4><i class="fas fa-hand-paper"></i> Como fazer</h4>
+                        <ol class="step-list" id="rhythmSteps">
+                            <!-- Passos do tutorial serão inseridos aqui -->
+                        </ol>
+                        <div class="tutorial-image">
+                            <!-- Substituindo a imagem por um desenho de mão tocando violão -->
+                            <div class="hand-guitar-drawing">
+                                <div class="guitar-neck">
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                    <div class="guitar-string"></div>
+                                </div>
+                                <div class="guitar-hand">
+                                    <div class="hand-emoji">🖐️</div>
+                                    <div class="hand-position-text">Posição correta da mão</div>
+                                    <div class="hand-arrow">↓</div>
+                                </div>
+                                <div class="guitar-body"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-section">
+                        <h4><i class="fas fa-lightbulb"></i> Dicas para aprender</h4>
+                        <ul class="step-list" id="rhythmTips">
+                            <!-- Dicas do tutorial serão inseridas aqui -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Novo modal para visualização de acordes -->
+    <div id="chordViewerModal" class="modal chord-viewer-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalChordName">Nome do Acorde</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="chordDiagramLarge" class="chord-diagram chord-large">
+                    <!-- Diagrama ampliado do acorde será inserido aqui -->
+                </div>
+                
+                <div class="finger-positions">
+                    <h4>Posição dos Dedos</h4>
+                    <table id="fingerPositionsTable" class="finger-position-table">
+                        <!-- Tabela será gerada pelo JavaScript -->
+                    </table>
+                    <div class="finger-tips">
+                        <div class="finger-tip">
+                            <div class="finger-icon">1</div>
+                            <span>Indicador</span>
+                        </div>
+                        <div class="finger-tip">
+                            <div class="finger-icon">2</div>
+                            <span>Médio</span>
+                        </div>
+                        <div class="finger-tip">
+                            <div class="finger-icon">3</div>
+                            <span>Anelar</span>
+                        </div>
+                        <div class="finger-tip">
+                            <div class="finger-icon">4</div>
+                            <span>Mínimo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Kit Violão Profissional - Material exclusivo para uso educacional</p>
+        </div>
+    </footer>
+
+    <!-- Botão Voltar para Home -->
+    <a href="../../index.html" class="back-to-home" title="Voltar para Home">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
